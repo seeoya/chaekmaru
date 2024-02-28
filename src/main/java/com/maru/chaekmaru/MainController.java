@@ -18,9 +18,6 @@ public class MainController {
 	public String index() {
 		log.info("index");
 		
-		Test test = new Test();
-		test.sss();
-		
 		nextPage = "index";
 		
 		return nextPage;
