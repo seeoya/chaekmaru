@@ -17,6 +17,7 @@ public class MainController {
 	@GetMapping({"/", ""})
 	public String index() {
 		log.info("index");
+        log.info("index1111");
 		
 		nextPage = "index";
 		
