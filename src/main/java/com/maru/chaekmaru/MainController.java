@@ -28,9 +28,10 @@ public class MainController {
 	@GetMapping({ "/", "" })
 	public String index(Model model) {
 		log.info("index");
-
 		
+		model.addAttribute("page", "index");
 		model.addAttribute("name", "가나다");
+		model.addAttribute("tag", "<b>라라라</b>");
 		
 		nextPage = "layout";
 

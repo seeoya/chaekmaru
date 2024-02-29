@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-INDEX.HTML
+<footer th:fragment="default_footer">
+    <div>Copyright. 마루 All right reserved.</div>
 
-</body>
+    <div>
+        <div>{회사 연락처}</div>
+        <address>{회사 주소}</address>
+    </div>
+</footer>
+
 </html>

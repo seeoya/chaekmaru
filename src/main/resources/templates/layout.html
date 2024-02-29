@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-<th:block th:replace="~{./include/include.html::head ('홈')}">
-    
-
-
+<th:block th:replace="~{./include/include::head ('홈', '', ~{::script})}">
+    <script th:src="@{/js/form_check.js}"></script>
 </th:block>
 
-<script th:src="@{/js/index.js}"></script>
 
 <body>
-    레이아웃
+    <header th:replace="./include/header::default_header"></header>
 
-    <div th:text="${name}"></div>
-    <button onclick="al()">ㅁㅁ</button>
+	<section th:insert="./index::section"></section>
+	
+	값 가져올 때 : [[tag]] / [[${tag}]] / [(${tag})]
+
+    <footer th:replace="./include/footer::default_footer"></footer>
 </body>
 
 </html>
