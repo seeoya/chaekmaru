@@ -66,7 +66,8 @@
 	<select id="selectAllAdmins"			
 			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
 			
-			SELECT * FROM TBL_ADMIN_MEMBER			
+			SELECT * FROM TBL_ADMIN_MEMBER 
+			ORDER BY A_NO DESC			
 				 		
 	</select>
 	
