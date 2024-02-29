@@ -58,12 +58,20 @@ public class MainController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(testDtos);
-		
 		model.addAttribute("test", testDtos);
 		
 		return nextPage;
 	}
+	
+	@GetMapping( "/styleguide" )
+	public String styleguide(Model model) {
+		log.info("styleguide");
+		
+		nextPage = "styleguide";
+		
+		return nextPage;
+	}
+
 
 
 }
