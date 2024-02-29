@@ -21,4 +21,5 @@ public class MyPointListDto {
 	private String m_reg_date;
 	private String m_mod_date;
 
+	
 }

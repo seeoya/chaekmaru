@@ -44,5 +44,6 @@ public class SaledBookDto {
 	private String b_reg_date;
 	private String b_mod_date;
 	
+	
 
 }

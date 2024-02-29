@@ -13,5 +13,6 @@ public class AdminDto {
 	private String a_log_date;
 	private String a_reg_date;
 	private String a_mod_date;
+	
 
 }

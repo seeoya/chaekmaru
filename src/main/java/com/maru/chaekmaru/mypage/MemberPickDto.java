@@ -33,5 +33,6 @@ public class MemberPickDto {
 	private int b_count;
 	private String b_reg_date;
 	private String b_mod_date;
+	
 
 }
