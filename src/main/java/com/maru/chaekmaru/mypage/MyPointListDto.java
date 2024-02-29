@@ -1,9 +1,13 @@
-package com.maru.chaekmaru.member;
+package com.maru.chaekmaru.mypage;
 
 import lombok.Data;
 
 @Data
-public class MemberDto {
+public class MyPointListDto {
+	
+	private String pl_last_book_point;
+	private String pl_payment_book_point;
+	private String pl_reg_date;
 	
 	private String m_id;
 	private String m_pw;
@@ -16,5 +20,6 @@ public class MemberDto {
 	private int m_state;
 	private String m_reg_date;
 	private String m_mod_date;
+
 	
 }
