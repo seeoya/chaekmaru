@@ -2,20 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
 
 <head>
-    <title>책마루 :: {페이지 이름}</title>
+    <title>책마루 :: 회원가입</title>
 
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/form_check.js}"></script>
 </head>
 
 <section layout:fragment="content">
-    <div class="word">
-        <span>CREATE ACCOUNT FORM</span>
-    </div>
+    <h2 class="title">회원가입</h2>
 
-    <div class="create_account_form">
+    <div class="content">
         <form th:action="@{/member/create_account_confirm}" name="create_account_form" method="post">
             <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
             <input type="button" value="중복체크" onclick="createAccountForm();"><br>
