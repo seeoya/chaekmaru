@@ -8,8 +8,79 @@
 			parameterType="String"
 			resultType="Boolean">
 			
-			
-			
+			SELECT 
+				COUNT(*) 
+			FROM 
+				TBL_ADMIN_MEMBER 
+			WHERE 
+				A_ID = #{a_id}
+				 		
 	</select>
+	
+	<insert id="insertAdminAccount"
+			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			
+			INSERT INTO 
+				TBL_ADMIN_MEMBER(A_ID, A_PW, A_GRADE, A_NAME, A_PHONE, A_REG_DATE, A_MOD_DATE) 
+			VALUE(#{a_id}, #{a_pw}, default, #{a_name},  #{a_phone}, SYSTIMESTAMP, SYSTIMESTAMP)) 
+				 		
+	</insert>
 
+	<select id="selectAdmin"
+			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto"
+			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			SELECT 
+				*  
+			FROM 
+				TBL_ADMIN_MEMBER 
+			WHERE 
+				A_ID = #{a_id} AND A_PW = #{a_pw} 
+				 		
+	</select>
+	
+	<update id="updateAdminForModify"
+			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			UPDATE 
+				TBL_ADMIN_MEMBER 
+			SET 
+				A_PW=#{a_pw}
+				A_PHONE= #{a_phone},
+			WHERE 
+				A_NO=#{a_no}	
+	
+	</update>
+	
+	<delete id="deleteAdminAccount"
+			parameterType="Integer">
+			
+			DELETE FROM 
+				TBL_ADMIN_MEMBER 
+			WHERE 
+				A_NO=#{a_no}
+	
+	</delete>
+	
+	<select id="selectAllAdmins"			
+			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			SELECT * FROM TBL_ADMIN_MEMBER 
+			ORDER BY A_NO DESC			
+				 		
+	</select>
+	
+	<update id="updateAdminApproval"
+			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			UPDATE 
+				TBL_ADMIN_MEMBER 
+			SET 
+				A_GRADE=1				
+			WHERE 
+				A_NO="1"	
+	
+	</update>
+		
 </mapper>
