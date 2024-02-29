@@ -11,11 +11,17 @@
 </head>
 
 <body>
-    <header th:replace="include/header.html::default_header"></header>
+    <div class="wrap">
+        <header th:replace="include/header.html::default_header"></header>
 
-    <section layout:fragment="content"></section>
+        <div th:replace="include/header.html::category"></div>
 
-    <footer th:replace="include/footer::default_footer"></footer>
+        <section class="main">
+            <div layout:fragment="content"></div>
+        </section>
+
+        <footer th:replace="include/footer::default_footer"></footer>
+    </div>
 </body>
 
 </html>
