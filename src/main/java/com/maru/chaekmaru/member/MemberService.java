@@ -52,4 +52,31 @@ public class MemberService {
 		
 	}
 
+	public MemberDto loginConfirm(MemberDto memberDto) {
+	    log.info("--loginConfirm--");
+
+	    MemberDto selectedMemberDtoById = memberDao.memberLoginConfirm(memberDto);
+	    
+	    if (selectedMemberDtoById != null && passwordEncoder.matches(memberDto.getM_pw(), selectedMemberDtoById.getM_pw())) {
+		    log.info(selectedMemberDtoById.getM_id());
+		    
+	        return selectedMemberDtoById;
+	    } else {
+	        return null;
+	    }
+	}
+
+	public MemberDto modifyConfirm(MemberDto memberDto) {
+
+		log.info("modifyConfirm()");
+		
+		int result = memberDao.updateMemberForModify(memberDto);
+		
+		if (result > 0)
+			return memberDao.getLatestMemberInfo(memberDto);
+		else
+			
+		return null;
+	}
+
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+
+<head>
+    <title>책마루 :: 로그인</title>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/form_check.js}"></script>
+</head>
+
+<section layout:fragment="content">
+    <h2 class="title">로그인</h2>
+
+    <div class="content">
+        <form th:action="@{/member/login_confirm}" name="login_form" method="post">
+            <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
+            <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요."><br>
+            <button type="button" onclick="loginForm();">로그인</button>
+            <button type="reset">초기화</button>
+        </form>
+    </div>
+</section>
+
+</html>

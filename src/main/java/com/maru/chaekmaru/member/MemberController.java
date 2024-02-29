@@ -9,41 +9,104 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.maru.chaekmaru.config.Config;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-		
+
 	@Autowired
 	MemberService memberService;
-	
+
 	@GetMapping("/create_accout_form")
 	public String CreateAccountForm() {
 		log.info("-- CreateAccountForm() --");
-		
+
 		String nextPage = "member/create_account_form";
-		
+
 		return nextPage;
-		
-		
+
 	}
-	
+
 	@PostMapping("/create_account_confirm")
-	public String CreateAccountConfirm(MemberDto memberDto,Model model) {
+	public String CreateAccountConfirm(MemberDto memberDto, Model model) {
 		log.info("CreateAccountConfirm");
-		
+
 		String nextPage = "/result";
-		
+
 		int result = memberService.memberAccountConfirm(memberDto);
-		
+
 		if (result <= Config.LOGIN_FAIL) {
 			nextPage = "/result";
 		}
-		
+
 		return nextPage;
 	}
-	
-	
+
+	@GetMapping("/login_form")
+	public String LoginForm() {
+		log.info("-- LoginForm() --");
+
+		String nextPage = "member/login_form";
+
+		return nextPage;
+
+	}
+
+	@PostMapping("/login_confirm")
+	public String Loginconfirm(MemberDto memberDto, HttpSession session) {
+		log.info("-- Loginconfirm() --");
+
+		String nextPage = "/success";
+
+		MemberDto loginedMemberDto = memberService.loginConfirm(memberDto);
+
+		if (loginedMemberDto != null) {
+
+			session.setAttribute("loginedMemberDto", loginedMemberDto);
+			session.setMaxInactiveInterval(60 * 30);
+
+		} else {
+			nextPage = "/result";
+
+		}
+
+		return nextPage;
+
+	}
+
+	@GetMapping("/modify_form")
+	public String modifyForm() {
+		log.info("modifyForm()");
+
+		String nextPage = "member/modify_form";
+
+		return nextPage;
+	}
+
+	@PostMapping("/modify_confirm")
+	public String memberModifyConfirm(MemberDto memberDto, HttpSession session) {
+		log.info("modify_confirm()");
+
+		String nextPage = "/success";
+
+		MemberDto loginedMemberDto = memberService.modifyConfirm(memberDto);
+
+		if (loginedMemberDto != null) {
+
+			session.setAttribute("loginedMemberDto", loginedMemberDto);
+			session.setMaxInactiveInterval(60 * 30);
+
+		} else {
+
+			nextPage = "/result";
+
+		}
+
+		return nextPage;
+
+	}
+
 }
