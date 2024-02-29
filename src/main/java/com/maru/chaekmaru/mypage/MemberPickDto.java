@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class MemberPickDto {
 	
-	private int up_no;
-	private String up_reg_date;
+	private int mp_no;
+	private String mp_reg_date;
 	
 	private String m_id;
 	private String m_pw;

@@ -3,7 +3,7 @@ package com.maru.chaekmaru.mypage;
 import lombok.Data;
 
 @Data
-public class UserCartDto {
+public class MemberCartDto {
 	
 	private int c_no;
 	private int c_number;
