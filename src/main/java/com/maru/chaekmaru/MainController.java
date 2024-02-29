@@ -25,15 +25,7 @@ public class MainController {
 		
 		return nextPage;
 	}
+
 	
-	
-	@GetMapping( "**")
-	public String error404() {
-		log.info("404 ERROR");
-		
-		nextPage = "404";
-		
-		return nextPage;
-	}
 
 }
