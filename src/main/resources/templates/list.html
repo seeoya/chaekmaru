@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+</head>
+
+<body>
+
+    <div th:each="item : ${test}">
+
+        <div th:text="${item.b_no}"></div>
+        <img th:src="${item.b_thumnail}">
+        <div th:text="${item.b_name}"></div>
+        <div th:text="${item.b_author}"></div>
+        <div th:text="${item.b_intorduce}"></div>
+        <div th:text="${item.b_publisher}"></div>
+        <div th:text="${item.b_publish_date}"></div>
+        <div th:text="${item.b_kdc}"></div>
+        <div th:text="${item.b_isbn}"></div>
+        <div th:text="${item.b_price}"></div>
+        <div th:text="${item.b_count}"></div>
+        <div th:text="${item.b_reg_date}"></div>
+        <div th:text="${item.b_mod_date}"></div>
+
+        <hr />
+    </div>
+
+</body>
+
+</html>
