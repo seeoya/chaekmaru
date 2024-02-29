@@ -1,4 +1,4 @@
-package com.maru.chaekmaru.admin;
+package com.maru.chaekmaru.admin.member;
 
 import lombok.Data;
 
