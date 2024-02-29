@@ -9,8 +9,36 @@
     <!-- <script th:src="@{js/index.js}"></script> -->
 </head>
 
-<section layout:fragment="content">
-    {이 안에 데이터}
+<section id="style_guide" class="content-wrap" layout:fragment="content">
+    <h2 class="title">STYLE GUIDE</h2>
+
+    <div class="content">
+
+        <div class="color">
+            <div class="title">COLOR</div>
+
+            <div class="box-wrap">
+                <div class="main">
+                    <div class="box light">MAIN - LIGHT</div>
+                    <div class="box">MAIN</div>
+                    <div class="box dark">MAIN - DARK</div>
+                </div>
+
+                <div class="sub">
+                    <div class="box light">SUB - LIGHT</div>
+                    <div class="box">SUB</div>
+                    <div class="box dark">SUB - DARK</div>
+                </div>
+
+                <div class="highlight">
+                    <div class="box light">HIGHLIGHT - LIGHT</div>
+                    <div class="box">HIGHLIGHT</div>
+                    <div class="box dark">HIGHLIGHT - DARK</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </section>
 
 </html>

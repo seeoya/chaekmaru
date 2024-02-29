@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
-<div th:fragment="content">
-    <div th:each="item : ${test}">
-        <div th:text="${item.b_no}"></div>
-        <img th:src="${item.b_thumnail}">
-        <div th:text="${item.b_name}"></div>
-        <div th:text="${item.b_author}"></div>
-        <div th:text="${item.b_intorduce}"></div>
-        <div th:text="${item.b_publisher}"></div>
-        <div th:text="${item.b_publish_date}"></div>
-        <div th:text="${item.b_kdc}"></div>
-        <div th:text="${item.b_isbn}"></div>
-        <div th:text="${item.b_price}"></div>
-        <div th:text="${item.b_count}"></div>
-        <div th:text="${item.b_reg_date}"></div>
-        <div th:text="${item.b_mod_date}"></div>
-    </div>
-</div>
+<head>
+<title>책마루 :: 리스트 테스트</title>
+</head>
+
+<section id="example_copy" class="content-wrap"
+	layout:fragment="content">
+	<h2 class="title">리스트</h2>
+
+	<div th:each="item : ${test}">
+		<div th:text="${item.b_no}"></div>
+		<img th:src="${item.b_thumnail}">
+		<div th:text="${item.b_name}"></div>
+		<div th:text="${item.b_author}"></div>
+		<div th:text="${item.b_intorduce}"></div>
+		<div th:text="${item.b_publisher}"></div>
+		<div th:text="${item.b_publish_date}"></div>
+		<div th:text="${item.b_kdc}"></div>
+		<div th:text="${item.b_isbn}"></div>
+		<div th:text="${item.b_price}"></div>
+		<div th:text="${item.b_count}"></div>
+		<div th:text="${item.b_reg_date}"></div>
+		<div th:text="${item.b_mod_date}"></div>
+	</div>
+</section>
 
 </html>

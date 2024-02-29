@@ -1,1 +1,159 @@
-@charset "EUC-KR";
+/* 공통 */
+.input {
+    display: inline-flex;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.btn.main {
+    background-color: var(--main-color);
+}
+
+.btn.main:hover {
+    background-color: var(--main-light-color);
+}
+
+.btn.sub {
+    background-color: var(--sub-color);
+}
+
+.btn.sub:hover {
+    background-color: var(--sub-light-color);
+}
+
+.btn.highlight {
+    background-color: var(--highlight-color);
+}
+
+.btn.highlight:hover {
+    background-color: var(--highlight-light-color);
+}
+
+/* 레이아웃 */
+.wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-wrap, .category-wrap, .content-wrap, .footer-wrap {
+    display: flex;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+/* 헤더 */
+header {
+    width: 100%;
+}
+
+header .member-menu {
+    background-color: #eaeaea;
+    font-size: 1.4rem;
+}
+
+header .member-menu .header-wrap {
+    justify-content: right;
+}
+
+header .member-menu nav {
+    display: flex;
+    justify-content: right;
+    gap: 5px;
+}
+
+header .member-menu .link-sub {
+}
+
+header .logo {
+    width: 200px;
+    height: 60px;
+}
+
+header .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.catogory .category-wrap {
+}
+
+/* 페이지 */
+.main {
+}
+
+#style_guide {
+}
+
+#style_guide .title {
+    font-size: 2rem;
+}
+
+#style_guide .box-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+#style_guide .box-wrap > div {
+    display: flex;
+}
+
+#style_guide .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    color: #fff;
+    text-align: center;
+}
+
+#style_guide .main .box {
+    background-color: var(--main-color);
+}
+
+#style_guide .main .box.light {
+    background-color: var(--main-light-color);
+}
+
+#style_guide .main .box.dark {
+    background-color: var(--main-dark-color);
+}
+
+#style_guide .sub .box {
+    background-color: var(--sub-color);
+}
+
+#style_guide .sub .box.light {
+    background-color: var(--sub-light-color);
+}
+
+#style_guide .sub .box.dark {
+    background-color: var(--sub-dark-color);
+}
+
+#style_guide .highlight .box {
+    background-color: var(--highlight-color);
+}
+
+#style_guide .highlight .box.light {
+    background-color: var(--highlight-light-color);
+}
+
+#style_guide .highlight .box.dark {
+    background-color: var(--highlight-dark-color);
+}
+
+/* 푸터 */
+footer {
+}
+
+footer {
+}

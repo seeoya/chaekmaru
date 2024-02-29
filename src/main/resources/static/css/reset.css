@@ -3,7 +3,6 @@
 /* reset */
 :root {
     --text-color: #333;
-
     --main-color: #365a41;
     --main-light-color: #60866b;
     --main-dark-color: #243529;
@@ -13,7 +12,6 @@
     --highlight-color: #e7bd53;
     --highlight-light-color: #fad985;
     --highlight-dark-color: #b9963c;
-
 }
 
 * {
@@ -52,7 +50,7 @@ a, a:visited, a:link {
     text-decoration: none;
 }
 
-input[type="checkbox"], input[type="submit"], button, a {
+input[type="checkbox"], input[type="submit"], button, a, label {
     cursor: pointer;
 }
 
@@ -68,4 +66,8 @@ table {
     font-size: 0;
     line-height: 0;
     overflow: hidden;
+}
+
+a, button {
+    border: none;
 }
