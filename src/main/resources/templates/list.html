@@ -3,7 +3,6 @@
 
 <div th:fragment="content">
     <div th:each="item : ${test}">
-
         <div th:text="${item.b_no}"></div>
         <img th:src="${item.b_thumnail}">
         <div th:text="${item.b_name}"></div>
@@ -17,8 +16,6 @@
         <div th:text="${item.b_count}"></div>
         <div th:text="${item.b_reg_date}"></div>
         <div th:text="${item.b_mod_date}"></div>
-
-        <hr />
     </div>
 </div>
 

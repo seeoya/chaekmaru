@@ -33,7 +33,7 @@ public class MainController {
 		model.addAttribute("name", "가나다");
 		model.addAttribute("tag", "<b>라라라</b>");
 		
-		nextPage = "layout";
+		nextPage = "index";
 
 		return nextPage;
 	}

@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
-<div th:fragment="section">
-    INDEX.HTML
-</div>
+<head>
+    <title>책마루 :: 홈</title>
+
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <!-- <script th:src="@{js/index.js}"></script> -->
+</head>
+
+<section layout:fragment="content">
+    {이 안에 데이터}
+    값 가져올 때 : [[tag]] / [[${tag}]] / [(${tag})] 11234
+</section>
 
 </html>
