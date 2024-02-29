@@ -37,6 +37,7 @@ public class MainController {
 
 		return nextPage;
 	}
+
 	
 	@GetMapping( "/list" )
 	public String list(Model model) {

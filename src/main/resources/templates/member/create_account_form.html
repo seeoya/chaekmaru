@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/form_check.js}"></script>
+
+</head>
+<body>
+	
+	
+	<header>
+		header
+	</header>
+	
+	<nav>
+		nav
+	</nav>
+	
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<span>CREATE ACCOUNT FORM</span>
+			</div>
+			<div class="create_account_form">
+				
+				<form th:action="@{/member/create_account_confirm}" name="create_account_form" method="post">
+					<input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
+					<input type="button" value="중복체크" onclick="createAccountForm();"><br>
+					<input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요."><br>
+					<input type="password" name="m_re_pw" placeholder="비밀번호를 다시 입력해 주세요."><br>
+					<input type="text" name="m_mail" placeholder="이메일을 입력해 주세요."><br>
+					<input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요."><br>
+					<input type="text" id="sample6_postcode" placeholder="우편번호">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="sample6_address" placeholder="주소"><br>
+					<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+					<input type="button" value="회원가입" onclick="createAccountForm();">
+					<input type="reset" value="초기화">
+				</form>
+				
+			</div>
+			
+		</div>
+	</section>
+	
+	<footer>
+		footer
+	</footer>
+</body>
+</html>
