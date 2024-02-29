@@ -1,7 +1,12 @@
 package com.maru.chaekmaru.member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.maru.chaekmaru.config.Config;
@@ -74,6 +79,87 @@ public class MemberDao {
 			
 			return result;
 			
+	}
+
+	public MemberDto memberLoginConfirm(MemberDto memberDto) {
+		log.info("memberLoginConfirm()");
+		
+		String sql = "SELECT * FROM TBL_MEMBER WHERE M_ID = ?";
+		
+		List<MemberDto> memberDtos = new ArrayList<>();
+		
+		try {
+			
+			RowMapper<MemberDto> rowMapper = 
+					BeanPropertyRowMapper.newInstance(MemberDto.class);
+			memberDtos = jdbcTemplate.query(sql, rowMapper, memberDto.getM_id());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return memberDtos.size() > 0 ? memberDtos.get(0) : null;
+	}
+
+	public int updateMemberForModify(MemberDto memberDto) {
+log.info("updateMemberForModify()");
+		
+		String sql =  "UPDATE "
+					+ 	"TBL_MEMBER "
+					+ "SET "
+					+ 	"M_NAME = ?, "
+					+ 	"M_MAIL= ?, "
+					+ 	"M_PHONE = ?, "
+					+ 	"M_ADDR_CODE = ?, "
+					+ 	"M_ADDR = ?, "
+					+ 	"M_DETAIL_ADDR =?, "
+					+ 	"M_MOD_DATE = SYSTIMESTAMP "
+					+ "WHERE "
+					+ 	"M_ID = ?";
+		
+		int result = -1;
+		
+		try {
+			
+			result = jdbcTemplate.update(sql, 
+											memberDto.getM_name(),
+											memberDto.getM_mail(), 
+											memberDto.getM_phone(),
+											memberDto.getM_addr_code(),
+											memberDto.getM_addr(),
+											memberDto.getM_detail_addr(),
+											memberDto.getM_id());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		return result;
+	}
+
+	public MemberDto getLatestMemberInfo(MemberDto memberDto) {
+		log.info("getLatesMemberInfo()");
+		
+		String sql = "SELECT * FROM TBL_MEMBER WHERE M_ID = ?";
+		
+		List<MemberDto> memberDtos = new ArrayList<>();
+		
+		try {
+			
+			RowMapper<MemberDto> rowMapper =
+					BeanPropertyRowMapper.newInstance(MemberDto.class);
+			memberDtos = jdbcTemplate.query(sql, rowMapper, memberDto.getM_id());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return memberDtos.size() > 0 ? memberDtos.get(0) : null;
+		
 	}
 
 }

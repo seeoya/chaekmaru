@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+
+<head>
+    <title>책마루 :: 정보수정</title>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/form_check.js}"></script>
+</head>
+
+<section layout:fragment="content">
+    <h2 class="title">정보수정</h2>
+
+    <div class="content">
+        <form th:action="@{/member/modify_confirm}" name="modify_form" method="post">
+        	
+        	<input type="hidden" name="m_id" th:value="${session.loginedMemberDto.m_id}"><br>
+        
+            <input type="text" th:value="${session.loginedMemberDto.m_id}" readonly disabled><br>
+            <input type="button" value="중복체크" onclick="createAccountForm();"><br>
+            <input type="password" name="m_pw" value="******" readonly disabled><br>
+            <input type="text" name="m_name" th:value="${session.loginedMemberDto.m_name}"><br>
+            <input type="text" name="m_mail" th:value="${session.loginedMemberDto.m_mail}"><br>
+            <input type="text" name="m_phone" th:value="${session.loginedMemberDto.m_phone}"><br>
+            <input type="text" id="postcode" name="m_addr_code" th:value="${session.loginedMemberDto.m_addr_code}" readonly>
+            <button type="button" id="search_address_btn" onclick="searchAddress()">우편번호 찾기</button><br>
+            <input type="text" id="address" name="m_addr" th:value="${session.loginedMemberDto.m_addr}" readonly><br>
+            <input type="text" id="detailAddress" name="m_detail_addr" th:value="${session.loginedMemberDto.m_detail_addr}">
+            <button type="button" onclick="modifyForm();">정보수정</button>
+            <button type="reset">초기화</button>
+        </form>
+        
+					
+					
+    </div>
+</section>
+
+</html>

@@ -78,3 +78,48 @@ function searchAddress() {
         },
     }).open();
 }
+
+/* 로그인 */
+function loginForm() {
+    console.log("loginForm!!");
+
+    let form = document.login_form;
+
+    if (form.m_id.value === "") {
+        alert("아이디를 입력해 주세요.");
+        form.m_id.focus();
+    } else if (form.m_pw.value === "") {
+        alert("비밀번호를 입력해 주세요.");
+        form.m_pw.focus();
+    } else {
+		form.submit();
+	}
+    
+}
+
+/* 정보 수정 */
+
+function modifyForm() {
+    console.log("modifyForm!!");
+
+    let form = document.modify_form;
+
+    if (form.m_name.value === "") {
+        alert("변경하실 이름을 입력해 주세요.");
+        form.m_name.focus();
+    } else if (form.m_mail.value === "") {
+        alert("변경하실 메일을 입력해 주세요.");
+        form.m_mail.focus();
+    } else if (form.m_phone.value === "") {
+        alert("변경하실 연락처를 입력해 주세요.");
+        form.m_phone.focus();
+    } else if (form.m_addr.value === "") {
+        alert("변경하실 주소란이 비어있습니다..");
+        document.getElementById("search_address_btn").focus();
+    } else if (form.m_detail_addr.value === "") {
+        alert("변경하실 상세주소를 입력해 주세요.");
+        form.m_detail_addr.focus();
+    } else {
+        form.submit();
+    }
+}
