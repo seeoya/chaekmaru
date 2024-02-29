@@ -79,4 +79,10 @@ public class MemberService {
 		return null;
 	}
 
+	public int memberDeleteConfirm(String m_id) {
+		log.info("memberDeleteConfirm()");
+		
+		return memberDao.deleteMember(m_id);
+	}
+
 }

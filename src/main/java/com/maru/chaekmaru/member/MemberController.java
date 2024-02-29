@@ -12,6 +12,7 @@ import com.maru.chaekmaru.config.Config;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
+
 @Log4j2
 @Controller
 @RequestMapping("/member")
@@ -108,5 +109,36 @@ public class MemberController {
 		return nextPage;
 
 	}
+	
+	@GetMapping("/logout_confirm")
+	public String logoutConfirm(HttpSession session) {
+		log.info("logoutConfirm()");
+		
+		session.removeAttribute("loginedMemberDto");
+		
+		String nextPage = "/success";
+		
+		return nextPage;
+	}
+	
+	@GetMapping("/delete_confirm")
+	public String deleteConfirm(HttpSession session) {
+		log.info("deleteConfirm()");
+		
+		String nextPage = "redirect:/member/logout_confirm";
+
+		MemberDto loginedMemberDto =
+				(MemberDto) session.getAttribute("loginedMemberDto");
+		
+		int result = memberService.memberDeleteConfirm(loginedMemberDto.getM_id());
+		if (result <= 0) {
+	         nextPage = "/success";
+		} 
+      
+		return nextPage;
+		
+	}
+	
+	
 
 }

@@ -162,4 +162,27 @@ log.info("updateMemberForModify()");
 		
 	}
 
+	public int deleteMember(String m_id) {
+		log.info("deleteMember()");
+		
+		String sql =  "DELETE FROM TBL_MEMBER "
+				+ "WHERE M_ID = ?";
+	
+		int result = -1;
+		
+		try {
+			
+			result = jdbcTemplate.update(sql, m_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return result;
+		
+		
+	
+		}
+
 }
