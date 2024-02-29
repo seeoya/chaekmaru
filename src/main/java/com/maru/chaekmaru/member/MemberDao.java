@@ -40,14 +40,18 @@ public class MemberDao {
 	public int insertMember(MemberDto memberDto) {
 		log.info("--insertMember--");
 			
-			String sql =  "INSERT INTO TBL_MEMBER("
-						+ 	"M_ID, "
-						+	"M_PW, "
-						+ 	"M_MAIL, "
-						+ 	"M_PHONE,"
-						+ 	"M_REG_DATE, "
-						+ 	"M_MOD_DATE) "
-						+ "VALUES(?, ?, ?, ?, NOW(), NOW())";
+		String sql =  "INSERT INTO TBL_MEMBER("
+				+ 	"M_ID, "
+				+	"M_PW, "
+				+ 	"M_NAME, "
+				+ 	"M_MAIL, "
+				+ 	"M_PHONE, "
+				+ 	"M_ADDR_CODE, "
+				+ 	"M_ADDR, "
+				+ 	"M_DETAIL_ADDR, "
+				+ 	"M_REG_DATE, "
+				+ 	"M_MOD_DATE) "
+				+ "VALUES(?, ?, ?, ?, ? , ? , ? , ?, SYSTIMESTAMP, SYSTIMESTAMP)";
 			
 			int result = Config.DATABASE_COMMUNICATION_TROUBLE;
 			
@@ -55,9 +59,13 @@ public class MemberDao {
 				
 				result = jdbcTemplate.update(sql, 
 									memberDto.getM_id(), 
-									memberDto.getM_pw(), 
+									memberDto.getM_pw(),
+									memberDto.getM_name(),
 									memberDto.getM_mail(),
-									memberDto.getM_phone());
+									memberDto.getM_phone(),
+									memberDto.getM_addr_code(),
+									memberDto.getM_addr(),
+									memberDto.getM_detail_addr());
 				
 			} catch (Exception e) {
 				e.printStackTrace();

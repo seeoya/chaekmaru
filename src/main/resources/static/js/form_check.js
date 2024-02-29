@@ -26,6 +26,10 @@ function createAccountForm() {
 		alert('동일한 비밀번호를 입력해 주세요.');
 		form.m_re_pw.focus();
 		
+	} else if (form.m_name.value === '') {
+		alert('메일을 입력해 주세요.');
+		form.m_mail.focus();
+		
 	} else if (form.m_mail.value === '') {
 		alert('메일을 입력해 주세요.');
 		form.m_mail.focus();
@@ -87,17 +91,17 @@ function sample6_execDaumPostcode() {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("extraAddress").value = extraAddr;
                 
                 } else {
-                    document.getElementById("sample6_extraAddress").value = '';
+                    document.getElementById("extraAddress").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("detailAddress").focus();
             }
         }).open();
     }

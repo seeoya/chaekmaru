@@ -23,7 +23,7 @@ public class MemberService {
 		
 		boolean isMember = memberDao.isMember(memberDto.getM_id());
 		
-		if (isMember) {
+		if (!isMember) {
 			memberDto.setM_pw(passwordEncoder.encode(memberDto.getM_pw()));
 			int result = memberDao.insertMember(memberDto);
 			

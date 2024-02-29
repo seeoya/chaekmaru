@@ -3,14 +3,12 @@ package com.maru.chaekmaru;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.junit.jupiter.api.Test;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class MysqlComtext {
 	
-	@Test
+	
 	public void conText() {
 		
 		try {
