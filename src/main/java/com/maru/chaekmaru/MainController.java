@@ -33,7 +33,7 @@ public class MainController {
 		model.addAttribute("name", "가나다");
 		model.addAttribute("tag", "<b>라라라</b>");
 		
-		nextPage = "layout";
+		nextPage = "index";
 
 		return nextPage;
 	}
@@ -58,12 +58,20 @@ public class MainController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(testDtos);
-		
 		model.addAttribute("test", testDtos);
 		
 		return nextPage;
 	}
+	
+	@GetMapping( "/styleguide" )
+	public String styleguide(Model model) {
+		log.info("styleguide");
+		
+		nextPage = "styleguide";
+		
+		return nextPage;
+	}
+
 
 
 }
