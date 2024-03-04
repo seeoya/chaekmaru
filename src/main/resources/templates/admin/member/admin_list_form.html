@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: 관리자 LIST</title>
+
+ 	
+    <script th:src="@{/js/form_check_admin.js}"></script>
+    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <!-- <script th:src="@{js/index.js}"></script> -->
+</head>
+
+<div id="example_copy" class="content-wrap" layout:fragment="content">
+    <h2 class="title">관리자 LIST</h2>
+        
+    <div class="content">
+    	<table>
+    		<thead>
+    			<tr>
+    			
+    				<th>등록번호</th>
+    				<th>아이디</th>
+    				<th>이름</th>
+    				<th>연락처</th>    				
+    				<th>등록일</th>
+    				<th>수정일</th>
+    				<th>관리자 등급</th>
+    				<th>등급 승인</th>
+    				<th>계정 삭제</th>    						
+    			
+    			</tr>   	
+    	
+    		</thead>
+    		
+    		<tbody>
+    			<tr th:each="list : ${adminMemberDtos}" >
+
+    				<td th:text="${list.a_no}"></td>
+    				<td th:text="${list.a_id}"></td>
+    				<td th:text="${list.a_name}"></td>
+    				<td th:text="${list.a_phone}"></td>
+    				<td th:text="${list.a_reg_date}"></td>
+    				<td th:text="${list.a_mod_date}"></td>
+    				<td th:text="${list.a_grade}"></td>
+    				   				 
+    				<td><a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
+    				<td><a th:href="@{/admin/member/delete_account_cofirm(a_no=${list.a_no})}">삭제</a></td>    				    			
+    			
+    			</tr>
+    		
+    		</tbody>    	
+    	
+    	</table>
+      
+   
+    </div>
+    
+    
+</div>
+
+</html>

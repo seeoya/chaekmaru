@@ -65,6 +65,34 @@
             <a th:href="@{/}" class="cate-link">신상품</a>
             <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a>
         </nav>
+
+        <nav>
+            <a th:href="@{/}" class="cate-link">출석체크</a>
+            <div th:href="@{/}" id="usermenu_btn" class="cate-link">
+                <p>{username}님</p>
+
+                <div class="usermenu-list">
+                    <div class="point">
+                        <a th:href="@{/}" class="point-now">3,000BP</a>
+                        <a th:href="@{/}" class="btn main">충전</a>
+                    </div>
+
+                    <div class="shop">
+                        <a th:href="@{/}">찜 목록</a>
+                        <a th:href="@{/}">장바구니</a>
+                        <a th:href="@{/}">구매내역</a>
+                        <a th:href="@{/}">내가 쓴 리뷰</a>
+                    </div>
+
+                    <div class="member">
+                        <a th:href="@{/}">정보수정</a>
+                        <a th:href="@{/}">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
     </div>
 </section>
 

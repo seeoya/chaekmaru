@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     gap: 5px;
 }
 
@@ -32,7 +32,7 @@
 .btn-wrap {
     display: flex;
     margin-top: 10px;
-    min-width: 500px;
+    min-width: 400px;
     gap: 5px;
 }
 
@@ -60,7 +60,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 10px;
     background-color: var(--gray-light-color);
 }
@@ -216,6 +216,8 @@ header .logo img {
 }
 
 .catogory .category-wrap {
+    display: flex;
+    justify-content: space-between;
 }
 
 .catogory nav {
@@ -230,8 +232,77 @@ header .logo img {
     font-weight: 500;
 }
 
-.catogory .cate-link:hover {
+.catogory .cate-link:hover:not(#usermenu_btn), .catogory .usermenu-list a:hover {
     color: var(--main-light-color);
+}
+
+.catogory #usermenu_btn {
+    position: relative;
+}
+
+.catogory .usermenu-list {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0 10px;
+    background-color: #e6e6e6;
+    text-align: center;
+}
+
+.catogory .usermenu-list div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.catogory .usermenu-list > div {
+    flex-direction: column;
+    padding: 5px 0;
+    width: 100%;
+    border-bottom: 1px solid var(--gray-color);
+}
+
+.catogory .usermenu-list > div:last-child {
+    border: none;
+}
+
+.catogory .usermenu-list a {
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.catogory .usermenu-list .point {
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.catogory .usermenu-list .point-now {
+    padding: 5px 0;
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.catogory .usermenu-list .btn {
+    padding: 5px;
+    width: 40px;
+    border-radius: 0;
+    font-size: 1rem;
+}
+
+.catogory .usermenu-list .btns .btn:hover {
+    color: #fff;
+}
+
+.catogory #usermenu_btn:hover .usermenu-list {
+    display: flex;
 }
 
 /* 페이지 */
@@ -255,7 +326,7 @@ header .logo img {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    min-width: 500px;
+    min-width: 400px;
     gap: 10px;
 }
 
@@ -318,8 +389,5 @@ header .logo img {
 }
 
 /* 푸터 */
-footer {
-}
-
 footer {
 }
