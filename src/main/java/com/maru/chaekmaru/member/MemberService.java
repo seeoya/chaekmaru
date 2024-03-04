@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j2;
 public class MemberService {
 
 	@Autowired
-	MemberDao memberDao;
+	IMemberDaoForMybatis memberDao;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;	
@@ -21,9 +21,9 @@ public class MemberService {
 	public int memberAccountConfirm(MemberDto memberDto) {
 		log.info("--memberAccountConfirm--");
 		
-		boolean isMember = memberDao.isMember(memberDto.getM_id());
+		int isMember = memberDao.isMember(memberDto.getM_id());
 		
-		if (!isMember) {
+		if (isMember <= 0) {
 			memberDto.setM_pw(passwordEncoder.encode(memberDto.getM_pw()));
 			int result = memberDao.insertMember(memberDto);
 			
@@ -55,7 +55,7 @@ public class MemberService {
 	public MemberDto loginConfirm(MemberDto memberDto) {
 	    log.info("--loginConfirm--");
 
-	    MemberDto selectedMemberDtoById = memberDao.memberLoginConfirm(memberDto);
+	    MemberDto selectedMemberDtoById = memberDao.selectMember(memberDto.getM_id());
 	    
 	    if (selectedMemberDtoById != null && passwordEncoder.matches(memberDto.getM_pw(), selectedMemberDtoById.getM_pw())) {
 		    log.info(selectedMemberDtoById.getM_id());
@@ -72,9 +72,9 @@ public class MemberService {
 		
 		int result = memberDao.updateMemberForModify(memberDto);
 		
-		if (result > 0)
-			return memberDao.getLatestMemberInfo(memberDto);
-		else
+		if (result > 0) {
+			return memberDao.selectMember(memberDto.getM_id());
+		}
 			
 		return null;
 	}

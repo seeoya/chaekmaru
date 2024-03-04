@@ -12,15 +12,13 @@
 
 <body>
     <div class="wrap">
-        <header th:replace="include/header.html::default_header"></header>
+        <header th:replace="include/admin_header.html::admin_header"></header>
 
-        <div th:replace="include/header.html::category"></div>
-
-        <section class="container">
+        <section class="main">
             <div layout:fragment="content"></div>
         </section>
 
-        <footer th:replace="include/footer::default_footer"></footer>
+        <!-- <footer th:replace="include/footer::default_footer"></footer> -->
     </div>
 </body>
 

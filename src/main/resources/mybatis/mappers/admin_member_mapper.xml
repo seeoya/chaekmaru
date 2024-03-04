@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.maru.chaekmaru.admin.member.IAdminMemberDaoForMybatis">
@@ -19,7 +17,6 @@
 	
 	<insert id="insertAdminAccount"
 			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
-			
 			
 			INSERT INTO 
 				TBL_ADMIN(A_NO, A_ID, A_PW, A_GRADE, A_NAME, A_PHONE, A_REG_DATE, A_MOD_DATE) 
