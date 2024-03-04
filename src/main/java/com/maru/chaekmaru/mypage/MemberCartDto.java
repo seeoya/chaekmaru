@@ -1,5 +1,8 @@
 package com.maru.chaekmaru.mypage;
 
+import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.member.MemberDto;
+
 import lombok.Data;
 
 @Data
@@ -9,6 +12,9 @@ public class MemberCartDto {
 	private int c_number;
 	private String c_reg_date;
 	private String c_mod_date;
+	
+//	private MemberDto memberDto;
+//	private BookDto bookDto;
 	
 	private String m_id;
 	private String m_pw;
