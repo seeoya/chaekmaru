@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maru.chaekmaru.member.IMemberDaoForMybatis">
+
+	<select id="isMember"
+			parameterType="String"
+			resultType="Integer">
+			
+			SELECT 
+				COUNT(*) 
+			FROM 
+				TBL_MEMBER 
+			WHERE 
+				M_ID = #{m_id}
+				 		
+	</select>
+	
+	<insert id="insertMember"
+			parameterType="com.maru.chaekmaru.member.MemberDto">
+			
+			
+			INSERT INTO 
+				TBL_MEMBER(M_ID, M_PW, M_NAME, M_MAIL, M_PHONE, M_ADDR_CODE, M_ADDR, M_DETAIL_ADDR, M_REG_DATE, M_MOD_DATE) 
+			VALUES(#{m_id}, #{m_pw}, #{m_name}, #{m_mail}, #{m_phone}, #{m_addr_code}, #{m_addr}, #{m_detail_addr}, SYSTIMESTAMP, SYSTIMESTAMP) 
+				 		
+	</insert>
+
+	<select id="selectMember"
+			parameterType="String"
+			resultType="com.maru.chaekmaru.member.MemberDto">
+			
+			SELECT 
+				*  
+			FROM 
+				TBL_MEMBER 
+			WHERE 
+				M_ID = #{m_id}
+				 		
+	</select>
+	
+	<update id="updateMemberForModify"
+			parameterType="com.maru.chaekmaru.member.MemberDto">
+			
+			UPDATE 
+				TBL_MEMBER 
+			SET 
+				M_NAME=#{m_name},
+				M_MAIL=#{m_mail}, 
+				M_PHONE=#{m_phone},
+				M_ADDR_CODE=#{m_addr_code},
+				M_DETAIL_ADDR=#{m_detail_addr},
+				M_MOD_DATE=SYSTIMESTAMP
+			WHERE 
+				M_ID=#{m_id}	
+	
+	</update>
+	
+	<delete id="deleteMember"
+			parameterType="String">
+			
+			DELETE FROM 
+				TBL_MEMBER 
+			WHERE 
+				M_ID=#{m_id}
+	
+	</delete>
+		
+</mapper>
