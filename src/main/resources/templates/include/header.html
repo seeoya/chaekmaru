@@ -8,7 +8,6 @@
                 <a th:href="@{/}" class="sub-link">문의게시판</a>
                 <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
                 <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
-                </ul>
             </nav>
         </div>
     </div>
@@ -16,7 +15,9 @@
     <div class="header-menu">
         <div class="header-wrap">
             <div class="logo">
-                <img th:src="@{/img/dummy/1.jpg}" alt="logo">
+                <a th:href="@{/}">
+                    <img th:src="@{/img/dummy/1.jpg}" alt="logo">
+                </a>
             </div>
 
             <div class="search">
@@ -58,10 +59,11 @@
 <section th:fragment="category" class="catogory">
     <div class="category-wrap">
         <nav>
-            <a th:href="@{/}" class="cate-link">카테고리 열기</a>
+            <button type="button" class="cate-link">카테고리 열기</button>
             <a th:href="@{/}" class="cate-link">모든</a>
             <a th:href="@{/}" class="cate-link">인기</a>
             <a th:href="@{/}" class="cate-link">신상품</a>
+            <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a>
         </nav>
     </div>
 </section>
