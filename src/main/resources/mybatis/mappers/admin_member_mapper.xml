@@ -11,7 +11,7 @@
 			SELECT 
 				COUNT(*) 
 			FROM 
-				TBL_ADMIN_MEMBER 
+				TBL_ADMIN 
 			WHERE 
 				A_ID = #{a_id}
 				 		
@@ -22,42 +22,56 @@
 			
 			
 			INSERT INTO 
-				TBL_ADMIN_MEMBER(A_ID, A_PW, A_GRADE, A_NAME, A_PHONE, A_REG_DATE, A_MOD_DATE) 
-			VALUE(#{a_id}, #{a_pw}, default, #{a_name},  #{a_phone}, SYSTIMESTAMP, SYSTIMESTAMP)) 
+				TBL_ADMIN(A_NO, A_ID, A_PW, A_GRADE, A_NAME, A_PHONE, A_REG_DATE, A_MOD_DATE) 
+			VALUES(ADMIN_SEQ.NEXTVAL, #{a_id}, #{a_pw}, default, #{a_name}, #{a_phone}, SYSTIMESTAMP, SYSTIMESTAMP)
 				 		
 	</insert>
 
-	<select id="selectAdmin"
+	<select id="selectAdminForLogin"
 			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto"
 			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
 			
 			SELECT 
 				*  
 			FROM 
-				TBL_ADMIN_MEMBER 
+				TBL_ADMIN 
 			WHERE 
 				A_ID = #{a_id} AND A_PW = #{a_pw} 
 				 		
 	</select>
 	
 	<update id="updateAdminForModify"
-			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto" >
+			
 			
 			UPDATE 
-				TBL_ADMIN_MEMBER 
+				TBL_ADMIN  
 			SET 
-				A_PW=#{a_pw}
-				A_PHONE= #{a_phone},
+				A_PW=#{a_pw},
+				A_PHONE=#{a_phone}
 			WHERE 
 				A_NO=#{a_no}	
 	
 	</update>
 	
+	<select id="selectAdminForModify"
+			parameterType="Integer"
+			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+			SELECT 
+				*  
+			FROM 
+				TBL_ADMIN 
+			WHERE 
+				A_NO = #{a_no}
+				 		
+	</select>
+	
 	<delete id="deleteAdminAccount"
 			parameterType="Integer">
 			
 			DELETE FROM 
-				TBL_ADMIN_MEMBER 
+				TBL_ADMIN 
 			WHERE 
 				A_NO=#{a_no}
 	
@@ -66,20 +80,20 @@
 	<select id="selectAllAdmins"			
 			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
 			
-			SELECT * FROM TBL_ADMIN_MEMBER 
+			SELECT * FROM TBL_ADMIN 
 			ORDER BY A_NO DESC			
 				 		
 	</select>
 	
 	<update id="updateAdminApproval"
-			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			parameterType="Integer">
 			
 			UPDATE 
-				TBL_ADMIN_MEMBER 
+				TBL_ADMIN 
 			SET 
 				A_GRADE=1				
 			WHERE 
-				A_NO="1"	
+				A_NO=#{a_no}	
 	
 	</update>
 		
