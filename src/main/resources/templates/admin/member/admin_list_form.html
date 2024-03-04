@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
 
 <head>
     <title>책마루 :: 관리자 LIST</title>
@@ -44,8 +44,10 @@
     				<td th:text="${list.a_mod_date}"></td>
     				<td th:text="${list.a_grade}"></td>
     				   				 
-    				<td><a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
-    				<td><a th:href="@{/admin/member/delete_account_cofirm(a_no=${list.a_no})}">삭제</a></td>    				    			
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
+    				<a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
+    				<a th:href="@{/admin/member/delete_account_cofirm(a_no=${list.a_no})}">삭제</a></td>    				    			
     			
     			</tr>
     		
