@@ -29,7 +29,7 @@ public class AdminMemberController {
 	public String createAccountForm() {
 		log.info("createAccountForm()");
 		
-		String nextPage = "member/create_account_form";
+		String nextPage = "admin/member/create_account_form";
 		
 		return nextPage;		
 		
@@ -67,7 +67,7 @@ public class AdminMemberController {
 	public String loginForm(){
 		log.info("loginForm()");
 		
-		String nextPage = "member/login_form";
+		String nextPage = "admin/member/login_form";
 		
 		return nextPage;		
 		
@@ -99,33 +99,34 @@ public class AdminMemberController {
 	public String modifyAccountForm() {
 		log.info("modifyAccountForm()");
 		
-		String nextPage = "member/modify_account_form";
+		String nextPage = "admin/member/modify_account_form";
 		
 		return nextPage;		
 		
 	}
 	
 	@PostMapping("/modify_account_confirm")
-	public String modifyAccountConfirm(AdminMemberDto adminMemberDto, Model model) {
+	public String modifyAccountConfirm(AdminMemberDto adminMemberDto, Model model, HttpSession session) {
 		log.info("modifyAccountConfirm()");
 		
 		String nextPage = "result";
 				
-		int result = adminMemberService.modifyAccountConfirm(adminMemberDto);
+		AdminMemberDto  loginedAdminMemberDto = adminMemberService.modifyAccountConfirm(adminMemberDto);
 				
-		switch (result) {
-		case Config.MODIFY_SUCCESS_AT_DATABASE: 
+		if(loginedAdminMemberDto != null) {
+			
+			session.setAttribute("loginedAdminMemberDto", loginedAdminMemberDto);
+			session.setMaxInactiveInterval( 60 * 30 );		
+			
 			model.addAttribute("result", Config.MODIFY_SUCCESS_AT_DATABASE);
-			break;
 		
-		case Config.MODIFY_FAIL_AT_DATABASE: 
+		} else 
+ 		
 			model.addAttribute("result", Config.MODIFY_FAIL_AT_DATABASE);
-			break;
-
-		}
 		
-		return nextPage;		
 		
+		return nextPage;			
+				
 	}
 	
 	
@@ -142,7 +143,7 @@ public class AdminMemberController {
 	}
 	
 
-	@GetMapping("/delete_account_cofirm")
+	@GetMapping("/delete_account_confirm")
 	public String deleteAccountConfirm(@RequestAttribute("a_no") int a_no, Model model) {
 		log.info("deleteAccountConfirm()");
 		
@@ -173,7 +174,7 @@ public class AdminMemberController {
 	public String adminListForm(Model model) {
 		log.info("adminListForm()");
 		
-		String nextPage = "member/admin_list_form";
+		String nextPage = "admin/member/admin_list_form";
 		
 		List<AdminMemberDto> adminMemberDtos = adminMemberService.adminListForm();
 		

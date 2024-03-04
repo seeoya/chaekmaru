@@ -15,20 +15,20 @@
         <form th:action="@{/member/create_account_confirm}" name="create_account_form" method="post" class="form">
             <div>
                 <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
-                <button type="button" onclick="createAccountForm();" class="btn">중복체크</button>
+                <button type="button" onclick="createAccountForm();" class="btn sub">중복체크</button>
             </div>
             <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요.">
             <input type="text" name="m_name" placeholder="이름을 입력해 주세요.">
             <input type="text" name="m_mail" placeholder="이메일을 입력해 주세요.">
             <input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요.">
             <div>
-                <input type="text" id="postcode" name="m_addr_code" placeholder="우편번호" readonly>
-                <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn">우편번호 찾기</button>
+                <input type="text" id="postcode" name="m_addr_code" placeholder="우편번호" readonly >
+                <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호 찾기</button>
             </div>
             <input type="text" id="address" name="m_addr" placeholder="주소" readonly>
             <input type="text" id="detailAddress" name="m_detail_addr" placeholder="상세주소">
             <div class="btn-wrap">
-                <button type="reset" class="btn">초기화</button>
+                <button type="reset" class="btn highlight">초기화</button>
                 <button type="button" onclick="createAccountForm();" class="btn main">회원가입</button>
             </div>
         </form>

@@ -38,13 +38,22 @@ public class AdminMemberService {
 	public AdminMemberDto loginConfirm(AdminMemberDto adminMemberDto) {
 		log.info("loginConfirm()");
 		
-		return adminMemberDao.selectAdmin(adminMemberDto);
+		return adminMemberDao.selectAdminForLogin(adminMemberDto);
 	}
 
-	public int modifyAccountConfirm(AdminMemberDto adminMemberDto) {
+	public AdminMemberDto modifyAccountConfirm(AdminMemberDto adminMemberDto) {
 		log.info("modifyAccountConfirm");
 		
-		return adminMemberDao.updateAdminForModify(adminMemberDto);
+		int result = adminMemberDao .updateAdminForModify(adminMemberDto);
+		
+		if(result > 0)
+			
+			return adminMemberDao.selectAdminForModify(adminMemberDto.getA_no());
+						
+		else 
+			
+			return null;
+		
 	}
 
 	public int deleteAccountConfirm(int a_no) {
