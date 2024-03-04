@@ -60,7 +60,7 @@ public class MemberController {
 	public String Loginconfirm(MemberDto memberDto, HttpSession session) {
 		log.info("-- Loginconfirm() --");
 
-		String nextPage = "/loginsuccess";
+		String nextPage = "redirect:/";
 
 		MemberDto loginedMemberDto = memberService.loginConfirm(memberDto);
 
