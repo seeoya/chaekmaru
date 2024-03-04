@@ -35,12 +35,12 @@ public class MemberController {
 	public String CreateAccountConfirm(MemberDto memberDto, Model model) {
 		log.info("CreateAccountConfirm");
 
-		String nextPage = "/result";
+		String nextPage = "/loginsuccess";
 
 		int result = memberService.memberAccountConfirm(memberDto);
 
-		if (result <= Config.LOGIN_FAIL) {
-			nextPage = "/result";
+		if (result == Config.INSERT_FAIL_AT_DATABASE) {
+			nextPage = "/loginfail";
 		}
 
 		return nextPage;
@@ -60,7 +60,7 @@ public class MemberController {
 	public String Loginconfirm(MemberDto memberDto, HttpSession session) {
 		log.info("-- Loginconfirm() --");
 
-		String nextPage = "/success";
+		String nextPage = "/loginsuccess";
 
 		MemberDto loginedMemberDto = memberService.loginConfirm(memberDto);
 
@@ -70,7 +70,7 @@ public class MemberController {
 			session.setMaxInactiveInterval(60 * 30);
 
 		} else {
-			nextPage = "/result";
+			nextPage = "/loginfail";
 
 		}
 
@@ -116,7 +116,7 @@ public class MemberController {
 		
 		session.removeAttribute("loginedMemberDto");
 		
-		String nextPage = "/success";
+		String nextPage = "redirect:/";
 		
 		return nextPage;
 	}
