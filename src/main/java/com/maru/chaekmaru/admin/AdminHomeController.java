@@ -15,7 +15,7 @@ public class AdminHomeController {
 	public String home() {
 		log.info("home()");
 		
-		String nextPage = "admin/home";
+		String nextPage = "admin/index";
 		
 		return nextPage;
 	}

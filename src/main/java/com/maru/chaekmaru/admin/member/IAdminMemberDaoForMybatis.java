@@ -2,6 +2,9 @@ package com.maru.chaekmaru.admin.member;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface IAdminMemberDaoForMybatis {
 	
 	public boolean isAdminMember(String a_id);
