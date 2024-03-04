@@ -33,44 +33,13 @@ public class MainController {
 
 	@GetMapping({ "/", "" })
 	public String index(Model model) {
-		log.info("index");
-
-		model.addAttribute("page", "index");
-		model.addAttribute("name", "가나다");
-		model.addAttribute("tag", "<b>라라라</b>");
-
 		nextPage = "index";
-
-		return nextPage;
-	}
-
-	@GetMapping("/list")
-	public String list(Model model) {
-		log.info("list");
-
-		nextPage = "list";
-		
-		String sql = "SELECT * FROM tbl_book where rowNUM <= 100";
-		
-		List<BookDto> testDtos = new ArrayList<>();
-		
-		try {
-			RowMapper<BookDto> rowMapper = BeanPropertyRowMapper.newInstance(BookDto.class);
-
-			testDtos = jdbcTemplate.query(sql, rowMapper);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("test", testDtos);
 
 		return nextPage;
 	}
 
 	@GetMapping("/styleguide")
 	public String styleguide(Model model) {
-		log.info("styleguide");
-
 		nextPage = "styleguide";
 
 		return nextPage;

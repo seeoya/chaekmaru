@@ -29,15 +29,30 @@
     width: 20%;
 }
 
-.form > .btn-wrap {
+.btn-wrap {
+    display: flex;
     margin-top: 10px;
+    min-width: 500px;
+    gap: 5px;
 }
 
-.form > .btn-wrap .btn:first-child {
+.btn-wrap.half .btn {
+    width: 50%;
+}
+
+.btn-wrap.full {
+    flex-direction: column;
+}
+
+.btn-wrap.full .btn {
+    width: 50%;
+}
+
+.btn-wrap .btn:first-child {
     width: 20%;
 }
 
-.form > .btn-wrap .btn:last-child {
+.btn-wrap .btn:last-child {
     width: 80%;
 }
 
@@ -240,6 +255,7 @@ header .logo img {
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    min-width: 500px;
     gap: 10px;
 }
 
