@@ -1,19 +1,81 @@
 /* 공통 */
-.input {
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    gap: 5px;
+}
+
+.form input, .form select, input[type="search"] {
     display: inline-flex;
     padding: 10px 20px;
+    width: 100%;
     border: 1px solid #ddd;
     border-radius: 10px;
+    outline: none;
+}
+
+.form > div {
+    display: flex;
+    gap: 10px
+}
+
+.form > div > input {
+    width: 80%;
+}
+
+.form > div > button {
+    width: 20%;
+}
+
+.btn-wrap {
+    display: flex;
+    margin-top: 10px;
+    min-width: 400px;
+    gap: 5px;
+}
+
+.btn-wrap.half .btn {
+    width: 50%;
+}
+
+.btn-wrap.full {
+    flex-direction: column;
+}
+
+.btn-wrap.full .btn {
+    width: 50%;
+}
+
+.btn-wrap .btn:first-child {
+    width: 20%;
+}
+
+.btn-wrap .btn:last-child {
+    width: 80%;
 }
 
 .btn {
     display: inline-flex;
-    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     border-radius: 10px;
+    background-color: var(--gray-light-color);
+}
+
+.btn:hover {
+    background-color: var(--gray-color);
+}
+
+.btn.bold {
+    font-weight: 600;
 }
 
 .btn.main {
     background-color: var(--main-color);
+    color: #fff;
 }
 
 .btn.main:hover {
@@ -22,6 +84,7 @@
 
 .btn.sub {
     background-color: var(--sub-color);
+    color: #fff;
 }
 
 .btn.sub:hover {
@@ -30,10 +93,23 @@
 
 .btn.highlight {
     background-color: var(--highlight-color);
+    color: #fff;
 }
 
 .btn.highlight:hover {
     background-color: var(--highlight-light-color);
+}
+
+.btn.half {
+    width: 50% !important;
+}
+
+.btn.over {
+    width: 75% !important;
+}
+
+.btn.full {
+    width: 100% !important;
 }
 
 /* 레이아웃 */
@@ -45,7 +121,8 @@
 .header-wrap, .category-wrap, .content-wrap, .footer-wrap {
     display: flex;
     margin: 0 auto;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
 }
 
 /* 헤더 */
@@ -55,7 +132,6 @@ header {
 
 header .member-menu {
     background-color: #eaeaea;
-    font-size: 1.4rem;
 }
 
 header .member-menu .header-wrap {
@@ -68,6 +144,11 @@ header .member-menu nav {
     gap: 5px;
 }
 
+header .member-menu nav a {
+    padding: 3px 5px;
+    font-size: 1.3rem;
+}
+
 header .member-menu .link-sub {
 }
 
@@ -76,24 +157,305 @@ header .logo {
     height: 60px;
 }
 
+header .logo a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 header .logo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
+.header-menu {
+    padding: 10px 0;
+}
+
+.header-menu .header-wrap {
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-menu .search {
+    width: 100%;
+}
+
+.header-menu .search form {
+    display: flex;
+    gap: 10px;
+}
+
+.header-menu .search input {
+    width: 100%;
+}
+
+.header-menu .search .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 40px;
+}
+
+.header-menu .cart-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.header-menu .cart-nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+}
+
 .catogory .category-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.catogory nav {
+    display: flex;
+    gap: 5px;
+}
+
+.catogory .cate-link {
+    padding: 10px;
+    background: none;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.catogory .cate-link:hover:not(#usermenu_btn), .catogory .usermenu-list a:hover {
+    color: var(--main-light-color);
+}
+
+.catogory #usermenu_btn {
+    position: relative;
+}
+
+.catogory .usermenu-list {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0 10px;
+    background-color: #e6e6e6;
+    text-align: center;
+}
+
+.catogory .usermenu-list div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.catogory .usermenu-list > div {
+    flex-direction: column;
+    padding: 5px 0;
+    width: 100%;
+    border-bottom: 1px solid var(--gray-color);
+}
+
+.catogory .usermenu-list > div:last-child {
+    border: none;
+}
+
+.catogory .usermenu-list a {
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.catogory .usermenu-list .point {
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.catogory .usermenu-list .point-now {
+    padding: 5px 0;
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.catogory .usermenu-list .btn {
+    padding: 5px;
+    width: 40px;
+    border-radius: 0;
+    font-size: 1rem;
+}
+
+.catogory .usermenu-list .btns .btn:hover {
+    color: #fff;
+}
+
+.catogory #usermenu_btn:hover .usermenu-list {
+    display: flex;
 }
 
 /* 페이지 */
-.main {
+.container {
+    padding: 30px 0;
+    min-height: 75vh;
+}
+
+.content-wrap {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.content-wrap h2.title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.content-wrap .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    min-width: 400px;
+    gap: 10px;
+}
+
+/* 메인 */
+#index .item a div {
+    width: 100%;
+}
+
+#index .item .name {
+    font-weight: 600;
+}
+
+#index .item img {
+    width: 100%;
+    object-fit: contain;
+}
+
+#index .content {
+    gap: 80px;
+}
+
+#index .content > div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.banner {
+    width: 100%;
+}
+
+.banner img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.recommend .item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.recommend .item {
+    width: 50%;
+}
+
+.recommend .item a {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.recommend .item img {
+}
+
+.recommend .item .info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 5px;
+    overflow: hidden;
+}
+
+.recommend .item .name {
+    font-size: 2rem;
+}
+
+.best .item-wrap {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.best .item {
+    width: 100%;
+    overflow: hidden;
+}
+
+.best .item a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.best .item img {
+    height: 200px;
+}
+
+.best .item .name {
+    font-size: 1.6rem;
+}
+
+.new .item-wrap {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.new .item {
+    width: 100%;
+    overflow: hidden;
+}
+
+.new .item a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.new .item img {
+    height: 200px;
+}
+
+.new .item .name {
+    font-size: 1.6rem;
 }
 
 #style_guide {
-}
-
-#style_guide .title {
-    font-size: 2rem;
 }
 
 #style_guide .box-wrap {
@@ -153,7 +515,79 @@ header .logo img {
 
 /* 푸터 */
 footer {
+	width: 100%;
+    background-color:#60866b;
+    padding: 10px 0;
 }
 
-footer {
+footer div.logo img {
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+footer .footer-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+footer .bottom_wrap,
+footer .info_a,
+footer .info_txt,
+footer .top_footer {
+    display: flex;
+    gap: 5px;
+}
+
+footer .call_footer {
+	font-size: 17px;
+	text-align: center;
+}
+
+footer .bottom_wrap {
+	justify-content: space-between;
+    gap: 40px;
+}
+
+footer .btn_footer {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+
+footer .top_footer {
+	justify-content: space-between;
+}
+
+footer .join_footer img{
+	min-width: 100px;
+    max-width: 100px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+
+footer .info_footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 3px;
+}
+
+footer .util_footer {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 40%;
+}
+
+footer .util_footer .btn{
+    width: 100%;
+}
+
+footer .join_footer {
+	display: flex;
+	gap: 10px;
 }

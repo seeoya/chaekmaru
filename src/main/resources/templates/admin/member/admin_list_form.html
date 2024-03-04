@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
 
 <head>
     <title>책마루 :: 관리자 LIST</title>
 
- 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ 	
     <script th:src="@{/js/form_check_admin.js}"></script>
     <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
     <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
@@ -44,28 +44,18 @@
     				<td th:text="${list.a_mod_date}"></td>
     				<td th:text="${list.a_grade}"></td>
     				   				 
-    				<td><a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
-    				<td><a th:href="@{/admin/member/delete_account_cofirm(a_no=${list.a_no})}">삭제</a></td>    				    			
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
+    				<a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
+    				<a th:href="@{/admin/member/delete_account_cofirm(a_no=${list.a_no})}">삭제</a></td>    				    			
     			
     			</tr>
     		
     		</tbody>    	
     	
     	</table>
-    
-    
-    
-    
-    
-    
-     	 <form th:action="@{admin/member/modify_account_confirm}" name="modify_account_form" method="post">
-     	 	<input type="hidden" name=a_no th:value="${session.loginedAdminMemberDto.a_no}">
-            <input type="text" name="a_id" th:value="${session.loginedAdminMemberDto.a_id}" readonly disabled>          
-            <input type="password" name="a_pw" value="********" placeholder="비밀번호를 입력해 주세요."><br>                        
-            <input type="text" name="a_phone" th:value="${session.loginedAdminMemberDto.a_phone}"><br>
-            <button type="button" onclick="modifyAccountForm();">정보수정</button>
-            <button type="reset">초기화</button>
-        </form>
+      
+   
     </div>
     
     

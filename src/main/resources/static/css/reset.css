@@ -3,6 +3,10 @@
 /* reset */
 :root {
     --text-color: #333;
+    --gray-color: #b3b3b3;
+    --gray-light-color: #eaeaea;
+    --gray-dark-color: #838383;
+    --green-gray-color: #d3dfce;
     --main-color: #365a41;
     --main-light-color: #60866b;
     --main-dark-color: #243529;
@@ -66,6 +70,12 @@ table {
     font-size: 0;
     line-height: 0;
     overflow: hidden;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 a, button {

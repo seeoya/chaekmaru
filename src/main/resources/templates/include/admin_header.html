@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<header th:fragment="admin_header">
+    <div class="header-wrap" th:if="${session.loginedAdminMemberDto == null}">
+        <nav>
+            <a th:href="@{/admin}" class="sub-link">Home</a>
+            <a th:href="@{/admin/member/create_account_form}">관리자 회원가입</a>
+            <a th:href="@{/admin/member/login_form}">관리자 로그인</a>           
+        </nav>
+    </div>
+    
+    <div class="header-wrap" th:unless="${session.loginedAdminMemberDto == null}">
+        <nav>
+            <a th:href="@{/admin}" class="sub-link">Home</a>
+            <a th:href="@{/admin/book/book_regist_form}">BOOK 등록</a>
+            <a th:href="@{/admin/book/book_list_form}">BOOK LIST</a>
+            <a th:href="@{/admin/member/admin_list_form}">관리자 LIST</a>
+            <a th:href="@{/admin/member/modify_account_form}">관리자 정보수정</a>
+            <a th:href="@{/admin/member/logout_confirm}">관리자 로그아웃</a>                       
+        </nav>
+    </div>
+    
+</header>
+
+</html>
+
+
+
+            <nav>
+                <a th:href="@{/}" class="sub-link">문의게시판</a>
+                <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
+                <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
+            </nav>
+        </div>
+    </div>

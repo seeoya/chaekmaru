@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BookDto {
-	
+
 	private int b_no;
 	private String b_thumnail;
 	private String b_name;
@@ -19,5 +19,6 @@ public class BookDto {
 	private String b_reg_date;
 	private String b_mod_date;
 	
-
+	private double r_avg;
+	private int r_count;
 }

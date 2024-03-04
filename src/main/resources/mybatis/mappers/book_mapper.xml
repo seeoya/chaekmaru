@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maru.chaekmaru.book.IBookDao">
+
+	<select id="selectBook" parameterType="Integer"
+		resultType="com.maru.chaekmaru.book.BookDto">
+		SELECT * FROM TBL_BOOK WHERE B_NO = #{b_no} OR B_NO = #{b_no2}
+	</select>
+	
+	<select id="selectBestBooksByStar" parameterType="Integer"
+		resultType="com.maru.chaekmaru.book.BookDto">
+        
+ 		<![CDATA[
+		SELECT * FROM TBL_BOOK B JOIN  
+		(SELECT B_NO, AVG(R_STARS) as R_AVG, COUNT(*) as R_COUNT FROM TBL_REVIEW GROUP BY B_NO ORDER BY AVG(R_STARS) DESC) R 
+		ON B.B_NO  = R.B_NO WHERE ROWNUM <= #{count}
+		]]>
+	</select>
+	
+	
+	<select id="selectBestBooksByReviewCount" parameterType="Integer"
+		resultType="com.maru.chaekmaru.book.BookDto">
+ 		
+ 		<![CDATA[
+ 		SELECT * FROM TBL_BOOK B JOIN 
+ 		(SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT FROM TBL_REVIEW GROUP BY B_NO ORDER BY COUNT(*) DESC) R 
+ 		ON B.B_NO  = R.B_NO WHERE ROWNUM <= #{count}
+		]]>
+	</select>
+	
+
+	<select id="selectNewBooks" parameterType="Integer"
+		resultType="com.maru.chaekmaru.book.BookDto">
+ 		
+ 		<![CDATA[
+		SELECT * FROM
+		(SELECT * FROM TBL_BOOK ORDER BY B_REG_DATE DESC)
+		WHERE ROWNUM <= #{count}]]>
+	</select>
+
+
+</mapper>

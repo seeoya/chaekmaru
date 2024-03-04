@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
-<div th:fragment="content">
-    404 NOT FOUND
+<head>
+    <title>책마루 :: 404</title>
+</head>
+
+<div id="example_copy" class="content-wrap" layout:fragment="content">
+    <h2 class="title">존재하지 않는 페이지입니다.</h2>
+
+    <div class="content">
+        <p>URL을 다시 확인해주세요.</p>
+
+        <div class="btn-wrap">
+            <a th:href="@{/}" class="btn main full">메인으로</a>
+            <a th:href="@{/member/login_form}" class="btn sub full">로그인</a>
+        </div>
+    </div>
 </div>
 
 </html>

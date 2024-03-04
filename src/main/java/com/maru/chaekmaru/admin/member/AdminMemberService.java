@@ -38,24 +38,33 @@ public class AdminMemberService {
 	public AdminMemberDto loginConfirm(AdminMemberDto adminMemberDto) {
 		log.info("loginConfirm()");
 		
-		return adminMemberDao.selectAdmin(adminMemberDto);
+		return adminMemberDao.selectAdminForLogin(adminMemberDto);
 	}
 
-	public int modifyAccountConfirm(AdminMemberDto adminMemberDto) {
+	public AdminMemberDto modifyAccountConfirm(AdminMemberDto adminMemberDto) {
 		log.info("modifyAccountConfirm");
 		
-		return adminMemberDao.updateAdminForModify(adminMemberDto);
+		int result = adminMemberDao .updateAdminForModify(adminMemberDto);
+		
+		if(result > 0)
+			
+			return adminMemberDao.selectAdminForModify(adminMemberDto.getA_no());
+						
+		else 
+			
+			return null;
+		
 	}
 
-	public int deleteAccountConfirm(int a_no) {
+	public void deleteAccountConfirm(int a_no) {
 		log.info("deleteAccountConfirm");
 		
 		int result = adminMemberDao.deleteAdminAccount(a_no);
 		
 		if(result > 0)
-			return Config.DELETE_SUCCESS_AT_DATABASE;
+			log.info(Config.DELETE_SUCCESS_AT_DATABASE);
 		else 
-			return Config.DELETE_FAIL_AT_DATABASE;		
+			log.info(Config.DELETE_FAIL_AT_DATABASE);		
 		
 	}
 

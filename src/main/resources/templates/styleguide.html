@@ -1,44 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: {페이지 이름}</title>
-
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-    <!-- <script th:src="@{js/index.js}"></script> -->
+<title>책마루 :: {페이지 이름}</title>
 </head>
 
-<section id="style_guide" class="content-wrap" layout:fragment="content">
-    <h2 class="title">STYLE GUIDE</h2>
+<div id="style_guide" class="content-wrap" layout:fragment="content">
+	<h2 class="title">STYLE GUIDE</h2>
 
-    <div class="content">
+	<div class="content">
+		<div>
+			<div class="title">COLOR</div>
 
-        <div class="color">
-            <div class="title">COLOR</div>
+			<div class="box-wrap">
+				<div class="main">
+					<div class="box light">MAIN - LIGHT</div>
+					<div class="box">MAIN</div>
+					<div class="box dark">MAIN - DARK</div>
+				</div>
 
-            <div class="box-wrap">
-                <div class="main">
-                    <div class="box light">MAIN - LIGHT</div>
-                    <div class="box">MAIN</div>
-                    <div class="box dark">MAIN - DARK</div>
-                </div>
+				<div class="sub">
+					<div class="box light">SUB - LIGHT</div>
+					<div class="box">SUB</div>
+					<div class="box dark">SUB - DARK</div>
+				</div>
 
-                <div class="sub">
-                    <div class="box light">SUB - LIGHT</div>
-                    <div class="box">SUB</div>
-                    <div class="box dark">SUB - DARK</div>
-                </div>
+				<div class="highlight">
+					<div class="box light">HIGHLIGHT - LIGHT</div>
+					<div class="box">HIGHLIGHT</div>
+					<div class="box dark">HIGHLIGHT - DARK</div>
+				</div>
+			</div>
+		</div>
 
-                <div class="highlight">
-                    <div class="box light">HIGHLIGHT - LIGHT</div>
-                    <div class="box">HIGHLIGHT</div>
-                    <div class="box dark">HIGHLIGHT - DARK</div>
-                </div>
-            </div>
-        </div>
+		<div>
+			<div class="title">FORM(.form)</div>
 
-    </div>
-</section>
+			<div class="content">
+				<div class="">
+					<form action="" class="form">
+						<input type="text" placeholder="아이디를 입력하세요."> <input
+							type="password" placeholder="비밀번호를 입력하세요."> <select
+							name="" id="">
+							<option value="">기본값</option>
+							<option value="">값1</option>
+							<option value="">값2</option>
+						</select>
+
+						<button type="button" class="btn">btn</button>
+						<button type="button" class="btn main">btn main</button>
+						<button type="button" class="btn main bold">btn main bold</button>
+						<button type="button" class="btn sub">btn sub</button>
+						<button type="button" class="btn highlight">btn highlight</button>
+
+						<p>btn-wrap</p>
+						<div class="btn-wrap">
+							<button type="button" class="btn">btn</button>
+							<button type="button" class="btn">btn</button>
+						</div>
+
+						<p>버튼 너비</p>
+						<button type="button" class="btn half">btn half 50%</button>
+						<button type="button" class="btn over">btn over 75%</button>
+						<button type="button" class="btn full">btn full 100%</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
 
 </html>
