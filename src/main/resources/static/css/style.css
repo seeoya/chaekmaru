@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-.form input, .form select {
+.form input, .form select, input[type="search"] {
     display: inline-flex;
     padding: 10px 20px;
     width: 100%;
@@ -316,7 +316,7 @@ header .logo img {
     gap: 20px;
 }
 
-.content-wrap .title {
+.content-wrap h2.title {
     text-align: center;
     font-size: 3rem;
 }
@@ -328,6 +328,131 @@ header .logo img {
     align-items: center;
     min-width: 400px;
     gap: 10px;
+}
+
+/* 메인 */
+#index .item a div {
+    width: 100%;
+}
+
+#index .item .name {
+    font-weight: 600;
+}
+
+#index .item img {
+    width: 100%;
+    object-fit: contain;
+}
+
+#index .content {
+    gap: 80px;
+}
+
+#index .content > div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.banner {
+    width: 100%;
+}
+
+.banner img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.recommend .item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.recommend .item {
+    width: 50%;
+}
+
+.recommend .item a {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.recommend .item img {
+}
+
+.recommend .item .info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 5px;
+    overflow: hidden;
+}
+
+.recommend .item .name {
+    font-size: 2rem;
+}
+
+.best .item-wrap {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.best .item {
+    width: 100%;
+    overflow: hidden;
+}
+
+.best .item a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.best .item img {
+    height: 200px;
+}
+
+.best .item .name {
+    font-size: 1.6rem;
+}
+
+.new .item-wrap {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.new .item {
+    width: 100%;
+    overflow: hidden;
+}
+
+.new .item a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.new .item img {
+    height: 200px;
+}
+
+.new .item .name {
+    font-size: 1.6rem;
 }
 
 #style_guide {
