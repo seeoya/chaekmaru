@@ -28,7 +28,7 @@ public class BookController {
 			@RequestParam(required = false, value = "search", defaultValue = "") String search) {
 
 		int nowPage = Integer.parseInt(page);
-		int pageItem = 5;
+		int pageItem = 20;
 		
 		log.info(nowPage + "/" + search + "/" + sort);
 

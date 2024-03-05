@@ -75,8 +75,10 @@ public class BookService {
 			sortSql = "B_REG_DATE ASC";
 			break;
 		case "best":
+			sortSql = "R_AVG DESC";
 			break;
-		case "sales":
+		case "review":
+			sortSql = "R_COUNT DESC";
 			break;
 		case "price_low":
 			sortSql = "B_PRICE ASC";
@@ -104,8 +106,12 @@ public class BookService {
 		int count = bookDao.countListResult(search);
 		int allPage = (int) Math.ceil((double) count / pageItem);
 
-		if (nowPage != 1) {
+		if (nowPage > 3) {
 			listPageDtos.add(new ListPageDto("start", "start", 1));
+		}
+
+		if (nowPage - 3 > 0) {
+			listPageDtos.add(new ListPageDto("prev", "prev", nowPage - 3));
 		}
 
 		if (nowPage - 4 > 0 && nowPage + 2 > allPage) {
@@ -142,7 +148,11 @@ public class BookService {
 			listPageDtos.add(new ListPageDto("num", "num", nowPage + 4));
 		}
 
-		if (nowPage != allPage) {
+		if (nowPage + 3 <= allPage) {
+			listPageDtos.add(new ListPageDto("next", "next", nowPage + 3));
+		}
+		
+		if (nowPage <= allPage - 3) {
 			listPageDtos.add(new ListPageDto("end", "end", allPage));
 		}
 

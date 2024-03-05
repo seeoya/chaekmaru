@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-.form input, .form select, input[type="search"] {
+.form input, .form select, input[type="search"], .input {
     display: inline-flex;
     padding: 10px 20px;
     width: 100%;
@@ -307,7 +307,7 @@ header .logo img {
 
 /* 페이지 */
 .container {
-    padding: 30px 0;
+    padding: 50px 0 70px;
     min-height: 75vh;
 }
 
@@ -432,6 +432,12 @@ header .logo img {
     display: none;
 }
 
+/* 리스트 */
+
+.list-wrap .sort select {
+    width: 200px;
+}
+
 /* 스타일가이드 */
 #style_guide {
 }
@@ -493,6 +499,11 @@ header .logo img {
 
 /* 페이징 */
 .paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    width: 100%;
 }
 
 .paging-wrap {
@@ -507,6 +518,9 @@ header .logo img {
     justify-content: center;
     align-items: center;
     background-color: var(--sub-light-color);
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.4rem;
 }
 
 .paging a:hover {

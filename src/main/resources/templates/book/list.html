@@ -17,11 +17,11 @@
 
         <div class="list-wrap">
             <div class="sort">
-                <select name="list_sort" id="list_sort" th:data-link="@{/book/list(search=${search})}">
+                <select name="list_sort" id="list_sort" th:data-link="@{/book/list(search=${search})}" class="input">
                     <option value="new" th:selected="${sort} == 'new'">최신순</option>
                     <option value="old" th:selected="${sort} == 'old'">오래된 순</option>
                     <option value="best" th:selected="${sort} == 'best'">인기순</option>
-                    <option value="sales" th:selected="${sort} == 'sales'">판매량순</option>
+                    <option value="review" th:selected="${sort} == 'review'">리뷰많은순</option>
                     <option value="price_low" th:selected="${sort} == 'price_low'">낮은
                         가격 순</option>
                     <option value="price_high" th:selected="${sort} == 'price_high'">높은
@@ -52,7 +52,9 @@
                 <div class="paging-wrap">
                     <th:block th:each="paging : ${listPageDtos}">
                         <a th:if="${paging.type == 'start'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}">&lt;&lt;</a>
+                        <a th:if="${paging.type == 'prev'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &lt;</a>
                         <a th:if="${paging.type == 'num'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}">[[${paging.pageNum}]]</a>
+                        <a th:if="${paging.type == 'next'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &gt;</a>
                         <a th:if="${paging.type == 'end'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &gt;&gt;</a>
                     </th:block>
                 </div>

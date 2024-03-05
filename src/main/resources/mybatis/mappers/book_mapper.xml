@@ -43,10 +43,14 @@
 		resultType="com.maru.chaekmaru.book.BookDto">
  		
  		<![CDATA[
-
- 		SELECT * FROM  
- 		(SELECT ROWNUM NUM, B.* FROM 
- 		(SELECT * FROM TBL_BOOK WHERE B_NAME LIKE '%' ||  #{search} || '%' ORDER BY ${sortSql}) B) 
+ 		SELECT * FROM 
+ 		(SELECT ROWNUM NUM, A.* FROM 
+ 		(SELECT * FROM TBL_BOOK B JOIN 
+ 		(SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT 
+ 		FROM TBL_REVIEW GROUP BY B_NO ORDER BY COUNT(*) DESC) S
+ 		ON B.B_NO  = S.B_NO 
+ 		WHERE B.B_NAME LIKE '%' || #{search} || '%' 
+ 		ORDER BY ${sortSql}) A) 
  		WHERE NUM BETWEEN #{startNum} AND #{endNum}
 		]]>
 	</select>
