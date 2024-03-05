@@ -5,7 +5,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-결과
-<a th:href="@{/member/modify_form}">asdasdㅁㄴㅇ</a>
+		<h2 th:if="${result == 1 }">회원가입 성공</h2>
+        <h2 th:if="${result == 2 }">이미 존재하는 아이디입니다.</h2>
+        <h2 th:if="${result == 3 }">DB 에러</h2>
+        <h2 th:if="${result == 4 }">회원가입 실패</h2>
+        
+        <h2 th:if="${result == 5 }">로그인 성공</h2>
+        <h2 th:if="${result == 6 }">로그인 실패</h2>
+
+        <h2 th:if="${result == 7 }">정보수정 성공</h2>
+        <h2 th:if="${result == 8 }">정보수정 실패</h2>
+
+        <h2 th:if="${result == 9 }">계정삭제 성공</h2>
+        <h2 th:if="${result == 10 }">계정삭제 실패</h2>
+
+        <h2 th:if="${result == 11 }">회원계정 휴면처리 성공</h2>
+        <h2 th:if="${result == 12 }">회원계정 휴면처리 실패</h2>
+        
+        <h2 th:if="${result == 13 }">관리자 승인처리 성공</h2>
+        <h2 th:if="${result == 14 }">관리자 승인처리 실패</h2>
+       
+<a th:href="@{/member/modify_form}">회원정보수정</a>
+<a th:href="@{/admin}">관리자 홈</a>
 </body>
 </html>

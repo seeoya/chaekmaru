@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MyPointDto {
 	
-	private String p_book_point;
+	private int p_book_point;
 	private String p_mod_date;
 	
 	private String m_id;
@@ -22,5 +22,4 @@ public class MyPointDto {
 	private String m_reg_date;
 	private String m_mod_date;
 	
-
 }

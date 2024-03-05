@@ -29,7 +29,7 @@ public class AdminMemberController {
 	public String createAccountForm() {
 		log.info("createAccountForm()");
 		
-		String nextPage = "admin/member/create_account_form";
+		String nextPage = "/admin/member/create_account_form";
 		
 		return nextPage;		
 		
@@ -67,7 +67,7 @@ public class AdminMemberController {
 	public String loginForm(){
 		log.info("loginForm()");
 		
-		String nextPage = "admin/member/login_form";
+		String nextPage = "/admin/member/login_form";
 		
 		return nextPage;		
 		
@@ -99,7 +99,7 @@ public class AdminMemberController {
 	public String modifyAccountForm() {
 		log.info("modifyAccountForm()");
 		
-		String nextPage = "admin/member/modify_account_form";
+		String nextPage = "/admin/member/modify_account_form";
 		
 		return nextPage;		
 		
@@ -134,7 +134,7 @@ public class AdminMemberController {
 	public String logoutConfirm(HttpSession session) {
 		log.info("logoutConfirm()");
 		
-		String nextPage = "redirect:/";
+		String nextPage = "redirect:/admin";
 		
 		session.removeAttribute("loginedAdminMemberDto");
 		
@@ -144,28 +144,16 @@ public class AdminMemberController {
 	
 
 	@GetMapping("/delete_account_confirm")
-	public String deleteAccountConfirm(@RequestAttribute("a_no") int a_no, Model model) {
+	public String deleteAccountConfirm(@RequestParam("a_no") int a_no) {
 		log.info("deleteAccountConfirm()");
+		log.info(a_no);
+		String nextPage = "redirect:/admin/member/admin_list_form";
 		
-		String nextPage = "result";
+		adminMemberService.deleteAccountConfirm(a_no);
 		
-		int result = adminMemberService.deleteAccountConfirm(a_no);
+		return nextPage;
 		
-		switch (result) {
-		case Config.DELETE_SUCCESS_AT_DATABASE: 
-			model.addAttribute("result", Config.DELETE_SUCCESS_AT_DATABASE);
-			break;
-		
-		case Config.DELETE_FAIL_AT_DATABASE: 
-			model.addAttribute("result", Config.DELETE_FAIL_AT_DATABASE);
-			break;
-
-		}
-		
-		
-		
-		return nextPage;		
-		
+			
 	}
 	
 	
@@ -196,7 +184,7 @@ public class AdminMemberController {
 				
 		switch (result) {
 		case Config.SET_ADMIN_APPROVAL_SUCCESS_AT_DATABASE: 
-			model.addAttribute("result", Config.SET_ADMIN_APPROVAL_FAIL_AT_DATABASE);
+			model.addAttribute("result", Config.SET_ADMIN_APPROVAL_SUCCESS_AT_DATABASE);
 			break;
 		
 		case Config.SET_ADMIN_APPROVAL_FAIL_AT_DATABASE: 

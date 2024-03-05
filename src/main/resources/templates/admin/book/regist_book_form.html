@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 관리자 BOOK 등록</title>
+ 	
+    <script th:src="@{/js/form_check_admin.js}"></script>
+    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <!-- <script th:src="@{js/index.js}"></script> -->
+</head>
+
+<div id="example_copy" class="content-wrap" layout:fragment="content">
+    <h2 class="title">BOOK 등록</h2>
+        
+    <div class="content">
+     	 <form class="form" th:action="@{/admin/book/book_regist_confirm}" name="book_regist_form" method="post">
+     	 	<span>썸네일 링크</span>
+            <input type="text" name="b_thumbnail" placeholder="Thumbnail link">
+            <span>도서 이름</span>          
+            <input type="text" name="b_name" placeholder="Book Name">
+            <span>도서 저자</span>          
+            <input type="text" name="b_author" placeholder="Book Author">
+            <span>도서 소개</span>            
+            <input type="text" name="b_introduce" placeholder="Book introduce">
+            <span>출판사명</span>
+            <input type="text" name="b_publisher" placeholder="Book publisher">
+            <span>출판일</span>
+            <input type="text" name="b_publish_date" placeholder="Ex. 20240101">
+            <span>분류기호</span>
+            <input type="text" name="b_kdc" placeholder="KDC 분류기호">
+            <span>ISBN</span>
+            <input type="text" name="b_isbn" placeholder="ISBN">
+            <span>도서 가격</span>
+            <input type="text" name="b_price" placeholder="Ex. 15000">
+            <span>입고 수량</span>
+            <input type="text" name="b_count" placeholder="입고 수량">
+                                    
+            <button type="button" onclick="bookRegistForm();">등록</button>
+            <button type="reset">초기화</button>
+        </form>
+    </div>
+</div>
+
+</html>
