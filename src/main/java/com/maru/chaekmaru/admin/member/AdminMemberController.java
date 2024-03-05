@@ -144,10 +144,10 @@ public class AdminMemberController {
 	
 
 	@GetMapping("/delete_account_confirm")
-	public String deleteAccountConfirm(@RequestAttribute("a_no") int a_no) {
+	public String deleteAccountConfirm(@RequestParam("a_no") int a_no) {
 		log.info("deleteAccountConfirm()");
-		
-		String nextPage = "/admin/member/admin_list_form";
+		log.info(a_no);
+		String nextPage = "redirect:/admin/member/admin_list_form";
 		
 		adminMemberService.deleteAccountConfirm(a_no);
 		
@@ -177,7 +177,7 @@ public class AdminMemberController {
 	@GetMapping("/set_admin_approval")
 	public String setAdminApproval(@RequestParam("a_no") int a_no, Model model) {
 		log.info("setAdminApproval()");
-		log.info(a_no);
+		
 		String nextPage = "result";
 				
 		int result = adminMemberService.setAdminApproval(a_no);

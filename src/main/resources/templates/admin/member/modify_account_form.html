@@ -17,8 +17,8 @@
      	 <form class="form" th:action="@{/admin/member/modify_account_confirm}" name="modify_account_form" method="post">
      	 	<input type="hidden" name="a_no" th:value="${session.loginedAdminMemberDto.a_no}">
             <input type="text" name="a_id" th:value="${session.loginedAdminMemberDto.a_id}" readonly disabled>          
-            <input type="password" name="a_pw" placeholder="********"><br>                        
-            <input type="text" name="a_phone" th:value="${session.loginedAdminMemberDto.a_phone}"><br>
+            <input type="password" name="a_pw" placeholder="********">                        
+            <input type="text" name="a_phone" th:value="${session.loginedAdminMemberDto.a_phone}">
             <button type="button" onclick="modifyAccountForm();">정보수정</button>
             <button type="reset">초기화</button>
         </form>

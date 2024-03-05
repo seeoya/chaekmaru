@@ -23,6 +23,8 @@ public class Config {
 	final public static int SET_ADMIN_APPROVAL_SUCCESS_AT_DATABASE = 13;
 	final public static int SET_ADMIN_APPROVAL_FAIL_AT_DATABASE = 14;	
 	
-	
+	final public static int REGIST_BOOK_SUCCESS_AT_DATABASE = 15;	
+	final public static int BOOK_ALREADY_EXIST = 16;	
+	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 17;
 	
 }

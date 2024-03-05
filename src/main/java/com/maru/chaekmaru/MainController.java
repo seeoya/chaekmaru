@@ -20,9 +20,6 @@ import lombok.extern.log4j.Log4j2;
 public class MainController {
 
 	@Autowired
-	JdbcTemplate jdbcTemplate;
-
-	@Autowired
 	BookService bookService;
 
 	String nextPage = "";
@@ -31,7 +28,7 @@ public class MainController {
 	public String index(Model model) {
 		nextPage = "index";
 
-		ArrayList<BookDto> recommendBookDtos  = bookService.recommendItem();
+		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem();
 		model.addAttribute("recommend", recommendBookDtos);
 
 		ArrayList<BookDto> bestBookDtos = bookService.bestItem(5);
