@@ -41,7 +41,7 @@ public class AdminBookService {
 	public List<SaledBookDto> bookListForm() {
 		log.info("bookListForm()");
 				
-		return adminBookDao.selectAllBooks();;
+		return adminBookDao.selectAllBooks();
 	}
 	
 
