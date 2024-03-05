@@ -1,7 +1,3 @@
-/**
- *
- */
-
 /* Member */
 
 function createAccountForm() {
@@ -92,9 +88,8 @@ function loginForm() {
         alert("비밀번호를 입력해 주세요.");
         form.m_pw.focus();
     } else {
-		form.submit();
-	}
-    
+        form.submit();
+    }
 }
 
 /* 정보 수정 */

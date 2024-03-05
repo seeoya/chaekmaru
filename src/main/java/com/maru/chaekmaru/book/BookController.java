@@ -27,16 +27,20 @@ public class BookController {
 			@RequestParam(required = false, value = "page", defaultValue = "1") String page,
 			@RequestParam(required = false, value = "search", defaultValue = "") String search) {
 
-		int pageInt = Integer.parseInt(page);
-
-		log.info(page + "/" +  search + "/" + sort );
+		int nowPage = Integer.parseInt(page);
+		int pageItem = 5;
 		
-		ArrayList<BookDto> items = new ArrayList<>();
+		log.info(nowPage + "/" + search + "/" + sort);
 
-		items = bookService.setList(sort, pageInt, search);
+		ArrayList<BookDto> items = new ArrayList<>();
+		items = bookService.setList(sort, pageItem, nowPage, search);
+		
+		ArrayList<ListPageDto> listPageDtos = bookService.setPaging(pageItem, nowPage, search);
 
 		model.addAttribute("sort", sort);
-		model.addAttribute("page", pageInt);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("allPage", nowPage);
+		model.addAttribute("listPageDtos", listPageDtos);
 		model.addAttribute("search", search);
 		model.addAttribute("items", items);
 
