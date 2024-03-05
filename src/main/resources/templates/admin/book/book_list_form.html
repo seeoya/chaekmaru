@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 관리자 BOOK LIST</title>
+ 	
+    <script th:src="@{/js/form_check_admin.js}"></script>
+    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <!-- <script th:src="@{js/index.js}"></script> -->
+</head>
+
+<div id="example_copy" class="content-wrap" layout:fragment="content">
+    <h2 class="title">BOOK LIST</h2>
+        
+    <div class="content">
+    
+     	<table>
+    		<thead>
+    			<tr>
+    			
+    				<th>썸네일</th>
+    				<th>도서 이름</th>
+    				<th>도서 저자</th>
+    				<th>도서 소개</th>    				
+    				<th>출판사명</th>
+    				<th>출판일</th>
+    				<th>분류기호</th>
+    				<th>ISBN</th>
+    				<th>도서 가격</th>    						
+    				<th>재고 수량</th>
+    				<th>등록일</th>
+    				<th>수정일</th>    				    						
+    				<th>반품요청 ID</th>
+    				<th>반품요청 수량</th>
+    				<th>반품요청일</th>    				    				    						
+    				<th>반품승인</th>
+    				<th>도서수정</th>
+    				<th>도서삭제</th>
+    				    						
+    			
+    			</tr>   	
+    	
+    		</thead>
+    		
+    		<tbody>
+    			<tr th:each="list : ${bookListDtos}" >
+
+    				<td th:text="${list.b_no}"></td>
+    				<td th:text="${list.b_thumbnail}"></td>
+    				<td th:text="${list.b_name}"></td>
+    				<td th:text="${list.b_author}"></td>
+    				<td th:text="${list.b_introduce}"></td>
+    				<td th:text="${list.b_publisher}"></td>
+    				<td th:text="${list.b_publish_date}"></td>
+    				<td th:text="${list.b_kdc}"></td>
+    				<td th:text="${list.b_isbn}"></td>
+    				<td th:text="${list.b_price}"></td>
+    				<td th:text="${list.b_count}"></td>
+    				<td th:text="${list.b_reg_date}"></td>
+    				<td th:text="${list.b_mod_date}"></td>
+    				<td th:text="${list.m_id}"></td>
+    				<td th:text="${list.sb_return_count}"></td>
+    				<td th:text="${list.sb_return_date}"></td>
+    				
+    				   				 
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 1}">
+    				<a th:href="@{/admin/book/set_return_approval(b_no=${list.b_no}, sb_no=${list.sb_no}, sb_return_count=${list.sb_count})}">반품 승인</a></td>
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 1}">
+    				<a th:href="@{/admin/book/modify_book_form(b_no=${list.b_no})}">도서수정</a></td>
+    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
+    				<a th:href="@{/admin/book/delete_book_confirm(b_no=${list.b_no})}">도서삭제</a></td>    				    			
+    			
+    			</tr>
+    		
+    		</tbody>    	
+    	
+    	</table>
+       
+    </div>
+</div>
+
+</html>

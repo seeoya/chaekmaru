@@ -34,7 +34,7 @@ public class ReviewDto {
 	private String b_publish_date;
 	private String b_kdc;
 	private String b_isbn;
-	private String b_price;
+	private int b_price;
 	private int b_count;
 	private String b_reg_date;
 	private String b_mod_date;
