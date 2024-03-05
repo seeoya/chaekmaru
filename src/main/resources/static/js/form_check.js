@@ -1,7 +1,3 @@
-/**
- *
- */
-
 /* Member */
 
 function createAccountForm() {
@@ -92,9 +88,8 @@ function loginForm() {
         alert("비밀번호를 입력해 주세요.");
         form.m_pw.focus();
     } else {
-		form.submit();
-	}
-    
+        form.submit();
+    }
 }
 
 /* 정보 수정 */
@@ -122,4 +117,71 @@ function modifyForm() {
     } else {
         form.submit();
     }
+}
+
+/* ID 찾기 */
+function findIdForm() {
+    console.log("findIdForm!!");
+
+    let form = document.find_id_form;
+
+    if (form.m_name.value === "") {
+        alert("이름을 입력해 주세요.");
+        form.m_name.focus();
+    } else if (form.m_mail.value === "") {
+        alert("이메일을 입력해 주세요.");
+        form.m_mail.focus();
+    } else {
+		form.submit();
+	}
+    
+}
+
+function findIdForm() {
+	console.log("findIdForm!!");
+	let form = document.find_id_form;
+
+    if (form.m_name.value === "") {
+        alert("이름을 입력해 주세요.");
+        form.m_name.focus();
+    } else if (form.m_mail.value === "") {
+        alert("이메일을 입력해 주세요.");
+        form.m_mail.focus();
+    } else {
+		form.submit();
+	}
+}
+
+function findPwForm() {
+	console.log("findPwForm!!");
+	let form = document.find_pw_form;
+
+    if (form.m_id.value === "") {
+		alert("아이디를 입력해 주세요.");
+        form.m_id.focus();
+	} else if (form.m_name.value === "") {
+        alert("이름을 입력해 주세요.");
+        form.m_name.focus();
+    } else if (form.m_mail.value === "") {
+        alert("이메일을 입력해 주세요.");
+        form.m_mail.focus();
+    } else {
+		form.submit();
+	}
+}
+
+
+function pwModifyForm() {
+	console.log("pwModifyForm!!");
+	let form = document.pw_modify_form;
+
+    if (form.m_pw.value === "") {
+		alert("비밀번호를 입력해 주세요.");
+        form.m_pw.focus();
+	} else if (form.m_pw_again.value === "") {
+        alert("비밀번호 재입력칸을 입력해 주세요.");
+        form.m_pw_again.focus();
+    } else {
+		form.submit();
+	}
 }

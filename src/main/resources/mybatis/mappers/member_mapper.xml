@@ -40,6 +40,29 @@
 				 		
 	</select>
 	
+	
+	<select id="findIdByNameAndEmail"
+        	parameterType="map"
+        	resultType="String">
+		    SELECT 
+		        M_ID  
+		    FROM 
+		        TBL_MEMBER 
+		    WHERE 
+		        M_NAME = #{name} AND M_MAIL = #{email}
+	</select>
+	
+	<select id="selectthereIsId"
+        	parameterType="map"
+        	resultType="com.maru.chaekmaru.member.MemberDto">
+		    SELECT 
+		        *  
+		    FROM 
+		        TBL_MEMBER 
+		    WHERE 
+		        M_ID = #{id} AND M_NAME = #{name} AND M_MAIL = #{email}
+	</select>
+	
 	<update id="updateMemberForModify"
 			parameterType="com.maru.chaekmaru.member.MemberDto">
 			
@@ -54,6 +77,20 @@
 				M_MOD_DATE=SYSTIMESTAMP
 			WHERE 
 				M_ID=#{m_id}	
+	
+	</update>
+	
+	
+	
+	<update id="pwModifyConfirm"
+			parameterType="map">
+			
+			UPDATE 
+				TBL_MEMBER 
+			SET 
+				M_PW = #{m_pw}
+			WHERE 
+				M_ID = #{id}	
 	
 	</update>
 	

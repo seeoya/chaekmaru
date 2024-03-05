@@ -43,12 +43,22 @@
 		resultType="com.maru.chaekmaru.book.BookDto">
  		
  		<![CDATA[
-		SELECT * FROM (SELECT * FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%' ORDER BY #{sortSql})
-		WHERE ROWNUM > #{startNum} AND ROWNUM <= #{endNum}
+
+ 		SELECT * FROM  
+ 		(SELECT ROWNUM NUM, B.* FROM 
+ 		(SELECT * FROM TBL_BOOK WHERE B_NAME LIKE '%' ||  #{search} || '%' ORDER BY ${sortSql}) B) 
+ 		WHERE NUM BETWEEN #{startNum} AND #{endNum}
 		]]>
 	</select>
 	
 	
+	<select id="countListResult" parameterType="String"
+		resultType="Integer">
+ 		
+ 		<![CDATA[
+		SELECT COUNT(*) FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%'
+		]]>
+	</select>
 
 
 </mapper>

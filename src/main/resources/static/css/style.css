@@ -432,6 +432,7 @@ header .logo img {
     display: none;
 }
 
+/* 스타일가이드 */
 #style_guide {
 }
 
@@ -488,6 +489,36 @@ header .logo img {
 
 #style_guide .highlight .box.dark {
     background-color: var(--highlight-dark-color);
+}
+
+/* 페이징 */
+.paging {
+}
+
+.paging-wrap {
+    display: flex;
+    gap: 5px;
+}
+
+.paging a {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--sub-light-color);
+}
+
+.paging a:hover {
+    background-color: var(--sub-color);
+}
+
+.paging a.now {
+    background-color: var(--highlight-light-color);
+}
+
+.paging a.now:hover {
+    background-color: var(--highlight-color);
 }
 
 /* 푸터 */

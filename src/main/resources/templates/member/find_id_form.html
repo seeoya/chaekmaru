@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+
+<head>
+    <title>책마루 :: 아이디 찾기</title>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/form_check.js}"></script>
+</head>
+
+<div class="content-wrap" layout:fragment="content">
+    <h2 class="title">아이디 찾기</h2>
+
+    <div class="content">
+        <form th:action="@{/member/find_id_confirm}" name="find_id_form" method="post" class="form">
+        	<input type="text" name="m_name" placeholder="이름을 입력해 주세요.">
+            <input type="text" name="m_mail" placeholder="이메일을 입력해 주세요.">
+            <button type="button" onclick="findIdForm();" class="btn main">메일 발송</button>
+        </form>
+        <a th:href="@{/member/login_form}">로그인</a>
+    </div>
+</div>
+
+</html>
