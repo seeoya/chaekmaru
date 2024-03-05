@@ -1,6 +1,8 @@
 package com.maru.chaekmaru.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,10 @@ public class MemberService {
 	IMemberDaoForMybatis memberDao;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;	
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	JavaMailSender javaMailSender;
 	
 	public int memberAccountConfirm(MemberDto memberDto) {
 		log.info("--memberAccountConfirm--");
@@ -85,4 +90,36 @@ public class MemberService {
 		return memberDao.deleteMember(m_id);
 	}
 
+	public String findIdByNameAndEmail(String name, String email) {
+		log.info("findIdByNameAndEmail()");
+		String id = memberDao.findIdByNameAndEmail(name, email);
+		return id;
+	}
+
+	public void sendEmail(String email, String message) {
+		log.info("sendEmail()");
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(email);
+        mailMessage.setSubject("the result of your request");
+        mailMessage.setText(message);
+
+        javaMailSender.send(mailMessage);
+    }
+
+	public MemberDto thereIsId(String id, String name, String email) {
+		log.info("thereIsId()");
+		return (MemberDto) memberDao.selectthereIsId(id,name,email);
+	}
+
+	public int pwModifyConfirm(String id, String m_pw) {
+		log.info("pwModifyConfirm()");
+		
+		int result = memberDao.pwModifyConfirm(id,passwordEncoder.encode(m_pw));
+		
+		return result;
+	}
+	
+
 }
+
+
