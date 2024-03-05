@@ -30,11 +30,7 @@
     				<th>도서 가격</th>    						
     				<th>재고 수량</th>
     				<th>등록일</th>
-    				<th>수정일</th>    				    						
-    				<th>반품요청 ID</th>
-    				<th>반품요청 수량</th>
-    				<th>반품요청일</th>    				    				    						
-    				<th>반품승인</th>
+    				<th>수정일</th>    			
     				<th>도서수정</th>
     				<th>도서삭제</th>
     				    						
@@ -58,19 +54,13 @@
     				<td th:text="${list.b_price}"></td>
     				<td th:text="${list.b_count}"></td>
     				<td th:text="${list.b_reg_date}"></td>
-    				<td th:text="${list.b_mod_date}"></td>
-    				<td th:text="${list.m_id}"></td>
-    				<td th:text="${list.sb_return_count}"></td>
-    				<td th:text="${list.sb_return_date}"></td>
-    				
+    				<td th:text="${list.b_mod_date}"></td>    				
     				   				 
-    				<td th:if="${session.loginedAdminMemberDto.a_grade == 1}">
-    				<a th:href="@{/admin/book/set_return_approval(b_no=${list.b_no}, sb_no=${list.sb_no}, sb_return_count=${list.sb_count})}">반품 승인</a></td>
-    				<td th:if="${session.loginedAdminMemberDto.a_grade == 1}">
+    				<td th:if="${session.loginedAdminMemberDto.a_grade != 0}">
     				<a th:href="@{/admin/book/modify_book_form(b_no=${list.b_no})}">도서수정</a></td>
     				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
-    				<a th:href="@{/admin/book/delete_book_confirm(b_no=${list.b_no})}">도서삭제</a></td>    				    			
-    			
+    				<a href="#none" th:onclick="deleteBookConfirm(${list.b_no})">도서삭제</a></td>    				    			
+    			  
     			</tr>
     		
     		</tbody>    	

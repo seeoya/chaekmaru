@@ -14,7 +14,7 @@
     <h2 class="title">BOOK 등록</h2>
         
     <div class="content">
-     	 <form class="form" th:action="@{/admin/book/book_regist_confirm}" name="book_regist_form" method="post">
+     	 <form class="form" th:action="@{/admin/book/regist_book_confirm}" name="regist_book_form" method="post">
      	 	<span>썸네일 링크</span>
             <input type="text" name="b_thumbnail" placeholder="Thumbnail link">
             <span>도서 이름</span>          
@@ -36,8 +36,8 @@
             <span>입고 수량</span>
             <input type="text" name="b_count" placeholder="입고 수량">
                                     
-            <button type="button" onclick="bookRegistForm();">등록</button>
-            <button type="reset">초기화</button>
+            <button type="button" onclick="registBookForm();" class="btn main">등록</button>
+            <button type="reset" class="btn highlight">초기화</button>
         </form>
     </div>
 </div>

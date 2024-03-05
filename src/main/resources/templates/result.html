@@ -24,6 +24,13 @@
         
         <h2 th:if="${result == 13 }">관리자 승인처리 성공</h2>
         <h2 th:if="${result == 14 }">관리자 승인처리 실패</h2>
+        
+        <h2 th:if="${result == 15 }">도서등록 성공</h2>
+        <h2 th:if="${result == 16 }">이미 존재하는 도서입니다.</h2>                
+        <h2 th:if="${result == 17 }">도서등록 실패</h2>
+         
+        <h2 th:if="${result == 18 }">도서수정 성공</h2>
+        <h2 th:if="${result == 19 }">도서수정 실패</h2>
        
 <a th:href="@{/member/modify_form}">회원정보수정</a>
 <a th:href="@{/admin}">관리자 홈</a>

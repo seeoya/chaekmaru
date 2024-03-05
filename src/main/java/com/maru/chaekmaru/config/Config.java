@@ -27,4 +27,10 @@ public class Config {
 	final public static int BOOK_ALREADY_EXIST = 16;	
 	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 17;
 	
+	final public static int MODIFY_BOOK_SUCCESS_AT_DATABASE = 18;		
+	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 19;
+	
+	
+	
+	
 }

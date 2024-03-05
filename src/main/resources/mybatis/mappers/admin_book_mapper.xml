@@ -35,5 +35,48 @@
 				 		
 	</select>
 	
+	<select id="selectBookForModify"
+			parameterType="Integer"
+			resultType="com.maru.chaekmaru.book.BookDto">
+			
+			SELECT 
+				* 
+			FROM 
+				TBL_BOOK 
+			WHERE 
+				B_NO = #{b_no}
+				 		
+	</select>
 	
+	<update id="updateBookForModify"
+			parameterType="com.maru.chaekmaru.book.BookDto"	>
+			
+			UPDATE TBL_BOOK 
+			SET 
+				B_THUMBNAIL = #{b_thumbnail},
+				B_NAME = #{b_name},
+				B_AUTHOR = #{b_author},
+				B_INTRODUCE = #{b_introduce},
+				B_PUBLISHER = #{b_publisher},
+				B_PUBLISH_DATE = #{b_publish_date},
+				B_KDC = #{b_kdc},
+				B_ISBN = #{b_isbn},
+				B_PRICE = #{b_price},
+				B_COUNT = B_COUNT + #{b_count},
+				B_REG_DATE = SYSTIMESTAMP,
+				B_MOD_DATE = SYSTIMESTAMP 
+			WHERE 
+				B_NO = #{b_no}
+				 		
+	</update>
+	
+	<delete id="deleteBookConfirm"
+			parameterType="Integer">
+			
+			DELETE FROM 
+				TBL_BOOK 
+			WHERE 
+				B_NO=#{b_no}	
+	
+	</delete>
 </mapper>

@@ -14,7 +14,13 @@ public interface IAdminBookDaoForMybatis {
 
 	public int insertBook(BookDto bookDto);
 
-	public List<SaledBookDto> selectAllBooks();
+	public List<BookDto> selectAllBooks();
+
+	public BookDto selectBookForModify(int b_no);
+
+	public int updateBookForModify(BookDto bookDto);
+
+	public int deleteBookConfirm(int b_no);
 	
 	
 
