@@ -13,7 +13,6 @@ public class SaledBookDto {
 	private String sb_detail_addr;
 	private String sb_memo;
 	private String sb_sale_date;
-	private String sb_return_count;
 	private int sb_all_price;
 	private char sb_coupon;
 	private int sb_state;
