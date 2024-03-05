@@ -57,10 +57,10 @@ function modifyAccountForm() {
     }
 }
 
-function bookRegistForm() {
-    console.log("bookRegistForm!!");
+function registBookForm() {
+    console.log("registBookForm!!");
 
-    let form = document.book_regist_form;
+    let form = document.regist_book_form;
 	
 	if (form.b_thumbnail.value === "") {
         alert("Thumbnail link를 입력해 주세요.");
@@ -95,4 +95,56 @@ function bookRegistForm() {
     } else {
         form.submit();
     }
+}
+
+function modifyBookForm() {
+    console.log("modifyBookForm!!");
+
+    let form = document.modify_book_form;
+	
+	if (form.b_thumbnail.value === "") {
+        alert("Thumbnail link를 입력해 주세요.");
+        form.b_thumbnail.focus();        
+    } else if (form.b_name.value === "") {
+        alert("책 이름을 입력해 주세요.");
+        form.b_name.focus();
+    } else if (form.b_author.value === "") {
+        alert("책 저자를 입력해 주세요.");
+        form.b_author.focus();
+    } else if (form.b_introduce.value === "") {
+        alert("책 소개를 입력해 주세요.");
+        form.b_introduce.focus();
+    } else if (form.b_publisher.value === "") {
+        alert("출판사명을 입력해 주세요.");
+        form.b_publisher.focus();
+    } else if (form.b_publish_date.value === "") {
+        alert("출판일을 입력해 주세요.");
+        form.b_publish_date.focus();
+    } else if (form.b_kdc.value === "") {
+        alert("책 분류기호를 입력해 주세요.");
+        form.b_kdc.focus();
+    } else if (form.b_isbn.value === "") {
+        alert("ISBN을 입력해 주세요.");
+        form.b_isbn.focus();
+    } else if (form.b_price.value === "") {
+        alert("책 가격을 입력해 주세요.");
+        form.b_price.focus();
+    } else if (form.b_count.value === "") {
+        alert("입고 수량을 입력해 주세요.");
+        form.b_count.focus();
+    } else {
+        form.submit();
+    }  
+    
+}
+
+function deleteBookConfirm(b_no) {
+	console.log("deleteBookConfirm()", b_no);
+	
+	let result = confirm("정말 삭제하시겠습니까?");
+	if(result){
+		
+		location.href= "/admin/book/delete_book_confirm" + "?b_no=" + b_no;
+	}
+	
 }

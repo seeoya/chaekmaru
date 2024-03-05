@@ -14,30 +14,31 @@
     <h2 class="title">BOOK 등록</h2>
         
     <div class="content">
-     	 <form class="form" th:action="@{/admin/book/book_regist_confirm}" name="book_regist_form" method="post">
+     	 <form class="form" th:action="@{/admin/book/modify_book_confirm}" name="modify_book_form" method="post">
+     	 	<input type="hidden" name="b_no" th:value="${bookDto.b_no}">
      	 	<span>썸네일 링크</span>
-            <input type="text" name="b_thumbnail" placeholder="Thumbnail link">
+            <input type="text" name="b_thumbnail" th:value="${bookDto.b_thumbnail}">
             <span>도서 이름</span>          
-            <input type="text" name="b_name" placeholder="Book Name">
+            <input type="text" name="b_name" th:value="${bookDto.b_name}">
             <span>도서 저자</span>          
-            <input type="text" name="b_author" placeholder="Book Author">
+            <input type="text" name="b_author" th:value="${bookDto.b_author}">
             <span>도서 소개</span>            
-            <input type="text" name="b_introduce" placeholder="Book introduce">
+            <input type="text" name="b_introduce" th:value="${bookDto.b_introduce}">
             <span>출판사명</span>
-            <input type="text" name="b_publisher" placeholder="Book publisher">
+            <input type="text" name="b_publisher" th:value="${bookDto.b_publisher}">
             <span>출판일</span>
-            <input type="text" name="b_publish_date" placeholder="Ex. 20240101">
+            <input type="text" name="b_publish_date" th:value="${bookDto.b_publish_date}">
             <span>분류기호</span>
-            <input type="text" name="b_kdc" placeholder="KDC 분류기호">
+            <input type="text" name="b_kdc" th:value="${bookDto.b_kdc}">
             <span>ISBN</span>
-            <input type="text" name="b_isbn" placeholder="ISBN">
+            <input type="text" name="b_isbn" th:value="${bookDto.b_isbn}">
             <span>도서 가격</span>
-            <input type="text" name="b_price" placeholder="Ex. 15000">
+            <input type="text" name="b_price" th:value="${bookDto.b_price}">
             <span>입고 수량</span>
-            <input type="text" name="b_count" placeholder="입고 수량">
-                                    
-            <button type="button" onclick="bookRegistForm();">등록</button>
-            <button type="reset">초기화</button>
+            <input type="text" name="b_count" th:value="${bookDto.b_count}">
+             
+            <button type="button" onclick="modifyBookForm();" class="btn main">수정</button>
+            <button type="reset" class="btn highlight">초기화</button>
         </form>
     </div>
 </div>
