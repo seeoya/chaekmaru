@@ -11,6 +11,7 @@ public class SaledBookDto {
 	private String sb_addr;
 	private String sb_memo;
 	private String sb_sale_date;
+	private String sb_return_count;
 	private String sb_all_price;
 	private char sb_coupon;
 	private int sb_state;
@@ -33,10 +34,10 @@ public class SaledBookDto {
 	private String m_mod_date;
 	
 	private int b_no;
-	private String b_thumnail;
+	private String b_thumbnail;
 	private String b_name;
 	private String b_author;
-	private String b_intorduce;
+	private String b_introduce;
 	private String b_publisher;
 	private String b_publish_date;
 	private String b_kdc;

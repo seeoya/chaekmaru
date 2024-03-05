@@ -20,16 +20,16 @@
         <div class="recommend">
             <h2 class="title">오늘의 발견</h2>
 
-            <div class="item-wrap">
+            <div class="item-wrap list">
                 <div th:each="item: ${recommend}" class="item">
                     <!-- #TODO 상세 페이지 href 추가 -->
                     <a th:href="@{/}">
-                        <img th:src="${item.b_thumnail}" alt="" class="thum">
+                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
 
                         <div class="info">
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="author ellipsis">[[${item.b_author}]]</div>
-                            <div class="introduce">[[${item.b_intorduce}]]</div>
+                            <div class="introduce">[[${item.b_introduce}]]</div>
                             <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
                         </div>
                     </a>
@@ -40,11 +40,11 @@
         <div class="best">
             <h2 class="title">베스트셀러</h2>
 
-            <div class="item-wrap">
+            <div class="item-wrap gallery">
                 <div th:each="item: ${best}" class="item">
                     <!-- #TODO 상세 페이지 href 추가 -->
                     <a th:href="@{/}">
-                        <img th:src="${item.b_thumnail}" alt="" class="thum">
+                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
                         <div>
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="star ellipsis">[[${item.r_avg}]]([[${item.r_count}]])</div>
@@ -57,11 +57,11 @@
         <div class="new">
             <h2 class="title">새로운 책</h2>
 
-            <div class="item-wrap">
+            <div class="item-wrap gallery">
                 <div th:each="item: ${news}" class="item">
                     <!-- #TODO 상세 페이지 href 추가 -->
                     <a th:href="@{/}">
-                        <img th:src="${item.b_thumnail}" alt="" class="thum">
+                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
                         <div>
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="publisher ellipsis">[[${item.b_reg_date}]]</div>

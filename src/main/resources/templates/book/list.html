@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: {페이지 이름}</title>
+
+    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <!-- <script th:src="@{js/index.js}"></script> -->
+</head>
+
+<div class="content-wrap" layout:fragment="content">
+    <h2 class="title">리스트</h2>
+
+    <div class="content">
+
+        <aside>
+            <div class="category"></div>
+        </aside>
+
+        <div class="list-wrap">
+            <div class="sort">
+                <select name="list_sort" id="list_sort">
+                    <option value="new">최신순</option>
+                    <option value="old">오래된 순</option>
+                    <option value="best">인기순</option>
+                    <option value="sales">판매량순</option>
+                    <option value="price_low">낮은 가격 순</option>
+                    <option value="price_high">높은 가격 순</option>
+                    <option value="name_asc">이름순</option>
+                    <option value="name_desc">이름역순</option>
+                </select>
+            </div>
+
+            <div class="item-wrap gallery">
+                <div th:each="item: ${items}" class="item">
+                    <!-- #TODO 상세 페이지 href 추가 -->
+                    <a th:href="@{/}">
+                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
+
+                        <div class="info">
+                            <div class="name ellipsis">[[${item.b_name}]]</div>
+                            <div class="author ellipsis">[[${item.b_author}]]</div>
+                            <div class="price ellipsis">[[${item.b_price}]]</div>
+                            <div class="introduce">[[${item.b_introduce}]]</div>
+                            <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

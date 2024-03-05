@@ -6,7 +6,7 @@
 
 	<select id="selectBook" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
-		SELECT * FROM TBL_BOOK WHERE B_NO = #{b_no} OR B_NO = #{b_no2}
+		SELECT * FROM TBL_BOOK WHERE B_NO = #{b_no}
 	</select>
 	
 	<select id="selectBestBooksByStar" parameterType="Integer"
@@ -19,7 +19,6 @@
 		]]>
 	</select>
 	
-	
 	<select id="selectBestBooksByReviewCount" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
  		
@@ -30,7 +29,6 @@
 		]]>
 	</select>
 	
-
 	<select id="selectNewBooks" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
  		
@@ -39,6 +37,18 @@
 		(SELECT * FROM TBL_BOOK ORDER BY B_REG_DATE DESC)
 		WHERE ROWNUM <= #{count}]]>
 	</select>
+	
+	
+	<select id="setList" parameterType="map"
+		resultType="com.maru.chaekmaru.book.BookDto">
+ 		
+ 		<![CDATA[
+		SELECT * FROM (SELECT * FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%' ORDER BY #{sortSql})
+		WHERE ROWNUM > #{startNum} AND ROWNUM <= #{endNum}
+		]]>
+	</select>
+	
+	
 
 
 </mapper>
