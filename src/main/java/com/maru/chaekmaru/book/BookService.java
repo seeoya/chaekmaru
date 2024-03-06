@@ -75,10 +75,10 @@ public class BookService {
 			sortSql = "B_REG_DATE ASC";
 			break;
 		case "best":
-			sortSql = "R_AVG DESC";
+			sortSql = "R_AVG DESC NULLS LAST";
 			break;
 		case "review":
-			sortSql = "R_COUNT DESC";
+			sortSql = "R_COUNT DESC NULLS LAST";
 			break;
 		case "price_low":
 			sortSql = "B_PRICE ASC";
