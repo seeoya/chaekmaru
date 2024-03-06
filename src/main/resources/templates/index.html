@@ -22,9 +22,8 @@
 
             <div class="item-wrap list">
                 <div th:each="item: ${recommend}" class="item">
-                    <!-- #TODO 상세 페이지 href 추가 -->
-                    <a th:href="@{/}">
-                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
+                    <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
+                        <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
 
                         <div class="info">
                             <div class="name ellipsis">[[${item.b_name}]]</div>
@@ -42,9 +41,8 @@
 
             <div class="item-wrap gallery">
                 <div th:each="item: ${best}" class="item">
-                    <!-- #TODO 상세 페이지 href 추가 -->
-                    <a th:href="@{/}">
-                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
+                    <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
+                        <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
                         <div>
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="star ellipsis">[[${item.r_avg}]]([[${item.r_count}]])</div>
@@ -59,9 +57,8 @@
 
             <div class="item-wrap gallery">
                 <div th:each="item: ${news}" class="item">
-                    <!-- #TODO 상세 페이지 href 추가 -->
-                    <a th:href="@{/}">
-                        <img th:src="${item.b_thumbnail}" alt="" class="thum">
+                    <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
+                        <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
                         <div>
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="publisher ellipsis">[[${item.b_reg_date}]]</div>

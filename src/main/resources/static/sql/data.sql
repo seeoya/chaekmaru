@@ -1,5 +1,3 @@
-SET DEFINE OFF
-
 INSERT INTO TBL_BOOK (B_NO, B_ISBN, B_NAME, B_AUTHOR, B_PUBLISHER, B_PRICE, B_THUMBNAIL, B_INTRODUCE, B_KDC, B_PUBLISH_DATE) 
 VALUES (1, '9788928332045 ', '(쎈) 수학 I ', '집필: 홍범준,신사고수학콘텐츠연구회', '좋은책신사고', '16000', 'https://image.aladin.co.kr/product/28294/14/cover/8928332044_1.jpg', '개념 학습 이후의 수학 학습 방법으로 유형별 문제 학습을 선도적으로 제안하며 등장하여 최고의 자리를 지키고 있는 수학 문제 기본서의 대표 주자다. 문항 분석 방법, 보유하고 있는 방대한 데이터 베이스와 인프라를 바탕으로 한 쎈의 유형 분석과 문제 해결 방법을 수록하였다.', '410', '20221109');
 

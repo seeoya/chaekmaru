@@ -151,12 +151,16 @@ public class BookService {
 		if (nowPage + 3 <= allPage) {
 			listPageDtos.add(new ListPageDto("next", "next", nowPage + 3));
 		}
-		
+
 		if (nowPage <= allPage - 3) {
 			listPageDtos.add(new ListPageDto("end", "end", allPage));
 		}
 
 		return listPageDtos;
+	}
+
+	public BookDto setView(int b_no) {
+		return bookDao.selectBook(b_no);
 	}
 
 }
