@@ -23,11 +23,7 @@ public class BookService {
 		recommendBookDtos.add(bookDao.selectBook(randomNo));
 		recommendBookDtos.add(bookDao.selectBook(randomNo2));
 
-		if (recommendBookDtos != null) {
-			return recommendBookDtos;
-		} else {
-			return null;
-		}
+		return recommendBookDtos;
 	}
 
 	public ArrayList<BookDto> bestItem(int count) {

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.maru.chaekmaru.review.ReviewDto;
+import com.maru.chaekmaru.review.ReviewService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -20,6 +24,9 @@ public class BookController {
 
 	@Autowired
 	BookService bookService;
+
+	@Autowired
+	ReviewService reviewService;
 
 	String nextPage = "";
 
@@ -54,14 +61,15 @@ public class BookController {
 	@GetMapping("/view/{book_no}")
 	public String view(Model model, @PathVariable("book_no") String book_no) {
 		int b_no = Integer.parseInt(book_no);
-
-		log.info(b_no);
 		BookDto item = bookService.setView(b_no);
-
 		model.addAttribute("item", item);
 
+		ArrayList<ReviewDto> reviewDtos = new ArrayList<>();
+		reviewDtos = reviewService.setReviews(b_no);
+		model.addAttribute("reviews", reviewDtos);
+
 		nextPage = "/book/view";
-		
+
 		return nextPage;
 	}
 

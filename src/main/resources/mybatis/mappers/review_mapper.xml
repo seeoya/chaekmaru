@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maru.chaekmaru.review.IReviewDao">
+
+	<select id="selectReview" parameterType="Integer"
+		resultType="com.maru.chaekmaru.review.ReviewDto">
+		SELECT * FROM TBL_REVIEW WHERE R_NO = #{r_no}
+	</select>
+
+	<select id="selectReviewsByBNo" parameterType="Integer"
+		resultType="com.maru.chaekmaru.review.ReviewDto">
+        SELECT * FROM TBL_REVIEW WHERE B_NO = #{b_no}
+	</select>
+
+	<insert id="insertReview"
+		parameterType="com.maru.chaekmaru.review.ReviewDto">
+		INSERT INTO TBL_REVIEW VALUES(REVIEW_SEQ.NEXTVAL,
+		#{m_id}, #{b_no},
+		#{r_text}, #{r_stars}, SYSTIMESTAMP, SYSTIMESTAMP)
+	</insert>
+
+	<update id="modifyReview"
+		parameterType="com.maru.chaekmaru.review.ReviewDto">
+		UPDATE TBL_REVIEW SET R_TEXT = #{r_text}, R_STARS =
+		#{r_stars}, R_MOD_DATE =
+		SYSTIMESTAMP WHERE R_NO = #{r_no}
+	</update>
+
+	<delete id="deleteReview" parameterType="Integer">
+		DELETE TBL_REVIEW WHERE R_NO = #{r_no}
+	</delete>
+	
+	<select id="selectMyReviews" parameterType="String"
+	    resultType="com.maru.chaekmaru.review.ReviewDto">
+       SELECT * FROM TBL_REVIEW R JOIN TBL_BOOK B ON R.B_NO = B.B_NO WHERE M_ID = #{m_id}
+	</select>
+</mapper>
