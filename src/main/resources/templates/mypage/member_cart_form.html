@@ -15,25 +15,30 @@
     <div class="content">
         <form class="form" th:action="@{redirect:/mypage/member_cart_form}" name="membercart_form" method="post">
         	
-        			<!-- 넓이 대략 800 ~ 1000, 높이 300 ~ 400 -->
         	<div th:each="memberCartDtos : ${memberCartDtos}">
-        			
-        		<div>
-        			<img th:src="@{${memberCartDtos.b_thumnail}}" alt="book_thumnail" />
-        		</div>
-        		
-        		<div>
-        			<p th:text="${memberCartDtos.c_reg_date}">등록일자</p><br>
-       				<p th:text="${memberCartDtos.b_name}">도서 제목</p><br>
-       			</div>
-        		
-       			<div>
-       				<input type="number" th:value="${memberCartDtos.c_number}" />
-       				<a th:href="@{/mypage/payment_form}">결제하기</a>
-       				&nbsp;&nbsp;
-       				<a th:href="@{/mypage/payment_form}">장바구니 제거</a>
-       			</div>
-        		
+        	
+	        	<div>
+	        		<p th:text="${memberCartDtos.c_no}"></p>
+	        		<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+	        	</div>
+	        		
+	        	<div>
+	       			<p th:text="${memberCartDtos.c_reg_date}">등록일자</p><br>
+	      			<p th:text="${memberCartDtos.b_name}">도서 제목</p><br>
+	       		</div>
+	        		
+	       		<div>
+	       			<input type="number" name="c_book_count" th:value="${memberCartDtos.c_book_count}" />
+	       			<a th:href="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no},c_book_count=${memberCartDtos.c_book_count})}" >수량 수정</a>
+	       			<a th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}" >결제하기</a>
+	       			&nbsp;&nbsp;
+	       			<a th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}">장바구니 제거</a>
+	   			</div>
+       			
+       		</div>
+       		
+       		<div>
+       			<a th:href="@{/mypage/payment_form}" >모두 결제하기</a>
        		</div>
         	
         </form>
