@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: {페이지 이름}</title>
+</head>
+
+<div id="view" class="content-wrap" layout:fragment="content">
+    <h2 class="title"></h2>
+
+    <div class="content">
+        <div class="item-wrap list">
+            <div class="item">
+                <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
+
+                <div class="info">
+                    <div class="name ellipsis">[[${item.b_name}]]</div>
+                    <div class="author ellipsis">[[${item.b_author}]]</div>
+                    <div class="price ellipsis">[[${item.b_price}]]</div>
+                    <div class="introduce">[[${item.b_introduce}]]</div>
+                    <div class="publisher ellipsis">
+                        [[${item.b_publisher}]] /
+                        [[${item.b_publish_date}]]</div>
+                </div>
+            </div>
+
+            <div class="payment-btn-wrap">
+                <a href="#" class="btn">찜하기</a>
+                <a href="#" class="btn main">장바구니</a>
+                <a href="#" class="btn sub">바로결제</a>
+            </div>
+        </div>
+
+
+        <div class="review"></div>
+    </div>
+
+</div>
+</div>
+
+</html>
