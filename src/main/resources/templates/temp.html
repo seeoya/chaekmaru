@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+<title>책마루 :: {페이지 이름}</title>
+</head>
+
+<div id="example_copy" class="content-wrap" layout:fragment="content">
+	<script th:inline="javascript">
+
+		alert("로그인해주세요.");
+		location.href = [[ @{/member/login_form } ]]; 
+		
+</script>
+</div>
+
+</html>
