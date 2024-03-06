@@ -44,6 +44,41 @@
 			ORDER BY PL_REG_DATE DESC			
 	
 	</select>
+	
+	
+	<select id="selectUserPointForHistory"
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			SELECT *     
+			FROM TBL_POINT_LIST
+			WHERE M_ID = #{m_id} 
+			ORDER BY PL_REG_DATE DESC			
+	
+	</select>
+	
+	
+	<select id="selectUserPointForHistory"
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			SELECT *     
+			FROM TBL_POINT_LIST
+			WHERE M_ID = #{m_id} 
+			ORDER BY PL_REG_DATE DESC			
+	
+	</select>
+	
+	
+	<select id="selectAllUsers"				
+			resultType="com.maru.chaekmaru.member.MemberDto">
+			
+			SELECT *     
+			FROM TBL_MEMBER			 
+			ORDER BY M_ID			
+	
+	</select>
+	
 			
 	<update id="updaterActiveForUserState"
 			parameterType="String">
