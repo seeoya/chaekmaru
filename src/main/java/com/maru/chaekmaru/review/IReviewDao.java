@@ -17,4 +17,6 @@ public interface IReviewDao {
 
 	public int deleteReview(int r_no);
 
+	public ArrayList<ReviewDto> selectMyReviews(String m_id);
+
 }

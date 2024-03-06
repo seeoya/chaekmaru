@@ -39,5 +39,10 @@ public class ReviewService {
 
 		return result;
 	}
+	
+
+	public ArrayList<ReviewDto> setMyReview(String m_id) {
+		return reviewDao.selectMyReviews(m_id);
+	}
 
 }

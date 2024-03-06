@@ -1,5 +1,6 @@
 package com.maru.chaekmaru.mypage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.review.ReviewDto;
+import com.maru.chaekmaru.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Log4j2
 @Controller
@@ -21,6 +26,9 @@ public class MypageController {
 	
 	@Autowired
 	MypageService mypageService;
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	/*
 	 * 장바구니 목록
@@ -80,5 +88,19 @@ public class MypageController {
 		return nextPage;
 		
 	}
+	
+	@GetMapping("/my_review")
+	public String myReview(Model model, HttpSession session) {
+		String nextPage = "/mypage/my_review";
+		
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		
+		log.info(loginedMemberDto.getM_id());
+		ArrayList<ReviewDto> myReviews =  reviewService.setMyReview(loginedMemberDto.getM_id());
+		model.addAttribute("reviews", myReviews);
+		
+		return nextPage;
+	}
+	
 
 }
