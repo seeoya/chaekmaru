@@ -6,8 +6,14 @@
         <div class="header-wrap">
             <nav>
                 <a th:href="@{/}" class="sub-link">문의게시판</a>
-                <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
-                <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
+
+                <th:block th:if="${session.loginedMemberDto != null}">
+                    <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
+                </th:block>
+
+                <th:block th:if="${session.loginedMemberDto == null}">
+                    <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
+                </th:block>
             </nav>
         </div>
     </div>
@@ -15,9 +21,7 @@
     <div class="header-menu">
         <div class="header-wrap">
             <div class="logo">
-                <a th:href="@{/}">
-                    <img th:src="@{/img/dummy/1.jpg}" alt="logo">
-                </a>
+                <a th:href="@{/}"><img th:src="@{/img/logo3.png}" alt="책마루"></a>
             </div>
 
             <div class="search">
@@ -28,16 +32,12 @@
             </div>
 
             <nav class="cart-nav">
-                <a th:href="@{/}">주문내역</a>
-                <a th:href="@{/}">포인트충전</a>
-                <a th:href="@{/mypage/member_cart_form}">장바구니</a>
+                <a th:href="@{/}"><i class="fa-solid fa-receipt"></i></a>
+                <a th:href="@{/}"><i class="fa-solid fa-coins"></i></a>
+                <a th:href="@{/mypage/member_cart_form}"><i class="fa-solid fa-cart-shopping"></i></a>
             </nav>
         </div>
     </div>
-</header>
-
-<header th:fragment="login_header">
-    <!-- 로그인헤더 -->
 </header>
 
 <th:block th:fragment="logined_nav_sub_link">
@@ -47,13 +47,6 @@
 <th:block th:fragment="logouted_nav_sub_link">
     <a th:href="@{/member/create_accout_form}" class="sub-link">회원가입</a>
     <a th:href="@{/member/login_form}" class="sub-link">로그인</a>
-</th:block>
-
-<th:block th:fragment="logined_category_menu">
-    <ul>
-        <li><a th:href="@{/}">출석체크</a></li>
-        <li><span>{username}님</span></li>
-    </ul>
 </th:block>
 
 <section th:fragment="category" class="header-category">
@@ -67,9 +60,9 @@
         </nav>
 
         <nav>
-            <a th:href="@{/}" class="cate-link">출석체크</a>
-            <div th:href="@{/}" id="usermenu_btn" class="cate-link">
-                <p>{username}님</p>
+            <a th:href="@{/}" class="cate-link" th:if="${session[loginedMemberDto]} ne null">출석체크</a>
+            <div th:href="@{/}" id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberDto]} ne null">
+                <p>[[${session[loginedMemberDto].m_id}]]님</p>
 
                 <div class="usermenu-list">
                     <div class="point">
@@ -81,21 +74,17 @@
                         <a th:href="@{/}">찜 목록</a>
                         <a th:href="@{/}">장바구니</a>
                         <a th:href="@{/}">구매내역</a>
-                        <a th:href="@{/}">내가 쓴 리뷰</a>
+                        <a th:href="@{/mypage/my_review}">내가 쓴 리뷰</a>
                     </div>
 
                     <div class="member">
-                        <a th:href="@{/member/modify_confirm}">정보수정</a>
+                        <a th:href="@{/member/modify_form}">정보수정</a>
                         <a th:href="@{/member/logout_confirm}">로그아웃</a>
                     </div>
                 </div>
             </div>
-
         </nav>
-
     </div>
 </section>
-
-
 
 </html>

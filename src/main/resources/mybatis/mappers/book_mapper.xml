@@ -12,7 +12,7 @@
 	<select id="selectBestBooksByStar" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
         
- 		<![CDATA[
+        <![CDATA[
 		SELECT * FROM TBL_BOOK B JOIN  
 		(SELECT B_NO, AVG(R_STARS) as R_AVG, COUNT(*) as R_COUNT FROM TBL_REVIEW GROUP BY B_NO ORDER BY AVG(R_STARS) DESC) R 
 		ON B.B_NO  = R.B_NO WHERE ROWNUM <= #{count}
@@ -21,18 +21,18 @@
 	
 	<select id="selectBestBooksByReviewCount" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
- 		
- 		<![CDATA[
- 		SELECT * FROM TBL_BOOK B JOIN 
- 		(SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT FROM TBL_REVIEW GROUP BY B_NO ORDER BY COUNT(*) DESC) R 
- 		ON B.B_NO  = R.B_NO WHERE ROWNUM <= #{count}
+        
+        <![CDATA[
+        SELECT * FROM TBL_BOOK B JOIN 
+        (SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT FROM TBL_REVIEW GROUP BY B_NO ORDER BY COUNT(*) DESC) R 
+        ON B.B_NO  = R.B_NO WHERE ROWNUM <= #{count}
 		]]>
 	</select>
 	
 	<select id="selectNewBooks" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
- 		
- 		<![CDATA[
+        
+        <![CDATA[
 		SELECT * FROM
 		(SELECT * FROM TBL_BOOK ORDER BY B_REG_DATE DESC)
 		WHERE ROWNUM <= #{count}]]>
@@ -41,28 +41,27 @@
 	
 	<select id="setList" parameterType="map"
 		resultType="com.maru.chaekmaru.book.BookDto">
- 		
- 		<![CDATA[
- 		SELECT * FROM 
- 		(SELECT ROWNUM NUM, A.* FROM 
- 		(SELECT * FROM TBL_BOOK B JOIN 
- 		(SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT 
- 		FROM TBL_REVIEW GROUP BY B_NO ORDER BY COUNT(*) DESC) S
- 		ON B.B_NO  = S.B_NO 
- 		WHERE B.B_NAME LIKE '%' || #{search} || '%' 
- 		ORDER BY ${sortSql}) A) 
- 		WHERE NUM BETWEEN #{startNum} AND #{endNum}
+        
+        <![CDATA[
+        SELECT * FROM 
+        (SELECT ROWNUM NUM, A.* FROM 
+        (SELECT * FROM TBL_BOOK B LEFT OUTER JOIN 
+        (SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT 
+        FROM TBL_REVIEW GROUP BY B_NO) S
+        ON B.B_NO  = S.B_NO 
+        WHERE B.B_NAME LIKE '%' || #{search} || '%' 
+        ORDER BY ${sortSql}) A) 
+        WHERE NUM BETWEEN #{startNum} AND #{endNum}
 		]]>
 	</select>
 	
 	
 	<select id="countListResult" parameterType="String"
 		resultType="Integer">
- 		
- 		<![CDATA[
-		SELECT COUNT(*) FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%'
-		]]>
+        
+        <![CDATA[
+        SELECT COUNT(*) FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%'
+        ]]>
 	</select>
-
 
 </mapper>

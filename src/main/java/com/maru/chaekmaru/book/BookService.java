@@ -23,11 +23,7 @@ public class BookService {
 		recommendBookDtos.add(bookDao.selectBook(randomNo));
 		recommendBookDtos.add(bookDao.selectBook(randomNo2));
 
-		if (recommendBookDtos != null) {
-			return recommendBookDtos;
-		} else {
-			return null;
-		}
+		return recommendBookDtos;
 	}
 
 	public ArrayList<BookDto> bestItem(int count) {
@@ -75,10 +71,10 @@ public class BookService {
 			sortSql = "B_REG_DATE ASC";
 			break;
 		case "best":
-			sortSql = "R_AVG DESC";
+			sortSql = "R_AVG DESC NULLS LAST";
 			break;
 		case "review":
-			sortSql = "R_COUNT DESC";
+			sortSql = "R_COUNT DESC NULLS LAST";
 			break;
 		case "price_low":
 			sortSql = "B_PRICE ASC";
@@ -151,12 +147,16 @@ public class BookService {
 		if (nowPage + 3 <= allPage) {
 			listPageDtos.add(new ListPageDto("next", "next", nowPage + 3));
 		}
-		
+
 		if (nowPage <= allPage - 3) {
 			listPageDtos.add(new ListPageDto("end", "end", allPage));
 		}
 
 		return listPageDtos;
+	}
+
+	public BookDto setView(int b_no) {
+		return bookDao.selectBook(b_no);
 	}
 
 }

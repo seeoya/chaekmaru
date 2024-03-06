@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-.form input, .form select, input[type="search"], .input {
+.form input, .form select, .form textarea, input[type="search"], .input {
     display: inline-flex;
     padding: 10px 20px;
     width: 100%;
@@ -154,7 +154,7 @@ header .member-menu .link-sub {
 
 header .logo {
     width: 200px;
-    height: 60px;
+    height: 80px;
 }
 
 header .logo a {
@@ -211,8 +211,16 @@ header .logo img {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.header-menu .cart-nav a:hover {
+    background-color: #777;
 }
 
 .header-category .category-wrap {
@@ -237,7 +245,11 @@ header .logo img {
 }
 
 .header-category #usermenu_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
+    min-width: 130px;
 }
 
 .header-category .usermenu-list {
@@ -246,12 +258,13 @@ header .logo img {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    top: 40px;
+    top: 45px;
     left: 0;
     width: 100%;
     padding: 0 10px;
     background-color: #e6e6e6;
     text-align: center;
+    z-index: 999;
 }
 
 .header-category .usermenu-list div {
@@ -367,6 +380,7 @@ header .logo img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     gap: 20px;
 }
 
@@ -390,6 +404,7 @@ header .logo img {
 
 .item-wrap.list .item .name {
     font-size: 2rem;
+    font-weight: 600;
 }
 
 .item-wrap.gallery {
@@ -426,6 +441,7 @@ header .logo img {
 
 .item-wrap.gallery .item .name {
     font-size: 1.6rem;
+    font-weight: 600;
 }
 
 .item-wrap.gallery .author, .item-wrap.gallery .introduce, .item-wrap.gallery .publisher {
@@ -433,7 +449,6 @@ header .logo img {
 }
 
 /* 리스트 */
-
 .list-wrap .sort select {
     width: 200px;
 }
@@ -495,6 +510,20 @@ header .logo img {
 
 #style_guide .highlight .box.dark {
     background-color: var(--highlight-dark-color);
+}
+
+/* view */
+#view .item {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+#view .payment-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
 }
 
 /* 페이징 */
@@ -608,4 +637,26 @@ footer .util_footer .btn {
 footer .join_footer {
     display: flex;
     gap: 10px;
+}
+
+/* login form */
+.login_link_wrap {
+    display: flex;
+    gap: 10px;
+}
+
+.login_link_wrap a {
+    padding: 10px 20px;
+    position: relative;
+}
+
+.login_link_wrap a:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 20px;
+    background-color: #000;
+    position: absolute;
+    top: 10px;
+    right: -6px;
 }
