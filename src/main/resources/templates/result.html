@@ -31,6 +31,12 @@
          
         <h2 th:if="${result == 18 }">도서수정 성공</h2>
         <h2 th:if="${result == 19 }">도서수정 실패</h2>
+        
+        <h2 th:if="${result == 20 }">포인트 수정 성공</h2>             
+        <h2 th:if="${result == 21 }">포인트 수정 실패</h2>
+        
+        <h2 th:if="${result == 22 }">회원계정 비활성화 성공</h2>             
+        <h2 th:if="${result == 23 }">회원계정 비활성화 실패</h2>
        
 <a th:href="@{/member/modify_form}">회원정보수정</a>
 <a th:href="@{/admin}">관리자 홈</a>

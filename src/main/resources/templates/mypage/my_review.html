@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: 내가 쓴 리뷰</title>
+</head>
+
+<div class="content-wrap" layout:fragment="content">
+    <h2 class="title">내가 쓴 리뷰</h2>
+
+    <div class="content">
+        <div class="review-list">
+            <div class="review-item" th:each="review: ${reviews}">
+
+                <img th:src="${review.b_thumbnail}" th:alt="${review.b_name}" />
+
+                <div>
+                    <div class="name">[[${review.b_name}]]</div>
+                    <div class="date" th:if="${review.r_reg_date == review.r_mod_date}">[[${review.r_reg_date}]]</div>
+                    <div class="date" th:if="${review.r_reg_date != review.r_mod_date}">[[${review.r_reg_date}]] / [[${review.r_mod_date}]]</div>
+                    <div class="text">[[${review.r_text}]]</div>
+                    <div class="stars">[[${review.r_stars}]]</div>
+
+                    <div class="review-btn-wrap">
+                        <button type="button" class="btn main modify-review">수정</button>
+                        <a th:href="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}" class="btn sub">삭제</a>
+                    </div>
+
+                    <div class="modify-wrap" style="display: none;">
+                        <form th:action="@{/review/modify_confirm(r_no=${review.r_no})}" name="review_modify_form" method="post" class="form">
+                            <input type="hidden" name="b_no" th:value="${review.b_no}" />
+                            <textarea name="r_text" cols="30" rows="10" placeholder="리뷰 내용을 작성해주세요.">[[${review.r_text}]]</textarea>
+                            <input type="number" name="r_stars" th:value="${review.r_stars}">
+                            <button type="submit">리뷰 수정</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelectorAll(".modify-review").forEach(el => {
+                el.addEventListener("click", function (e) {
+
+                    let modifyWrap = this.parentElement.nextSibling.nextSibling;
+
+                    if (modifyWrap.style.display == "none") {
+                        modifyWrap.style.display = "flex";
+                    } else {
+                        modifyWrap.style.display = "none";
+                    }
+                })
+            });
+
+        })
+    </script>
+
+</div>
+
+</html>

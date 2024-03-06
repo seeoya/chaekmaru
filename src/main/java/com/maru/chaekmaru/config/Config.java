@@ -30,6 +30,11 @@ public class Config {
 	final public static int MODIFY_BOOK_SUCCESS_AT_DATABASE = 18;		
 	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 19;
 	
+	final public static int MODIFY_POINT_SUCCESS_AT_DATABASE = 20;	
+	final public static int MODIFY_POINT_FAIL_AT_DATABASE = 21;
+	
+	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 22;
+	final public static int USER_ACCOUNT_UNACTIVE_FAIL = 23;
 	
 	
 	
