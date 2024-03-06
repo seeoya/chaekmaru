@@ -7,6 +7,8 @@ public class MyPointListDto {
 	
 	private int pl_payment_book_point;
 	private String pl_reg_date;
+	private String pl_desc;
+	
 	
 	private String m_id;
 	private String m_pw;
