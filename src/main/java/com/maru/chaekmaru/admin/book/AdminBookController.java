@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.maru.chaekmaru.admin.member.AdminMemberDto;
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
-import com.maru.chaekmaru.shop.SaledBookDto;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
