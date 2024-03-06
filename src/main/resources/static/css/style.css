@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-.form input, .form select, input[type="search"], .input {
+.form input, .form select, .form textarea, input[type="search"], .input {
     display: inline-flex;
     padding: 10px 20px;
     width: 100%;
@@ -371,6 +371,7 @@ header .logo img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     gap: 20px;
 }
 
@@ -505,6 +506,7 @@ header .logo img {
 /* view */
 #view .item {
     display: flex;
+    width: 100%;
     gap: 20px;
 }
 
