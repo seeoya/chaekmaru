@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.config.Config;
+import com.maru.chaekmaru.config.WebMvcConfig;
 
 import lombok.extern.log4j.Log4j2;
 
