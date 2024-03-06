@@ -11,7 +11,6 @@ public class MyPointListDto {
 	private String m_id;
 	private String m_pw;
 	private String m_name;
-	private String m_nickname;
 	private String m_mail;
 	private String m_phone;
 	private String m_addr_code;
@@ -23,7 +22,7 @@ public class MyPointListDto {
 	private String m_mod_date;
 	
 	private String sb_no;
-	private int sb_number;
+	private int sb_book_count;
 	private String sb_name;
 	private String sb_addr_code;
 	private String sb_addr;
@@ -50,8 +49,5 @@ public class MyPointListDto {
 	private int b_count;
 	private String b_reg_date;
 	private String b_mod_date;
-	
-	private int p_book_point;
-	private String p_mod_date;
 	
 }
