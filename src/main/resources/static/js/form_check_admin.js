@@ -138,13 +138,51 @@ function modifyBookForm() {
     
 }
 
+function deleteAdminConfirm(a_no) {
+	console.log("deleteAdminConfirm()");
+	
+	let result = confirm("정말 삭제하시겠습니까?");
+	if(result){
+		
+		location.href= "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
+	}
+	
+}
+
 function deleteBookConfirm(b_no) {
-	console.log("deleteBookConfirm()", b_no);
+	console.log("deleteBookConfirm()");
 	
 	let result = confirm("정말 삭제하시겠습니까?");
 	if(result){
 		
 		location.href= "/admin/book/delete_book_confirm" + "?b_no=" + b_no;
+	}
+	
+}
+
+function modifyPointForm() {
+    console.log("modifyPointForm!!");
+
+    let form = document.modify_point_form;
+	
+	if (form.pl_payment_book_point.value === "") {
+        alert("적립하거나 차감할 포인트를 입력해 주세요.");
+        form.pl_payment_book_point.focus();        
+    
+    } else {
+        form.submit();
+    }  
+    
+}
+
+
+function userAccountActiveConfirm(m_id) {
+	console.log("userAccountActiveConfirm()");
+	
+	let result = confirm("정말 비활성화하시겠습니까?");
+	if(result){
+		
+		location.href= "/admin/shop/user_account_active_confirm" + "?m_id=" + m_id;
 	}
 	
 }

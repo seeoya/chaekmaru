@@ -1,0 +1,57 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maru.chaekmaru.admin.shop.IAdminShopDaoForMybatis">
+
+	
+	<select id="selectAllUserPointsForSum"			
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			SELECT M_ID, SUM(PL_PAYMENT_BOOK_POINT) AS PL_PAYMENT_BOOK_POINT   
+			FROM TBL_POINT_LIST						 			   			 
+			GROUP BY M_ID 
+	
+	</select>
+	
+	<select id="selectUserPointForModify"
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			SELECT M_ID, SUM(PL_PAYMENT_BOOK_POINT) AS PL_PAYMENT_BOOK_POINT   
+			FROM TBL_POINT_LIST						 			   			 
+			WHERE M_ID = #{m_id}
+			GROUP BY M_ID  
+	
+	</select>
+		
+
+	<insert id="insertPointForMyPointList"
+			parameterType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			INSERT INTO 
+				TBL_POINT_LIST(M_ID, PL_PAYMENT_BOOK_POINT, PL_REG_DATE)    
+				VALUES(#{m_id}, #{pl_payment_book_point}, SYSTIMESTAMP)			
+					 		
+	</insert>
+	
+		
+	<select id="selectUserPointForHistory"
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			SELECT *     
+			FROM TBL_POINT_LIST
+			WHERE M_ID = #{m_id} 
+			ORDER BY PL_REG_DATE DESC			
+	
+	</select>
+			
+	<update id="updaterActiveForUserState"
+			parameterType="String">
+			
+			UPDATE TBL_MEMBER 
+			SET M_STATE = 0 
+			WHERE M_ID = #{m_id}			
+			
+	</update>
+	
+</mapper>
