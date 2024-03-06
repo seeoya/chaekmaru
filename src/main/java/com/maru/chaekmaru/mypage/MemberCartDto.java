@@ -9,7 +9,7 @@ import lombok.Data;
 public class MemberCartDto {
 	
 	private int c_no;
-	private int c_number;
+	private int c_book_count;
 	private String c_reg_date;
 	private String c_mod_date;
 	
