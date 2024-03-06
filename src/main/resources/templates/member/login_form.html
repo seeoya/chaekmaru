@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/layout}">
 
 <head>
     <title>책마루 :: 로그인</title>
@@ -16,10 +17,12 @@
             <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
             <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요."><br>
             <button type="button" onclick="loginForm();" class="btn main">로그인</button>
-            <button type="reset" class="btn highlight">초기화</button>
         </form>
-        <a th:href="@{/member/find_id_form}">ID 찾기</a>
-        <a th:href="@{/member/find_pw_form}">PW 찾기</a>
+        <div class="login_link_wrap">
+            <a th:href="@{/member/create_accout_form}">회원가입</a>
+            <a th:href="@{/member/find_id_form}">ID 찾기</a>
+            <a th:href="@{/member/find_pw_form}" class="last">PW 찾기</a>
+        </div>
     </div>
 </div>
 
