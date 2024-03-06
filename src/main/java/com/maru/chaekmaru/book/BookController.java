@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,12 +30,12 @@ public class BookController {
 
 		int nowPage = Integer.parseInt(page);
 		int pageItem = 20;
-		
+
 		log.info(nowPage + "/" + search + "/" + sort);
 
 		ArrayList<BookDto> items = new ArrayList<>();
 		items = bookService.setList(sort, pageItem, nowPage, search);
-		
+
 		ArrayList<ListPageDto> listPageDtos = bookService.setPaging(pageItem, nowPage, search);
 
 		model.addAttribute("sort", sort);
@@ -48,6 +49,20 @@ public class BookController {
 
 		return nextPage;
 
+	}
+
+	@GetMapping("/view/{book_no}")
+	public String view(Model model, @PathVariable("book_no") String book_no) {
+		int b_no = Integer.parseInt(book_no);
+
+		log.info(b_no);
+		BookDto item = bookService.setView(b_no);
+
+		model.addAttribute("item", item);
+
+		nextPage = "/book/view";
+		
+		return nextPage;
 	}
 
 }

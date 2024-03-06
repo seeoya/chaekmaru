@@ -3,63 +3,57 @@
 
 <footer th:fragment="default_footer">
     <div class="footer-wrap">
-        
-			<div class="top_footer">
-				
+        <div class="bottom_wrap">
+            <div class="logo">
+                <a th:href="@{/}">
+                    <img th:src="@{/img/logo3.png}" alt="logo">
+                </a>
+            </div>
+            <div class="info_footer">
+                <div class="info_a">
+                    <a>회사소개</a> |
+                    <a>이용약관</a> |
+                    <a>개인정보처리방침</a> |
+                    <a>청소년보호정책</a> |
+                    <a>대량주문안내</a> |
+                    <a>채용정보</a> |
+                    <a th:href="@{/admin}">관리자 모드</a>
+                </div>
+                <div class="info_txt">
+                    <h5>대표이사 : 김수영</h5>
+                    <h5>경기도 의정부시 시민로 80 센트럴타워 6층</h5>
+                    <h5>사업자등록번호 : 100-2024-0304</h5>
+                    <h5>FAX : 0502-320-9400</h5>
+                </div>
+                <div>
+                    <h4>@Copyright. 책마루 All right reserved.</h4>
+                </div>
+                <div class="join_footer">
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/dummy/1.jpg}" alt="">
+                    </a>
 
-			</div>
-			<div class="bottom_wrap">
-				<div class="logo">
-					<a th:href="@{/}">
-						<img th:src="@{/img/dummy/logo3.png}" alt="logo">
-					</a>
-				</div>
-				<div class="info_footer">
-					<div class="info_a">
-						<a>회사소개</a> | 
-						<a>이용약관</a> | 
-						<a>개인정보처리방침</a> | 
-						<a>청소년보호정책</a> | 
-						<a>대량주문안내</a> | 
-						<a>채용정보</a> |
-						<a th:href="@{/admin}">관리자 모드</a>
-					</div>
-					<div class="info_txt">
-						<h5>대표이사 : 김수영</h5>
-						<h5>경기도 의정부시 시민로 80 센트럴타워 6층</h5>
-						<h5>사업자등록번호 : 100-2024-0304</h5>
-						<h5>FAX : 0502-320-9400</h5> 	
-					</div>
-					<div>
-						<h4>@Copyright. 책마루 All right reserved.</h4>
-					</div>
-					<div class="join_footer">
-						<a th:href="@{/}">
-							<img th:src="@{/img/dummy/1.jpg}" alt="logo">
-						</a>
-						
-						<a th:href="@{/}">
-							<img th:src="@{/img/dummy/2.jpg}" alt="logo">
-						</a>
-						
-						<a th:href="@{/}">
-							<img th:src="@{/img/dummy/2.jpg}" alt="logo">
-						</a>
-						
-						<a th:href="@{/}">
-							<img th:src="@{/img/dummy/2.jpg}" alt="logo">
-						</a>
-					</div>	
-				</div>
-				
-				<div class="util_footer">
-					<div class="btn_footer">
-						<button	button type="button" class="btn sub">고객센터 : 010-2024-0304</button>
-						<button	button type="button" class="btn sub">1:1 문의</button>
-					</div>
-				</div>
-			</div>
-        
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/dummy/2.jpg}" alt="">
+                    </a>
+
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/dummy/2.jpg}" alt="">
+                    </a>
+
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/dummy/2.jpg}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="util_footer">
+                <div class="btn_footer">
+                    <button type="button" class="btn sub">고객센터 : 010-2024-0304</button>
+                    <button type="button" class="btn sub">1:1 문의</button>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 

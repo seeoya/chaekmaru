@@ -6,7 +6,7 @@ import lombok.Data;
 public class SaledBookDto {
 	
 	private String sb_no;
-	private int sb_number;
+	private int sb_book_count;
 	private String sb_name;
 	private String sb_addr_code;
 	private String sb_addr;
@@ -23,7 +23,6 @@ public class SaledBookDto {
 	private String m_id;
 	private String m_pw;
 	private String m_name;
-	private String m_nickname;
 	private String m_mail;
 	private String m_phone;
 	private String m_addr_code;
@@ -47,7 +46,5 @@ public class SaledBookDto {
 	private int b_count;
 	private String b_reg_date;
 	private String b_mod_date;
-	
-	
 
 }
