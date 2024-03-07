@@ -186,3 +186,40 @@ function userAccountActiveConfirm(m_id) {
 	}
 	
 }
+
+function returnApprovalConfirm(sb_no, b_no, sb_book_count) {
+	console.log("returnApprovalConfirm()");
+	
+	let result = confirm("정말 반품 승인을 하시겠습니까?");
+	if(result){
+		
+		location.href= "/admin/shop/return_approval_confirm" + "?s_no=" + sb_no + ",b_no=" + b_no  + ",sb_book_count=" + sb_book_count;
+	}
+	
+}
+
+function returnNotApprovedConfirm(s_no) {
+	console.log("returnNotApprovedConfirm()");
+	
+	let result = confirm("정말 반품 승인불가 처리를 하시겠습니까?");
+	if(result){
+		
+		location.href= "/admin/shop/return_notapproved_confirm" + "?s_no=" + s_no;
+	}
+	
+}
+
+function modifyBookInventoryForm() {
+    console.log("modifyBookInventoryForm!!");
+
+    let form = document.modify_book_inventory_form;
+	
+	if (form.b_count.value === "") {
+        alert("입출고 수량을 입력해 주세요.");
+        form.b_count.focus();
+    } else {
+        form.submit();
+    }  
+    
+}
+

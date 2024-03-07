@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
+import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -60,7 +62,7 @@ public class AdminShopService {
 	public int userAccountActiveConfirm(String m_id) {
 		log.info("userAccountActiveConfirm()");
 		
-		int result = adminShopDao.updaterActiveForUserState(m_id);
+		int result = adminShopDao.updateActiveForUserState(m_id);
 		if(result > 0) 
 			return Config.USER_ACCOUNT_UNACTIVE_SUCCESS;			
 		 else
@@ -68,13 +70,97 @@ public class AdminShopService {
 		
 	}
 
-	
 
-	
+	public List<SaledBookDto> saledBookListForm() {
+		log.info("saledBookListForm()");
 		
-	
+		return adminShopDao.selectAllSaledBooks();
+		
+	}
+
+
+	public SaledBookDto saledDetailForm(String sb_no) {
+		log.info("saledDetailForm()");
+		
+		return adminShopDao.selectSaledBookForDetail(sb_no);
+	}
+
+
+	public List<SaledBookDto> returnBookListForm() {
+		log.info("returnBookListForm()");
+		
+		return adminShopDao.selectAllReturnBooks();
+		
+	}
 
 	
+	public SaledBookDto returnBookDetailForm(String sb_no) {
+		log.info("returnBookDetailForm()");
+		
+		return adminShopDao.selectReturnBookForDetail(sb_no);
+	}
+
+	public void returnApprovalConfirm(String sb_no, int b_no, int sb_book_count) {
+		log.info("returnApprovalConfirm()");
+		
+		int result = adminShopDao.updateApprovalForReturnBook(sb_no);
+		
+		if(result > 0) {
+			
+			result = adminShopDao.updateBookCount(b_no, sb_book_count);
+			
+			if(result > 0)
+		 
+				log.info(Config.RETURN_BOOK_APPROVAL_SUCCESS);
+			else
+				log.info(Config.MODIFY_BOOK_COUNT_FAIL);
+		
+		} else {
+			
+			log.info(Config.RETURN_BOOK_APPROVAL_FAIL);
+		}
+	}
+
+
+	public void returnNotApprovedConfirm(String sb_no) {
+		log.info("returnNotApprovedConfirm()");
+		
+		int result = adminShopDao.updateNotApprovedForReturnBook(sb_no);
+		if(result > 0) 
+			log.info(Config.RETURN_BOOK_NOT_APPROVED_SUCCESS);			
+		 else
+			log.info(Config.RETURN_BOOK_NOT_APPROVED_FAIL);
+	}
+
+
+	public List<BookDto> bookInventoryListForm() {
+		log.info("bookInventoryListForm()");
+		
+		return adminShopDao.selectAllBooksForInventory();
 	
+	}
+
+
+	public BookDto modifyBookInventoryForm(int b_no) {
+		log.info("modifyBookInventoryForm()");
+		
+		return adminShopDao.selectBookForInventory(b_no);
+			
+	}
+
+
+	public void modifyBookInventoryConfirm(BookDto bookDto) {
+		log.info("returnNotApprovedConfirm()");
+		
+		int result = adminShopDao.updateBookInventory(bookDto);
+		if(result > 0) 
+			log.info(Config.MODIFY_BOOK_INVENTORY_SUCCESS);			
+		 else
+			log.info(Config.MODIFY_BOOK_INVENTORY_FAIL);
+		
+	}
+
+
+		
 
 }
