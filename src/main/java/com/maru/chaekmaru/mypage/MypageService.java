@@ -30,9 +30,9 @@ public class MypageService {
 		log.info("addBookCount");
 		
 		int result = mypageDao.addBookCount(m_id, c_no, c_book_count);
+
 		if (result < 0) {
 			log.info("Add My Cart Fail");
-			
 		}
 		
 		return result;
@@ -56,11 +56,9 @@ public class MypageService {
 	}
 
 	public int paymentMyCart(SaledBookDto saledBookDto, String m_id) {
-		log.info("paymentMyCart");
+		log.info("paymentMyCart()");
 		
 		int result = mypageDao.paymentMyCart(saledBookDto, m_id);
-		
-		log.info("result =============>" + result);
 		
 		if (result > 0) {
 //			result = mypageDao.deleteMyCart(m_id);
@@ -69,6 +67,26 @@ public class MypageService {
 			result = 0;
 			
 		}
+		
+		return result;
+		
+	}
+
+	public int insertPoint(MyPointListDto myPointListDto) {
+		log.info("insertPoint()");
+		
+		myPointListDto.setPl_payment_book_point(myPointListDto.getPl_payment_book_point() * -1);
+		
+		int result = mypageDao.insertPoint(myPointListDto);
+		
+		return result;
+		
+	}
+
+	public int addMyCart(String m_id, int b_no) {
+		log.info("addMyCart()");
+		
+		int result = mypageDao.addMyCart(m_id, b_no);
 		
 		return result;
 		
