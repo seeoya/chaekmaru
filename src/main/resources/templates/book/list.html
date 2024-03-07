@@ -11,13 +11,12 @@
 
     <div class="content">
 
-        <aside>
-            <div class="category"></div>
+        <aside th:replace="~{/book/aside.html::aside}">
         </aside>
 
         <div class="list-wrap">
             <div class="sort">
-                <select name="list_sort" id="list_sort" th:data-link="@{/book/list(search=${search})}" class="input">
+                <select name="list_sort" id="list_sort" th:data-link="@{/book/list(search=${search}, filter=${filter})}" class="input">
                     <option value="new" th:selected="${sort} == 'new'">최신순</option>
                     <option value="old" th:selected="${sort} == 'old'">오래된 순</option>
                     <option value="best" th:selected="${sort} == 'best'">인기순</option>
@@ -38,7 +37,9 @@
                         <div class="info">
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="author ellipsis">[[${item.b_author}]]</div>
-                            <div class="price ellipsis">[[${item.b_price}]]</div>
+                            <div class="price ellipsis" >
+                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ '원'}]]
+                            </div>
                             <div class="introduce">[[${item.b_introduce}]]</div>
                             <div class="publisher ellipsis">[[${item.b_publisher}]] /
                                 [[${item.b_publish_date}]]</div>
@@ -51,13 +52,11 @@
             <div class="paging">
                 <div class="paging-wrap">
                     <th:block th:each="paging : ${listPageDtos}">
-                        <a th:if="${paging.type == 'start'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}">&lt;&lt;</a>
-                        <a th:if="${paging.type == 'prev'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &lt;</a>
-                        <a th:if="${paging.type == 'num'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}">[[${paging.pageNum}]]</a>
-                        <a th:if="${paging.type == 'next'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &gt;</a>
-                        <a th:if="${paging.type == 'end'}" th:href="@{'/book/list?search='+ ${search} + '&sort='+ ${sort} + '&page=' + ${paging.pageNum}}" th:class="${paging.className}"> &gt;&gt;</a>
+                        <a th:href="@{/book/list(search=${search}, filter=${filter}, sort=${sort}, page=${paging.pageNum})}" th:class="${paging.className}">[(${paging.pageText})]</a>
                     </th:block>
                 </div>
+
+                <div class="page-number">[[${nowPage}]] / [[${allPage}]]</div>
             </div>
         </div>
     </div>
