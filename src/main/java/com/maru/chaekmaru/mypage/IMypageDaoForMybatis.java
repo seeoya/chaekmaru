@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 @Mapper
@@ -22,5 +23,6 @@ public interface IMypageDaoForMybatis {
 	public int selectBookCount(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int allPaymentMyCartList(@Param("m_id") String m_id, @Param("saledBookDto") SaledBookDto saledBookDto);
 	public int deleteAllMyCart(String m_id);
+	public int movePayment(@Param("m_id") String m_id, @Param("b_no") int b_no, @Param("memberDto") MemberDto memberDto);
 
 }

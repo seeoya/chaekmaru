@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
@@ -122,8 +123,14 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		List<MemberCartDto> memberCartDtos = mypageService.paymentForm(loginedMemberDto.getM_id(), c_no);
+		
+		int allPrice = mypageService.calcAllPrice(memberCartDtos);
+		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
 
 		model.addAttribute("memberCartDtos", memberCartDtos);
+		model.addAttribute("allPrice", allPrice);
+		model.addAttribute("discount", discount);
+		model.addAttribute("finalPrice", allPrice - discount + 3000);
 
 		return nextPage;
 
@@ -150,7 +157,7 @@ public class MypageController {
 
 			result = mypageService.insertPoint(myPointListDto);
 			if (result > 0) {
-				result = mypageService.deleteMyCart(loginedMemberDto.getM_id(), saledBookDto);
+				result = mypageService.deletePaymentMyCart(loginedMemberDto.getM_id());
 
 			}
 
@@ -211,7 +218,6 @@ public class MypageController {
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
-
 		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
 	
 		return nextPage;
@@ -244,6 +250,29 @@ public class MypageController {
 
 		}
 
+		return nextPage;
+
+	}
+	
+	/*
+	 * 도서 상세 페이지에서 바로 결제 버튼 클릭
+	 */
+	@GetMapping("/move_payment")
+	public String movePayment(HttpSession session, @RequestParam("b_no") int b_no) {
+
+		String nextPage = "redirect:/mypage/payment_form";
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
+		MemberDto memberDto = new MemberDto();
+		memberDto.setM_addr(loginedMemberDto.getM_addr());
+		memberDto.setM_addr_code(loginedMemberDto.getM_addr_code());
+		memberDto.setM_detail_addr(loginedMemberDto.getM_detail_addr());
+		memberDto.setM_name(loginedMemberDto.getM_name());
+		memberDto.setM_grade(loginedMemberDto.getM_grade());
+		
+		int result = mypageService.movePayment(loginedMemberDto.getM_id(), b_no, memberDto);
+	
 		return nextPage;
 
 	}

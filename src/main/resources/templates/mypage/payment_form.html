@@ -21,9 +21,16 @@
 			<div>
 				<div th:each="memberCartDto : ${memberCartDtos}">
 					<div>
-						<img th:src="@{${memberCartDto.b_thumbnail}}" alt="book_thumbnail" />
+						<a th:href="@{/book/view/{b_no}(b_no=${memberCartDto.b_no})}">
+							<img th:src="@{${memberCartDto.b_thumbnail}}" alt="book_thumbnail" />
+						</a> 
 						<input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
 						<div>[[${memberCartDto.b_name}]]</div>
+						<p>
+							[[${#numbers.formatInteger(memberCartDto.b_price, 3, 'COMMA')}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDto.c_book_count}]] 권 =
+							[[${#numbers.formatInteger(memberCartDto.b_price * memberCartDto.c_book_count, 3, 'COMMA')}]] 포인트
+						</p>
+						<input type="hidden" th:value="${memberCartDto.c_book_count}" name="sb_book_count" />
 					</div>
 				</div>
 
@@ -51,68 +58,30 @@
 					<input type="text" name="sb_memo" placeholder="배송 메모를 적어주세요" />
 				</div>
 
-
-
 				<div>
-					<p>결제 금액</p>
+					<p>전체 금액</p>
 					<p
-						th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count, 3, 'COMMA') + '  포인트'}">
-					</p>
-					<input type="hidden" name="b_no" th:value="${userInfo.b_no}" />
-					<input type="hidden" name="sb_book_count" th:value="${userInfo.c_book_count}" />
+						th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
 				</div>
 
+				<div th:switch="${userInfo.m_grade}">
+					<p>등급 할인</p>
+					<div>
+						<p th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+					</div>
+				</div>
+				
 				<div>
 					<p>배송비</p>
 					<p>3,000 포인트</p>
 				</div>
 
-				<div>
-					<p>최종 결제 금액</p>
-					<p
-						th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000, 3, 'COMMA') + '  포인트'}">
-					</p>
-				</div>
-
 				<div th:switch="${userInfo.m_grade}">
-					<p>등급 할인</p>
-					<div th:case="0">
-						<p th:text="${userInfo.b_price * userInfo.c_book_count * 0 + '  포인트'}"></p>
-					</div>
-					<div th:case="1">
+					<p>결제 예정 금액</p>
+					<div>
 						<p
-							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
-						</p>
-					</div>
-					<div th:case="2">
-						<p
-							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
-						</p>
-					</div>
-				</div>
-
-				<div th:switch="${userInfo.m_grade}">
-					<p>최종 금액</p>
-					<div th:case="0">
-						<p
-							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
-						</p>
-						<input type="hidden" name="sb_all_price"
-							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0}">
-					</div>
-					<div th:case="1">
-						<p
-							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05, 3, 'COMMA') + '  포인트'}">
-						</p>
-						<input type="hidden" name="sb_all_price"
-							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05}" />
-					</div>
-					<div th:case="2">
-						<p
-							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1, 3, 'COMMA') + '  포인트'}">
-						</p>
-						<input type="hidden" name="sb_all_price"
-							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1}" />
+							th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
+						<input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
 					</div>
 				</div>
 

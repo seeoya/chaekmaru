@@ -35,8 +35,8 @@
 					<button type="button" class="modify-count btn" onclick="bookCountSubmit();"
 						th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경</button>
 					<p>
-						[[${memberCartDtos.b_price}]] * [[${memberCartDtos.c_book_count}]] =
-						[[${memberCartDtos.c_book_count * memberCartDtos.b_price}]]
+						[[${memberCartDtos.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDtos.c_book_count}]] 권 =
+						[[${memberCartDtos.c_book_count * memberCartDtos.b_price}]] 포인트
 					</p>
 					<a th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>
 					&nbsp;&nbsp;

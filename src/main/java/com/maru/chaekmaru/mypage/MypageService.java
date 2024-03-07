@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
@@ -188,6 +189,28 @@ public class MypageService {
 		int result = -1;
 		
 		result = mypageDao.deleteAllMyCart(m_id);
+		
+		return result;
+		
+	}
+
+	public int deletePaymentMyCart(String m_id) {
+		log.info("deletePaymentMyCart()");
+		
+		int result = -1;
+		
+		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
+		
+		return result;
+		
+	}
+
+	public int movePayment(String m_id, int b_no, MemberDto memberDto) {
+		log.info("movePayment()");
+		
+		int result = -1;
+		
+		result = mypageDao.movePayment(m_id, b_no);
 		
 		return result;
 		

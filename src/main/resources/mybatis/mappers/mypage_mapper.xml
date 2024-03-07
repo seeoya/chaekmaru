@@ -196,5 +196,21 @@
 	
 	</delete>
 	
+	<select id="movePayment"
+			parameterType="map">
+			
+					SELECT * FROM 
+						TBL_MEMBER 
+					WHERE 
+						M_ID = #{m_id} 
+					
+					SELECT * FROM 
+						TBL_BOOK 
+					WHERE 
+						B_NO = #{b_no} 
+					
+
+	</select>
+	
 	
 </mapper>
