@@ -41,11 +41,7 @@ public class SecurityConfig {
 						"/member/modify_form"
 						).authenticated()
 					.requestMatchers(
-						"/",
-						"/css/**",
-						"/img/**",
-						"/js/**",
-						"/member/**"
+						"/**"
 						).permitAll());
 						
 		http
@@ -57,14 +53,17 @@ public class SecurityConfig {
 					.successHandler((request, response, authentication) -> {
 									log.info("success handler");
 									
-						MemberDto memberDto = new MemberDto();
-						memberDto.setM_id(authentication.getName());
-						
-						MemberDto loginedMemberDto = iMemberDaoForMybatis.selectMember(memberDto.getM_id());
-						
-						HttpSession session = request.getSession();
-						session.setAttribute("loginedMemberDto", loginedMemberDto);
-						session.setMaxInactiveInterval(60 * 30);
+							
+							  MemberDto memberDto = new MemberDto();
+							  memberDto.setM_id(authentication.getName());
+							  
+							  MemberDto loginedMemberDto =
+							  iMemberDaoForMybatis.selectMember(memberDto.getM_id());
+							  
+							  HttpSession session = request.getSession();
+							  session.setAttribute("loginedMemberDto", loginedMemberDto);
+							  session.setMaxInactiveInterval(60 * 30);
+							 
 						
 						response.sendRedirect("/");
 									
