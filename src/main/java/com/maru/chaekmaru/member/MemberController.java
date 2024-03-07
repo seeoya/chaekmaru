@@ -21,7 +21,7 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
-	@GetMapping("/create_accout_form")
+	@GetMapping("/create_account_form")
 	public String CreateAccountForm() {
 		log.info("-- CreateAccountForm() --");
 
@@ -55,7 +55,7 @@ public class MemberController {
 		return nextPage;
 
 	}
-
+	
 	/*
 	 * @PostMapping("/login_confirm") public String Loginconfirm(MemberDto
 	 * memberDto, HttpSession session) { log.info("-- Loginconfirm() --");
