@@ -49,18 +49,18 @@
         (SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT 
         FROM TBL_REVIEW GROUP BY B_NO) S
         ON B.B_NO  = S.B_NO 
-        WHERE B.B_NAME LIKE '%' || #{search} || '%' 
+        WHERE B.B_NAME LIKE '%' || #{search} || '%'  
+        ${filterSql}
         ORDER BY ${sortSql}) A) 
         WHERE NUM BETWEEN #{startNum} AND #{endNum}
 		]]>
 	</select>
 	
-	
-	<select id="countListResult" parameterType="String"
+	<select id="countListResult" parameterType="map"
 		resultType="Integer">
         
         <![CDATA[
-        SELECT COUNT(*) FROM TBL_BOOK WHERE B_NAME LIKE '%' || #{search} || '%'
+        SELECT COUNT(*) FROM TBL_BOOK B WHERE B.B_NAME LIKE '%' || #{search} || '%' ${filterSql}
         ]]>
 	</select>
 	

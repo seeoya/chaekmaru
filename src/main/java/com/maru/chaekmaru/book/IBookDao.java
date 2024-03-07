@@ -16,9 +16,9 @@ public interface IBookDao {
 
 	public ArrayList<BookDto> selectNewBooks(int count);
 
-	public ArrayList<BookDto> setList(@Param("sortSql") String sortSql, @Param("startNum") int startNum,
-			@Param("endNum") int endNum, @Param("search") String search);
+	public ArrayList<BookDto> setList(@Param("search") String search, @Param("filterSql") String filterSql, @Param("sortSql") String sortSql,
+			@Param("startNum") int startNum, @Param("endNum") int endNum);
 
-	public int countListResult(String search);
+	public int countListResult( @Param("search") String search, @Param("filterSql") String filterSql);
 
 }

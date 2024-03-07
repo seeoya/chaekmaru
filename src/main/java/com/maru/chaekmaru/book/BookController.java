@@ -29,25 +29,34 @@ public class BookController {
 	String nextPage = "";
 
 	@GetMapping("/list")
-	public String list(Model model, @RequestParam(required = false, value = "sort", defaultValue = "new") String sort,
-			@RequestParam(required = false, value = "page", defaultValue = "1") String page,
-			@RequestParam(required = false, value = "search", defaultValue = "") String search) {
+	public String list(Model model, @RequestParam(required = false, value = "search", defaultValue = "") String search,
+			@RequestParam(required = false, value = "filter", defaultValue = "") String filter,
+			@RequestParam(required = false, value = "sort", defaultValue = "new") String sort,
+			@RequestParam(required = false, value = "page", defaultValue = "1") String page) {
 
-		int nowPage = Integer.parseInt(page);
-		int pageItem = 20;
+		int pageItemPerPage = 20;
+		int nowPageCount = Integer.parseInt(page);
+		int allBookCount = bookService.countBook(search, filter);
+		int allPageCount = bookService.countAllPage(allBookCount, pageItemPerPage);
 
-		log.info(nowPage + "/" + search + "/" + sort);
-
+		if(nowPageCount > allPageCount) {
+			nowPageCount = allPageCount;
+		}
+		
 		ArrayList<BookDto> items = new ArrayList<>();
-		items = bookService.setList(sort, pageItem, nowPage, search);
+		ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
 
-		ArrayList<ListPageDto> listPageDtos = bookService.setPaging(pageItem, nowPage, search);
+		items = bookService.setList(search, filter, sort, pageItemPerPage, nowPageCount);
+		listPageDtos = bookService.setPaging(pageItemPerPage, nowPageCount, allPageCount);
 
-		model.addAttribute("sort", sort);
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("allPage", nowPage);
-		model.addAttribute("listPageDtos", listPageDtos);
 		model.addAttribute("search", search);
+		model.addAttribute("filter", filter);
+		model.addAttribute("sort", sort);
+
+		model.addAttribute("nowPage", nowPageCount);
+		model.addAttribute("allPage", allPageCount);
+
+		model.addAttribute("listPageDtos", listPageDtos);
 		model.addAttribute("items", items);
 
 		nextPage = "/book/list";
