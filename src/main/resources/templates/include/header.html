@@ -26,7 +26,7 @@
 
             <div class="search">
                 <form th:action="@{/book/list}" name="search_form" method="get">
-                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요." required>
+                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
                     <button type="submit" class="btn main">검색</button>
                 </form>
             </div>
@@ -45,17 +45,21 @@
 </th:block>
 
 <th:block th:fragment="logouted_nav_sub_link">
-    <a th:href="@{/member/create_accout_form}" class="sub-link">회원가입</a>
+    <a th:href="@{/member/create_account_form}" class="sub-link">회원가입</a>
     <a th:href="@{/member/login_form}" class="sub-link">로그인</a>
 </th:block>
 
 <section th:fragment="category" class="header-category">
     <div class="category-wrap">
         <nav>
-            <button type="button" class="cate-link">카테고리 열기</button>
+            <div id="category_btn" class="cate-link">
+                <p>카테고리 열기</p>
+
+                <div th:replace="~{/book/aside.html::aside}"></div>
+            </div>
             <a th:href="@{/book/list}" class="cate-link">모든</a>
             <a th:href="@{/book/list(sort='best')}" class="cate-link">인기</a>
-            <a th:href="@{/book/list(sort='new', search='ad')}" class="cate-link">신상품</a>
+            <a th:href="@{/book/list(sort='new')}" class="cate-link">신상품</a>
             <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a>
         </nav>
 

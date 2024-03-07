@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.config.Config;
-import com.maru.chaekmaru.config.WebMvcConfig;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -58,19 +57,20 @@ public class MemberService {
 		
 	}
 
-	public MemberDto loginConfirm(MemberDto memberDto) {
-	    log.info("--loginConfirm--");
-
-	    MemberDto selectedMemberDtoById = memberDao.selectMember(memberDto.getM_id());
-	    
-	    if (selectedMemberDtoById != null && passwordEncoder.matches(memberDto.getM_pw(), selectedMemberDtoById.getM_pw())) {
-		    log.info(selectedMemberDtoById.getM_id());
-		    
-	        return selectedMemberDtoById;
-	    } else {
-	        return null;
-	    }
-	}
+	/*
+	 * public MemberDto loginConfirm(MemberDto memberDto) {
+	 * log.info("--loginConfirm--");
+	 * 
+	 * MemberDto selectedMemberDtoById =
+	 * memberDao.selectMember(memberDto.getM_id());
+	 * 
+	 * if (selectedMemberDtoById != null &&
+	 * passwordEncoder.matches(memberDto.getM_pw(),
+	 * selectedMemberDtoById.getM_pw())) {
+	 * log.info(selectedMemberDtoById.getM_id());
+	 * 
+	 * return selectedMemberDtoById; } else { return null; } }
+	 */
 
 	public MemberDto modifyConfirm(MemberDto memberDto) {
 

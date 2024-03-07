@@ -28,7 +28,7 @@
 	</insert>
 
 	<select id="selectMember"
-			parameterType="String"
+			parameterType="com.maru.chaekmaru.member.MemberDto"
 			resultType="com.maru.chaekmaru.member.MemberDto">
 			
 			SELECT 

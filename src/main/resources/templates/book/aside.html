@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<div class="category-link-wrap" th:fragment="aside">
+    <a th:href="@{/book/list(search=${search}, filter=0, sort=${sort})}" class="category-link" th:classappend="${filter} == 0 ? 'active'">총류</a>
+    <a th:href="@{/book/list(search=${search}, filter=1, sort=${sort})}" class="category-link" th:classappend="${filter} == 1 ? 'active'">철학</a>
+    <a th:href="@{/book/list(search=${search}, filter=2, sort=${sort})}" class="category-link" th:classappend="${filter} == 2 ? 'active'">종교</a>
+    <a th:href="@{/book/list(search=${search}, filter=3, sort=${sort})}" class="category-link" th:classappend="${filter} == 3 ? 'active'">사회과학</a>
+    <a th:href="@{/book/list(search=${search}, filter=4, sort=${sort})}" class="category-link" th:classappend="${filter} == 4 ? 'active'">자연과학</a>
+    <a th:href="@{/book/list(search=${search}, filter=5, sort=${sort})}" class="category-link" th:classappend="${filter} == 5 ? 'active'">기술과학</a>
+    <a th:href="@{/book/list(search=${search}, filter=6, sort=${sort})}" class="category-link" th:classappend="${filter} == 6 ? 'active'">예술</a>
+    <a th:href="@{/book/list(search=${search}, filter=7, sort=${sort})}" class="category-link" th:classappend="${filter} == 7 ? 'active'">언어</a>
+    <a th:href="@{/book/list(search=${search}, filter=8, sort=${sort})}" class="category-link" th:classappend="${filter} == 8 ? 'active'">문학</a>
+    <a th:href="@{/book/list(search=${search}, filter=9, sort=${sort})}" class="category-link" th:classappend="${filter} == 9 ? 'active'">역사</a>
+</div>
+
+</html>

@@ -1,8 +1,6 @@
 package com.maru.chaekmaru.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,7 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
-	@GetMapping("/create_accout_form")
+	@GetMapping("/create_account_form")
 	public String CreateAccountForm() {
 		log.info("-- CreateAccountForm() --");
 
@@ -57,28 +55,28 @@ public class MemberController {
 		return nextPage;
 
 	}
-
-	@PostMapping("/login_confirm")
-	public String Loginconfirm(MemberDto memberDto, HttpSession session) {
-		log.info("-- Loginconfirm() --");
-
-		String nextPage = "redirect:/";
-
-		MemberDto loginedMemberDto = memberService.loginConfirm(memberDto);
-
-		if (loginedMemberDto != null) {
-
-			session.setAttribute("loginedMemberDto", loginedMemberDto);
-			session.setMaxInactiveInterval(60 * 30);
-
-		} else {
-			nextPage = "redirect:/";
-
-		}
-
-		return nextPage;
-
-	}
+	
+	/*
+	 * @PostMapping("/login_confirm") public String Loginconfirm(MemberDto
+	 * memberDto, HttpSession session) { log.info("-- Loginconfirm() --");
+	 * 
+	 * String nextPage = "redirect:/";
+	 * 
+	 * MemberDto loginedMemberDto = memberService.loginConfirm(memberDto);
+	 * 
+	 * if (loginedMemberDto != null) {
+	 * 
+	 * session.setAttribute("loginedMemberDto", loginedMemberDto);
+	 * session.setMaxInactiveInterval(60 * 30);
+	 * 
+	 * } else { nextPage = "redirect:/";
+	 * 
+	 * }
+	 * 
+	 * return nextPage;
+	 * 
+	 * }
+	 */
 
 	@GetMapping("/modify_form")
 	public String modifyForm() {
