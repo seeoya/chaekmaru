@@ -23,6 +23,4 @@ public interface IAdminShopDaoForMybatis {
 	public int updaterActiveForUserState(String m_id);
 
 	
-	
-
 }
