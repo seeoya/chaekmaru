@@ -97,4 +97,22 @@
 					
 	</insert>
 	
+	<insert id="insertPoint"
+			parameterType="com.maru.chaekmaru.mypage.MyPointListDto">
+			
+			INSERT INTO 
+				TBL_POINT_LIST 
+			VALUES(#{m_id}, #{pl_payment_book_point}, #{pl_desc}, SYSTIMESTAMP)
+			
+	</insert>
+	
+	<!-- <insert id="insertPoint"
+			parameterType="Object">
+			
+			INSERT INTO 
+				MemberCartDto 
+			VALUES(MEMBER_CART_SEQ.NEXTVAL, #{m_id}, #{b_no}, 1, SYSTIMESTAMP, SYSTIMESTAMP)
+			
+	</insert> -->
+	
 </mapper>

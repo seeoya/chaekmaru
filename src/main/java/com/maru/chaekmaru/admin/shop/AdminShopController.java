@@ -1,8 +1,6 @@
 package com.maru.chaekmaru.admin.shop;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +43,7 @@ public class AdminShopController {
 	public String pointManagementForm(@RequestParam("m_id") String m_id, Model model) {
 		log.info("pointManagementForm()");
 		
-		String nextPage = "/admin/shop/point_management_form";
+		String nextPage = "admin/shop/point_management_form";
 		
 		MyPointListDto myPointDto = adminShopService.pointManagementForm(m_id);
 		
@@ -73,7 +71,7 @@ public class AdminShopController {
 	public String pointHistoryForm(@RequestParam("m_id") String m_id, Model model) {
 		log.info("pointHistoryForm()");
 		
-		String nextPage = "/admin/shop/point_history_form";		
+		String nextPage = "admin/shop/point_history_form";		
 		
 		List<MyPointListDto> myPointDtos = adminShopService.pointHistoryForm(m_id);
 		
@@ -99,7 +97,7 @@ public class AdminShopController {
 	
 	@GetMapping("/user_account_active_confirm")
 	public String userAccountActiveConfirm(@RequestParam("m_id") String m_id, Model model) {
-		log.info("pointManagementForm()");
+		log.info("userAccountActiveConfirm()");
 		
 		String nextPage = "result";
 		

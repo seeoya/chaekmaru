@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.maru.chaekmaru.member.MemberDto;
 
 import com.maru.chaekmaru.shop.SaledBookDto;
+
+import ch.qos.logback.core.recovery.ResilientFileOutputStream;
+
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
 
@@ -35,7 +38,7 @@ public class MypageController {
 	ReviewService reviewService;
 	
 	/*
-	 * 장바구니 목록
+	 * 장바구니 목록 페이지 이동
 	 */
 	@GetMapping("/member_cart_form")
 	public String myCartList(Model model, HttpSession session) {
@@ -56,7 +59,7 @@ public class MypageController {
 	/*	
 	 * 장바구니에서 수량 변경 클릭
 	 */
-	@PostMapping("/cart_modify_form")
+	@GetMapping("/cart_modify_form")
 	public String cartmodifyform(HttpSession session, Model model, @RequestParam("c_no") int c_no, @RequestParam("c_book_count") int c_book_count) {
 		log.info("cartmodifyform");
 		
@@ -73,25 +76,22 @@ public class MypageController {
 		
 	}
 	
-//	/*	
-//	 * 도서 상세 페이지 장바구니 클릭
-//	 */
-//	@PostMapping("/member_cart_form")
-//	public String addBookNumber(HttpSession session) {
-//		log.info("addMyCart");
-//		
-//		String nextPage = "mypage/member_cart_form";
-//		
-//		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
-//		
-//		int result = mypageService.addMyCart(loginedMemberDto.getM_id());
-//		if (result < 0) {
-//			return nextPage;
-//		}
-//		
-//		return nextPage;
-//		
-//	}
+	/*	
+	 * 도서 상세 페이지 장바구니 클릭
+	 */
+	@PostMapping("/member_cart_form")
+	public String addMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
+		log.info("addMyCart");
+		
+		String nextPage = "mypage/member_cart_form";
+		
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		
+		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
+		
+		return nextPage;
+		
+	}
 	
 	/*
 	 * 마이 페이지 장바구니 삭제 클릭
@@ -116,7 +116,7 @@ public class MypageController {
 	}
 	
 	/*
-	 * 결제하기
+	 * 이동
 	 */
 	@GetMapping("/payment_form")
 	public String paymentMyCartForm(Model model, HttpSession session, @RequestParam("c_no") int c_no) {
@@ -142,19 +142,33 @@ public class MypageController {
 								@ModelAttribute SaledBookDto saledBookDto) {
 		log.info("======================paymentMyCartList===================");
 		
-		log.info(saledBookDto.getSb_name());
-		log.info(saledBookDto.getSb_all_price());
+		MyPointListDto myPointListDto = new MyPointListDto();
 		
 		String nextPage = "mypage/payment_form_confirm";
 		
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 		
 		int result = mypageService.paymentMyCart(saledBookDto, loginedMemberDto.getM_id());
+		if (result > 0) {
+			myPointListDto.setM_id(loginedMemberDto.getM_id());
+			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
+			myPointListDto.setPl_desc("도서 " + saledBookDto.getSb_book_count() + "권 구매");
+			
+			result = mypageService.insertPoint(myPointListDto);
+			if (result > 0) {
+				return nextPage;
+				
+			}
+			
+		}
 		
 		return nextPage;
 		
 	}
 	
+	/*
+	 * 리뷰 페이지로 이동
+	 */
 	@GetMapping("/my_review")
 	public String myReview(Model model, HttpSession session) {
 		String nextPage = "/mypage/my_review";
