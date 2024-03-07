@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -17,80 +20,75 @@ import lombok.extern.log4j.Log4j2;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	
 	@Autowired
 	IMemberDaoForMybatis iMemberDaoForMybatis;
-	
-	@Bean PasswordEncoder passwordEncoder() {
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
 		log.info("--passwordEncoder--");
 
 		return new BCryptPasswordEncoder();
-		
+
 	}
 
-	@Bean SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		log.info("filterChain()");
-		
+
+		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable());
+
+		http.authorizeHttpRequests(request -> request.requestMatchers("/member/modify_form").authenticated()
+				.requestMatchers("/**").permitAll());
+
 		http
-			.cors(cors -> cors.disable())
-			.csrf(csrf -> csrf.disable());
-						
-		http
-			.authorizeHttpRequests(request -> request
-					.requestMatchers(
-						"/member/modify_form"
-						).authenticated()
-					.requestMatchers(
-						"/**"
-						).permitAll());
-						
-		http
-			.formLogin((login) -> login
-					.loginPage("/member/login_form")
+			.formLogin((login) -> login.loginPage("/member/login_form")
 					.loginProcessingUrl("/member/login_confirm")
-					.usernameParameter("m_id")
-					.passwordParameter("m_pw")
+					.usernameParameter("m_id").passwordParameter("m_pw")
+					
 					.successHandler((request, response, authentication) -> {
-									log.info("success handler");
-									
-							
-							  MemberDto memberDto = new MemberDto();
-							  memberDto.setM_id(authentication.getName());
-							  
-							  MemberDto loginedMemberDto =
-							  iMemberDaoForMybatis.selectMember(memberDto.getM_id());
-							  
-							  HttpSession session = request.getSession();
-							  session.setAttribute("loginedMemberDto", loginedMemberDto);
-							  session.setMaxInactiveInterval(60 * 30);
-							 
-						
-						response.sendRedirect("/");
-									
-					})
-					.failureHandler((request, response, exception) -> {
-						log.info("fail handler!!");
-								log.error("Login failed: " + exception.getMessage());
-								response.sendRedirect("/member/member_login_form");
-									
-					}));
-							
-		http
-			.logout(logout -> logout
-				.logoutUrl("/member/logout_confirm")
+					log.info("success handler");
+
+					MemberDto memberDto = new MemberDto();
+					memberDto.setM_id(authentication.getName());
+
+					MemberDto loginedMemberDto = iMemberDaoForMybatis.selectMember(memberDto.getM_id());
+
+					HttpSession session = request.getSession();
+					session.setAttribute("loginedMemberDto", loginedMemberDto);
+					session.setMaxInactiveInterval(60 * 30);
+
+					RequestCache requestCache = new HttpSessionRequestCache();
+					SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+					String uri = "/";
+					if (savedRequest != null) {
+						uri = savedRequest.getRedirectUrl();
+
+						requestCache.removeRequest(request, response);
+
+					}
+
+					response.sendRedirect(uri);
+
+				}).failureHandler((request, response, exception) -> {
+					log.info("fail handler!!");
+					log.error("Login failed: " + exception.getMessage());
+					response.sendRedirect("/member/member_login_form");
+
+				}));
+
+		http.logout(logout -> logout.logoutUrl("/member/logout_confirm")
 				.logoutSuccessHandler((request, response, authentication) -> {
 					log.info("logoutSuccessHandler");
-									
+
 					HttpSession session = request.getSession();
 					session.invalidate();
-									
-					response.sendRedirect("/");
-									
-					}));
-									
 
-								
+					response.sendRedirect("/");
+
+				}));
+
 		return http.build();
-		
-		}
+
+	}
 }
