@@ -36,6 +36,17 @@ public class Config {
 	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 22;
 	final public static int USER_ACCOUNT_UNACTIVE_FAIL = 23;
 	
+	final public static int RETURN_BOOK_APPROVAL_SUCCESS = 24;
+	final public static int RETURN_BOOK_APPROVAL_FAIL = 25;
 	
-	
+	final public static int RETURN_BOOK_NOT_APPROVED_SUCCESS = 26;     
+    final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 27;
+    final public static int MODIFY_BOOK_COUNT_FAIL = 28;
+    
+    final public static int MODIFY_BOOK_INVENTORY_SUCCESS = 29;
+    final public static int MODIFY_BOOK_INVENTORY_FAIL = 30;
+    
+    
+
 }
+                                                                   

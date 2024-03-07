@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
+import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,6 +26,8 @@ public class AdminShopController {
 	
 	@Autowired
 	AdminShopService adminShopService;
+	
+	//회원 포인트 리스트
 	
 	@GetMapping("/point_list_form")
 	public String pointListForm(Model model) {
@@ -38,6 +42,8 @@ public class AdminShopController {
 		return nextPage;		
 		
 	}
+	
+	//회원 포인트 관리 Form
 	
 	@GetMapping("/point_management_form")
 	public String pointManagementForm(@RequestParam("m_id") String m_id, Model model) {
@@ -54,6 +60,7 @@ public class AdminShopController {
 	}
 	
 	
+	//회원 포인트 수정
 	
 	@PostMapping("/modify_point_confirm")
 	public String modifyPointConfirm(MyPointListDto myPointListDto) {
@@ -66,6 +73,8 @@ public class AdminShopController {
 		return nextPage;	
 		
 	}
+	
+	// 회원별 포인트 내역
 	
 	@GetMapping("/point_history_form")
 	public String pointHistoryForm(@RequestParam("m_id") String m_id, Model model) {
@@ -81,6 +90,9 @@ public class AdminShopController {
 		
 	}
 	
+	
+	// 회원계정 관리 Form
+	
 	@GetMapping("/user_account_active_form")
 	public String userAccountActiveForm(Model model) {
 		log.info("userAccountActiveForm()");
@@ -94,6 +106,9 @@ public class AdminShopController {
 		return nextPage;		
 		
 	}
+	
+	
+	// 회원계정 비활성화
 	
 	@GetMapping("/user_account_active_confirm")
 	public String userAccountActiveConfirm(@RequestParam("m_id") String m_id, Model model) {
@@ -117,4 +132,166 @@ public class AdminShopController {
 		return nextPage;		
 	}
 	
+
+	// 판매 관리
+	
+	@GetMapping("/sale_management_form")
+	public String saleManagementForm() {
+		log.info("sale_management_form()");
+		
+		String nextPage = "admin/shop/sale_management_form";
+	
+		return nextPage;		
+		
+	}
+
+	// 판매된 도서 리스트
+	
+	@GetMapping("/saled_book_list_form")
+	public String saledBookListForm(Model model) {
+		log.info("saledBookListForm()");
+		
+		String nextPage = "admin/shop/saled_book_list_form";
+		
+		List<SaledBookDto> saledBookDtos = adminShopService.saledBookListForm();
+		
+		model.addAttribute("saledBookDtos", saledBookDtos);
+		
+		return nextPage;		
+		
+	}
+	
+	
+	// 판매도서 상세 내역
+	
+	@GetMapping("/saled_detail_form")
+	public String saledDetailForm(@RequestParam("sb_no") String sb_no, Model model) {
+		log.info("saledBookListForm()");
+		
+		String nextPage = "admin/shop/saled_detail_form";
+		
+		SaledBookDto saledBookDto = adminShopService.saledDetailForm(sb_no);
+		
+		model.addAttribute("saledBookDto", saledBookDto);
+		
+		return nextPage;		
+		
+	}
+	
+
+	// 반품 도서 리스트
+	
+	@GetMapping("/return_book_list_form")
+	public String returnBookListForm(Model model) {
+		log.info("returnBookListForm()");
+		
+		String nextPage = "admin/shop/return_book_list_form";
+		
+		List<SaledBookDto> returnBookDtos = adminShopService.returnBookListForm();
+		
+		model.addAttribute("returnBookDtos", returnBookDtos);
+		
+		return nextPage;		
+		
+	}
+	
+	
+	// 반품도서 상세 내역
+	
+	@GetMapping("/return_book_detail_form")
+	public String returnBookDetailForm(@RequestParam("sb_no") String sb_no, Model model) {
+		log.info("returnBookDetailForm()");
+		
+		String nextPage = "admin/shop/return_book_detail_form";
+		
+		SaledBookDto returnBookDto = adminShopService.returnBookDetailForm(sb_no);
+		
+		model.addAttribute("returnBookDto", returnBookDto);
+		
+		return nextPage;		
+		
+	}
+	
+	
+	// 반품도서 승인
+	
+	@GetMapping("/return_approval_confirm")
+	public String returnApprovalConfirm(@RequestParam("sb_no") String sb_no,
+										@RequestParam("b_no") int b_no,
+										@RequestParam("sb_book_count") int sb_book_count) {
+		log.info("returnApprovalConfirm()");
+		log.info(sb_no, b_no, sb_book_count);
+		
+		String nextPage = "redirect:/admin/shop/return_book_list_form";
+		
+		adminShopService.returnApprovalConfirm(sb_no, b_no, sb_book_count);
+			
+		return nextPage;		
+	}
+
+
+	// 반품도서 승인불가
+
+	@GetMapping("/return_notapproved_confirm")
+	public String returnNotApprovedConfirm(@RequestParam("sb_no") String sb_no) {
+		log.info("returnNotApprovedConfirm()");
+		
+		String nextPage = "redirect:/admin/shop/return_book_list_form";
+		
+		adminShopService.returnNotApprovedConfirm(sb_no);
+			
+		return nextPage;		
+	}
+	
+	
+	// 도서 재고 리스트
+	
+	@GetMapping("/book_inventory_list_form")
+	public String bookInventoryListForm(Model model) {
+		log.info("bookInventoryListForm()");
+		
+		String nextPage = "admin/shop/book_inventory_list_form";
+		
+		List<BookDto> inventoryBookDtos = adminShopService.bookInventoryListForm();
+		
+		model.addAttribute("inventoryBookDtos", inventoryBookDtos);
+		
+		return nextPage;		
+		
+	}
+	
+	
+	// 도서 재고 수정 FORM	
+	
+	@GetMapping("/modify_book_inventory_form")
+	public String modifyBookInventoryForm(@RequestParam("b_no") int b_no, Model model) {
+		log.info("modifyBookInventoryForm()");
+		
+		String nextPage = "admin/shop/modify_book_inventory_form";
+		
+		BookDto bookDto = adminShopService.modifyBookInventoryForm(b_no);
+		
+		model.addAttribute("bookDto", bookDto);
+		
+		return nextPage;		
+		
+	}
+	
+	
+	// 도서 재고 수정
+
+	@PostMapping("/modify_book_inventory_confirm")
+	public String modifyBookInventoryConfirm(BookDto bookDto) {
+		log.info("modifyBookInventoryConfirm()");
+		
+		String nextPage = "redirect:/admin/shop/book_inventory_list_form";
+		
+		adminShopService.modifyBookInventoryConfirm(bookDto);
+			
+		return nextPage;		
+	}
+	
 }
+
+
+

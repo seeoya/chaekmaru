@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
+import com.maru.chaekmaru.shop.SaledBookDto;
 
 @Mapper
 public interface IAdminShopDaoForMybatis {
@@ -20,7 +22,29 @@ public interface IAdminShopDaoForMybatis {
 
 	public List<MemberDto> selectAllUsers();
 
-	public int updaterActiveForUserState(String m_id);
+	public int updateActiveForUserState(String m_id);
+
+	public List<SaledBookDto> selectAllSaledBooks();
+
+	public SaledBookDto selectSaledBookForDetail(String sb_no);
+
+	public List<SaledBookDto> selectAllReturnBooks();
+	
+	public SaledBookDto selectReturnBookForDetail(String sb_no);
+
+	public int updateApprovalForReturnBook(String sb_no);
+	
+	public int updateBookCount(int b_no, int sb_book_count);	
+
+	public int updateNotApprovedForReturnBook(String sb_no);
+
+	public List<BookDto> selectAllBooksForInventory();
+
+	public BookDto selectBookForInventory(int b_no);
+
+	public int updateBookInventory(BookDto bookDto);
+
+	
 
 	
 }

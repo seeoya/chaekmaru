@@ -47,7 +47,8 @@
     				<td th:text="${list.m_addr}"></td>   				
     				<td th:text="${list.m_detail_addr}"></td>   				
     				<td th:text="${list.m_grade}"></td>   				
-    				<td th:text="${list.m_state}"></td>
+    				<td th:if="${list.m_state == 0}" th:text="비활성"></td>
+    				<td th:if="${list.m_state == 1}" th:text="활성"></td>
     				<td th:text="${list.m_reg_date}"></td>
     				<td th:text="${list.m_mod_date}"></td>
         				 				 				   				 
