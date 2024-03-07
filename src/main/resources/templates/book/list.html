@@ -6,7 +6,7 @@
     <script th:src="@{/js/list.js}"></script>
 </head>
 
-<div class="content-wrap" layout:fragment="content">
+<div id="list" class="content-wrap" layout:fragment="content">
     <h2 class="title">리스트</h2>
 
     <div class="content">
@@ -37,9 +37,7 @@
                         <div class="info">
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="author ellipsis">[[${item.b_author}]]</div>
-                            <div class="price ellipsis" >
-                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ '원'}]]
-                            </div>
+                            <div class="price ellipsis">[[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ '원'}]]</div>
                             <div class="introduce">[[${item.b_introduce}]]</div>
                             <div class="publisher ellipsis">[[${item.b_publisher}]] /
                                 [[${item.b_publish_date}]]</div>

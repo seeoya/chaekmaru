@@ -52,7 +52,11 @@
 <section th:fragment="category" class="header-category">
     <div class="category-wrap">
         <nav>
-            <button type="button" class="cate-link">카테고리 열기</button>
+            <div id="category_btn" class="cate-link">
+                <p>카테고리 열기</p>
+
+                <div th:replace="~{/book/aside.html::aside}"></div>
+            </div>
             <a th:href="@{/book/list}" class="cate-link">모든</a>
             <a th:href="@{/book/list(sort='best')}" class="cate-link">인기</a>
             <a th:href="@{/book/list(sort='new')}" class="cate-link">신상품</a>
