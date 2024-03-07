@@ -17,6 +17,7 @@ public class SaledBookDto {
 	private char sb_coupon;
 	private int sb_state;
 	private String sb_return_date;
+	private String sb_return_mod_date;
 	private String sb_reg_date;
 	private String sb_mod_date;
 	

@@ -12,6 +12,7 @@
 	
 	</select>
 	
+	
 	<select id="selectUserPointForModify"
 			parameterType="String"			
 			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
@@ -56,12 +57,128 @@
 	</select>
 	
 			
-	<update id="updaterActiveForUserState"
+	<update id="updateActiveForUserState"
 			parameterType="String">
 			
 			UPDATE TBL_MEMBER 
-			SET M_STATE = 0 
+			SET 
+			M_STATE = 0,
+			M_MOD_DATE = SYSTIMESTAMP   
 			WHERE M_ID = #{m_id}			
+			
+	</update>
+	
+	
+	<select id="selectAllSaledBooks"				
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
+			SELECT *  
+			FROM TBL_SALED_BOOK 			 
+			ORDER BY SB_MOD_DATE DESC			
+	
+	</select>
+	
+	
+	<select id="selectSaledBookForDetail"	
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
+			SELECT *  
+			FROM TBL_SALED_BOOK 			 
+			WHERE SB_NO = #{sb_no}
+	
+	</select>
+	
+	
+	<select id="selectAllReturnBooks"				
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
+			SELECT *  
+			FROM TBL_SALED_BOOK
+			WHERE SB_STATE = 3 OR SB_STATE = 4 OR SB_RETURN_DATE IS NOT NULL  			 
+			ORDER BY SB_RETURN_DATE		
+	
+	</select>
+	
+	
+	<select id="selectReturnBookForDetail"	
+			parameterType="String"			
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
+			SELECT *  
+			FROM TBL_SALED_BOOK 			 
+			WHERE SB_NO = #{sb_no}
+	
+	</select>
+	
+	
+	<update id="updateApprovalForReturnBook"
+			parameterType="String">
+			
+			UPDATE TBL_SALED_BOOK  
+			SET 
+			SB_STATE = 4,			 
+			SB_RETURN_MOD_DATE = SYSTIMESTAMP  
+			WHERE SB_NO = #{sb_no}			
+			
+	</update>
+	
+	<update id="updateBookCount"
+			parameterType="Integer">
+			
+			UPDATE TBL_BOOK  
+			SET 
+			B_COUNT = B_COUNT - #{sb_book_count} 			 
+			B_MOD_DATE = SYSTIMESTAMP  
+			WHERE B_NO = #{b_no}			
+			
+	</update>
+	
+	
+	
+	
+	
+	<update id="updateNotApprovedForReturnBook"
+			parameterType="String">
+			
+			UPDATE TBL_SALED_BOOK  
+			SET 
+			SB_STATE = 2, 
+			SB_RETURN_MOD_DATE = SYSTIMESTAMP 
+			WHERE SB_NO = #{sb_no}			
+			
+	</update>
+	
+	
+	<select id="selectAllBooksForInventory"				
+			resultType="com.maru.chaekmaru.book.BookDto">
+			
+			SELECT *  
+			FROM TBL_BOOK			 			 
+			ORDER BY B_COUNT			
+	
+	</select>
+	
+	
+	<select id="selectBookForInventory"	
+			parameterType="Integer"	
+			resultType="com.maru.chaekmaru.book.BookDto">
+			
+			SELECT *  
+			FROM TBL_BOOK
+			WHERE B_NO = #{b_no}							
+	
+	</select>
+	
+	
+	<update id="updateBookInventory"
+			parameterType="com.maru.chaekmaru.book.BookDto">
+						
+			UPDATE TBL_BOOK  
+			SET 
+			B_COUNT = B_COUNT + #{b_count},
+			B_MOD_DATE = SYSTIMESTAMP
+			WHERE B_NO = #{b_no}			
 			
 	</update>
 	

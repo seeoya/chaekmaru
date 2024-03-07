@@ -15,6 +15,7 @@
 				 		
 	</select>
 	
+	
 	<insert id="insertAdminAccount"
 			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto">
 			
@@ -52,6 +53,7 @@
 				 		
 	</select>
 	
+	
 	<update id="updateAdminForModify"
 			parameterType="com.maru.chaekmaru.admin.member.AdminMemberDto" >
 			
@@ -59,12 +61,14 @@
 			UPDATE 
 				TBL_ADMIN  
 			SET 
-				A_PW=#{a_pw},
-				A_PHONE=#{a_phone}
+				A_PW = #{a_pw},
+				A_PHONE = #{a_phone},
+				A_MOD_DATE = SYSTIMESTAMP   
 			WHERE 
-				A_NO=#{a_no}	
+				A_NO = #{a_no}	
 	
 	</update>
+	
 	
 	<select id="selectAdminForModify"
 			parameterType="Integer"
@@ -79,15 +83,17 @@
 				 		
 	</select>
 	
+	
 	<delete id="deleteAdminAccount"
 			parameterType="Integer">
 			
 			DELETE FROM 
 				TBL_ADMIN 
 			WHERE 
-				A_NO=#{a_no}
+				A_NO = #{a_no}
 	
 	</delete>
+	
 	
 	<select id="selectAllAdmins"			
 			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
@@ -97,15 +103,17 @@
 				 		
 	</select>
 	
+	
 	<update id="updateAdminApproval"
 			parameterType="Integer">
 			
 			UPDATE 
 				TBL_ADMIN 
 			SET 
-				A_GRADE=1				
+				A_GRADE = 1, 
+				A_MOD_DATE = SYSTIMESTAMP								
 			WHERE 
-				A_NO=#{a_no}	
+				A_NO = #{a_no}	
 	
 	</update>
 		

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/layout}">
 
 <head>
     <title>책마루 :: 회원가입</title>
@@ -13,20 +14,57 @@
 
     <div class="content">
         <form th:action="@{/member/create_account_confirm}" name="create_account_form" method="post" class="form">
-            <div>
-                <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
-                <button type="button" onclick="createAccountForm();" class="btn sub">중복체크</button>
+            <div class="input-wrap">
+                <div>
+                    <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
+                    <button type="button" onclick="createAccountForm();" class="btn sub">중복체크</button>
+                </div>
+
+                <span id="icon_m_id" class="input-icon"></span>
+                <span id="message_m_id" class="input-message">아이디는 6글자 이상이며, 영문 소문자와 숫자만 입력 가능합니다.</span>
             </div>
-            <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요.">
-            <input type="text" name="m_name" placeholder="이름을 입력해 주세요.">
-            <input type="text" name="m_mail" placeholder="이메일을 입력해 주세요.">
-            <input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요.">
-            <div>
-                <input type="text" id="postcode" name="m_addr_code" placeholder="우편번호" readonly >
-                <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호 찾기</button>
+
+            <div class="input-wrap">
+                <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요.">
+                <span id="icon_m_pw" class="input-icon"></span>
+                <span id="message_m_pw" class="input-message">비밀번호는 최소 8자 이상이어야 하며, 특수문자를 최소 1개 이상 포함해야 합니다.</span>
             </div>
-            <input type="text" id="address" name="m_addr" placeholder="주소" readonly>
-            <input type="text" id="detailAddress" name="m_detail_addr" placeholder="상세주소">
+
+            <div class="input-wrap">
+                <input type="text" name="m_name" placeholder="이름을 입력해 주세요.">
+                <span id="icon_m_name" class="input-icon"></span>
+                <span id="message_m_name" class="input-message">유효한 이메일 주소를 입력해 주세요.</span>
+            </div>
+
+            <div class="input-wrap">
+                <input type="text" name="m_mail" placeholder="이메일을 입력해 주세요.">
+                <span id="icon_m_mail" class="input-icon"></span>
+                <span id="message_m_mail" class="input-message">유효한 이메일 주소를 입력해 주세요.</span>
+            </div>
+
+            <div class="input-wrap">
+                <input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요." oninput="extractNumbers(this)">
+                <span id="icon_m_phone" class="input-icon"></span>
+                <span id="message_m_phone" class="input-message">유효한 이메일 주소를 입력해 주세요.</span>
+            </div>
+
+            <div class="input-wrap">
+                <div>
+                    <input type="text" id="postcode" name="m_addr_code" placeholder="우편번호" readonly>
+                    <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-wrap">
+                <input type="text" id="address" name="m_addr" placeholder="주소" readonly>
+                <input type="text" id="detailAddress" name="m_detail_addr" placeholder="상세주소">
+
+                <span id="icon_m_addr" class="input-icon"></span>
+                <span id="message_m_addr" class="input-message">유효한 이메일 주소를 입력해 주세요.</span>
+            </div>
+
             <div class="btn-wrap">
                 <button type="reset" class="btn highlight">초기화</button>
                 <button type="button" onclick="createAccountForm();" class="btn main">회원가입</button>

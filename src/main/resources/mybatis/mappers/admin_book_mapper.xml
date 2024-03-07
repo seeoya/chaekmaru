@@ -15,6 +15,7 @@
 				 		
 	</select>
 	
+	
 	<insert id="insertBook"
 			parameterType="com.maru.chaekmaru.book.BookDto">
 			
@@ -23,9 +24,9 @@
 				TBL_BOOK(B_NO, B_THUMBNAIL, B_NAME, B_AUTHOR, B_INTRODUCE, B_PUBLISHER, B_PUBLISH_DATE, B_KDC, B_ISBN, B_PRICE, B_COUNT, B_REG_DATE, B_MOD_DATE)   
 					VALUES(BOOK_SEQ.NEXTVAL, #{b_thumbnail}, #{b_name}, #{b_author}, #{b_introduce}, #{b_publisher}, #{b_publish_date}, #{b_kdc}, #{b_isbn}, #{b_price},
 						   #{b_count}, SYSTIMESTAMP, SYSTIMESTAMP)			
-		
-				 		
+						 		
 	</insert>
+	
 
 	<select id="selectAllBooks"			
 			resultType="com.maru.chaekmaru.book.BookDto">
@@ -34,6 +35,7 @@
 			ORDER BY B_NO DESC			
 				 		
 	</select>
+	
 	
 	<select id="selectBookForModify"
 			parameterType="Integer"
@@ -47,6 +49,7 @@
 				B_NO = #{b_no}
 				 		
 	</select>
+	
 	
 	<update id="updateBookForModify"
 			parameterType="com.maru.chaekmaru.book.BookDto"	>
@@ -70,6 +73,7 @@
 				 		
 	</update>
 	
+	
 	<delete id="deleteBookConfirm"
 			parameterType="Integer">
 			
@@ -79,4 +83,5 @@
 				B_NO=#{b_no}	
 	
 	</delete>
+	
 </mapper>
