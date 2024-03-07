@@ -210,5 +210,12 @@ public class MemberController {
 	    }
 
 	}
+	
+	
+	@GetMapping("/temp")
+	public String temp() {
+
+		return "temp";
+	}
 	 
 }
