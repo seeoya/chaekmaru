@@ -29,14 +29,28 @@
 					UPDATE 
 						TBL_MEMBER_CART 
 					SET 
-						C_BOOK_COUNT = #{c_book_count}, 
+						C_BOOK_COUNT = #{c_book_count},
 						C_MOD_DATE = SYSTIMESTAMP 
 					WHERE 
 						M_ID = #{m_id} 
 					AND 
 						C_NO = #{c_no} 
-		
-	
+	</update>
+	<update id="addBookCountByBNo"
+			parameterType="Object">
+				<![CDATA[
+						UPDATE 
+						TBL_MEMBER_CART 
+					SET
+						C_BOOK_COUNT =
+						(SELECT C_BOOK_COUNT FROM TBL_MEMBER CART WHERE 
+						M_ID = #{m_id} AND B_NO = #{b_no}) +1,
+						C_MOD_DATE = SYSTIMESTAMP 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO =  #{b_no}
+					]]>
 	</update>
 	
 	<delete id="deleteMyCart"
@@ -69,7 +83,7 @@
 						MC.M_ID = #{m_id} 
 					AND 
 						MC.C_NO = #{c_no}
-				 		
+
 	</select>
 	
 	<insert id="paymentMyCart"
@@ -92,8 +106,8 @@
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
-					 SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
-					 #{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
+					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
 	
@@ -106,13 +120,81 @@
 			
 	</insert>
 	
-	<!-- <insert id="insertPoint"
+	<select id="allPaymentForm"
+			parameterType="map"
+			resultType="com.maru.chaekmaru.mypage.MemberCartDto">
+			
+					SELECT * FROM 
+						TBL_MEMBER_CART MC 
+					JOIN 
+						TBL_BOOK B 
+					ON 
+						MC.B_NO = B.B_NO 
+					JOIN 
+						TBL_MEMBER M 
+					ON 
+						MC.M_ID = M.M_ID 
+					WHERE 
+						MC.M_ID = #{m_id} 
+					
+	</select>
+	
+	<insert id="addMyCart"
+			parameterType="map">
+	
+		INSERT INTO 
+			TBL_MEMBER_CART 
+		VALUES(MEMBER_CART_SEQ.NEXTVAL, #{m_id}, #{b_no}, 1, SYSTIMESTAMP, SYSTIMESTAMP) 
+	
+	</insert>
+	
+	<select id="selectBookCount"
+			parameterType="map"
+			resultType="Integer">
+			
+					SELECT NVL(MAX(C_BOOK_COUNT), 0) FROM 
+						TBL_MEMBER_CART
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+						
+	</select>
+	
+	<insert id="allPaymentMyCartList"
+			parameterType="com.maru.chaekmaru.shop.SaledBookDto">
+					
+					INSERT INTO 
+						TBL_SALED_BOOK(
+						SB_NO, 
+						B_NO, 
+						M_ID, 
+						sb_book_count, 
+						SB_NAME, 
+						SB_ADDR_CODE, 
+						SB_ADDR, 
+						SB_DETAIL_ADDR, 
+						SB_MEMO, 
+						SB_SALE_DATE, 
+						SB_ALL_PRICE, 
+						SB_STATE, 
+						SB_REG_DATE, 
+						SB_MOD_DATE) 
+					VALUES(
+					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
+					
+	</insert>
+	
+	<delete id="deleteAllMyCart"
 			parameterType="Object">
-			
-			INSERT INTO 
-				MemberCartDto 
-			VALUES(MEMBER_CART_SEQ.NEXTVAL, #{m_id}, #{b_no}, 1, SYSTIMESTAMP, SYSTIMESTAMP)
-			
-	</insert> -->
+	
+			DELETE FROM 
+				TBL_MEMBER_CART 
+			WHERE 
+				M_ID = #{m_id}
+	
+	</delete>
+	
 	
 </mapper>

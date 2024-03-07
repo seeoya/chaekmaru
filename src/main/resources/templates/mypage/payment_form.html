@@ -1,113 +1,134 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 결제 페이지</title>
+	<title>책마루 :: 결제 페이지</title>
 
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script th:src="@{/js/payment_form_check.js}"></script>
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-    <!-- <script th:src="@{js/index.js}"></script> -->
+	<!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script th:src="@{/js/payment_form_check.js}"></script>
+	<!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+	<!-- <script th:src="@{js/index.js}"></script> -->
 </head>
 
 <div id="example_copy" class="content-wrap" layout:fragment="content">
-    <h2 class="title">주문서</h2>
-    
-    <div class="content" th:with="userInfo=${memberCartDtos.get(0)}">
-        <form th:action="@{/mypage/payment_form_confirm(c_no=${userInfo.c_no})}" name="payment_form" method="post">
-        	
-        	<div>
-        	
-        		<div th:each="memberCartDto : ${memberCartDtos}">
-       				<div>[[${memberCartDto.b_name}]]</div>
-       				<div>
-	        			<img th:src="@{${memberCartDto.b_thumbnail}}" alt="book_thumbnail" />
-	        			<input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
-	        		</div>
-       			</div>
-       			
-        		<div>
-        			<p>받는 사람 이름</p>
-        			<input type="text" th:value="${userInfo.m_name}" name="sb_name" placeholder="수령하실 분의 이름을 적어주세요" />
-        		</div>
-        		
-        		<div>
-        			<p>받는 사람 주소</p>
-        			<div>
-	                	<input type="text" id="postcode" name="sb_addr_code" th:value="${userInfo.m_addr_code}" placeholder="우편번호" readonly >
-	                	<button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호 찾기</button>
-	            	</div>
-	            	<input type="text" id="address" name="sb_addr" th:value="${userInfo.m_addr}" placeholder="주소" readonly>
-	            	<input type="text" id="detailAddress" name="sb_detail_addr" th:value="${userInfo.m_detail_addr}" placeholder="상세주소">
-       			</div>
-       			
-       			<div>
-        			<p>배송 메모</p>
-        			<input type="text" name="sb_memo" placeholder="배송 메모를 적어주세요" />
-       			</div>
-       			
-       			
-       			
-       			<div>
-        			<p>결제 금액</p>
-        			<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count, 3, 'COMMA') + '  포인트'}" ></p>
-        			<input type="hidden" name="b_no" th:value="${userInfo.b_no}" />
-        			<input type="hidden" name="sb_book_count" th:value="${userInfo.c_book_count}" />
-       			</div>
-       			
-       			<div>
-        			<p>배송비</p>
-        			<p>3,000 포인트</p>
-       			</div>
-       			
-       			<div>
-        			<p>최종 결제 금액</p>
-        			<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000, 3, 'COMMA') + '  포인트'}" ></p>
-       			</div>
-       			
-       			<div th:switch="${userInfo.m_grade}">
-        			<p>등급 할인</p>
-        			<div th:case="0" >
-        				<p th:text="${userInfo.b_price * userInfo.c_book_count * 0 + '  포인트'}" ></p>
-        			</div>
-        			<div th:case="1" >
-        				<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}" ></p>
-        			</div>
-        			<div th:case="2" >
-        				<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}" ></p>
-        			</div>
-       			</div>
-       			
-       			<div th:switch="${userInfo.m_grade}">
-        			<p>최종 금액</p>
-        			<div th:case="0" >
-        				<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}" ></p>
-        				<input type="hidden" name="sb_all_price" th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0}">
-        			</div>
-        			<div th:case="1" >
-        				<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05, 3, 'COMMA') + '  포인트'}" ></p>
-        				<input type="hidden" name="sb_all_price" th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05}"/>
-        			</div>
-        			<div th:case="2" >
-        				<p th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1, 3, 'COMMA') + '  포인트'}" ></p>
-        				<input type="hidden" name="sb_all_price" th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1}"/>
-        			</div>
-       			</div>
-        		
-       			<div>
-       				<div>
-       					<button type="submit">1231231</button>
-	       				<button type="button" onclick="paymentFormSubmit();" >결제하기</button>
-	       				&nbsp;&nbsp;
-	       				<a th:href="@{/mypage/member_cart_form}">주문 취소</a>
-       				</div>
-       			</div>
-        		
-       		</div>
-        	
-        </form>
-    </div>
+	<h2 class="title">주문서</h2>
+
+	<div class="content" th:with="userInfo=${memberCartDtos.get(0)}">
+		<form th:action="@{/mypage/payment_form_confirm(c_no=${userInfo.c_no})}" name="payment_form" method="post">
+
+			<div>
+				<div th:each="memberCartDto : ${memberCartDtos}">
+					<div>
+						<img th:src="@{${memberCartDto.b_thumbnail}}" alt="book_thumbnail" />
+						<input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
+						<div>[[${memberCartDto.b_name}]]</div>
+					</div>
+				</div>
+
+				<div>
+					<p>받는 사람 이름</p>
+					<input type="text" th:value="${userInfo.m_name}" name="sb_name" placeholder="수령하실 분의 이름을 적어주세요" />
+				</div>
+
+				<div>
+					<p>받는 사람 주소</p>
+					<div>
+						<input type="text" id="postcode" name="sb_addr_code" th:value="${userInfo.m_addr_code}"
+							placeholder="우편번호" readonly>
+						<button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호
+							찾기</button>
+					</div>
+					<input type="text" id="address" name="sb_addr" th:value="${userInfo.m_addr}" placeholder="주소"
+						readonly>
+					<input type="text" id="detailAddress" name="sb_detail_addr" th:value="${userInfo.m_detail_addr}"
+						placeholder="상세주소">
+				</div>
+
+				<div>
+					<p>배송 메모</p>
+					<input type="text" name="sb_memo" placeholder="배송 메모를 적어주세요" />
+				</div>
+
+
+
+				<div>
+					<p>결제 금액</p>
+					<p
+						th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count, 3, 'COMMA') + '  포인트'}">
+					</p>
+					<input type="hidden" name="b_no" th:value="${userInfo.b_no}" />
+					<input type="hidden" name="sb_book_count" th:value="${userInfo.c_book_count}" />
+				</div>
+
+				<div>
+					<p>배송비</p>
+					<p>3,000 포인트</p>
+				</div>
+
+				<div>
+					<p>최종 결제 금액</p>
+					<p
+						th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000, 3, 'COMMA') + '  포인트'}">
+					</p>
+				</div>
+
+				<div th:switch="${userInfo.m_grade}">
+					<p>등급 할인</p>
+					<div th:case="0">
+						<p th:text="${userInfo.b_price * userInfo.c_book_count * 0 + '  포인트'}"></p>
+					</div>
+					<div th:case="1">
+						<p
+							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
+						</p>
+					</div>
+					<div th:case="2">
+						<p
+							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
+						</p>
+					</div>
+				</div>
+
+				<div th:switch="${userInfo.m_grade}">
+					<p>최종 금액</p>
+					<div th:case="0">
+						<p
+							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0, 3, 'COMMA') + '  포인트'}">
+						</p>
+						<input type="hidden" name="sb_all_price"
+							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0}">
+					</div>
+					<div th:case="1">
+						<p
+							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05, 3, 'COMMA') + '  포인트'}">
+						</p>
+						<input type="hidden" name="sb_all_price"
+							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.05}" />
+					</div>
+					<div th:case="2">
+						<p
+							th:text="${#numbers.formatInteger(userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1, 3, 'COMMA') + '  포인트'}">
+						</p>
+						<input type="hidden" name="sb_all_price"
+							th:value="${userInfo.b_price * userInfo.c_book_count + 3000 - userInfo.b_price * userInfo.c_book_count * 0.1}" />
+					</div>
+				</div>
+
+				<div>
+					<div>
+						<button type="submit">1231231</button>
+						<button type="button" onclick="paymentFormSubmit();">결제하기</button>
+						&nbsp;&nbsp;
+						<a th:href="@{/mypage/member_cart_form}">주문 취소</a>
+					</div>
+				</div>
+
+			</div>
+
+		</form>
+	</div>
 </div>
 
 </html>

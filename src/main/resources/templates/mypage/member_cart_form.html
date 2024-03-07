@@ -20,7 +20,9 @@
 
 				<div>
 					<p th:text="${memberCartDtos.c_no}"></p>
-					<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+					<a th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
+						<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+					</a>
 				</div>
 
 				<div>
@@ -30,9 +32,12 @@
 
 				<div>
 					<input type="number" name="c_book_count" th:value="${memberCartDtos.c_book_count}" />
-
-					<button type="button" class="modify-count btn" onclick="bookCountSubmit();" th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경</button>
-
+					<button type="button" class="modify-count btn" onclick="bookCountSubmit();"
+						th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경</button>
+					<p>
+						[[${memberCartDtos.b_price}]] * [[${memberCartDtos.c_book_count}]] =
+						[[${memberCartDtos.c_book_count * memberCartDtos.b_price}]]
+					</p>
 					<a th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>
 					&nbsp;&nbsp;
 					<a th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}">장바구니 제거</a>
@@ -41,7 +46,7 @@
 			</div>
 
 			<div>
-				<a th:href="@{/mypage/payment_form}">모두 결제하기</a>
+				<a th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
 			</div>
 
 		</form>
