@@ -1,7 +1,6 @@
 package com.maru.chaekmaru.admin.shop;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,9 +62,9 @@ public class AdminShopService {
 		
 		int result = adminShopDao.updaterActiveForUserState(m_id);
 		if(result > 0) 
-			return Config.MODIFY_POINT_SUCCESS_AT_DATABASE;			
+			return Config.USER_ACCOUNT_UNACTIVE_SUCCESS;			
 		 else
-			return Config.MODIFY_POINT_FAIL_AT_DATABASE;
+			return Config.USER_ACCOUNT_UNACTIVE_FAIL;
 		
 	}
 
