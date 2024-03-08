@@ -123,7 +123,7 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		List<MemberCartDto> memberCartDtos = mypageService.paymentForm(loginedMemberDto.getM_id(), c_no);
-		
+
 		int allPrice = mypageService.calcAllPrice(memberCartDtos);
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
 
@@ -182,7 +182,6 @@ public class MypageController {
 		model.addAttribute("reviews", myReviews);
 
 		return nextPage;
-		
 	}
 
 	/*
@@ -206,9 +205,9 @@ public class MypageController {
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
 
 		return nextPage;
-		
+
 	}
-	
+
 	/*
 	 * 도서 상세 페이지에서 장바구니 버튼 클릭
 	 */
@@ -220,11 +219,11 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
-	
+
 		return nextPage;
 
 	}
-	
+
 	/*
 	 * 모두 결제 폼에서 결제하기 버튼 클릭
 	 */
@@ -254,7 +253,7 @@ public class MypageController {
 		return nextPage;
 
 	}
-	
+
 	/*
 	 * 도서 상세 페이지에서 바로 결제 버튼 클릭
 	 */
@@ -264,6 +263,7 @@ public class MypageController {
 		String nextPage = "mypage/move_payment_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
 		model.addAttribute("loginedMemberDto", loginedMemberDto);
 		
 		BookDto bookDto = mypageService.setView(b_no);
@@ -297,7 +297,22 @@ public class MypageController {
 		log.info(saledBookDtos.get(0).getB_name());
 		
 		return nextPage;
-		
 	}
-	
+
+	@GetMapping("/point_charge")
+	public String pointCharge(HttpSession session, Model model) {
+
+		String nextPage = "/mypage/point_charge";
+
+		return nextPage;
+	}
+
+	@GetMapping("/point_list")
+	public String pointList(HttpSession session, Model model) {
+
+		String nextPage = "/mypage/point_list";
+
+		return nextPage;
+	}
+
 }
