@@ -35,10 +35,10 @@ public class MemberController {
 	public String CreateAccountConfirm(MemberDto memberDto, Model model) {
 		log.info("CreateAccountConfirm");
 
-		String nextPage = "member/login_form";
+		String nextPage = "redirect:/member/login_form";
 
 		int result = memberService.memberAccountConfirm(memberDto);
-
+		// #TODO result 처리
 		if (result == Config.INSERT_FAIL_AT_DATABASE) {
 			nextPage = "member/create_account_form";
 		}
@@ -53,9 +53,8 @@ public class MemberController {
 		String nextPage = "member/login_form";
 
 		return nextPage;
-
 	}
-	
+
 	/*
 	 * @PostMapping("/login_confirm") public String Loginconfirm(MemberDto
 	 * memberDto, HttpSession session) { log.info("-- Loginconfirm() --");
@@ -91,23 +90,19 @@ public class MemberController {
 	public String memberModifyConfirm(MemberDto memberDto, HttpSession session) {
 		log.info("modify_confirm()");
 
-		String nextPage = "redirect:/";
+		String nextPage = "redirect:/member/modify_form";
 
 		MemberDto loginedMemberDto = memberService.modifyConfirm(memberDto);
 
 		if (loginedMemberDto != null) {
-
 			session.setAttribute("loginedMemberDto", loginedMemberDto);
 			session.setMaxInactiveInterval(60 * 30);
-
 		} else {
-
-			nextPage = "member/modify_form\"";
-
+			// #TODO result 처리
+			nextPage = "/result";
 		}
 
 		return nextPage;
-
 	}
 
 	@GetMapping("/logout_confirm")
@@ -116,7 +111,8 @@ public class MemberController {
 
 		session.removeAttribute("loginedMemberDto");
 
-		String nextPage = "redirect:/";
+		// #TODO result 처리
+		String nextPage = "redirect:/member/login_form";
 
 		return nextPage;
 	}
@@ -131,7 +127,8 @@ public class MemberController {
 
 		int result = memberService.memberDeleteConfirm(loginedMemberDto.getM_id());
 		if (result <= 0) {
-			nextPage = "/success";
+			// #TODO result 처리
+			nextPage = "/result";
 		}
 
 		return nextPage;
@@ -152,11 +149,12 @@ public class MemberController {
 		String id = memberService.findIdByNameAndEmail(name, email);
 		String nextPage = "";
 
+		// #TODO result 처리
 		if (id != null) {
 			memberService.sendEmail(email, "Your ID is : " + id);
-			return nextPage = "member/login_form";
+			return nextPage = "redirect:/member/login_form";
 		} else {
-			return nextPage = "member/find_id_form";
+			return nextPage = "redirect:/member/find_id_form";
 		}
 	}
 
@@ -171,18 +169,19 @@ public class MemberController {
 
 	@PostMapping("/find_pw_confirm")
 	public String thereIsId(@RequestParam("m_id") String id, @RequestParam("m_name") String name,
-		@RequestParam("m_mail") String email) {
+			@RequestParam("m_mail") String email) {
 		log.info("thereIsId()");
 		MemberDto getId = memberService.thereIsId(id, name, email);
 
 		String link = "http://localhost:8090/member/pw_modify_form?id=" + id;
 		String message = "비밀번호 변경 링크 : " + link;
-		
+
+		// #TODO result 처리
 		if (getId != null) {
 			memberService.sendEmail(email, message);
-			return "member/login_form";
+			return "redirect:/member/login_form";
 		} else {
-			return "member/find_pw_form";
+			return "redirect:/member/find_pw_form";
 		}
 	}
 
@@ -193,27 +192,19 @@ public class MemberController {
 		model.addAttribute("id", id);
 		return "member/pw_modify_form";
 	}
-	
 
 	@PostMapping("/pw_modify_confirm")
 	public String pwModifyForm(@RequestParam("id") String id, @RequestParam("m_pw") String m_pw) {
-	    log.info("pwModifyForm()");
-	    log.info("+++++++++++" + id);
-	    int result = memberService.pwModifyConfirm(id,m_pw);
-	    
-	    if (result > 0) {
-	    	return "member/login_form";
-	    } else {
-	    	return "member/find_pw_form";
-	    }
+		log.info("pwModifyForm()");
+		log.info("+++++++++++" + id);
+		int result = memberService.pwModifyConfirm(id, m_pw);
 
+		// #TODO result 처리
+		if (result > 0) {
+			return "redirect:/member/logout_confirm";
+		} else {
+			return "redirect:/result";
+		}
 	}
-	
-	
-	@GetMapping("/temp")
-	public String temp() {
 
-		return "temp";
-	}
-	 
 }
