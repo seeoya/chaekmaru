@@ -32,7 +32,7 @@ public class MyPointListDto {
 	private String sb_memo;
 	private String sb_sale_date;
 	private int sb_all_price;
-	private char sb_coupon;
+	private int sb_saled_price;
 	private int sb_state;
 	private String sb_return_date;
 	private String sb_reg_date;
