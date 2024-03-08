@@ -17,5 +17,7 @@ public class MemberDto {
 	private int m_state;
 	private String m_reg_date;
 	private String m_mod_date;
+
+	private int point;
 	
 }

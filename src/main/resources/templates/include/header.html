@@ -70,7 +70,9 @@
 
                 <div class="usermenu-list">
                     <div class="point">
-                        <a th:href="@{/mypage/point_list}" class="point-now">3,000BP</a>
+                        <a th:href="@{/mypage/point_list}" class="point-now">
+                            [[${#numbers.arrayFormatInteger(session[loginedMemberDto].point, 1,'COMMA')+ ' BP'}]]
+                        </a>
                         <a th:href="@{/mypage/point_charge}" class="btn main">충전</a>
                     </div>
 

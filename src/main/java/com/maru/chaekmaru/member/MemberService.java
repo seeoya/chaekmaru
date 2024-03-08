@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.config.Config;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -16,22 +17,22 @@ public class MemberService {
 
 	@Autowired
 	IMemberDaoForMybatis memberDao;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	JavaMailSender javaMailSender;
-	
+
 	public int memberAccountConfirm(MemberDto memberDto) {
 		log.info("--memberAccountConfirm--");
-		
+
 		int isMember = memberDao.isMember(memberDto.getM_id());
-		
+
 		if (isMember <= 0) {
 			memberDto.setM_pw(passwordEncoder.encode(memberDto.getM_pw()));
 			int result = memberDao.insertMember(memberDto);
-			
+
 			switch (result) {
 			case Config.DATABASE_COMMUNICATION_TROUBLE:
 				log.info("DATABASE COMMUNICATION TROUBLE");
@@ -40,21 +41,21 @@ public class MemberService {
 			case Config.INSERT_FAIL_AT_DATABASE:
 				log.info("INSERT FAIL AT DATABASE");
 				break;
-				
+
 			case Config.INSERT_SUCCESS_AT_DATABASE:
 				log.info("INSERT SUCCESS AT DATABASE");
 				break;
 
 			}
-			
+
 			return result;
-			
+
 		} else {
-			
+
 			return Config.ID_ALREADY_EXIST;
-			
+
 		}
-		
+
 	}
 
 	/*
@@ -75,18 +76,22 @@ public class MemberService {
 	public MemberDto modifyConfirm(MemberDto memberDto) {
 
 		log.info("modifyConfirm()");
-		
+
 		int result = memberDao.updateMemberForModify(memberDto);
-		
+
 		if (result > 0) {
 			return memberDao.selectMember(memberDto.getM_id());
 		}
-			
+
 		return null;
 	}
 
 	public int memberDeleteConfirm(String m_id) {
 		log.info("memberDeleteConfirm()");
+		
+		// #TODO isMember
+		// 포인트, 리뷰, 장바구니, 찜목록 삭제
+		
 		
 		return memberDao.deleteMember(m_id);
 	}
@@ -100,27 +105,37 @@ public class MemberService {
 	public void sendEmail(String email, String message) {
 		log.info("sendEmail()");
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(email);
-        mailMessage.setSubject("the result of your request");
-        mailMessage.setText(message);
+		mailMessage.setTo(email);
+		mailMessage.setSubject("the result of your request");
+		mailMessage.setText(message);
 
-        javaMailSender.send(mailMessage);
-    }
+		javaMailSender.send(mailMessage);
+	}
 
 	public MemberDto thereIsId(String id, String name, String email) {
 		log.info("thereIsId()");
-		return (MemberDto) memberDao.selectthereIsId(id,name,email);
+		return (MemberDto) memberDao.selectthereIsId(id, name, email);
 	}
 
 	public int pwModifyConfirm(String id, String m_pw) {
 		log.info("pwModifyConfirm()");
-		
-		int result = memberDao.pwModifyConfirm(id,passwordEncoder.encode(m_pw));
-		
+
+		int result = memberDao.pwModifyConfirm(id, passwordEncoder.encode(m_pw));
+
 		return result;
 	}
-	
+
+	public void refreshPoint(HttpSession session) {
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
+		if (loginedMemberDto != null) {
+			int point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
+			loginedMemberDto.setPoint(point);
+
+			session.setAttribute("loginedMemberDto", loginedMemberDto);
+		}
+
+	}
 
 }
-
-
