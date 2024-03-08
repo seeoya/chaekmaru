@@ -35,6 +35,7 @@
 						M_ID = #{m_id} 
 					AND 
 						C_NO = #{c_no} 
+						
 	</update>
 	<update id="addBookCountByBNo"
 			parameterType="Object">
@@ -203,13 +204,36 @@
 						TBL_MEMBER 
 					WHERE 
 						M_ID = #{m_id} 
+					AND 
 					
+	</select>
+	
+	<select id="selectBook" parameterType="Integer"
+		resultType="com.maru.chaekmaru.book.BookDto">
+		
+		SELECT * FROM 
+			TBL_BOOK 
+		WHERE 
+			B_NO = #{b_no}
+			
+	</select>
+	
+	 
+	<select id="getPaymentList"
+			parameterType="String"
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
 					SELECT * FROM 
-						TBL_BOOK 
+						TBL_SALED_BOOK SB 
+					JOIN 
+						TBL_BOOK B 
+					ON 
+						SB.B_NO = B.B_NO 
 					WHERE 
-						B_NO = #{b_no} 
-					
-
+						SB.M_ID = #{m_id} 
+					ORDER BY 
+						SB.SB_NO DESC
+				 		
 	</select>
 	
 	

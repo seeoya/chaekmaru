@@ -15,23 +15,22 @@
 <div id="example_copy" class="content-wrap" layout:fragment="content">
 	<h2 class="title">주문서</h2>
 
-	<div class="content" th:with="userInfo=${memberCartDtos.get(0)}">
-		<form th:action="@{/mypage/payment_form_confirm(c_no=${userInfo.c_no})}" name="payment_form" method="post">
+	<div class="content" th:with="userInfo=${loginedMemberDto}">
+		<form th:action="@{/mypage/payment_form_confirm}" name="payment_form" method="post">
 
 			<div>
-				<div th:each="memberCartDto : ${memberCartDtos}">
+				<div th:each="bookDto : ${bookDto}">
 					<div>
-						<a th:href="@{/book/view/{b_no}(b_no=${memberCartDto.b_no})}">
-							<img th:src="@{${memberCartDto.b_thumbnail}}" alt="book_thumbnail" />
+						<a th:href="@{/book/view/{b_no}(b_no=${bookDto.b_no})}">
+							<img th:src="@{${bookDto.b_thumbnail}}" alt="book_thumbnail" />
 						</a> 
-						<input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
-						<input type="hidden" name="c_no" th:value="${memberCartDto.c_no}" />
-						<div>[[${memberCartDto.b_name}]]</div>
+						<input type="hidden" name="b_no" th:value="${bookDto.b_no}" />
+						<div>[[${bookDto.b_name}]]</div>
 						<p>
-							[[${#numbers.formatInteger(memberCartDto.b_price, 3, 'COMMA')}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDto.c_book_count}]] 권 =
-							[[${#numbers.formatInteger(memberCartDto.b_price * memberCartDto.c_book_count, 3, 'COMMA')}]] 포인트
+							[[${#numbers.formatInteger(bookDto.b_price, 3, 'COMMA')}]] 포인트 <i class="fa-solid fa-xmark"></i> 1권 =
+							[[${#numbers.formatInteger(bookDto.b_price * 1, 3, 'COMMA')}]] 포인트
 						</p>
-						<input type="hidden" th:value="${memberCartDto.c_book_count}" name="sb_book_count" />
+						<input type="hidden" value="1" name="sb_book_count" />
 					</div>
 				</div>
 
@@ -58,10 +57,10 @@
 					<p>배송 메모</p>
 					<input type="text" name="sb_memo" placeholder="배송 메모를 적어주세요" />
 				</div>
-
+				
 				<div>
 					<p>전체 금액</p>
-					<p
+					 <p
 						th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
 				</div>
 
@@ -90,7 +89,7 @@
 					<div>
 						<button type="button" onclick="paymentFormSubmit();">결제하기</button>
 						&nbsp;&nbsp;
-						<a th:href="@{/mypage/member_cart_form}">주문 취소</a>
+						<a th:href="@{/mypage/${b_no}}">주문 취소</a>
 					</div>
 				</div>
 

@@ -1,8 +1,5 @@
 package com.maru.chaekmaru.mypage;
 
-import com.maru.chaekmaru.book.BookDto;
-import com.maru.chaekmaru.member.MemberDto;
-
 import lombok.Data;
 
 @Data
