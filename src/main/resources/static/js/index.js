@@ -1,6 +1,14 @@
 
+document.addEventListener("DOMContentLoaded", function() {
 
 
-function al() {
-	alert(1);
-}
+
+
+    document.getElementById("to_top").addEventListener("click", function() {
+        window.scrollTo(0, 0);
+    })
+
+
+})
+
+

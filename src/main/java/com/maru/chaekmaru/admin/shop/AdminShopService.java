@@ -79,7 +79,7 @@ public class AdminShopService {
 	}
 
 
-	public SaledBookDto saledDetailForm(String sb_no) {
+	public SaledBookDto saledDetailForm(int sb_no) {
 		log.info("saledDetailForm()");
 		
 		return adminShopDao.selectSaledBookForDetail(sb_no);
@@ -94,13 +94,13 @@ public class AdminShopService {
 	}
 
 	
-	public SaledBookDto returnBookDetailForm(String sb_no) {
+	public SaledBookDto returnBookDetailForm(int sb_no) {
 		log.info("returnBookDetailForm()");
 		
 		return adminShopDao.selectReturnBookForDetail(sb_no);
 	}
 
-	public void returnApprovalConfirm(String sb_no, int b_no, int sb_book_count) {
+	public void returnApprovalConfirm(int sb_no, int b_no, int sb_book_count) {
 		log.info("returnApprovalConfirm()");
 				
 		int result = adminShopDao.updateApprovalForReturnBook(sb_no);
@@ -110,7 +110,7 @@ public class AdminShopService {
 			result = adminShopDao.updateBookCount(b_no, sb_book_count);
 					
 			if(result > 0)
-		 
+		
 				log.info(Config.RETURN_BOOK_APPROVAL_SUCCESS);
 			else
 				log.info(Config.MODIFY_BOOK_COUNT_FAIL);
@@ -122,13 +122,13 @@ public class AdminShopService {
 	}
 
 
-	public void returnNotApprovedConfirm(String sb_no) {
+	public void returnNotApprovedConfirm(int sb_no) {
 		log.info("returnNotApprovedConfirm()");
 		
 		int result = adminShopDao.updateNotApprovedForReturnBook(sb_no);
 		if(result > 0) 
 			log.info(Config.RETURN_BOOK_NOT_APPROVED_SUCCESS);			
-		 else
+		else
 			log.info(Config.RETURN_BOOK_NOT_APPROVED_FAIL);
 	}
 
@@ -155,7 +155,7 @@ public class AdminShopService {
 		int result = adminShopDao.updateBookInventory(bookDto);
 		if(result > 0) 
 			log.info(Config.MODIFY_BOOK_INVENTORY_SUCCESS);			
-		 else
+		else
 			log.info(Config.MODIFY_BOOK_INVENTORY_FAIL);
 		
 	}

@@ -27,17 +27,17 @@ public interface IAdminShopDaoForMybatis {
 
 	public List<SaledBookDto> selectAllSaledBooks();
 
-	public SaledBookDto selectSaledBookForDetail(String sb_no);
+	public SaledBookDto selectSaledBookForDetail(int sb_no);
 
 	public List<SaledBookDto> selectAllReturnBooks();
 	
-	public SaledBookDto selectReturnBookForDetail(String sb_no);
+	public SaledBookDto selectReturnBookForDetail(int sb_no);
 
-	public int updateApprovalForReturnBook(String sb_no);
+	public int updateApprovalForReturnBook(int sb_no);
 	
 	public int updateBookCount(int b_no, int sb_book_count);	
 
-	public int updateNotApprovedForReturnBook(String sb_no);
+	public int updateNotApprovedForReturnBook(int sb_no);
 
 	public List<BookDto> selectAllBooksForInventory();
 
