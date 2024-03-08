@@ -187,24 +187,15 @@ function userAccountActiveConfirm(m_id) {
 	
 }
 
-function returnApprovalConfirm(sb_no, b_no, sb_book_count) {
-	console.log("returnApprovalConfirm()");
-	
-	let result = confirm("정말 반품 승인을 하시겠습니까?");
-	if(result){
-		
-		location.href= "/admin/shop/return_approval_confirm" + "?s_no=" + sb_no + ",b_no=" + b_no  + ",sb_book_count=" + sb_book_count;
-	}
-	
-}
 
-function returnNotApprovedConfirm(s_no) {
+
+function returnNotApprovedConfirm(sb_no) {
 	console.log("returnNotApprovedConfirm()");
 	
 	let result = confirm("정말 반품 승인불가 처리를 하시겠습니까?");
 	if(result){
 		
-		location.href= "/admin/shop/return_notapproved_confirm" + "?s_no=" + s_no;
+		location.href= "/admin/shop/return_notapproved_confirm" + "?sb_no=" + sb_no;
 	}
 	
 }
@@ -223,3 +214,17 @@ function modifyBookInventoryForm() {
     
 }
 
+function searchBookForm() {
+	console.log("searchBookForm!!");
+
+    let form = document.search_book_form;
+	
+	if (form.search === "") {
+        alert("검색어를 입력해 주세요.");
+        form.search.focus();        
+    } else {
+        form.submit();
+    }  
+    
+	
+}

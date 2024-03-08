@@ -73,6 +73,13 @@ public class AdminBookService {
 		else 
 			log.info(Config.DELETE_FAIL_AT_DATABASE);		
 	}
+
+/*	public List<BookDto> adminSearchBookConfirm(String search) {
+		log.info("adminSearchBookConfirm()");
+		
+		return adminBookDao.selectBookForSearch(search);
+		
+	}*/
 	
 
 }

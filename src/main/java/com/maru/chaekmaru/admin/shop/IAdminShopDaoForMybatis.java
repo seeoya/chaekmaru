@@ -3,6 +3,7 @@ package com.maru.chaekmaru.admin.shop;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;

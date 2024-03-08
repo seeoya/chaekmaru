@@ -102,13 +102,13 @@ public class AdminShopService {
 
 	public void returnApprovalConfirm(String sb_no, int b_no, int sb_book_count) {
 		log.info("returnApprovalConfirm()");
-		
+				
 		int result = adminShopDao.updateApprovalForReturnBook(sb_no);
 		
 		if(result > 0) {
 			
 			result = adminShopDao.updateBookCount(b_no, sb_book_count);
-			
+					
 			if(result > 0)
 		 
 				log.info(Config.RETURN_BOOK_APPROVAL_SUCCESS);

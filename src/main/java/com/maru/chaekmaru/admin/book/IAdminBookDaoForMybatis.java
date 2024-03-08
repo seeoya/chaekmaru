@@ -20,6 +20,8 @@ public interface IAdminBookDaoForMybatis {
 	public int updateBookForModify(BookDto bookDto);
 
 	public int deleteBookConfirm(int b_no);
+
+	//public List<BookDto> selectBookForSearch(String search);
 	
 	
 

@@ -120,6 +120,23 @@ public class AdminBookController {
 			return nextPage;		
 				
 		}
+		
+		// 도서 리스트 SEARCH
+
+/*		@GetMapping("/admin_search_book_confirm")
+		public String adminSearchBookConfirm(@RequestParam("search")String search, Model model) {
+			log.info("adminSearchBookConfirm()");
+			
+			String nextPage = "admin/book/book_list_form";
+			
+			List<BookDto> bookListDto = adminBookService.adminSearchBookConfirm(search);
+			
+			model.addAttribute("bookListDto", bookListDto);
+			
+			return nextPage;		
+			
+		} */
+
 }
 	
 

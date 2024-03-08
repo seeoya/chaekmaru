@@ -84,4 +84,17 @@
 	
 	</delete>
 	
+<!-- 	<select id="selectBookForSearch"
+			parameterType="String"
+			resultType="com.maru.chaekmaru.book.BookDto">
+			
+			SELECT 
+				* 
+			FROM 
+				TBL_BOOK 
+			WHERE 
+				B_NAME = LIKE '%' + #{search} + '%'
+				 		
+	</select>  -->
+	
 </mapper>

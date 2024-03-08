@@ -128,14 +128,12 @@
 			
 			UPDATE TBL_BOOK  
 			SET 
-			B_COUNT = B_COUNT - #{sb_book_count} 			 
-			B_MOD_DATE = SYSTIMESTAMP  
-			WHERE B_NO = #{b_no}			
+				B_COUNT = B_COUNT + #{param2},  			 
+				B_MOD_DATE = SYSTIMESTAMP  
+			WHERE 
+				B_NO = #{param1}			
 			
 	</update>
-	
-	
-	
 	
 	
 	<update id="updateNotApprovedForReturnBook"

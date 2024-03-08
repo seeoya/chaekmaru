@@ -217,10 +217,10 @@ public class AdminShopController {
 	
 	@GetMapping("/return_approval_confirm")
 	public String returnApprovalConfirm(@RequestParam("sb_no") String sb_no,
-										@RequestParam("b_no") int b_no,
-										@RequestParam("sb_book_count") int sb_book_count) {
+										@RequestParam("b_no") int b_no, @RequestParam("sb_book_count") int sb_book_count) {
 		log.info("returnApprovalConfirm()");
-		log.info(sb_no, b_no, sb_book_count);
+		// log.info(sb_no, b_no, sb_book_count);
+		log.info("{}, {}, {}", sb_no, b_no, sb_book_count);
 		
 		String nextPage = "redirect:/admin/shop/return_book_list_form";
 		
@@ -290,8 +290,10 @@ public class AdminShopController {
 			
 		return nextPage;		
 	}
+
 	
 }
+	
 
 
 
