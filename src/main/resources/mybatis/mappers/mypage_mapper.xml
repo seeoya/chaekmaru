@@ -65,6 +65,17 @@
 						C_NO = #{c_no}
 		
 	</delete>
+	
+	<delete id="deleteMyCartByBNo"
+			parameterType="Object">
+		
+					DELETE FROM 
+						TBL_MEMBER_CART 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+	</delete>
 
 	<select id="paymentForm"
 			parameterType="map"

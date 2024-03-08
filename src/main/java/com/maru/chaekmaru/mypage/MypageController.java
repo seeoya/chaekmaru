@@ -145,23 +145,22 @@ public class MypageController {
 
 		MyPointListDto myPointListDto = new MyPointListDto();
 
-		String nextPage = "mypage/payment_form_confirm";
+		String nextPage = "redirect:/mypage/member_cart_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		int result = mypageService.paymentMyCart(saledBookDto, loginedMemberDto.getM_id());
+
 		if (result > 0) {
 			myPointListDto.setM_id(loginedMemberDto.getM_id());
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
 			myPointListDto.setPl_desc("도서 " + saledBookDto.getSb_book_count() + "권 구매");
 
 			result = mypageService.insertPoint(myPointListDto);
+
 			if (result > 0) {
-				
-				result = mypageService.deletePaymentMyCart(loginedMemberDto.getM_id());
-
+				result = mypageService.deletePaymentMyCart(loginedMemberDto.getM_id(), saledBookDto.getB_no());
 			}
-
 		}
 
 		return nextPage;
@@ -238,6 +237,7 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto);
+		
 		if (result > 0) {
 			myPointListDto.setM_id(loginedMemberDto.getM_id());
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
@@ -265,21 +265,21 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		model.addAttribute("loginedMemberDto", loginedMemberDto);
-		
+
 		BookDto bookDto = mypageService.setView(b_no);
 		model.addAttribute("bookDto", bookDto);
-		
+
 		int allPrice = bookDto.getB_price();
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
 
 		model.addAttribute("allPrice", allPrice);
 		model.addAttribute("discount", discount);
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
-		
+
 		return nextPage;
 
 	}
-	
+
 	/*
 	 * 도서 구매 내역 페이지 이동
 	 */
@@ -293,9 +293,9 @@ public class MypageController {
 
 		List<SaledBookDto> saledBookDtos = mypageService.getPaymentList(loginedMemberDto.getM_id());
 		model.addAttribute("saledBookDtos", saledBookDtos);
-		
+
 		log.info(saledBookDtos.get(0).getB_name());
-		
+
 		return nextPage;
 	}
 

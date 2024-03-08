@@ -65,7 +65,6 @@ public class MypageService {
 //			result = mypageDao.deleteMyCart(m_id);
 
 		} else {
-			
 
 		}
 
@@ -93,15 +92,15 @@ public class MypageService {
 	public int addMyCart(String m_id, int b_no) {
 		log.info("addMyCart()");
 		int result = -1;
-		
+
 		int countBookInCart = -1;
-		
-		countBookInCart =  mypageDao.selectBookCount(m_id, b_no);
-		
+
+		countBookInCart = mypageDao.selectBookCount(m_id, b_no);
+
 		if (countBookInCart > 0) {
 			result = mypageDao.addBookCountByBNo(m_id, b_no);
 		} else {
-			result = mypageDao.addMyCart(m_id, b_no);		
+			result = mypageDao.addMyCart(m_id, b_no);
 		}
 
 		return result;
@@ -143,66 +142,66 @@ public class MypageService {
 
 	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto) {
 		log.info("allPaymentMyCartList()");
-		
+
 		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
-		
+
 		int result = -1;
-		
-		for (int i = 0; i < memberCartDtos.size() ; i++) {
-			
+
+		for (int i = 0; i < memberCartDtos.size(); i++) {
+
 			saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
 			saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
 			saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
 			saledBookDto.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
-			
+
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
-			
+
 		}
-		
+
 		return result;
-		
+
 	}
 
 	public int insertAllPoint(MyPointListDto myPointListDto, String m_id) {
 		log.info("insertAllPoint()");
-		
+
 		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
-		
+
 		int result = -1;
-		
-		for (int j = 0; j < memberCartDtos.size() ; j++) {
-			
-			myPointListDto.setPl_payment_book_point(memberCartDtos.get(j).getB_price() * memberCartDtos.get(j).getC_book_count() * -1);
+
+		for (int j = 0; j < memberCartDtos.size(); j++) {
+
+			myPointListDto.setPl_payment_book_point(
+					memberCartDtos.get(j).getB_price() * memberCartDtos.get(j).getC_book_count() * -1);
 			myPointListDto.setPl_desc("도서 " + Integer.toString(memberCartDtos.get(j).getC_book_count()) + "권 구매");
-			
+
 		}
-		
+
 		result = mypageDao.insertPoint(myPointListDto);
-		
+
 		return result;
-		
+
 	}
 
 	public int deleteAllMyCart(String m_id) {
 		log.info("deleteAllMyCart()");
-		
+
 		int result = -1;
-		
+
 		result = mypageDao.deleteAllMyCart(m_id);
-		
+
 		return result;
-		
+
 	}
 
-	public int deletePaymentMyCart(String m_id) {
+	public int deletePaymentMyCart(String m_id, int b_no) {
 		log.info("deletePaymentMyCart()");
-		
 		int result = -1;
-		
-		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
-		
+
+		result = mypageDao.deleteMyCartByBNo(m_id, b_no);
+
 		return result;
-		
+
 	}
 
 	public BookDto setView(int b_no) {
@@ -213,7 +212,7 @@ public class MypageService {
 		log.info("getPaymentList");
 
 		return mypageDao.getPaymentList(m_id);
-		
+
 	}
-	
+
 }
