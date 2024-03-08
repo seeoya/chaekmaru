@@ -165,7 +165,7 @@ public class AdminShopController {
 	// 판매도서 상세 내역
 	
 	@GetMapping("/saled_detail_form")
-	public String saledDetailForm(@RequestParam("sb_no") String sb_no, Model model) {
+	public String saledDetailForm(@RequestParam("sb_no") int sb_no, Model model) {
 		log.info("saledBookListForm()");
 		
 		String nextPage = "admin/shop/saled_detail_form";
@@ -199,7 +199,7 @@ public class AdminShopController {
 	// 반품도서 상세 내역
 	
 	@GetMapping("/return_book_detail_form")
-	public String returnBookDetailForm(@RequestParam("sb_no") String sb_no, Model model) {
+	public String returnBookDetailForm(@RequestParam("sb_no") int sb_no, Model model) {
 		log.info("returnBookDetailForm()");
 		
 		String nextPage = "admin/shop/return_book_detail_form";
@@ -216,11 +216,10 @@ public class AdminShopController {
 	// 반품도서 승인
 	
 	@GetMapping("/return_approval_confirm")
-	public String returnApprovalConfirm(@RequestParam("sb_no") String sb_no,
+	public String returnApprovalConfirm(@RequestParam("sb_no") int sb_no,
 										@RequestParam("b_no") int b_no,
 										@RequestParam("sb_book_count") int sb_book_count) {
 		log.info("returnApprovalConfirm()");
-		log.info(sb_no, b_no, sb_book_count);
 		
 		String nextPage = "redirect:/admin/shop/return_book_list_form";
 		
@@ -233,7 +232,7 @@ public class AdminShopController {
 	// 반품도서 승인불가
 
 	@GetMapping("/return_notapproved_confirm")
-	public String returnNotApprovedConfirm(@RequestParam("sb_no") String sb_no) {
+	public String returnNotApprovedConfirm(@RequestParam("sb_no") int sb_no) {
 		log.info("returnNotApprovedConfirm()");
 		
 		String nextPage = "redirect:/admin/shop/return_book_list_form";
