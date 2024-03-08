@@ -643,6 +643,11 @@ header .logo img {
     gap: 10px;
 }
 
+#my_review .review-list {
+    display: flex;
+    flex-direction: column;
+}
+
 /* login form */
 .login_link_wrap {
     display: flex;

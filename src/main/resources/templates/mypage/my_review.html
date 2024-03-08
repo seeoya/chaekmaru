@@ -5,13 +5,19 @@
     <title>책마루 :: 내가 쓴 리뷰</title>
 </head>
 
-<div class="content-wrap" layout:fragment="content">
+<div id="my_review" class="content-wrap" layout:fragment="content">
     <h2 class="title">내가 쓴 리뷰</h2>
 
     <div class="content">
         <div class="review-wrap">
             <th:block th:if="${session.loginedMemberDto != null}">
-                <div th:replace="~{/book/review.html::review-write}"></div>
+                <th:block th:if="${reviews} != null">
+                    <div th:replace="~{/book/review.html::review-list}"></div>
+                </th:block>
+
+                <th:block th:if="${reviews} == null">
+                    <div>작성한 리뷰가 없습니다.</div>
+                </th:block>
             </th:block>
         </div>
     </div>
