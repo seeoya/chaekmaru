@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
@@ -175,9 +175,9 @@ public class MypageService {
 			myPointListDto.setPl_payment_book_point(memberCartDtos.get(j).getB_price() * memberCartDtos.get(j).getC_book_count() * -1);
 			myPointListDto.setPl_desc("도서 " + Integer.toString(memberCartDtos.get(j).getC_book_count()) + "권 구매");
 			
-			result = mypageDao.insertPoint(myPointListDto);
-			
 		}
+		
+		result = mypageDao.insertPoint(myPointListDto);
 		
 		return result;
 		
@@ -205,19 +205,15 @@ public class MypageService {
 		
 	}
 
-	public int movePayment(String m_id, int b_no, MemberDto memberDto) {
-		log.info("movePayment()");
-		
-		int result = -1;
-		
-		result = mypageDao.movePayment(m_id, b_no);
-		
-		return result;
-		
+	public BookDto setView(int b_no) {
+		return mypageDao.selectBook(b_no);
 	}
 
-	
+	public List<SaledBookDto> getPaymentList(String m_id) {
+		log.info("getPaymentList");
 
+		return mypageDao.getPaymentList(m_id);
+		
+	}
 	
-
 }
