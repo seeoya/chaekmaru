@@ -60,6 +60,16 @@
     height: 40px;
 }
 
+.form .input-wrap #detailAddress {
+    margin-top: 10px;
+}
+
+.form .input-wrap #icon_m_detail_addr {
+    top: 63px;
+}
+
+
+
 .btn-wrap {
     display: flex;
     margin-top: 10px;
