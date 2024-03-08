@@ -91,7 +91,7 @@ public class MemberController {
 	public String memberModifyConfirm(MemberDto memberDto, HttpSession session) {
 		log.info("modify_confirm()");
 
-		String nextPage = "/success";
+		String nextPage = "redirect:/";
 
 		MemberDto loginedMemberDto = memberService.modifyConfirm(memberDto);
 
@@ -102,7 +102,7 @@ public class MemberController {
 
 		} else {
 
-			nextPage = "/result";
+			nextPage = "member/modify_form\"";
 
 		}
 
