@@ -63,5 +63,5 @@
         SELECT COUNT(*) FROM TBL_BOOK B WHERE B.B_NAME LIKE '%' || #{search} || '%' ${filterSql}
         ]]>
 	</select>
-
+	
 </mapper>
