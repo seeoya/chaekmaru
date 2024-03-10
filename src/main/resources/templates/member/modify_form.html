@@ -13,15 +13,14 @@
 
     <div class="content">
         <form th:action="@{/member/modify_confirm}" name="modify_form" method="post" class="form">
-        	   <input type="hidden" name="m_id" th:value="${session.loginedMemberDto.m_id}">
-       	   <div class="input-wrap">
-                 <input type="text" placeholder="아이디를 입력해 주세요." th:value="${session.loginedMemberDto.m_id}" readonly disabled>
+            <input type="hidden" name="m_id" th:value="${session.loginedMemberDto.m_id}">
+
+            <div class="input-wrap">
+                <input type="text" placeholder="아이디를 입력해 주세요." th:value="${session.loginedMemberDto.m_id}" readonly disabled>
             </div>
 
             <div class="input-wrap">
-                <input type="password" name="m_pw" value="******" readonly disabled>
-                <span id="icon_m_pw" class="input-icon"></span>
-                <span id="message_m_pw" class="input-message">비밀번호는 최소 8자 이상이어야 하며, 특수문자를 최소 1개 이상 포함해야 합니다.</span>
+                <a th:href="@{/member/pw_modify_form(id=${session.loginedMemberDto.m_id})}" class="btn highlight full">비밀번호 변경</a>
             </div>
 
             <div class="input-wrap">
@@ -39,7 +38,7 @@
             <div class="input-wrap">
                 <input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요." oninput="extractNumbers(this)" th:value="${session.loginedMemberDto.m_phone}">
                 <span id="icon_m_phone" class="input-icon"></span>
-                <span id="message_m_phone" class="input-message">전화번호는 숫자만 입력 가능합니다.</span>
+                <span id="message_m_phone" class="input-message">전화번호는 숫자 9~12자까지 입력 가능합니다.</span>
             </div>
 
             <div class="input-wrap">
@@ -60,9 +59,10 @@
             </div>
 
             <div class="btn-wrap">
-                       <button type="button" onclick="modifyForm();" class="btn main">정보수정</button>
+                <button type="button" onclick="memberFormCheck('modify');" class="btn main full">정보수정</button>
+                <a th:href="@{/member/delete_confirm}" class="btn sub full">회원탈퇴</a>
             </div>
-		</form>
+        </form>
     </div>
 </div>
 

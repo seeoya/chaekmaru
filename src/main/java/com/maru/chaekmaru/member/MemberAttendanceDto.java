@@ -3,7 +3,10 @@ package com.maru.chaekmaru.member;
 import lombok.Data;
 
 @Data
-public class MemberDto {
+public class MemberAttendanceDto {
+	
+	private int ac_attend_date;
+	private String ac_reg_date;
 	
 	private String m_id;
 	private String m_pw;
@@ -18,6 +21,4 @@ public class MemberDto {
 	private String m_reg_date;
 	private String m_mod_date;
 
-	private int point;
-	
 }

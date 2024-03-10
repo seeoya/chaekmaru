@@ -103,5 +103,12 @@
 				M_ID=#{m_id}
 	
 	</delete>
+	
+	<select id="selectNowPoint"
+			parameterType="String"
+			resultType="Integer">
+			SELECT NVL(SUM(PL_PAYMENT_BOOK_POINT), 0) FROM TBL_POINT_LIST WHERE M_ID= #{m_id}
+	</select>
+	
 		
 </mapper>

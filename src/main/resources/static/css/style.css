@@ -60,16 +60,6 @@
     height: 40px;
 }
 
-.form .input-wrap #detailAddress {
-    margin-top: 10px;
-}
-
-.form .input-wrap #icon_m_detail_addr {
-    top: 63px;
-}
-
-
-
 .btn-wrap {
     display: flex;
     margin-top: 10px;
@@ -651,6 +641,11 @@ header .logo img {
     flex-direction: column;
     width: 300px;
     gap: 10px;
+}
+
+#my_review .review-list {
+    display: flex;
+    flex-direction: column;
 }
 
 /* login form */

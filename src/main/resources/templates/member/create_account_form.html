@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
 
 <head>
     <title>책마루 :: 회원가입</title>
@@ -17,17 +16,23 @@
             <div class="input-wrap">
                 <div>
                     <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
-                    <button type="button" onclick="createAccountForm();" class="btn sub">중복체크</button>
+                    <button type="button" class="btn sub">중복체크</button>
                 </div>
 
                 <span id="icon_m_id" class="input-icon"></span>
-                <span id="message_m_id" class="input-message">아이디는 6글자 이상이며, 영문 소문자와 숫자만 입력 가능합니다.</span>
+                <span id="message_m_id" class="input-message">아이디는 5글자 이상이며, 영문 소문자와 숫자만 입력 가능합니다.</span>
             </div>
 
             <div class="input-wrap">
                 <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요.">
                 <span id="icon_m_pw" class="input-icon"></span>
                 <span id="message_m_pw" class="input-message">비밀번호는 최소 8자 이상이어야 하며, 특수문자를 최소 1개 이상 포함해야 합니다.</span>
+            </div>
+
+            <div class="input-wrap">
+                <input type="password" name="m_pw_again" placeholder="비밀번호를 다시 입력해 주세요.">
+                <span id="icon_m_pw_again" class="input-icon"></span>
+                <span id="message_m_pw_again" class="input-message">비밀번호가 일치하지 않습니다.</span>
             </div>
 
             <div class="input-wrap">
@@ -45,7 +50,7 @@
             <div class="input-wrap">
                 <input type="text" name="m_phone" placeholder="전화번호를 입력해 주세요." oninput="extractNumbers(this)">
                 <span id="icon_m_phone" class="input-icon"></span>
-                <span id="message_m_phone" class="input-message">전화번호는 숫자만 입력 가능합니다.</span>
+                <span id="message_m_phone" class="input-message">전화번호는 숫자 9~12자까지 입력 가능합니다.</span>
             </div>
 
             <div class="input-wrap">
@@ -66,7 +71,7 @@
             </div>
 
             <div class="btn-wrap">
-                <button type="button" onclick="createAccountForm();" class="btn main">회원가입</button>
+                <button type="button" onclick="memberFormCheck('create');" class="btn main full">회원가입</button>
             </div>
         </form>
     </div>
