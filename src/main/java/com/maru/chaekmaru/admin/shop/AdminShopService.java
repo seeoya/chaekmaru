@@ -92,6 +92,13 @@ public class AdminShopService {
 		return adminShopDao.selectAllReturnBooks();
 		
 	}
+	
+	public List<SaledBookDto> returnBookHistoryList() {
+		log.info("returnBookHistoryList()");
+		
+		return adminShopDao.selectAllReturnBooksForHistory();
+	}
+
 
 	
 	public SaledBookDto returnBookDetailForm(int sb_no) {
@@ -160,6 +167,15 @@ public class AdminShopService {
 		
 	}
 
+
+	public List<SaledBookDto> saledBooksByPeriod(String saled_start, String saled_end) {
+		log.info("saledBooksByPeriod()");
+		
+		return adminShopDao.selectSaledBooksByPeriod(saled_start, saled_end);
+	}
+
+
+	
 
 		
 

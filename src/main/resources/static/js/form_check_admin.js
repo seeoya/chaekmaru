@@ -214,12 +214,31 @@ function modifyBookInventoryForm() {
     
 }
 
+function saledListByDate(){
+	console.log("saledListByDate!!");
+	
+    let form = document.saled_book_by_date;
+	
+	console.log(form.saled_start.value);
+	if (form.saled_start.value === "") {
+        alert("시작일을 입력해 주세요.");
+        form.saled_start.focus();        
+    } else if (form.saled_end.value === "") {
+        alert("종료일을 입력해 주세요.");
+        form.saled_end.focus(); 
+    } else {
+        form.submit();
+    }  
+    
+	
+}
+
 function searchBookForm() {
 	console.log("searchBookForm!!");
 
     let form = document.search_book_form;
 	
-	if (form.search === "") {
+	if (form.search.value === "") {
         alert("검색어를 입력해 주세요.");
         form.search.focus();        
     } else {

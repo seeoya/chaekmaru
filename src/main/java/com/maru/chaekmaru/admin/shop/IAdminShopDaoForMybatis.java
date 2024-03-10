@@ -3,7 +3,6 @@ package com.maru.chaekmaru.admin.shop;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;
@@ -31,6 +30,8 @@ public interface IAdminShopDaoForMybatis {
 
 	public List<SaledBookDto> selectAllReturnBooks();
 	
+	public List<SaledBookDto> selectAllReturnBooksForHistory();
+	
 	public SaledBookDto selectReturnBookForDetail(int sb_no);
 
 	public int updateApprovalForReturnBook(int sb_no);
@@ -45,7 +46,8 @@ public interface IAdminShopDaoForMybatis {
 
 	public int updateBookInventory(BookDto bookDto);
 
-	
+	public List<SaledBookDto> selectSaledBooksByPeriod(String saled_start, String saled_end);
+
 
 	
 }

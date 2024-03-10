@@ -29,7 +29,7 @@ public class AdminMemberController {
 	public String createAccountForm() {
 		log.info("createAccountForm()");
 		
-		String nextPage = "/admin/member/create_account_form";
+		String nextPage = "admin/member/create_account_form";
 		
 		return nextPage;		
 		
@@ -67,7 +67,7 @@ public class AdminMemberController {
 	public String loginForm(){
 		log.info("loginForm()");
 		
-		String nextPage = "/admin/member/login_form";
+		String nextPage = "admin/member/login_form";
 		
 		return nextPage;		
 		
@@ -99,7 +99,7 @@ public class AdminMemberController {
 	public String modifyAccountForm() {
 		log.info("modifyAccountForm()");
 		
-		String nextPage = "/admin/member/modify_account_form";
+		String nextPage = "admin/member/modify_account_form";
 		
 		return nextPage;		
 		

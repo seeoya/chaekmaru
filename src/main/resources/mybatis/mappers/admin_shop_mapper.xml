@@ -79,8 +79,23 @@
 	</select>
 	
 	
+	
+	<select id="selectSaledBooksByPeriod"
+			parameterType="String"				
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+	
+	<![CDATA[	
+		SELECT *  
+			FROM TBL_SALED_BOOK
+			WHERE TO_CHAR(SB_SALE_DATE, 'YYMMDD') >= #{param1} AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') <= #{param2}		 
+			ORDER BY SB_MOD_DATE		
+	]]>
+	
+	</select>
+	
+	
 	<select id="selectSaledBookForDetail"	
-			parameterType="String"			
+			parameterType="Integer"			
 			resultType="com.maru.chaekmaru.shop.SaledBookDto">
 			
 			SELECT *  
@@ -95,14 +110,25 @@
 			
 			SELECT *  
 			FROM TBL_SALED_BOOK
-			WHERE SB_STATE = 3 OR SB_STATE = 4 OR SB_RETURN_DATE IS NOT NULL  			 
+			WHERE SB_STATE = 3   			 
 			ORDER BY SB_RETURN_DATE		
 	
 	</select>
 	
+	<select id="selectAllReturnBooksForHistory"				
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+			
+			SELECT *  
+			FROM TBL_SALED_BOOK
+			WHERE SB_STATE = 3 OR SB_STATE = 4 OR SB_RETURN_DATE IS NOT NULL  			 
+			ORDER BY SB_RETURN_DATE	DESC	
+	
+	</select>
+	
+	
 	
 	<select id="selectReturnBookForDetail"	
-			parameterType="String"			
+			parameterType="Integer"			
 			resultType="com.maru.chaekmaru.shop.SaledBookDto">
 			
 			SELECT *  
@@ -113,7 +139,7 @@
 	
 	
 	<update id="updateApprovalForReturnBook"
-			parameterType="String">
+			parameterType="Integer">
 			
 			UPDATE TBL_SALED_BOOK  
 			SET 
@@ -137,7 +163,7 @@
 	
 	
 	<update id="updateNotApprovedForReturnBook"
-			parameterType="String">
+			parameterType="Integer">
 			
 			UPDATE TBL_SALED_BOOK  
 			SET 

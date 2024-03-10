@@ -162,6 +162,27 @@ public class AdminShopController {
 	}
 	
 	
+	// 기간별 판매된 도서 리스트
+	
+		@GetMapping("/saled_books_by_period")
+		public String saledBooksByPeriod(@RequestParam("saled_start") String saled_start,
+										@RequestParam("saled_end") String saled_end, Model model) {
+			log.info("saledBooksByPeriod()");
+			
+			String nextPage = "admin/shop/saled_book_list_form";
+			
+			saled_start = saled_start.replaceAll("-", "").substring(2);
+			saled_end = saled_end.replaceAll("-", "").substring(2);
+			
+			List<SaledBookDto> saledBookDtos = adminShopService.saledBooksByPeriod(saled_start, saled_end);
+			
+			model.addAttribute("saledBookDtos", saledBookDtos);
+			
+			return nextPage;		
+			
+		}
+	
+	
 	// 판매도서 상세 내역
 	
 	@GetMapping("/saled_detail_form")
@@ -194,8 +215,25 @@ public class AdminShopController {
 		return nextPage;		
 		
 	}
+		
 	
+	// 반품 도서 이력 리스트
 	
+		@GetMapping("/return_book_history_list")
+		public String returnBookHistoryList(Model model) {
+			log.info("returnBookHistoryList()");
+			
+			String nextPage = "admin/shop/return_book_list_form";
+			
+			List<SaledBookDto> returnBookDtos = adminShopService.returnBookHistoryList();
+			
+			model.addAttribute("returnBookDtos", returnBookDtos);
+			
+			return nextPage;		
+			
+		}
+		
+		
 	// 반품도서 상세 내역
 	
 	@GetMapping("/return_book_detail_form")

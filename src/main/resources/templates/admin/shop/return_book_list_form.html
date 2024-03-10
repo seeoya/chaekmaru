@@ -11,57 +11,61 @@
 </head>
 
 <div id="example_copy" class="content-wrap" layout:fragment="content">
-    <h2 class="title">반품도서 LIST</h2>
+    <h2 class="title">반품요청 LIST</h2>
         
     <div class="content">
-    
-     	<table>
-    		<thead>
-    			<tr>
-    			    				
-    				<th>판매 NO</th>
-    				<th>도서 NO</th>    									
-    				<th>회원 ID</th>					
-    				<th>판매권수</th>    
-    				<th>판매일</th>		
-    				<th>판매금액</th>
-    				<th>판매상태</th>
-    				<th>반품요청일</th>
-    				<th>반품완료일</th>    				
-    				<th>등록일</th>
-    				<th>수정일</th>
-    				<th>상세내역</th>
-  			
-    			</tr>   	
-    	
-    		</thead>
-    		
-    		<tbody>
-    	   	   			
-    			<tr th:each="list : ${returnBookDtos}" >
-    				
-    				<td th:text="${list.sb_no}"></td>   				
-    				<td th:text="${list.b_no}"></td>   				
-    				<td th:text="${list.m_id}"></td>   				
-    				<td th:text="${list.sb_book_count}"></td> 				
-    				<td th:text="${list.sb_sale_date}"></td> 				
-    				<td th:text="${list.sb_all_price}"></td>
-    				<td th:text="${list.sb_state}"></td>
-    				<td th:text="${list.sb_return_date}"></td>
-    				<td th:text="${list.sb_return_mod_date}"></td>
-    				<td th:text="${list.sb_reg_date}"></td>
-    				<td th:text="${list.sb_mod_date}"></td>
-    				 				    				   				 
-    				<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">
-    		 		<a th:href="@{/admin/shop/return_book_detail_form(sb_no=${list.sb_no})}">상세내역</a></td>
-    		 		  				    			
-    			  
-    			</tr>
-    		 
-    		</tbody>    	
-    	
-    	</table>
-       
+    	<nav>
+    		 <a th:href="@{/admin/shop/return_book_history_list}">반품이력 LIST</a>
+    		  <a th:href="@{/admin/shop/return_book_list_form}">반품요청 LIST</a>   	
+    	</nav>
+    	<div>
+	     	<table>
+	    		<thead>
+	    			<tr>
+	    			    				
+	    				<th>판매 NO</th>
+	    				<th>도서 NO</th>    									
+	    				<th>회원 ID</th>					
+	    				<th>판매권수</th>    
+	    				<th>판매일</th>		
+	    				<th>판매금액</th>
+	    				<th>판매상태</th>
+	    				<th>반품요청일</th>
+	    				<th>반품완료일</th>    				
+	    				<th>등록일</th>
+	    				<th>수정일</th>
+	    				<th>상세내역</th>
+	  			
+	    			</tr>   	
+	    	
+	    		</thead>
+	    		
+	    		<tbody>
+	    	   	   			
+	    			<tr th:each="list : ${returnBookDtos}" >
+	    				
+	    				<td th:text="${list.sb_no}"></td>   				
+	    				<td th:text="${list.b_no}"></td>   				
+	    				<td th:text="${list.m_id}"></td>   				
+	    				<td th:text="${list.sb_book_count}"></td> 				
+	    				<td th:text="${list.sb_sale_date}"></td> 				
+	    				<td th:text="${list.sb_all_price}"></td>
+	    				<td th:text="${list.sb_state}"></td>
+	    				<td th:text="${list.sb_return_date}"></td>
+	    				<td th:text="${list.sb_return_mod_date}"></td>
+	    				<td th:text="${list.sb_reg_date}"></td>
+	    				<td th:text="${list.sb_mod_date}"></td>
+	    				 				    				   				 
+	    				<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">
+	    		 		<a th:href="@{/admin/shop/return_book_detail_form(sb_no=${list.sb_no})}">상세내역</a></td>
+	    		 		  				    			
+	    			  
+	    			</tr>
+	    		 
+	    		</tbody>    	
+	    	
+	    	</table>
+       </div>
     </div>
 </div>
 
