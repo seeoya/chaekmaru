@@ -30,7 +30,12 @@ input[type="search"],
     width: 100%;
 }
 
-.form .input-wrap>div {
+.form .btn-wrap.row {
+    flex-direction: row;
+
+}
+
+.form .input-wrap > div {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -339,8 +344,7 @@ header .logo img {
 
 .header-category .usermenu-list .point {
     justify-content: space-between;
-    flex-direction: row;
-    gap: 5px;
+    flex-direction: column;
 }
 
 .header-category .usermenu-list .point-now {
@@ -350,9 +354,14 @@ header .logo img {
     font-weight: 600;
 }
 
+.header-category .usermenu-list .point-now:hover {
+    background-color: transparent;
+    color: var(--main-light-color);
+}
+
 .header-category .usermenu-list .btn {
     padding: 5px;
-    width: 40px;
+    width: 100%;
     border-radius: 0;
     font-size: 1rem;
 }
@@ -648,10 +657,9 @@ header .logo img {
     margin-bottom: 20px;
 }
 
-
-
-
-
+#list .item-wrap.gallery {
+    grid-template-columns: repeat(3, 1fr);
+}
 
 /* 스타일가이드 */
 #style_guide {}
@@ -710,6 +718,17 @@ header .logo img {
 #style_guide .highlight .box.dark {
     background-color: var(--highlight-dark-color);
 }
+#style_guide .gray .box {
+    background-color: var(--gray-color);
+}
+
+#style_guide .gray .box.light {
+    background-color: var(--gray-light-color);
+}
+
+#style_guide .gray .box.dark {
+    background-color: var(--gray-dark-color);
+}
 
 /* view */
 #view .item {
@@ -734,6 +753,39 @@ header .logo img {
 #my_review .review-list {
     display: flex;
     flex-direction: column;
+}
+
+.point-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.point-list .now-point {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.point-list .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    font-size: 1.6rem;
+}
+
+.point-list .item > div {
+    width: 100%;
+    text-align: center;
+}
+
+.point-list .item .point {
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 /* login form */
