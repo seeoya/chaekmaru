@@ -7,11 +7,11 @@
             <nav>
                 <a th:href="@{/}" class="sub-link">문의게시판</a>
 
-                <th:block th:if="${session.loginedMemberDto != null}">
+                <th:block th:if="${session.loginedMemberInfo != null}">
                     <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
                 </th:block>
 
-                <th:block th:if="${session.loginedMemberDto == null}">
+                <th:block th:if="${session.loginedMemberInfo == null}">
                     <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
                 </th:block>
             </nav>
@@ -33,7 +33,7 @@
 
             <nav class="cart-nav">
                 <a th:href="@{/}"><i class="fa-solid fa-receipt"></i></a>
-                <a th:href="@{/}"><i class="fa-solid fa-coins"></i></a>
+                <a th:href="@{/mypage/point_charge}"><i class="fa-solid fa-coins"></i></a>
                 <a th:href="@{/mypage/member_cart_form}"><i class="fa-solid fa-cart-shopping"></i></a>
             </nav>
         </div>
@@ -53,7 +53,7 @@
     <div class="category-wrap">
         <nav>
             <div id="category_btn" class="cate-link">
-                <p>카테고리 열기</p>
+                <p>카테고리</p>
 
                 <div th:replace="~{/book/aside.html::aside}"></div>
             </div>
@@ -64,14 +64,14 @@
         </nav>
 
         <nav>
-            <a th:href="@{/}" class="cate-link" th:if="${session[loginedMemberDto]} ne null">출석체크</a>
-            <div th:href="@{/}" id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberDto]} ne null">
-                <p>[[${session[loginedMemberDto].m_id}]]님</p>
+            <a th:href="@{/}" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">출석체크</a>
+            <div th:href="@{/}" id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
+                <p>[[${session[loginedMemberInfo].m_id}]]님</p>
 
                 <div class="usermenu-list">
                     <div class="point">
                         <a th:href="@{/mypage/point_list}" class="point-now">
-                            [[${#numbers.arrayFormatInteger(session[loginedMemberDto].point, 1,'COMMA')+ ' BP'}]]
+                            [[${#numbers.arrayFormatInteger(session[loginedMemberInfo].point, 1,'COMMA')+ ' BP'}]]
                         </a>
                         <a th:href="@{/mypage/point_charge}" class="btn main">충전</a>
                     </div>
