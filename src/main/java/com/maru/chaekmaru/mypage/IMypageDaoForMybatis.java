@@ -1,5 +1,6 @@
 package com.maru.chaekmaru.mypage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,5 +27,6 @@ public interface IMypageDaoForMybatis {
 	public int deleteAllMyCart(String m_id);
 	public BookDto selectBook(@Param("b_no") int b_no);
 	public List<SaledBookDto> getPaymentList(String m_id);
+	public ArrayList<MyPointListDto> selectMyPointList(String m_id);
 
 }

@@ -730,7 +730,7 @@ header .logo img {
     flex-direction: column;
 }
 
-.point-list {
+#point_list .point-list {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -739,12 +739,12 @@ header .logo img {
     gap: 20px;
 }
 
-.point-list .now-point {
+#point_charge .now-point, #point_list .now-point {
     font-size: 2rem;
     font-weight: 600;
 }
 
-.point-list .item {
+#point_list .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -753,14 +753,31 @@ header .logo img {
     font-size: 1.6rem;
 }
 
-.point-list .item > div {
+#point_list .item > div {
     width: 100%;
     text-align: center;
 }
 
-.point-list .item .point {
+#point_list .item .point {
     font-size: 2rem;
     font-weight: 600;
+}
+
+#point_charge .point-btn-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#point_charge .point-btn-wrap .btn {
+    border-radius: 0;
+}
+
+#point_charge .point-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 /* login form */

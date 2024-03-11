@@ -1,5 +1,6 @@
 package com.maru.chaekmaru.mypage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,6 @@ public class MypageService {
 		int result = mypageDao.insertPoint(myPointListDto);
 
 		return result;
-
 	}
 
 	public List<MemberCartDto> allPaymentForm(String m_id) {
@@ -213,6 +213,20 @@ public class MypageService {
 
 		return mypageDao.getPaymentList(m_id);
 
+	}
+
+	public ArrayList<MyPointListDto> getPointList(String m_id) {
+		ArrayList<MyPointListDto> myPointListDtos = new ArrayList<>();
+
+		myPointListDtos = mypageDao.selectMyPointList(m_id);
+		
+		return myPointListDtos;
+	}
+	
+	public int chargePoint(MyPointListDto myPointListDto) {
+		int result = mypageDao.insertPoint(myPointListDto);
+
+		return result;
 	}
 
 }
