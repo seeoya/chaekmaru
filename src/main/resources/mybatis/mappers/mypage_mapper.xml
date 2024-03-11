@@ -244,8 +244,13 @@
 						SB.M_ID = #{m_id} 
 					ORDER BY 
 						SB.SB_NO DESC
-				 		
 	</select>
 	
+	<select id="selectMyPointList"
+	        parameterType="String"
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+		SELECT * FROM TBL_POINT_LIST WHERE M_ID = #{m_id}
+			ORDER BY PL_REG_DATE DESC
+	</select>
 	
 </mapper>

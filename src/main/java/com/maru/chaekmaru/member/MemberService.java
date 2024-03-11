@@ -125,17 +125,17 @@ public class MemberService {
 		return result;
 	}
 
-	public void refreshPoint(HttpSession session) {
-
+	public int refreshPoint(HttpSession session) {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
-
+		int point = 0;
 		if (loginedMemberDto != null) {
-			int point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
+			point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
 			loginedMemberDto.setPoint(point);
 
 			session.setAttribute("loginedMemberDto", loginedMemberDto);
 		}
-
+		
+		return point;
 	}
 
 }

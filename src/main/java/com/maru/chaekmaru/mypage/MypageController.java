@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.member.MemberService;
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
 import com.maru.chaekmaru.shop.SaledBookDto;
@@ -31,6 +32,9 @@ public class MypageController {
 
 	@Autowired
 	ReviewService reviewService;
+
+	@Autowired
+	MemberService memberService;
 
 	/*
 	 * 장바구니 목록 페이지 이동
@@ -237,7 +241,7 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 
 		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto);
-		
+
 		if (result > 0) {
 			myPointListDto.setM_id(loginedMemberDto.getM_id());
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
@@ -303,14 +307,44 @@ public class MypageController {
 	public String pointCharge(HttpSession session, Model model) {
 
 		String nextPage = "/mypage/point_charge";
-
+		
+		int point = memberService.refreshPoint(session);
+		model.addAttribute("point", point);
+		
 		return nextPage;
 	}
 
 	@GetMapping("/point_list")
 	public String pointList(HttpSession session, Model model) {
-
 		String nextPage = "/mypage/point_list";
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
+		ArrayList<MyPointListDto> myPointListDtos = mypageService.getPointList(loginedMemberDto.getM_id());
+		int point = memberService.refreshPoint(session);
+
+		model.addAttribute("items", myPointListDtos);
+		model.addAttribute("point", point);
+
+		return nextPage;
+	}
+
+	@PostMapping("/point_charge_confirm")
+	public String point_charge_confirm(HttpSession session, Model model, MyPointListDto myPointListDto) {
+		String nextPage = "redirect:/mypage/point_list";
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
+		myPointListDto.setM_id(loginedMemberDto.getM_id());
+		myPointListDto.setPl_desc("포인트 충전");
+
+		int result = mypageService.chargePoint(myPointListDto);
+		
+		if(result > 0) {
+			
+		} else {
+			
+		}
 
 		return nextPage;
 	}

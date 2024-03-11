@@ -25,6 +25,10 @@
     width: 100%;
 }
 
+.form .btn-wrap.row {
+    flex-direction: row;
+}
+
 .form .input-wrap > div {
     display: flex;
     flex-direction: row;
@@ -332,8 +336,7 @@ header .logo img {
 
 .header-category .usermenu-list .point {
     justify-content: space-between;
-    flex-direction: row;
-    gap: 5px;
+    flex-direction: column;
 }
 
 .header-category .usermenu-list .point-now {
@@ -343,9 +346,14 @@ header .logo img {
     font-weight: 600;
 }
 
+.header-category .usermenu-list .point-now:hover {
+    background-color: transparent;
+    color: var(--main-light-color);
+}
+
 .header-category .usermenu-list .btn {
     padding: 5px;
-    width: 40px;
+    width: 100%;
     border-radius: 0;
     font-size: 1rem;
 }
@@ -536,25 +544,82 @@ header .logo img {
     top: 20px;
 }
 
+#list .category-link-wrap a {
+    margin-bottom: 10px;
+}
+
 #list .category-link {
     padding: 15px;
     width: 100%;
-    border-bottom: 1px solid var(--gray-color);
-    border-right: 5px solid var(--gray-color);
+    background-color: #f9f9f9;
+    border-left: 30px solid var(--gray-light-color);
+    border-radius: 5px;
     text-align: center;
+    font-size: 15px;
 }
 
-#list .category-link:hover {
+#list .category-link-wrap .total_number:hover, #list .category-link-wrap .total_number.active {
+    background-color: #e3ebe0;
+    border-left-color: #709964;
+}
+
+#list .category-link-wrap .philosophy:hover, #list .category-link-wrap .philosophy.active {
+    background-color: #fbeaf5;
+    border-left-color: #8d5b6d;
+}
+
+#list .category-link-wrap .religion:hover, #list .category-link-wrap .religion.active {
+    background-color: #fffde7;
+    border-left-color: #918b4c;
+}
+
+#list .category-link-wrap .social_science:hover, #list .category-link-wrap .social_science.active {
+    background-color: #f9eee0;
+    border-left-color: #9b865f;
+}
+
+#list .category-link-wrap .natural_science:hover, #list .category-link-wrap .natural_science.active {
+    background-color: #ebd8be;
+    border-left-color: #533f28;
+}
+
+#list .category-link-wrap .technology_science:hover, #list .category-link-wrap .technology_science.active {
+    background-color: #ecf9f9;
+    border-left-color: #659593;
+}
+
+#list .category-link-wrap .art:hover, #list .category-link-wrap .art.active {
+    background-color: #f9f7da;
+    border-left-color: #d7ce66;
+}
+
+#list .category-link-wrap .language:hover, #list .category-link-wrap .language.active {
+    background-color: #eff9f0;
+    border-left-color: #89bf8e;
+}
+
+#list .category-link-wrap .literature:hover, #list .category-link-wrap .literature.active {
+    background-color: #eff2fd;
+    border-left-color: #7782a7;
+}
+
+#list .category-link-wrap .history:hover, #list .category-link-wrap .history.active {
+    background-color: #f4e7fb;
+    border-left-color: #ab92bb;
+}
+
+/* #list .category-link:hover {
     border-right-color: var(--highlight-color);
 }
+ */
 
-#list .category-link.active {
-    border-right-color: var(--highlight-light-color);
-}
+/* #list .category-link.active {
+    border-right: 3px solid var(--highlight-light-color);
+} */
 
-#list .category-link:last-child {
+/* #list .category-link:last-child {
     border-bottom: 0;
-}
+} */
 
 #list .list-wrap {
     width: calc(100% - 250px);
@@ -562,6 +627,11 @@ header .logo img {
 
 #list .list-wrap .sort select {
     width: 200px;
+    margin-bottom: 20px;
+}
+
+#list .item-wrap.gallery {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 /* 스타일가이드 */
@@ -623,6 +693,18 @@ header .logo img {
     background-color: var(--highlight-dark-color);
 }
 
+#style_guide .gray .box {
+    background-color: var(--gray-color);
+}
+
+#style_guide .gray .box.light {
+    background-color: var(--gray-light-color);
+}
+
+#style_guide .gray .box.dark {
+    background-color: var(--gray-dark-color);
+}
+
 /* view */
 #view .item {
     display: flex;
@@ -646,6 +728,56 @@ header .logo img {
 #my_review .review-list {
     display: flex;
     flex-direction: column;
+}
+
+#point_list .point-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+#point_charge .now-point, #point_list .now-point {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#point_list .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    font-size: 1.6rem;
+}
+
+#point_list .item > div {
+    width: 100%;
+    text-align: center;
+}
+
+#point_list .item .point {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#point_charge .point-btn-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#point_charge .point-btn-wrap .btn {
+    border-radius: 0;
+}
+
+#point_charge .point-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 /* login form */
