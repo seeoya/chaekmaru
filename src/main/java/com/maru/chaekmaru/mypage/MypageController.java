@@ -319,14 +319,13 @@ public class MypageController {
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
 		
-		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id() , sb_no, b_no, sb_book_count, sb_all_price);
+//		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id() , sb_no, b_no, sb_book_count, sb_all_price);
 
         // #TODO result 세팅 필요
-		if (result <= 0) {
-            // 실패
-			log.info("Delete Fail");
-            
-		}
+//		if (result <= 0) {
+//            // 실패
+//			log.info("Delete Fail");
+//		}
 
 		return nextPage;
 	}
