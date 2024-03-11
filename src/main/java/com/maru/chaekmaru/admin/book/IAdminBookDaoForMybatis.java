@@ -1,8 +1,10 @@
 package com.maru.chaekmaru.admin.book;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.maru.chaekmaru.book.BookDto;
 
@@ -13,16 +15,16 @@ public interface IAdminBookDaoForMybatis {
 
 	public int insertBook(BookDto bookDto);
 
-	public List<BookDto> selectAllBooks();
-
 	public BookDto selectBookForModify(int b_no);
 
 	public int updateBookForModify(BookDto bookDto);
 
 	public int deleteBookConfirm(int b_no);
 
-	//public List<BookDto> selectBookForSearch(String search);
-	
-	
+	public int countListResult(@Param("search") String search, @Param("sortSql") String sortSql);
+
+	public ArrayList<BookDto> setList(@Param("search") String search, @Param("sortSql") String sortSql,
+			@Param("startNum") int startNum, @Param("endNum") int endNum);
+		
 
 }
