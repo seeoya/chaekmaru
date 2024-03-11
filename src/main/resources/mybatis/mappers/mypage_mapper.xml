@@ -114,7 +114,7 @@
 						SB_MEMO, 
 						SB_SALE_DATE, 
 						SB_ALL_PRICE, 
-						SB_SALED_PRICE, 
+                        SB_SALED_PRICE, 
 						SB_STATE, 
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
@@ -190,7 +190,7 @@
 						SB_MEMO, 
 						SB_SALE_DATE, 
 						SB_ALL_PRICE, 
-						SB_SALED_PRICE, 
+                        SB_SALED_PRICE, 
 						SB_STATE, 
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
@@ -246,10 +246,9 @@
 						SB.M_ID = #{m_id} 
 					ORDER BY 
 						SB.SB_NO DESC
-				 		
 	</select>
-	
-	<update id="nowBooks"
+
+    <update id="nowBooks"
 			parameterType="map">
 			
 					<![CDATA[
@@ -299,10 +298,14 @@
 						MP.M_ID = #{m_id} 
 					ORDER BY 
 						MP.MP_NO DESC
-				 		
+
 	</select>
 	
-	
-	
+	<select id="selectMyPointList"
+            parameterType="String"
+			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
+		SELECT * FROM TBL_POINT_LIST WHERE M_ID = #{m_id}
+			ORDER BY PL_REG_DATE DESC
+	</select>
 	
 </mapper>

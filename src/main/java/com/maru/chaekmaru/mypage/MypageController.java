@@ -235,8 +235,6 @@ public class MypageController {
 
 		MyPointListDto myPointListDto = new MyPointListDto();
 
-		String nextPage = "mypage/payment_form_confirm";
-
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto);

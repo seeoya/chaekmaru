@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
+import com.maru.chaekmaru.member.IMemberDaoForMybatis;
+import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
