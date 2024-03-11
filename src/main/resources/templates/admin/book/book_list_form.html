@@ -14,18 +14,23 @@
     <h2 class="title">BOOK LIST</h2>
         
     <div class="content">
-    	<div> 
-    		<form class="form" th:action="@{/admin/book/admin_search_book_confirm}" name="search_book_form" method="get">
-     	 		
-     	 			
-            	<input type="text" name="search">
-                                    
-            	<button type="button" onclick="searchBookForm();" class="btn main">검색</button>
-            	
-       		</form>
-    	
-    	</div>
     
+    
+    	<div class="search">
+                <form th:action="@{/admin/book/book_list_form}" name="search_book_form" method="get">
+                	
+                 	<select name="sort" id="list_sort" class="input">	                   
+	                    <option value="" >검색조건</option>
+	                    <option value="isbn">ISBN</option>
+	                     <option value="name">도서명</option>
+	                    <option value="author">저자명</option>	                 
+	                </select>
+                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    <button type="submit" class="btn main">검색</button>
+                </form>
+        </div>
+    
+    	    
 	    <div>
 	     	<table>
 	    		<thead>
@@ -52,7 +57,7 @@
     			</thead>
     		
     			<tbody>
-    				<tr th:each="list : ${bookListDtos}" >
+    				<tr th:each="list : ${items}" >
 
 	    				<td th:text="${list.b_no}"></td>
 	    				<td th:text="${list.b_thumbnail}"></td>
@@ -79,6 +84,15 @@
     	
     		</table>
        </div>
+       <div class="paging">
+                <div class="paging-wrap">
+                    <th:block th:each="paging : ${listPageDtos}">
+                        <a th:href="@{/admin/book/book_list_form(search=${search}, sort=${sort}, page=${paging.pageNum})}" th:class="${paging.className}">[(${paging.pageText})]</a>
+                    </th:block>
+                </div>
+
+                <div class="page-number">[[${nowPage}]] / [[${allPage}]]</div>
+            </div>
     </div>
 </div>
 

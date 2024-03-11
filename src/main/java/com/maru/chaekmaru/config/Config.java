@@ -127,6 +127,9 @@ public class Config {
     
     final public static int MODIFY_BOOK_INVENTORY_SUCCESS = 29;
     final public static int MODIFY_BOOK_INVENTORY_FAIL = 30;
+
+    final public static int DELETE_BOOK_SUCCESS_AT_DATABASE = 31;
+    final public static int DELETE_BOOK_FAIL_AT_DATABASE = 32;
     
     
 
