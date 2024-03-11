@@ -1,4 +1,4 @@
-function memberFormCheck() {
+function memberFormCheck(type) {
     if (type == "create") {
         // 아이디 검증: 영어 소문자와 숫자로만 구성되어야 함
         switch (idCheck()) {
