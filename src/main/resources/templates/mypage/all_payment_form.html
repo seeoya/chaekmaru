@@ -40,6 +40,7 @@
 						<input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
 						<input type="hidden" name="sb_book_count"
 							th:value="${memberCartDto.c_book_count}" />
+						<input type="hidden" name="b_count" th:value="${memberCartDto.b_count}" />
 					</div>
 				</div>
 
@@ -95,13 +96,14 @@
 					<div>
 						<p
 							th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
-						<input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
+						<input type="text" name="sb_all_price" th:value="${finalPrice}" />
+						<input type="text" name="currentPoint" th:value="${currentPoint}" />
 					</div>
 				</div>
 
 				<div>
 					<div>
-						<button type="button" onclick="paymentFormSubmit();">결제하기</button>
+						<button type="button" class="payment" onclick="paymentFormSubmit();">결제하기</button>
 						&nbsp;&nbsp;
 						<a th:href="@{/mypage/member_cart_form}">주문 취소</a>
 					</div>

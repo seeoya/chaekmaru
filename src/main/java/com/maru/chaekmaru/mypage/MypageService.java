@@ -1,28 +1,38 @@
 package com.maru.chaekmaru.mypage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.book.BookDto;
-import com.maru.chaekmaru.config.Config;
+import com.maru.chaekmaru.member.IMemberDaoForMybatis;
+import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.member.MemberService;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import oracle.net.aso.m;
 
 @Log4j2
 @Service
 public class MypageService {
 
+//	@Autowired
+//	MypageDao mypageDao;
+
 	@Autowired
 	IMypageDaoForMybatis mypageDao;
+	
+	@Autowired
+	IMemberDaoForMybatis memberDao;
 
 	public List<MemberCartDto> getMyCartList(String m_id) {
 		log.info("getMyCartList");
 
 		return mypageDao.getMyCartList(m_id);
+
 	}
 
 	public int addBookCount(String m_id, int c_no, int c_book_count) {
@@ -31,12 +41,11 @@ public class MypageService {
 		int result = mypageDao.addBookCount(m_id, c_no, c_book_count);
 
 		if (result < 0) {
-			result = Config.MODIFY_CART_FAIL;
-		} else {
-			result = Config.MODIFY_CART_SUCCESS;
+			log.info("Add My Cart Fail");
 		}
 
 		return result;
+
 	}
 
 	public int deleteMyCart(String m_id, int c_no) {
@@ -44,13 +53,8 @@ public class MypageService {
 
 		int result = mypageDao.deleteMyCart(m_id, c_no);
 
-		if (result < 0) {
-			result = Config.DELETE_CART_FAIL;
-		} else {
-			result = Config.DELETE_CART_SUCCESS;
-		}
-		
 		return result;
+
 	}
 
 	public List<MemberCartDto> paymentForm(String m_id, int c_no) {
@@ -84,6 +88,7 @@ public class MypageService {
 		int result = mypageDao.insertPoint(myPointListDto);
 
 		return result;
+
 	}
 
 	public List<MemberCartDto> allPaymentForm(String m_id) {
@@ -106,12 +111,6 @@ public class MypageService {
 			result = mypageDao.addMyCart(m_id, b_no);
 		}
 
-		if (result < 0) {
-			result = Config.ADD_CART_FAIL;
-		} else {
-			result = Config.ADD_CART_SUCCESS;
-		}
-		
 		return result;
 	}
 
@@ -163,7 +162,10 @@ public class MypageService {
 			saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
 			saledBookDto.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
 
+			mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
+			
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
+
 		}
 
 		return result;
@@ -223,22 +225,55 @@ public class MypageService {
 
 	}
 
-	public ArrayList<MyPointListDto> getPointList(String m_id) {
-		ArrayList<MyPointListDto> myPointListDtos = new ArrayList<>();
-
-		myPointListDtos = mypageDao.selectMyPointList(m_id);
+	public void nowBooks(int sb_book_count, int b_count, int b_no) {
+		log.info("nowBooks");
 		
-		return myPointListDtos;
+		mypageDao.nowBooks(sb_book_count, b_count, b_no);
+		
 	}
-	
-	public int chargePoint(MyPointListDto myPointListDto) {
-		int result = mypageDao.insertPoint(myPointListDto);
 
-		if(result > 0 ) {
-			return Config.POINT_CHARGE_SUCCESS;
-		} else {
-			return Config.POINT_CHARGE_FAIL;
+	public int currentPoint(HttpSession session) {
+		int point = -1;
+		
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+
+		if (loginedMemberDto != null) {
+			point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
+			loginedMemberDto.setPoint(point);
+			
 		}
+		
+		return point;
+		
 	}
+
+	public int addMyPick(String m_id, int b_no) {
+		log.info("addMyPick()");
+		int result = -1;
+
+		result = mypageDao.addMyPick(m_id, b_no);
+
+		return result;
+	}
+
+	public List<MemberPickDto> myPickList(String m_id) {
+		log.info("myPickList");
+		
+		return mypageDao.myPickList(m_id);
+	}
+
+	public int deleteMyPaymentList(int sb_no, int b_no, int sb_book_count, int sb_all_price) {
+		int result = -1;
+		
+		
+		
+		// mypageDao.cancelBookCount(sb_book_count, b_count, b_no);
+		
+		return result;
+	}
+
+	
+
+	
 
 }
