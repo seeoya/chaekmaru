@@ -45,11 +45,11 @@
         </div>
 
         <div class="review-wrap">
-            <th:block th:if="${session.loginedMemberDto != null}">
+            <th:block th:if="${session.loginedMemberInfo != null}">
                 <div th:replace="~{/book/review.html::review-write}"></div>
             </th:block>
 
-            <th:block th:if="${session.loginedMemberDto == null}">
+            <th:block th:if="${session.loginedMemberInfo == null}">
                 <div>로그인 후 리뷰를 작성할 수 있습니다.</div>
             </th:block>
 

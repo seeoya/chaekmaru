@@ -14,17 +14,16 @@
 				TBL_MEMBER 
 			WHERE 
 				M_ID = #{m_id}
-				 		
+
 	</select>
 	
 	<insert id="insertMember"
 			parameterType="com.maru.chaekmaru.member.MemberDto">
 			
-			
 			INSERT INTO 
 				TBL_MEMBER(M_ID, M_PW, M_NAME, M_MAIL, M_PHONE, M_ADDR_CODE, M_ADDR, M_DETAIL_ADDR, M_REG_DATE, M_MOD_DATE) 
 			VALUES(#{m_id}, #{m_pw}, #{m_name}, #{m_mail}, #{m_phone}, #{m_addr_code}, #{m_addr}, #{m_detail_addr}, SYSTIMESTAMP, SYSTIMESTAMP) 
-				 		
+
 	</insert>
 
 	<select id="selectMember"
@@ -37,30 +36,30 @@
 				TBL_MEMBER 
 			WHERE 
 				M_ID = #{m_id}
-				 		
+
 	</select>
 	
 	
 	<select id="findIdByNameAndEmail"
-        	parameterType="map"
-        	resultType="String">
-		    SELECT 
-		        M_ID  
-		    FROM 
-		        TBL_MEMBER 
-		    WHERE 
-		        M_NAME = #{name} AND M_MAIL = #{email}
+            parameterType="map"
+            resultType="String">
+            SELECT 
+                M_ID  
+            FROM 
+                TBL_MEMBER 
+            WHERE 
+                M_NAME = #{name} AND M_MAIL = #{email}
 	</select>
 	
-	<select id="selectthereIsId"
-        	parameterType="map"
-        	resultType="com.maru.chaekmaru.member.MemberDto">
-		    SELECT 
-		        *  
-		    FROM 
-		        TBL_MEMBER 
-		    WHERE 
-		        M_ID = #{id} AND M_NAME = #{name} AND M_MAIL = #{email}
+	<select id="selectMemberByFindPw"
+            parameterType="map"
+            resultType="com.maru.chaekmaru.member.MemberDto">
+            SELECT 
+                *  
+            FROM 
+                TBL_MEMBER 
+            WHERE 
+                M_ID = #{id} AND M_NAME = #{name} AND M_MAIL = #{email}
 	</select>
 	
 	<update id="updateMemberForModify"

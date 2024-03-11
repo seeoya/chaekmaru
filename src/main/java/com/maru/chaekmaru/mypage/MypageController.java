@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.member.MemberService;
 import com.maru.chaekmaru.review.ReviewDto;
@@ -43,16 +44,13 @@ public class MypageController {
 	public String myCartList(Model model, HttpSession session) {
 		log.info("myCartList");
 
-		String nextPage = "mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberCartDto> memberCartDtos = mypageService.getMyCartList(loginedMemberDto.getM_id());
 
 		model.addAttribute("memberCartDtos", memberCartDtos);
 
-		return nextPage;
-
+		return "mypage/member_cart_form";
 	}
 
 	/*
@@ -63,17 +61,12 @@ public class MypageController {
 			@RequestParam("c_book_count") int c_book_count) {
 		log.info("cartmodifyform");
 
-		String nextPage = "redirect:/mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addBookCount(loginedMemberDto.getM_id(), c_no, c_book_count);
-		if (result < 0) {
-			nextPage = "/";
-		}
 
-		return nextPage;
-
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -83,36 +76,27 @@ public class MypageController {
 	public String addMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
 		log.info("addMyCart");
 
-		String nextPage = "mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
 
-		return nextPage;
-
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
 	 * 마이 페이지 장바구니 삭제 클릭
 	 */
 	@GetMapping("/delete_mycart_confirm")
-	public String deleteMyCart(HttpSession session, @RequestParam("c_no") int c_no) {
+	public String deleteMyCart(HttpSession session, Model model, @RequestParam("c_no") int c_no) {
 		log.info("deleteMyCartList");
 
-		String nextPage = "redirect:/mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.deleteMyCart(loginedMemberDto.getM_id(), c_no);
 
-		if (result <= 0) {
-			log.info("Delete Fail");
-//			nextPage = "/fail";
-		}
-
-		return nextPage;
-
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -122,9 +106,7 @@ public class MypageController {
 	public String paymentMyCartForm(Model model, HttpSession session, @RequestParam("c_no") int c_no) {
 		log.info("paymentMyCartListForm");
 
-		String nextPage = "mypage/payment_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberCartDto> memberCartDtos = mypageService.paymentForm(loginedMemberDto.getM_id(), c_no);
 
@@ -136,22 +118,19 @@ public class MypageController {
 		model.addAttribute("discount", discount);
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
 
-		return nextPage;
-
+		return "mypage/payment_form";
 	}
 
 	/*
 	 * 결제 폼에서 결제하기 버튼 클릭
 	 */
 	@PostMapping("/payment_form_confirm")
-	public String paymentMyCartList(HttpSession session, @ModelAttribute SaledBookDto saledBookDto) {
+	public String paymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto) {
 		log.info("======================paymentMyCartList===================");
 
 		MyPointListDto myPointListDto = new MyPointListDto();
 
-		String nextPage = "redirect:/mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.paymentMyCart(saledBookDto, loginedMemberDto.getM_id());
 
@@ -164,11 +143,25 @@ public class MypageController {
 
 			if (result > 0) {
 				result = mypageService.deletePaymentMyCart(loginedMemberDto.getM_id(), saledBookDto.getB_no());
+
+				if (result > 0) {
+					result = Config.DELETE_PAYMENT_CART_SUCCESS;
+				} else {
+					result = Config.DELETE_PAYMENT_CART_FAIL;
+				}
+			} else {
+				result = Config.INSERT_POINT_FAIL;
 			}
+		} else {
+			result = Config.PAYMENT_FAIL;
 		}
 
-		return nextPage;
+		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+			result = Config.PAYMENT_SUCCESS;
+		}
 
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -176,15 +169,13 @@ public class MypageController {
 	 */
 	@GetMapping("/my_review")
 	public String myReview(Model model, HttpSession session) {
-		String nextPage = "/mypage/my_review";
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
-
-		log.info(loginedMemberDto.getM_id());
 		ArrayList<ReviewDto> myReviews = reviewService.setMyReview(loginedMemberDto.getM_id());
+
 		model.addAttribute("reviews", myReviews);
 
-		return nextPage;
+		return "/mypage/my_review";
 	}
 
 	/*
@@ -194,11 +185,10 @@ public class MypageController {
 	public String allPaymentMyCartForm(Model model, HttpSession session) {
 		log.info("allPaymentMyCartForm");
 
-		String nextPage = "mypage/all_payment_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberCartDto> memberCartDtos = mypageService.allPaymentForm(loginedMemberDto.getM_id());
+
 		int allPrice = mypageService.calcAllPrice(memberCartDtos);
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
 
@@ -207,38 +197,41 @@ public class MypageController {
 		model.addAttribute("discount", discount);
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
 
-		return nextPage;
-
+		return "mypage/all_payment_form";
 	}
 
 	/*
 	 * 도서 상세 페이지에서 장바구니 버튼 클릭
 	 */
 	@GetMapping("/add_cart")
-	public String moveMyCart(HttpSession session, @RequestParam("b_no") int b_no) {
+	public String moveMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
 
-		String nextPage = "redirect:/mypage/member_cart_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
 
-		return nextPage;
+		if (result > 0) {
+			result = Config.ADD_CART_SUCCESS;
+		} else {
+			result = Config.ADD_CART_FAIL;
+		}
 
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
 	 * 모두 결제 폼에서 결제하기 버튼 클릭
 	 */
 	@PostMapping("/all_payment_form_confirm")
-	public String allPaymentMyCartList(HttpSession session, @ModelAttribute SaledBookDto saledBookDto) {
+	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
 		MyPointListDto myPointListDto = new MyPointListDto();
 
 		String nextPage = "mypage/payment_form_confirm";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto);
 
@@ -247,15 +240,26 @@ public class MypageController {
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
 
 			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
+
 			if (result > 0) {
 				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id());
 
+				if (result > 0) {
+					result = Config.DELETE_PAYMENT_CART_SUCCESS;
+				} else {
+					result = Config.DELETE_PAYMENT_CART_FAIL;
+				}
+			} else {
+				result = Config.INSERT_POINT_FAIL;
 			}
-
 		}
 
-		return nextPage;
+		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+			result = Config.PAYMENT_SUCCESS;
+		}
 
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -264,11 +268,8 @@ public class MypageController {
 	@GetMapping("/move_payment")
 	public String movePayment(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
 
-		String nextPage = "mypage/move_payment_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
-
-		model.addAttribute("loginedMemberDto", loginedMemberDto);
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+		model.addAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
 
 		BookDto bookDto = mypageService.setView(b_no);
 		model.addAttribute("bookDto", bookDto);
@@ -280,8 +281,7 @@ public class MypageController {
 		model.addAttribute("discount", discount);
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
 
-		return nextPage;
-
+		return "mypage/move_payment_form";
 	}
 
 	/*
@@ -291,34 +291,26 @@ public class MypageController {
 	public String getPaymentList(HttpSession session, Model model) {
 		log.info("getPaymentList");
 
-		String nextPage = "mypage/payment_list_form";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<SaledBookDto> saledBookDtos = mypageService.getPaymentList(loginedMemberDto.getM_id());
 		model.addAttribute("saledBookDtos", saledBookDtos);
 
-		log.info(saledBookDtos.get(0).getB_name());
-
-		return nextPage;
+		return "mypage/payment_list_form";
 	}
 
 	@GetMapping("/point_charge")
 	public String pointCharge(HttpSession session, Model model) {
 
-		String nextPage = "/mypage/point_charge";
-		
 		int point = memberService.refreshPoint(session);
 		model.addAttribute("point", point);
-		
-		return nextPage;
+
+		return "/mypage/point_charge";
 	}
 
 	@GetMapping("/point_list")
 	public String pointList(HttpSession session, Model model) {
-		String nextPage = "/mypage/point_list";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		ArrayList<MyPointListDto> myPointListDtos = mypageService.getPointList(loginedMemberDto.getM_id());
 		int point = memberService.refreshPoint(session);
@@ -326,27 +318,20 @@ public class MypageController {
 		model.addAttribute("items", myPointListDtos);
 		model.addAttribute("point", point);
 
-		return nextPage;
+		return "/mypage/point_list";
 	}
 
 	@PostMapping("/point_charge_confirm")
 	public String point_charge_confirm(HttpSession session, Model model, MyPointListDto myPointListDto) {
-		String nextPage = "redirect:/mypage/point_list";
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		myPointListDto.setM_id(loginedMemberDto.getM_id());
 		myPointListDto.setPl_desc("포인트 충전");
 
 		int result = mypageService.chargePoint(myPointListDto);
-		
-		if(result > 0) {
-			
-		} else {
-			
-		}
 
-		return nextPage;
+		model.addAttribute("result", result);	
+		return "result";
 	}
 
 }

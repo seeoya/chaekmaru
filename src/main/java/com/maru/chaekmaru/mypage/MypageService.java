@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
@@ -15,9 +16,6 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class MypageService {
 
-//	@Autowired
-//	MypageDao mypageDao;
-
 	@Autowired
 	IMypageDaoForMybatis mypageDao;
 
@@ -25,7 +23,6 @@ public class MypageService {
 		log.info("getMyCartList");
 
 		return mypageDao.getMyCartList(m_id);
-
 	}
 
 	public int addBookCount(String m_id, int c_no, int c_book_count) {
@@ -34,11 +31,12 @@ public class MypageService {
 		int result = mypageDao.addBookCount(m_id, c_no, c_book_count);
 
 		if (result < 0) {
-			log.info("Add My Cart Fail");
+			result = Config.MODIFY_CART_FAIL;
+		} else {
+			result = Config.MODIFY_CART_SUCCESS;
 		}
 
 		return result;
-
 	}
 
 	public int deleteMyCart(String m_id, int c_no) {
@@ -46,8 +44,13 @@ public class MypageService {
 
 		int result = mypageDao.deleteMyCart(m_id, c_no);
 
+		if (result < 0) {
+			result = Config.DELETE_CART_FAIL;
+		} else {
+			result = Config.DELETE_CART_SUCCESS;
+		}
+		
 		return result;
-
 	}
 
 	public List<MemberCartDto> paymentForm(String m_id, int c_no) {
@@ -103,6 +106,12 @@ public class MypageService {
 			result = mypageDao.addMyCart(m_id, b_no);
 		}
 
+		if (result < 0) {
+			result = Config.ADD_CART_FAIL;
+		} else {
+			result = Config.ADD_CART_SUCCESS;
+		}
+		
 		return result;
 	}
 
@@ -155,7 +164,6 @@ public class MypageService {
 			saledBookDto.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
 
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
-
 		}
 
 		return result;
@@ -226,7 +234,11 @@ public class MypageService {
 	public int chargePoint(MyPointListDto myPointListDto) {
 		int result = mypageDao.insertPoint(myPointListDto);
 
-		return result;
+		if(result > 0 ) {
+			return Config.POINT_CHARGE_SUCCESS;
+		} else {
+			return Config.POINT_CHARGE_FAIL;
+		}
 	}
 
 }
