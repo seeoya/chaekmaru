@@ -32,6 +32,7 @@ public class ReviewController {
 		result = reviewService.writeConfirm(reviewDto);
 
 		model.addAttribute("result", result);
+		model.addAttribute("b_no", reviewDto.getB_no());
 		return "result";
 	}
 

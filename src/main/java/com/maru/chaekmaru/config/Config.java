@@ -8,8 +8,6 @@ public class Config {
 	final public static int UNKNOWN_ERROR = -1;
 	final public static int DATABASE_COMMUNICATION_TROUBLE = 2;
 	
-	
-	
 	// MainController
 	
 	// MemberController 100 ~ 199
@@ -31,9 +29,9 @@ public class Config {
 	final public static int FIND_PW_FAIL = 116;
     final public static int PW_MODIFY_FAIL = 117;
     final public static int LOGIN_FAIL = 118;
-    
+
 	// BookController 100 ~ 199
-		
+
 	// MypageController 200 ~ 299
 	final public static int MODIFY_CART_SUCCESS = 200;
 	final public static int ADD_CART_SUCCESS = 201;
@@ -88,7 +86,7 @@ public class Config {
 	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 611; 
 	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 612; 
 	final public static int DELETE_BOOK_FAIL_AT_DATABASE = 613;       
-	                                                                 
+
 	// AdminShopController 700 ~ 799
 	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 700;		
 	final public static int MODIFY_POINT_SUCCESS_AT_DATABASE = 701;	
@@ -102,6 +100,4 @@ public class Config {
 	final public static int MODIFY_BOOK_COUNT_FAIL = 713;
 	final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 714;    
     final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;   
-    
-
 }
