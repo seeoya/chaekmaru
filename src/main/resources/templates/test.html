@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: {페이지 이름}</title>
+</head>
+
+<div id="test" class="content-wrap" layout:fragment="content">
+    <h2 class="title">테스트</h2>
+
+    <div class="content">
+        <button type="button" onclick="test1()" class="btn main">get 테스트1</button>
+        <button type="button" onclick="test2()" class="btn sub">post 테스트2</button>
+
+        <button type="button" onclick="test1()" class="btn sub">테스트3</button>
+        <button type="button" onclick="test2()" class="btn sub">테스트4</button>
+
+        <div id="text"></div>
+    </div>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function test1() {
+            // 1. XMLHttpRequest객체 생성
+            var httpRequest = new XMLHttpRequest();
+
+            // 2. onreadystatechange 등록
+            httpRequest.onreadystatechange = function () {
+                // XMLXttpRequest 객체의 현재 상태와 서버 상의 문서 존재 유무를 확인
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    console.log(httpRequest.responseText); // 서버에 요청하여 응답으로 받은 데이터를 문자열로 반환
+                }
+            };
+
+            // 3. GET 방식으로 요청을 보내면서 데이터를 동시에 전달함
+            httpRequest.open("GET", "서버URL", true);
+            httpRequest.send();
+        }
+
+        function test2() {
+            var httpRequest = new XMLHttpRequest(); // 객체 생성
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    console.log(httpRequest.responseText);
+                }
+            };
+
+            // POST 방식의 요청은 데이터를 Http 헤더에 포함시켜 전송함.
+            httpRequest.open("POST", "/examples/media/request_ajax.php", true);
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // 보낼 데이터 헤더를 지정
+            httpRequest.send("city=Seoul&zipcode=06141"); // 보낼 데이터 지정
+        }
+
+
+        /*]]>*/
+    </script>
+</div>
+
+</html>
