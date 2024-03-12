@@ -19,7 +19,7 @@
 			<div class="cart-wrap" th:each="memberCartDtos : ${memberCartDtos}">
 				
 				<div class="cart-result">
-					<div>
+					<div class="cart-book-img">
 						<a th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
 							<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
 						</a>
@@ -34,9 +34,9 @@
 							th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경
 						</button>
 					</div>
-					<div>
+					<div class="cart-pay">
 						<p>
-							[[${memberCartDtos.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDtos.c_book_count}]] 권 =
+							[[${memberCartDtos.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDtos.c_book_count}]] 권<br>
 							[[${memberCartDtos.c_book_count * memberCartDtos.b_price}]] 포인트
 						</p>
 						<a class="btn main" th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>

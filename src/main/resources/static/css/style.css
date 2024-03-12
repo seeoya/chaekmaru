@@ -1009,11 +1009,25 @@ header .logo img {
     gap: 10px;
 }
 
+#cart .cart-book-img {
+    max-width: 20%;
+    min-width: 20%;
+}
+
+#cart .cart-count-modify {
+    max-width: 20%;
+    min-width: 20%;
+}
+
 #cart .cart-wrap img{
     max-width: 200px;
     max-height: 150px;
 } 
 
+#cart .cart-pay {
+    max-width: 20%;
+    min-width: 20%;
+}
 #cart .cart-result {
     display: flex;
     justify-content: space-between;
@@ -1022,12 +1036,14 @@ header .logo img {
 }
 
 #cart .cart-book-name-price {
+    max-width: 40%;
+    min-width: 40%;
     font-size: 1.8rem;
     font-weight: 600;
 }
 
 #cart .cart-count-modify input{
-    width: 100px;
+    width: 80px;
 }
 
 /* 페이징 */
