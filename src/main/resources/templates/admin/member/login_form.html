@@ -4,10 +4,9 @@
 <head>
     <title>책마루 :: 관리자 로그인</title>
 	
-    <script th:src="@{/js/form_check_admin.js}"></script>
     <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
     <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-    <!-- <script th:src="@{js/index.js}"></script> -->
+     <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
 <div id="example_copy" class="content-wrap" layout:fragment="content">

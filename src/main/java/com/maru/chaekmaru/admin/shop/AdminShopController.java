@@ -1,5 +1,6 @@
 package com.maru.chaekmaru.admin.shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.book.ListPageDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
@@ -284,14 +286,32 @@ public class AdminShopController {
 	// 도서 재고 리스트
 	
 	@GetMapping("/book_inventory_list_form")
-	public String bookInventoryListForm(Model model) {
+	public String bookInventoryListForm(@RequestParam(required = false, value = "page", defaultValue = "1") String page, Model model) {
 		log.info("bookInventoryListForm()");
 		
-		String nextPage = "admin/shop/book_inventory_list_form";
+		int pageItemPerPage = 20;
+		int nowPageCount = Integer.parseInt(page);
+		int allBookCount = adminShopService.countBook();
+		int allPageCount = adminShopService.countAllPage(allBookCount, pageItemPerPage);
+
+		if(nowPageCount > allPageCount) {
+			nowPageCount = allPageCount;
+		}
 		
-		List<BookDto> inventoryBookDtos = adminShopService.bookInventoryListForm();
+		ArrayList<BookDto> items = new ArrayList<>();
+		ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
+	
+		items = adminShopService.setList(pageItemPerPage, nowPageCount);
+		listPageDtos = adminShopService.setPaging(pageItemPerPage, nowPageCount, allPageCount);
 		
-		model.addAttribute("inventoryBookDtos", inventoryBookDtos);
+		model.addAttribute("nowPage", nowPageCount);
+		model.addAttribute("allPage", allPageCount);
+
+		model.addAttribute("listPageDtos", listPageDtos);
+		model.addAttribute("items", items);
+
+		
+		String nextPage = "admin/shop/book_inventory_list_form";	
 		
 		return nextPage;		
 		

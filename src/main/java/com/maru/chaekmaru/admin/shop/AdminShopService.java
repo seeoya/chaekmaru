@@ -1,11 +1,13 @@
 package com.maru.chaekmaru.admin.shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.book.ListPageDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
@@ -139,15 +141,6 @@ public class AdminShopService {
 			log.info(Config.RETURN_BOOK_NOT_APPROVED_FAIL);
 	}
 
-
-	public List<BookDto> bookInventoryListForm() {
-		log.info("bookInventoryListForm()");
-		
-		return adminShopDao.selectAllBooksForInventory();
-	
-	}
-
-
 	public BookDto modifyBookInventoryForm(int b_no) {
 		log.info("modifyBookInventoryForm()");
 		
@@ -175,6 +168,94 @@ public class AdminShopService {
 	}
 
 
+	public int countBook() {
+		log.info("countBook()");
+				
+		int count = adminShopDao.countListResult();
+
+		return count;
+	}
+
+	public int countAllPage(int count, int pageItemPerPage) {
+		log.info("countAllPage()");
+		
+		return (int) Math.ceil((double) count / pageItemPerPage);
+		
+	}
+	
+	public ArrayList<BookDto> setList(int pageItemPerPage, int nowPage) {
+		log.info("setList()");
+		
+		ArrayList<BookDto> bookDtos = new ArrayList<>();
+		
+		int startNum = (pageItemPerPage * (nowPage - 1)) + 1;
+		int endNum = pageItemPerPage * nowPage;
+
+		log.info(startNum + "+" + endNum);
+
+		bookDtos = adminShopDao.setList(startNum, endNum);
+
+		return bookDtos;
+	}
+
+
+	public ArrayList<ListPageDto> setPaging(int pageItemPerPage, int nowPageCount, int allPageCount) {
+		log.info("setPaging()");
+		
+		ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
+
+		if (nowPageCount > 3) {
+			listPageDtos.add(new ListPageDto("start", "start", 1));
+		}
+
+		if (nowPageCount - 3 > 0) {
+			listPageDtos.add(new ListPageDto("prev", "prev", nowPageCount - 3));
+		}
+
+		if (nowPageCount - 4 > 0 && nowPageCount + 2 > allPageCount) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount - 4));
+		}
+
+		if (nowPageCount - 3 > 0 && nowPageCount + 1 > allPageCount) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount - 3));
+		}
+
+		if (nowPageCount - 2 > 0) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount - 2));
+		}
+
+		if (nowPageCount - 1 > 0) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount - 1));
+		}
+
+		listPageDtos.add(new ListPageDto("num", "num now", nowPageCount));
+
+		if (nowPageCount + 1 <= allPageCount) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount + 1));
+		}
+
+		if (nowPageCount + 2 <= allPageCount) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount + 2));
+		}
+
+		if (nowPageCount + 3 <= allPageCount && nowPageCount - 1 <= 0) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount + 3));
+		}
+
+		if (nowPageCount + 4 <= allPageCount && nowPageCount - 2 <= 0) {
+			listPageDtos.add(new ListPageDto("num", "num", nowPageCount + 4));
+		}
+
+		if (nowPageCount + 3 <= allPageCount) {
+			listPageDtos.add(new ListPageDto("next", "next", nowPageCount + 3));
+		}
+
+		if (nowPageCount <= allPageCount - 3) {
+			listPageDtos.add(new ListPageDto("end", "end", allPageCount));
+		}
+
+		return listPageDtos;
+	}
 	
 
 		
