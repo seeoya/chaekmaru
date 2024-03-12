@@ -303,24 +303,20 @@ public class MypageController {
 		return "mypage/payment_list_form";
 	}
 
-/*
+	/*
 	 * 주문 취소
 	 */
 	@GetMapping("/delete_payment_list_form")
 	public String deletePaymentList(HttpSession session, 
 														@RequestParam("sb_no") int sb_no, 
-														@RequestParam("b_no") int b_no, 
-														@RequestParam("sb_book_count") int sb_book_count, 
-														@RequestParam("sb_all_price") int sb_all_price) {
-//		log.info("deleteMyPaymentList");
-
+														@RequestParam("b_no") int b_no) {
         // #TODO RESULT 페이지로 이동
 		String nextPage = "redirect:/mypage/payment_list_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		
-//		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id() , sb_no, b_no, sb_book_count, sb_all_price);
-
+		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
+		
         // #TODO result 세팅 필요
 //		if (result <= 0) {
 //            // 실패
@@ -340,7 +336,7 @@ public class MypageController {
         // #TODO RESULT 처리 필요
 		String nextPage = "redirect:/mypage/payment_list_form";
 		
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
         // #TODO RESULT 처리 필요
 		return nextPage;
@@ -356,7 +352,7 @@ public class MypageController {
         // #TODO RESULT 처리 필요
 		String nextPage = "mypage/member_pick_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberPickDto> memberPickDtos = mypageService.myPickList(loginedMemberDto.getM_id());
 		
@@ -377,7 +373,7 @@ public class MypageController {
         // #TODO RESULT 처리 필요
 		String nextPage = "/mypage/member_pick_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addMyPick(loginedMemberDto.getM_id(), b_no);
         // #TODO RESULT 처리 필요

@@ -262,19 +262,6 @@
 					
 	</update>
 	
-	<update id="cancelBookCount">
-	
-					<![CDATA[
-					UPDATE 
-						TBL_BOOK SET 
-					SET 
-						B_COUNT = ${b_count + sb_book_count} 
-					WHERE 
-						B_NO = ${b_no}
-					]]>
-					
-	</update>
-	
 	<insert id="addMyPick"
 			parameterType="map">
 	
@@ -307,5 +294,41 @@
 		SELECT * FROM TBL_POINT_LIST WHERE M_ID = #{m_id}
 			ORDER BY PL_REG_DATE DESC
 	</select>
+	
+	<select id="selectBookCountBySbNo"
+			parameterType="Integer">
+	
+					SELECT 
+						SB_BOOK_COUNT 
+					FROM 
+						TBL_SALED_BOOK SB 
+					WHERE 
+						SB_NO = ${sb.no}
+	
+	</select>
+	
+	<select id="selectBookCountByBNo"
+			parameterType="Integer">
+	
+					SELECT 
+						B_COUNT 
+					FROM 
+						TBL_BOOK 
+					WHERE 
+						B.B_NO = ${b.no}
+	
+	</select>
+	
+	<update id="updateCancelBookCount"
+			parameterType="Integer">
+	
+					UPDATE 
+						TBL_BOOK 
+					SET 
+						B_COUNT = #{updateCancelBookCount} 
+					WHERE 
+						B_NO = ${b_no}
+	
+	</update>
 	
 </mapper>

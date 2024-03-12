@@ -265,10 +265,13 @@ public class MypageService {
 		return mypageDao.myPickList(m_id);
 	}
 
-	public int deleteMyPaymentList(int sb_no, int b_no, int sb_book_count, int sb_all_price) {
+	public int deleteMyPaymentList(String m_id, int sb_no, int b_no) {
 		int result = -1;
-
-		// mypageDao.cancelBookCount(sb_book_count, b_count, b_no);
+		log.info("deleteMyPaymentList ===================>");
+		int selectBookCountBySbNo = mypageDao.selectBookCountBySbNo(sb_no);
+		int selectBookCountByBNo = mypageDao.selectBookCountByBNo(b_no);
+		int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
+		result = mypageDao.updateCancelBookCount(updateCancelBookCount, b_no);
 		
 		return result;
 	}
