@@ -1019,6 +1019,43 @@ header .logo img {
     right: -6px;
 }
 
+/* 장바구니 */
+
+#cart .form{
+    max-width: 100%;
+}
+
+#cart .cart-wrap {
+    display: flex;
+    background-color: var(--gray-color);
+    width: 1000px;
+    padding: 30px;
+    border-radius: 20px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#cart .cart-wrap img{
+    max-width: 200px;
+    max-height: 150px;
+} 
+
+#cart .cart-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+#cart .cart-book-name-price {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+#cart .cart-count-modify input{
+    width: 100px;
+}
+
 /* 페이징 */
 .paging {
     display: flex;
