@@ -32,9 +32,10 @@
                         <div class="book_pay">
                             <div class="view_pay_btn">
                                 <div class="count-wrap">
-                                    <input class="input" type="number" id="cart_count" oninput="updateTotal()">
-                                    <div th:if="${item.b_count > 0}" class="count ellipsis">재고: [[${item.b_count}]]
-                                    </div>
+                                    <div th:if="${item.b_count > 0}" class="count ellipsis">
+                                    	재고: [[${item.b_count}]]
+                                     </div>
+                                    <input class="input" type="number" value="1" id="cart_count" oninput="updateTotal()">
                                 </div>
 
                                 <div id="total_price" class="price ellipsis">총 금액: 0 원</div>
@@ -63,7 +64,7 @@
             </th:block>
 
             <th:block th:if="${session.loginedMemberInfo == null}">
-                <div>로그인 후 리뷰를 작성할 수 있습니다.</div>
+                <div class="review-desk">로그인 후 리뷰를 작성할 수 있습니다.</div>
             </th:block>
 
             <th:block th:if="${reviews} != null">
@@ -97,7 +98,8 @@
             let totalPrice = count * price;
             document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
         }
-
+		
+        updateTotal();
 
     </script>
 </div>

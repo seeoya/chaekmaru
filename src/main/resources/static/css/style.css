@@ -753,6 +753,7 @@ header .logo img {
     display: flex;
     width: 100%;
     gap: 60px;
+    padding-bottom: 10px;
 
 }
 
@@ -763,7 +764,8 @@ header .logo img {
 }
 
 #view .price {
-    font-size: 1.8rem;
+    font-size: 2.0rem;
+    font-weight: 500;
 }
 
 
@@ -786,18 +788,11 @@ header .logo img {
     gap: 10px;
 }
 
-#view .view_pay_btn input {
-    width: 45px;
-    height: 30px;
-    padding: 0px;
-    text-align: center;
-}
-
 #view .view_pay_btn .count-wrap {
     display: flex;
     justify-content: right;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
 #view .view_pay_btn .count-wrap .count {
@@ -807,6 +802,13 @@ header .logo img {
     color: var(--gray-color);
     font-size: 1.2rem;
 }
+
+#view .view_pay_btn input {
+    width: 75px;
+    padding: 10px 0;
+    text-align: center;
+}
+
 
 .view_pay_btn a {
     width: 100%;
@@ -845,7 +847,7 @@ header .logo img {
 #view .review-item {
     background-color: #f5f5f5;
     border-radius: 10px;
-    padding: 10px;
+    padding: 25px;
     margin: 10px 0;
 }
 
@@ -864,9 +866,23 @@ header .logo img {
     align-items: end;
 }
 
+.review_info {
+    display: flex;
+    justify-content: space-between;
+}
+
 .review-wrap {
     max-width: 600px;
     min-width: 600px;
+}
+.review-btn-wrap .btn{
+    padding: 5px 10px;
+}
+
+.review-desk {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.6rem;
 }
 
 .review-write textarea {
@@ -892,6 +908,15 @@ header .logo img {
 .review_id_stars,
 .review_text {
     margin-bottom: 10px;
+}
+
+#view .review_text {
+    font-size: 1.6rem;
+}
+
+#view .review_date {
+    font-size: 1.2rem;
+    color: var(--gray-dark-color);
 }
 
 #view div.info {
