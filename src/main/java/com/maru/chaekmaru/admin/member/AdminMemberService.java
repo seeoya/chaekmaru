@@ -25,12 +25,12 @@ public class AdminMemberService {
 			int result = adminMemberDao.insertAdminAccount(adminMemberDto);
 			
 			if(result > 0)
-				return Config.INSERT_SUCCESS_AT_DATABASE;
+				return Config.ADMIN_CREATE_ACCOUNT_SUCCESS;
 			else 
-				return Config.INSERT_FAIL_AT_DATABASE;
+				return Config.ADMIN_CREATE_ACCOUNT_FAIL;
 			
 		} else {
-			return Config.ID_ALREADY_EXIST;
+			return Config.ADMIN_ID_ALREADY_EXIST;
 		}
 		
 	}
@@ -62,9 +62,9 @@ public class AdminMemberService {
 		int result = adminMemberDao.deleteAdminAccount(a_no);
 		
 		if(result > 0)
-			log.info(Config.DELETE_SUCCESS_AT_DATABASE);
+			log.info(Config.ADMIN_MEMBER_DELETE_SUCCESS);
 		else 
-			log.info(Config.DELETE_FAIL_AT_DATABASE);		
+			log.info(Config.ADMIN_MEMBER_DELETE_FAIL);		
 		
 	}
 
