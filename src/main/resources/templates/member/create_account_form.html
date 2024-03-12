@@ -4,8 +4,7 @@
 <head>
     <title>책마루 :: 회원가입</title>
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script th:src="@{/js/form_check.js}"></script>
+    <th:block th:replace="~{include/js/form_check_js.html::form_check_js}"></th:block>
 </head>
 
 <div class="content-wrap" layout:fragment="content">

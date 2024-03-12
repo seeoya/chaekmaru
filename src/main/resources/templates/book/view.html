@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: [[${item.b_name}]]</title>
+
+    <th:block th:replace="~{include/js/list_js.html::list_js}"></th:block>
 </head>
 
 <div id="view" class="content-wrap" layout:fragment="content">
-    <h2 class="title"></h2>
+    <!-- <h2 class="title"></h2> -->
 
     <div class="content">
         <div class="item-wrap list">
@@ -33,8 +34,8 @@
                             <div class="view_pay_btn">
                                 <div class="count-wrap">
                                     <div th:if="${item.b_count > 0}" class="count ellipsis">
-                                    	재고: [[${item.b_count}]]
-                                     </div>
+                                        재고: [[${item.b_count}]]
+                                    </div>
                                     <input class="input" type="number" value="1" id="cart_count" oninput="updateTotal()">
                                 </div>
 
@@ -72,37 +73,5 @@
             </th:block>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            document.querySelectorAll(".modify-review").forEach(el => {
-                el.addEventListener("click", function (e) {
-
-                    let modifyWrap = this.parentElement.nextSibling.nextSibling;
-
-                    if (modifyWrap.style.display == "none") {
-                        modifyWrap.style.display = "flex";
-                    } else {
-                        modifyWrap.style.display = "none";
-                    }
-                })
-            });
-
-        })
-
-
-        function updateTotal() {
-            let count = document.getElementById("cart_count").value;
-            let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
-            let totalPrice = count * price;
-            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
-        }
-		
-        updateTotal();
-
-    </script>
 </div>
-
-
 </html>

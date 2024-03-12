@@ -4,6 +4,7 @@
 <head>
     <title>책마루 :: 포인트 충전</title>
 
+    <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
 
 <div id="point_charge" class="content-wrap" layout:fragment="content">
@@ -29,27 +30,7 @@
                 <button type="button" class="btn" onclick="point_charge_form_check()">충전</button>
             </div>
         </form>
-
     </div>
-
-    <script>
-        document.querySelectorAll(".point").forEach(el => {
-            el.addEventListener("click", function (e) {
-                document.getElementById("bp").value = parseInt(e.target.dataset.price) + parseInt(document.getElementById("bp").value);
-            })
-        })
-
-        function point_charge_form_check() {
-            let form = document.point_charge_form;
-
-            if (form.pl_payment_book_point.value < 1000) {
-                alert("충전할 금액을 확인해주세요.")
-                return;
-            }
-
-            form.submit();
-        }
-    </script>
 </div>
 
 </html>
