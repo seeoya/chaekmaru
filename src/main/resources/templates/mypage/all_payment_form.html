@@ -11,10 +11,9 @@
     <h2 class="title">주문서</h2>
 
     <div class="content" th:with="userInfo=${memberCartDtos.get(0)}">
-        <form th:action="@{/mypage/all_payment_form_confirm}" name="payment_form" method="post">
+        <form th:action="@{/mypage/all_payment_form_confirm}" name="payment_form" method="post" class="form">
 
-            <div>
-                <div>
+                <div class="book-pay-item">
                     <div th:each="memberCartDto : ${memberCartDtos}">
                         <div>
                             <a th:href="@{/book/view/{b_no}(b_no=${memberCartDto.b_no})}">
@@ -32,7 +31,8 @@
                         <input type="hidden" name="b_count" th:value="${memberCartDto.b_count}" />
                     </div>
                 </div>
-
+                
+			<div class="member-info">
                 <div>
                     <p>받는 사람 이름</p>
                     <input type="text" th:value="${userInfo.m_name}" name="sb_name" placeholder="수령하실 분의 이름을 적어주세요" />
@@ -89,7 +89,7 @@
                         <a th:href="@{/mypage/member_cart_form}">주문 취소</a>
                     </div>
                 </div>
-            </div>
+             </div>
         </form>
     </div>
 </div>
