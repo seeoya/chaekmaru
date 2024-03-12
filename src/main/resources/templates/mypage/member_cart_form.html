@@ -16,14 +16,16 @@
 			<div class="cart-wrap" th:each="memberCartDtos : ${memberCartDtos}">
 				
 				<div class="cart-result">
-					<div>
-						<a th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
-							<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+					<div class="cart-book-img">
+						<a class="cart-link" th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
+							<span>
+								<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+							</span>
+							<span class="cart-book-name-price">
+								<p th:text="${memberCartDtos.b_name}">도서 제목</p>
+								<p th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">책 가격</p>
+							</span>
 						</a>
-					</div>
-					<div class="cart-book-name-price">
-						<p th:text="${memberCartDtos.b_name}">도서 제목</p>
-						<p th:text="${memberCartDtos.b_price}">책 가격</p>
 					</div>
 					<div class="cart-count-modify">
 						<input type="number" name="c_book_count" th:value="${memberCartDtos.c_book_count}" />
@@ -31,20 +33,17 @@
 							th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경
 						</button>
 					</div>
-					<div>
-						<p>
-							[[${memberCartDtos.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDtos.c_book_count}]] 권 =
-							[[${memberCartDtos.c_book_count * memberCartDtos.b_price}]] 포인트
-						</p>
-						<a class="btn main" th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>
-						&nbsp;&nbsp;
-						<a class="btn sub" th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i class="fa-solid fa-xmark"></i></a>
+					<div class="cart-pay">
+						<p th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}"></p>
+						<a class="btn main pay-success" th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>
+						<a class="btn sub cancle-xmark" th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i class="fa-solid fa-xmark"></i></a>
 					</div>
 				</div>
 			</div>
 
-            <div>
-                <a th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
+            <div class="all-pay-success">
+				<a class="btn main" th:href="@{/mypage/all_payment_form}">선택 결제하기</a>
+                <a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
             </div>
 
         </form>

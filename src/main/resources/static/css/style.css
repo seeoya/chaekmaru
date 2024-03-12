@@ -1026,12 +1026,41 @@ header .logo img {
 
 #cart .cart-wrap {
     display: flex;
-    background-color: var(--gray-color);
+    position: relative;
+    background-color: var(--gray-light-color);
     width: 1000px;
-    padding: 30px;
+    padding: 30px 40px;
     border-radius: 20px;
     flex-direction: column;
+}
+
+#cart .cart-book-img {
+    max-width: 60%;
+    min-width: 60%;
+    display: flex;
+}
+
+#cart .cancle-xmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#cart .cart-count-modify {
+    max-width: 20%;
+    min-width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+}
+
+#cart .modify-count {
+    background-color: #dbdbdb;
+}
+
+#cart .modify-count:hover {
+    background-color: #e3e2e2;
 }
 
 #cart .cart-wrap img {
@@ -1039,20 +1068,51 @@ header .logo img {
     max-height: 150px;
 }
 
-#cart .cart-result {
+#cart .cart-pay {
+    max-width: 20%;
+    min-width: 20%;
+    font-size: 1.8rem;
+    font-weight: 500;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
+#cart .cart-pay .pay-success {
+    width: 80%;
+}
+
+#cart .cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
+
+#cart .cart-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #cart .cart-book-name-price {
     font-size: 1.8rem;
+}
+
+#cart .cart-book-name-price p:nth-child(1) {
     font-weight: 600;
 }
 
 #cart .cart-count-modify input {
-    width: 100px;
+    width: 80px;
+}
+
+#cart .all-pay-success {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
 }
 
 /* 페이징 */
@@ -1166,6 +1226,7 @@ footer .util_footer .btn {
 
 footer .join_footer {
     display: flex;
+    width: 40%;
     gap: 10px;
 }
 
