@@ -3,6 +3,8 @@
 
 <head>
     <title>책마루 :: [[${item.b_name}]]</title>
+    
+   
 </head>
 
 <div id="view" class="content-wrap" layout:fragment="content">
@@ -14,33 +16,48 @@
                 <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
 
                 <div class="info">
-                    <div class="name ellipsis">[[${item.b_name}]]</div>
-                    <div class="author ellipsis">[[${item.b_author}]]</div>
-
-
-                    <div th:if="${item.b_count > 0}" class="count ellipsis">재고: [[${item.b_count}]]</div>
-                    <div th:if="${item.b_count == 0}" class="count ellipsis">품절</div>
-
-
-
-                    <div class="introduce">[[${item.b_introduce}]]</div>
-                    <div class="publisher ellipsis">
-                        [[${item.b_publisher}]] /
-                        [[${item.b_publish_date}]]
+                    <div class="book_info">
+	                    <div class="name ellipsis">[[${item.b_name}]]</div>
+	                    <div class="author ellipsis">[[${item.b_author}]]</div>
+	                    <div class="publisher ellipsis">
+	                        [[${item.b_publisher}]] /
+	                        [[${item.b_publish_date}]]
+	                    </div>
+	                    <div class="price ellipsis">[[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' 원'}]]</div>
+	                    <div class="introduce">[[${item.b_introduce}]]</div>
+	                    
+	                    
                     </div>
-
+                    
+                    <th:block th:if="${item.b_count > 0}" >
+                    	<div class="book_pay">
+		                    <div class="view_pay_btn">
+		                        <div class="count-wrap">
+			                        <input class="input" type="number" id="cart_count" oninput="updateTotal()">
+			                        <div th:if="${item.b_count > 0}" class="count ellipsis">재고: [[${item.b_count}]]</div>
+		                        </div>
+		                        
+		                        <div id="total_price" class="price ellipsis">총 금액: 0 원</div>
+		                    </div>
+		                    
+		                    
+		                    <div class="view_pay_a">
+		                    	<a href="#" class="btn"><i class="fa-regular fa-heart"></i></a>
+		                    	<a th:href="@{/mypage/add_cart(b_no=${item.b_no})}" class="btn main disable">장바구니</a>
+		                        <a th:href="@{/mypage/move_payment(b_no=${item.b_no})}" class="btn sub">바로결제</a>
+		                	</div>        
+		                </div>        	
+                	</th:block>
+                	
+                	<th:block th:if="${item.b_count <= 0}" >
+	                   
+                    <div th:if="${item.b_count == 0}" class="count ellipsis sold_out">품절</div>
+                    
+                	
+                	</th:block>
+                	
+                	
                 </div>
-            </div>
-
-            <div class="payment-btn-wrap">
-                <div class="price ellipsis">[[${item.b_price}]]</div>
-                <a href="#" class="btn">찜하기</a>
-
-                <th:block th:if="${item.b_count > 0}">
-                    <input type="number" id="cart_count">
-                    <a th:href="@{/mypage/add_cart(b_no=${item.b_no})}" class="btn main">장바구니</a>
-                    <a th:href="@{/mypage/move_payment(b_no=${item.b_no})}" class="btn sub">바로결제</a>
-                </th:block>
             </div>
         </div>
 
@@ -54,7 +71,7 @@
             </th:block>
 
             <th:block th:if="${reviews} != null">
-                <div th:replace="~{/book/review.html::review-list}"></div>
+                <div  th:replace="~{/book/review.html::review-list}"></div>
             </th:block>
         </div>
     </div>
@@ -76,6 +93,16 @@
             });
 
         })
+        
+        
+       function updateTotal() {
+            let count = document.getElementById("cart_count").value;
+            let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
+            let totalPrice = count * price;
+            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+        }
+        
+
     </script>
 </div>
 
