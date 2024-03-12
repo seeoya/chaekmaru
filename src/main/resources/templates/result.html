@@ -9,24 +9,6 @@
         <title>책마루 :: 결과</title>
     </head>
 
-    <!-- final public static int DATABASE_COMMUNICATION_TROUBLE = 2;
-final public static int CREATE_ACCOUNT_SUCCESS = 100;
-final public static int MEMBER_MODIFY_SUCCESS = 101; 	
-final public static int LOGOUT_SUCCESS = 102; 
-final public static int MEMBER_DELETE_SUCCESS = 103;
-final public static int FIND_ID_SUCCESS = 104;
-final public static int FIND_PW_SUCCESS = 105;
-final public static int PW_MODIFY_SUCCESS = 106;
-
-final public static int CREATE_ACCOUNT_FAIL = 110;
-final public static int ID_ALREADY_EXIST = 111;
-final public static int MEMBER_MODIFY_FAIL = 112;
-final public static int MEMBER_NOT_FOUND = 113;
-final public static int MEMBER_DELETE_FAIL = 114;
-final public static int FIND_ID_FAIL = 115;
-final public static int FIND_PW_FAIL = 116;
-final public static int PW_MODIFY_FAIL = 117; -->
-
     <div id="result" class="content-wrap" layout:fragment="content">
         <script th:inline="javascript">
             /*<![CDATA[*/
@@ -39,6 +21,7 @@ final public static int PW_MODIFY_FAIL = 117; -->
                     text = "오류가 발생했습니다.\n다시 시도해주세요."
                     window.history.back();
                     break;
+
                 case 2:
                     text = "데이터베이스 연결 오류\n다시 시도해주세요."
                     window.history.back();
@@ -49,7 +32,7 @@ final public static int PW_MODIFY_FAIL = 117; -->
                     text = "회원가입에 성공했습니다.\n환영합니다.";
                     href = [[@{/member/login_form}]];
                     break;
-                
+
                 case 101:
                     text = "정보 수정에 성공했습니다.";
                     href = [[@{/member/modify_form}]];
@@ -57,7 +40,7 @@ final public static int PW_MODIFY_FAIL = 117; -->
 
                 case 102:
                     text = "로그아웃에 성공했습니다.";
-                    href = [[@{/}]];
+                    window.history.back();
                     break;
 
                 case 103:
@@ -100,7 +83,6 @@ final public static int PW_MODIFY_FAIL = 117; -->
                     window.history.back();
                     break;
 
-                    
                 case 113:
                     text = "사용자를 찾을 수 없습니다.\n다시 시도해주세요.";
                     window.history.back();
@@ -110,62 +92,119 @@ final public static int PW_MODIFY_FAIL = 117; -->
                     text = "회원 탈퇴에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
-                    
+
                 case 115:
                     text = "아이디 찾기에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
-                    
+
                 case 116:
                     text = "비밀번호 찾기에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
-                    
+
                 case 117:
                     text = "비밀번호 변경에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                    
-                // case 111:
-                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
-                //     window.history.back();
-                //     break;
-                
+
+                case 200:
+                    text = "수량 변경에 성공했습니다.";
+                    window.history.back();
+                    break;
+
+                case 201:
+                    text = "장바구니에 추가되었습니다.";
+                    href = [[@{/mypage/member_cart_form}]];
+                    break;
+
+                case 202:
+                    text = "장바구니에서 삭제되었습니다.";
+                    href = [[@{/mypage/member_cart_form}]];
+                    break;
+
+                case 203:
+                    text = "결제 완료되었습니다.";
+                    href = [[@{/mypage/payment_list_form}]];
+                    break;
+
+                case 204:
+                    text = "(결제중) 포인트 결제 완료";
+                    href = [[@{/mypage/point_list}]];
+                    break;
+
+                case 205:
+                    text = "(결제중) 장바구니에서 제거 완료";
+                    break;
+
+                case 206:
+                    text = "포인트 충전이 완료되었습니다.";
+                    href = [[@{/mypage/point_list}]];
+                    break;
+
+                case 210:
+                    text = "장바구니 수정에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 211:
+                    text = "장바구니 추가에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 212:
+                    text = "장바구니 제거에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 213:
+                    text = "결제에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 214:
+                    text = "(결제중) 포인트 결제 실패";
+                    break;
+
+                case 215:
+                    text = "(결제중) 장바구니 제거 실패";
+                    window.history.back();
+                    break;
+
+                case 216:
+                    text = "포인트 충전에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/mypage/point_charge}]];
+                    break;
+
+                case 300:
+                    text = "리뷰 작성에 성공했습니다.";
+                    window.history.back();
+                    break;
+
+                case 301:
+                    text = "리뷰 수정에 성공했습니다.";
+                    window.history.back();
+                    break;
+
+                case 302:
+                    text = "리뷰 성공에 성공했습니다.";
+                    window.history.back();
+                    break;
+
+                case 310:
+                    text = "리뷰 작성에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 311:
+                    text = "리뷰 수정에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 312:
+                    text = "리뷰 삭제에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
 
                 default:
                     text = "메인으로 이동합니다."

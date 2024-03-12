@@ -38,7 +38,7 @@ public class AdminBookController {
 		public String registBookConfirm(BookDto bookDto, Model model) {
 			log.info("registBookConfirm()");
 			
-			String nextPage = "result";
+			String nextPage = "admin/result";
 			
 			int result = adminBookService.registBookConfirm(bookDto);
 			
@@ -80,7 +80,7 @@ public class AdminBookController {
 		public String modifyBookConfirm(BookDto bookDto, Model model) {
 			log.info("modifyBookConfirm()");
 			
-			String nextPage = "result";
+			String nextPage = "admin/result";
 					
 			int result = adminBookService.modifyBookConfirm(bookDto);
 					

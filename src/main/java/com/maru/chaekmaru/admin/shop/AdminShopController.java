@@ -114,7 +114,7 @@ public class AdminShopController {
 	public String userAccountActiveConfirm(@RequestParam("m_id") String m_id, Model model) {
 		log.info("userAccountActiveConfirm()");
 		
-		String nextPage = "result";
+		String nextPage = "admin/result";
 		
 		int result = adminShopService.userAccountActiveConfirm(m_id);
 		
