@@ -11,17 +11,17 @@
         </th:block>
 
         <div>
-            
-            <div class="review_id_stars">[[${review.m_id}]] | [[${review.r_stars}]]</div>
+            <div class="review_info">
+	            <span class="review_id_stars">[[${review.m_id}]] | [[${review.r_stars}]]</span>
+	            <span class="review_date" th:if="${review.r_reg_date == review.r_mod_date}">
+		            	등록일 : [[${#strings.substring(review.r_reg_date, 0, 16)}]]
+		        </span>
+		        <span class="review_date" th:if="${review.r_reg_date != review.r_mod_date}">
+			            등록일 : [[${#strings.substring(review.r_reg_date, 0, 16)}]] / 수정일 : [[${#strings.substring(review.r_mod_date, 0, 16)}]]
+		        </span>
+	        </div>
             <div class="review_text">[[${review.r_text}]]</div>
-            <div class="review_date">
-	            <div class="" th:if="${review.r_reg_date == review.r_mod_date}">
-	            	[[${#strings.substring(review.r_reg_date, 0, 19)}]]
-	            </div>
-	            <div class="" th:if="${review.r_reg_date != review.r_mod_date}">
-		            [[${#strings.substring(review.r_reg_date, 0, 19)}]] / [[${#strings.substring(review.r_mod_date, 0, 19)}]]
-	            </div>
-            </div>
+
 
             <th:block th:if="${session[loginedMemberInfo]?.m_id eq review.m_id}">
                 <div class="review-btn-wrap">
