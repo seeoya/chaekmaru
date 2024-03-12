@@ -39,21 +39,21 @@ public class AdminMemberController {
 	public String createAccountConfirm(AdminMemberDto adminMemberDto, Model model) {
 		log.info("createAccountConfirm()");
 		
-		String nextPage = "result";
+		String nextPage = "admin/result";
 				
 		int result = adminMemberService.createAccountConfirm(adminMemberDto);
 				
 		switch (result) {
-		case Config.INSERT_SUCCESS_AT_DATABASE: 
-			model.addAttribute("result", Config.INSERT_SUCCESS_AT_DATABASE);
+		case Config.ADMIN_CREATE_ACCOUNT_SUCCESS:
+			model.addAttribute("result", Config.ADMIN_CREATE_ACCOUNT_SUCCESS);
 			break;
 
-		case Config.ID_ALREADY_EXIST: 
-			model.addAttribute("result", Config.ID_ALREADY_EXIST);
+		case Config.ADMIN_ID_ALREADY_EXIST: 
+			model.addAttribute("result", Config.ADMIN_ID_ALREADY_EXIST);
 			break;
 		
-		case Config.INSERT_FAIL_AT_DATABASE: 
-			model.addAttribute("result", Config.INSERT_FAIL_AT_DATABASE);
+		case Config.ADMIN_CREATE_ACCOUNT_FAIL: 
+			model.addAttribute("result", Config.ADMIN_CREATE_ACCOUNT_FAIL);
 			break;
 
 		}
@@ -77,17 +77,17 @@ public class AdminMemberController {
 	public String loginConfirm(AdminMemberDto adminMemberDto, Model model, HttpSession session) {
 		log.info("loginConfirm()");
 		
-		String nextPage = "result";
+		String nextPage = "admin/result";
 				
 		AdminMemberDto loginedAdminMemberDto = adminMemberService.loginConfirm(adminMemberDto);
 
 		if(loginedAdminMemberDto != null) {
 			session.setAttribute("loginedAdminMemberDto", loginedAdminMemberDto);
 			session.setMaxInactiveInterval( 60 * 30 );		
-			model.addAttribute("result", Config.LOGIN_SUCCESS);
+			model.addAttribute("result", Config.ADMIN_LOGIN_SUCCESS);
 		
 		} else {
-			model.addAttribute("result", Config.LOGIN_FAIL);			
+			model.addAttribute("result", Config.ADMIN_LOGIN_FAIL);			
 			
 		}		
 		
@@ -109,7 +109,7 @@ public class AdminMemberController {
 	public String modifyAccountConfirm(AdminMemberDto adminMemberDto, Model model, HttpSession session) {
 		log.info("modifyAccountConfirm()");
 		
-		String nextPage = "result";
+		String nextPage = "admin/result";
 				
 		AdminMemberDto  loginedAdminMemberDto = adminMemberService.modifyAccountConfirm(adminMemberDto);
 				
@@ -118,11 +118,11 @@ public class AdminMemberController {
 			session.setAttribute("loginedAdminMemberDto", loginedAdminMemberDto);
 			session.setMaxInactiveInterval( 60 * 30 );		
 			
-			model.addAttribute("result", Config.MODIFY_SUCCESS_AT_DATABASE);
+			model.addAttribute("result", Config.ADMIN_MEMBER_MODIFY_SUCCESS);
 		
 		} else 
  		
-			model.addAttribute("result", Config.MODIFY_FAIL_AT_DATABASE);
+			model.addAttribute("result", Config.ADMIN_MEMBER_MODIFY_FAIL);
 		
 		
 		return nextPage;			
@@ -178,7 +178,7 @@ public class AdminMemberController {
 	public String setAdminApproval(@RequestParam("a_no") int a_no, Model model) {
 		log.info("setAdminApproval()");
 		
-		String nextPage = "result";
+		String nextPage = "admin/result";
 				
 		int result = adminMemberService.setAdminApproval(a_no);
 				
