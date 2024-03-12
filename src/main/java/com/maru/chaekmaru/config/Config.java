@@ -30,6 +30,8 @@ public class Config {
 	final public static int FIND_ID_FAIL = 115;
 	final public static int FIND_PW_FAIL = 116;
 	final public static int PW_MODIFY_FAIL = 117;
+    final public static int LOGIN_FAIL = 118;
+
 
 	// BookController 100 ~ 199
 		
