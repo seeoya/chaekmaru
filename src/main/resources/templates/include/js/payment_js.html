@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-<th:blcok th:fragment="payment_js">
+<th:block th:fragment="payment_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
             // 수량 변경
@@ -92,6 +92,7 @@
             console.log("paymentFormSubmit()");
 
             let form = document.payment_form;
+
             if (form.sb_name.value === "") {
                 alert("받으실분의 이름을 입력해 주세요");
                 form.sb_name.focus();
@@ -105,18 +106,32 @@
                 alert("받으실분의 상세주소를 입력해 주세요");
                 form.sb_detail_addr.focus();
             } else {
-                if (form.b_count.value >= form.sb_book_count.value) {
-                    if (form.currentPoint.value >= form.sb_all_price.value) {
-                        form.submit();
-                    } else {
-                        alert("잔여 포인트가 부족합니다. 포인트를 충전해 주세요");
+                let bCountArr = [];
+                let sbCountArr = [];
+
+                document.querySelectorAll(".b-count").forEach(el => {
+                    bCountArr.push(parseInt(el.value));
+                })
+
+                document.querySelectorAll(".sb-count").forEach(el => {
+                    sbCountArr.push(parseInt(el.value));
+                })
+
+                for (let i = 0; i < bCountArr.length; i++) {
+                    if (bCountArr[i] < sbCountArr[i]) {
+                        alert("도서 재고가 부족합니다. 수량을 조절하거나 관리자에게 문의하세요");
+                        return;
                     }
+                }
+
+                if (parseInt(form.currentPoint.value) >= parseInt(form.sb_all_price.value)) {
+                    form.submit();
                 } else {
-                    alert("도서 재고가 부족합니다. 수량을 조절하거나 관리자에게 문의하세요");
+                    alert("잔여 포인트가 부족합니다. 포인트를 충전해 주세요");
                 }
             }
         }
     </script>
-</th:blcok>
+</th:block>
 
 </html>

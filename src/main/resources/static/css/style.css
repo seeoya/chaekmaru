@@ -1020,40 +1020,215 @@ header .logo img {
 }
 
 /* 장바구니 */
-
-#cart .form{
+#cart .form {
     max-width: 100%;
 }
 
 #cart .cart-wrap {
     display: flex;
-    background-color: var(--gray-color);
+    position: relative;
+    background-color: var(--gray-light-color);
     width: 1000px;
-    padding: 30px;
+    padding: 30px 40px;
     border-radius: 20px;
     flex-direction: column;
+}
+
+#cart .cart-book-img {
+    max-width: 60%;
+    min-width: 60%;
+    display: flex;
+}
+
+#cart .cancle-xmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#cart .cart-count-modify {
+    max-width: 20%;
+    min-width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
 }
 
-#cart .cart-wrap img{
+#cart .modify-count {
+    background-color: #dbdbdb;
+}
+
+#cart .modify-count:hover {
+    background-color: #e3e2e2;
+}
+
+#cart .cart-wrap img {
     max-width: 200px;
     max-height: 150px;
-} 
+}
+
+#cart .cart-pay {
+    max-width: 20%;
+    min-width: 20%;
+    font-size: 1.8rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#cart .cart-pay .pay-success {
+    width: 80%;
+}
+
+#cart .cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
 
 #cart .cart-result {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
 }
 
 #cart .cart-book-name-price {
     font-size: 1.8rem;
+}
+
+#cart .cart-book-name-price p:nth-child(1) {
     font-weight: 600;
 }
 
-#cart .cart-count-modify input{
-    width: 100px;
+#cart .cart-count-modify input {
+    width: 80px;
+}
+
+#cart .all-pay-success {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+/* 전체 결제 */
+
+#payment .form {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: row;
+}
+
+#payment .form > div{
+    width: 50%;
+}
+
+#payment .pay-info {
+    width: 100%;
+}
+
+#payment .pay-book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+#payment .pay-img-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#payment .pay-img-title img {
+    max-width: 70px;
+    max-height: 65px;
+    min-width: 70px;
+    min-height: 65px;
+    object-fit: contain;
+}
+
+#payment .pay-bookname {
+    width: 100%;
+}
+
+#payment .pay-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-light-color);
+    border-radius: 20px;
+    margin-bottom: 15px;
+    padding: 20px 20px;
+}
+
+#payment .pay-price-result {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+#payment .pay-confirm {
+    max-width: 35%;
+    min-width: 35%;
+}
+
+.member-info {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.member-info div {
+    margin-bottom: 15px;
+}
+
+.member-info p {
+    margin: 5px 0;
+}
+
+.member-info input[type="text"],
+.member-info button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.member-info button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.member-info button:hover {
+    background-color: #0056b3;
+}
+
+.member-info .payment {
+    background-color: #28a745;
+}
+
+.member-info .payment:hover {
+    background-color: #218838;
+}
+
+.member-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.member-info a:hover {
+    text-decoration: underline;
 }
 
 /* 페이징 */
@@ -1167,19 +1342,91 @@ footer .util_footer .btn {
 
 footer .join_footer {
     display: flex;
+    width: 40%;
     gap: 10px;
 }
 
 .addition-btn-wrap {
-    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
+    margin: 30px;
     right: 0;
     bottom: 0;
+    gap: 10px;
 }
 
 .addition-btn-wrap .btn {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 40px;
     font-size: 2rem;
+}
+
+.spinner-wrap {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.spinner-wrap .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+.spinner-wrap .spinner::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 7px solid #FFF;
+    animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+    }
+
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+    }
+
 }
