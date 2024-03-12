@@ -1,13 +1,95 @@
 package com.maru.chaekmaru.config;
 
 public class Config {
+	// COMMON
+	final public static String LOGINED_MEMBER_INFO = "loginedMemberInfo";	
+	
+	// CONTROLLER LOG
+	final public static int UNKNOWN_ERROR = -1;
+	final public static int DATABASE_COMMUNICATION_TROUBLE = 2;
+	
+	
+	
+	// MainController
+	
+	// MemberController 100 ~ 199
+	final public static int CREATE_ACCOUNT_SUCCESS = 100;
+	final public static int MEMBER_MODIFY_SUCCESS = 101; 	
+	final public static int LOGOUT_SUCCESS = 102; 
+	final public static int MEMBER_DELETE_SUCCESS = 103;
+	final public static int FIND_ID_SUCCESS = 104;
+	final public static int FIND_PW_SUCCESS = 105;
+	final public static int PW_MODIFY_SUCCESS = 106;
+	final public static int LOGIN_SUCCESS = 107; 
+	
+	final public static int CREATE_ACCOUNT_FAIL = 110;
+	final public static int ID_ALREADY_EXIST = 111;
+	final public static int MEMBER_MODIFY_FAIL = 112;
+	final public static int MEMBER_NOT_FOUND = 113;
+	final public static int MEMBER_DELETE_FAIL = 114;
+	final public static int FIND_ID_FAIL = 115;
+	final public static int FIND_PW_FAIL = 116;
+	final public static int PW_MODIFY_FAIL = 117;
+
+	// BookController 100 ~ 199
+		
+	// MypageController 200 ~ 299
+	final public static int MODIFY_CART_SUCCESS = 200;
+	final public static int ADD_CART_SUCCESS = 201;
+	final public static int DELETE_CART_SUCCESS = 202;
+	final public static int PAYMENT_SUCCESS = 203;
+	final public static int INSERT_POINT_SUCCESS = 204;
+	final public static int DELETE_PAYMENT_CART_SUCCESS = 205; 
+	final public static int POINT_CHARGE_SUCCESS = 206;
+	
+	final public static int MODIFY_CART_FAIL = 210;
+	final public static int ADD_CART_FAIL = 211;
+	final public static int DELETE_CART_FAIL = 212;
+	final public static int PAYMENT_FAIL = 213;
+	final public static int INSERT_POINT_FAIL = 214;
+	final public static int DELETE_PAYMENT_CART_FAIL = 215;
+	final public static int POINT_CHARGE_FAIL = 216;
+
+	// ReviewController 300 ~ 399
+	final public static int REVIEW_WRITE_SUCCESS = 300;
+	final public static int REVIEW_MODIFY_SUCCESS = 301;
+	final public static int REVIEW_DELETE_SUCCESS = 302;
+	
+	final public static int REVIEW_WRITE_FAIL = 310;
+	final public static int REVIEW_MODIFY_FAIL = 311; 
+	final public static int REVIEW_DELETE_FAIL = 312;
+
+	// AdminHomeController 400 ~ 499
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+	
+	// AdminMemberController 500 ~ 599
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+	
+	// AdminBookController 600 ~ 699
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+//	final public static int 
+	
 	
 	final public static int INSERT_SUCCESS_AT_DATABASE = 1;
-	final public static int ID_ALREADY_EXIST = 2;
-	final public static int DATABASE_COMMUNICATION_TROUBLE = 3;
+//	final public static int ID_ALREADY_EXIST = 2;
+//	final public static int DATABASE_COMMUNICATION_TROUBLE = 3;
  	final public static int INSERT_FAIL_AT_DATABASE = 4;
 	
-	final public static int LOGIN_SUCCESS = 5;
+//	final public static int LOGIN_SUCCESS = 5;
 	final public static int LOGIN_FAIL = 6;
 	
 	final public static int MODIFY_SUCCESS_AT_DATABASE = 7;
@@ -52,4 +134,3 @@ public class Config {
     
 
 }
-                                                                   

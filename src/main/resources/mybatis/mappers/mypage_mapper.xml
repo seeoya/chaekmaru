@@ -114,12 +114,13 @@
 						SB_MEMO, 
 						SB_SALE_DATE, 
 						SB_ALL_PRICE, 
+                        SB_SALED_PRICE, 
 						SB_STATE, 
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
 					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
-					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
+					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
 	
@@ -189,12 +190,13 @@
 						SB_MEMO, 
 						SB_SALE_DATE, 
 						SB_ALL_PRICE, 
+                        SB_SALED_PRICE, 
 						SB_STATE, 
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
 					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
-					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
+					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
 	
@@ -245,9 +247,62 @@
 					ORDER BY 
 						SB.SB_NO DESC
 	</select>
+
+    <update id="nowBooks"
+			parameterType="map">
+			
+					<![CDATA[
+					UPDATE  
+						TBL_BOOK 
+					SET 
+						B_COUNT = ${b_count - sb_book_count} 
+					WHERE 
+						B_NO = #{b_no}
+					]]>
+					
+	</update>
+	
+	<update id="cancelBookCount">
+	
+					<![CDATA[
+					UPDATE 
+						TBL_BOOK SET 
+					SET 
+						B_COUNT = ${b_count + sb_book_count} 
+					WHERE 
+						B_NO = ${b_no}
+					]]>
+					
+	</update>
+	
+	<insert id="addMyPick"
+			parameterType="map">
+	
+		INSERT INTO 
+			TBL_MEMBER_PICK 
+		VALUES(MEMBER_PICK_SEQ.NEXTVAL, #{m_id}, #{b_no}, SYSTIMESTAMP)
+	
+	</insert>
+	
+	<select id="myPickList"
+			parameterType="String"
+			resultType="com.maru.chaekmaru.mypage.MemberPickDto">
+			
+					SELECT * FROM 
+						TBL_MEMBER_PICK MP 
+					JOIN 
+						TBL_MEMBER M 
+					ON 
+						MP.M_ID = M.M_ID 
+					WHERE 
+						MP.M_ID = #{m_id} 
+					ORDER BY 
+						MP.MP_NO DESC
+
+	</select>
 	
 	<select id="selectMyPointList"
-	        parameterType="String"
+            parameterType="String"
 			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
 		SELECT * FROM TBL_POINT_LIST WHERE M_ID = #{m_id}
 			ORDER BY PL_REG_DATE DESC

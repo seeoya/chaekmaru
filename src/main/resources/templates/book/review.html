@@ -1,29 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
 
 <div class="review-list" th:fragment="review-list">
     <div class="review-item" th:each="review: ${reviews}">
-        <div>
-            <div class="">[[${review.m_id}]]</div>
-            <div class="" th:if="${review.r_reg_date == review.r_mod_date}">[[${review.r_reg_date}]]</div>
-            <div class="" th:if="${review.r_reg_date != review.r_mod_date}">
-                [[${review.r_reg_date}]] / [[${review.r_mod_date}]]
-            </div>
-            <div class="">[[${review.r_text}]]</div>
-            <div class="">[[${review.r_stars}]]</div>
+        <th:block th:if="${review.b_thumbnail != null}">
+            <a th:href="@{/book/view/{b_no}(b_no=${review.b_no})}">
+                <img th:src="${review.b_thumbnail}" th:alt="${review.b_name}">
+            </a>
+        </th:block>
 
-            <th:block th:if="${session[loginedMemberDto]?.m_id eq review.m_id}">
+        <div>
+            
+            <div class="review_id_stars">[[${review.m_id}]] | [[${review.r_stars}]]</div>
+            <div class="review_text">[[${review.r_text}]]</div>
+            <div class="review_date">
+	            <div class="" th:if="${review.r_reg_date == review.r_mod_date}">
+	            	[[${#strings.substring(review.r_reg_date, 0, 19)}]]
+	            </div>
+	            <div class="" th:if="${review.r_reg_date != review.r_mod_date}">
+		            [[${#strings.substring(review.r_reg_date, 0, 19)}]] / [[${#strings.substring(review.r_mod_date, 0, 19)}]]
+	            </div>
+            </div>
+
+            <th:block th:if="${session[loginedMemberInfo]?.m_id eq review.m_id}">
                 <div class="review-btn-wrap">
                     <button type="button" class="btn main modify-review">수정</button>
-                    <a th:href="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}" class="btn sub">삭제</a>
+                    <a th:href="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}"
+                        class="btn sub">삭제</a>
                 </div>
 
                 <div class="modify-wrap" style="display: none;">
-                    <form th:action="@{/review/modify_confirm(r_no=${review.r_no})}" name="review_modify_form" method="post" class="form">
+                    <form th:action="@{/review/modify_confirm(r_no=${review.r_no})}" name="review_modify_form"
+                        method="post" class="form">
                         <input type="hidden" name="b_no" th:value="${review.b_no}" />
-                        <textarea name="r_text" cols="30" rows="10" placeholder="리뷰 내용을 작성해주세요.">[[${review.r_text}]]</textarea>
-                        <input type="number" name="r_stars" th:value="${review.r_stars}">
-                        <button type="submit">리뷰 수정</button>
+                        <textarea name="r_text" cols="30" rows="10"
+                            placeholder="리뷰 내용을 작성해주세요.">[[${review.r_text}]]</textarea>
+                        <input type="number" name="r_stars" min="1" max="5" step="1" th:value="${review.r_stars}">
+                        <button class="btn main submit" type="button">리뷰 수정</button>
                     </form>
                 </div>
             </th:block>
@@ -34,10 +48,11 @@
 <div class="review-write" th:fragment="review-write">
     <form th:action="@{/review/write_confirm}" name="review_write_form" method="post" class="form">
         <input type="hidden" name="b_no" th:value="${item.b_no}" />
+        <input type="number" name="r_stars" min="1" max="5" step="1" value="1">
         <textarea name="r_text" cols="30" rows="10" placeholder="리뷰 내용을 작성해주세요."></textarea>
-        <input type="number" name="r_stars">
-        <button type="submit">리뷰 등록</button>
+        <button class="btn main submit review_write_btn" type="button">리뷰 등록</button>
     </form>
+
 </div>
 
 </html>

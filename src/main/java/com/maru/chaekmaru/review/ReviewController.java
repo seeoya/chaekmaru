@@ -6,13 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
-import oracle.jdbc.proxy.annotation.Post;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Log4j2
 @Controller
@@ -22,49 +22,38 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 
-	String nextPage = "";
-
 	@PostMapping("/write_confirm")
 	public String writeConfirm(Model model, HttpSession session, ReviewDto reviewDto) {
-		nextPage = "redirect:/book/view/" + reviewDto.getB_no();
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		reviewDto.setM_id(loginedMemberDto.getM_id());
 
 		int result = -1;
-
 		result = reviewService.writeConfirm(reviewDto);
 
-		log.info(result);
-
-		return nextPage;
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	@PostMapping("/modify_confirm")
 	public String deleteReview(Model model, HttpSession session, ReviewDto reviewDto) {
-		nextPage = "redirect:/book/view/" + reviewDto.getB_no();
-
 		int result = -1;
 
 		result = reviewService.modifyConfirm(reviewDto);
 
-		log.info(result);
-
-		return nextPage;
-
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	@GetMapping("/delete_confirm")
-	public String deleteReview(@RequestParam("r_no") int r_no, @RequestParam("b_no") int b_no) {
-		nextPage = "redirect:/book/view/" + b_no;
+	public String deleteReview(Model model, @RequestParam("r_no") int r_no, @RequestParam("b_no") int b_no) {
+//		nextPage = "redirect:/book/view/" + b_no;
 		int result = -1;
 
 		result = reviewService.deleteConfirm(r_no);
 
-		log.info(result);
-
-		return nextPage;
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.book.BookService;
@@ -31,8 +32,6 @@ public class MainController {
 
 	@GetMapping({ "/", "" })
 	public String index(HttpSession session, Model model) {
-		nextPage = "index";
-
 		memberService.refreshPoint(session);
 
 		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem();
@@ -44,25 +43,27 @@ public class MainController {
 		ArrayList<BookDto> newBookDtos = bookService.newItem(5);
 		model.addAttribute("news", newBookDtos);
 
-		return nextPage;
+		return "index";
 	}
 
 	@GetMapping("/styleguide")
 	public String styleguide(Model model) {
-		nextPage = "styleguide";
-
-		return nextPage;
+        return "styleguide";
 	}
 
+	@GetMapping("/result")
+	public String test(HttpSession session, Model model, @RequestParam( value = "result", defaultValue = "0") String result) {
+		int resultNum = Integer.parseInt(result);
+		
+		model.addAttribute("result", resultNum);
+
+		return "result";
+	}
+	
 	@GetMapping("/test")
 	public String test(HttpSession session, Model model) {
-
-		memberService.refreshPoint(session);
 		model.addAttribute("result", 2);
 
-		nextPage = "temp";
-
-		return nextPage;
+		return "result";
 	}
-
 }
