@@ -29,10 +29,9 @@ public class Config {
 	final public static int MEMBER_DELETE_FAIL = 114;
 	final public static int FIND_ID_FAIL = 115;
 	final public static int FIND_PW_FAIL = 116;
-	final public static int PW_MODIFY_FAIL = 117;
+    final public static int PW_MODIFY_FAIL = 117;
     final public static int LOGIN_FAIL = 118;
-
-
+    
 	// BookController 100 ~ 199
 		
 	// MypageController 200 ~ 299
@@ -61,78 +60,48 @@ public class Config {
 	final public static int REVIEW_MODIFY_FAIL = 311; 
 	final public static int REVIEW_DELETE_FAIL = 312;
 
+	
 	// AdminHomeController 400 ~ 499
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
+	
 	
 	// AdminMemberController 500 ~ 599
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
+	final public static int ADMIN_CREATE_ACCOUNT_SUCCESS = 500;  
+	final public static int ADMIN_LOGIN_SUCCESS = 501;   	
+	final public static int ADMIN_LOGOUT_SUCCESS = 502;         
+	final public static int ADMIN_MEMBER_MODIFY_SUCCESS = 503; 
+	final public static int ADMIN_MEMBER_DELETE_SUCCESS = 504;  
+	final public static int SET_ADMIN_APPROVAL_SUCCESS_AT_DATABASE = 505;
+	
+	final public static int ADMIN_ID_ALREADY_EXIST = 510;    
+	final public static int ADMIN_CREATE_ACCOUNT_FAIL = 511; 
+	final public static int ADMIN_LOGIN_FAIL = 512;  
+	final public static int ADMIN_MEMBER_MODIFY_FAIL = 513;
+	final public static int ADMIN_MEMBER_DELETE_FAIL = 514;  
+	final public static int SET_ADMIN_APPROVAL_FAIL_AT_DATABASE = 515;	
 	
 	// AdminBookController 600 ~ 699
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
-//	final public static int 
+	final public static int REGIST_BOOK_SUCCESS_AT_DATABASE = 600;	 
+	final public static int MODIFY_BOOK_SUCCESS_AT_DATABASE = 601;	
+	final public static int DELETE_BOOK_SUCCESS_AT_DATABASE = 602;
 	
+	final public static int BOOK_ALREADY_EXIST = 610;	          	
+	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 611; 
+	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 612; 
+	final public static int DELETE_BOOK_FAIL_AT_DATABASE = 613;       
+	                                                                 
+	// AdminShopController 700 ~ 799
+	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 700;		
+	final public static int MODIFY_POINT_SUCCESS_AT_DATABASE = 701;	
+	final public static int RETURN_BOOK_APPROVAL_SUCCESS = 702;
+	final public static int RETURN_BOOK_NOT_APPROVED_SUCCESS = 703;
+	final public static int MODIFY_BOOK_INVENTORY_SUCCESS = 704;
 	
-	final public static int INSERT_SUCCESS_AT_DATABASE = 1;
-//	final public static int ID_ALREADY_EXIST = 2;
-//	final public static int DATABASE_COMMUNICATION_TROUBLE = 3;
- 	final public static int INSERT_FAIL_AT_DATABASE = 4;
-	
-//	final public static int LOGIN_SUCCESS = 5;
-	final public static int LOGIN_FAIL = 6;
-	
-	final public static int MODIFY_SUCCESS_AT_DATABASE = 7;
-	final public static int MODIFY_FAIL_AT_DATABASE = 8;
-	
-	
-	final public static int DELETE_SUCCESS_AT_DATABASE = 9;
-	final public static int DELETE_FAIL_AT_DATABASE = 10;
-	
-	final public static int MEMBER_ACTIVE_DELETE_SUCCESS_AT_DATABASE = 11;
-	final public static int MEMBER_ACTIVE_DELETE_FAIL_AT_DATABASE = 12;
-	
-	final public static int SET_ADMIN_APPROVAL_SUCCESS_AT_DATABASE = 13;
-	final public static int SET_ADMIN_APPROVAL_FAIL_AT_DATABASE = 14;	
-	
-	final public static int REGIST_BOOK_SUCCESS_AT_DATABASE = 15;	
-	final public static int BOOK_ALREADY_EXIST = 16;	
-	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 17;
-	
-	final public static int MODIFY_BOOK_SUCCESS_AT_DATABASE = 18;		
-	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 19;
-	
-	final public static int MODIFY_POINT_SUCCESS_AT_DATABASE = 20;	
-	final public static int MODIFY_POINT_FAIL_AT_DATABASE = 21;
-	
-	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 22;
-	final public static int USER_ACCOUNT_UNACTIVE_FAIL = 23;
-	
-	final public static int RETURN_BOOK_APPROVAL_SUCCESS = 24;
-	final public static int RETURN_BOOK_APPROVAL_FAIL = 25;
-	
-	final public static int RETURN_BOOK_NOT_APPROVED_SUCCESS = 26;     
-    final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 27;
-    final public static int MODIFY_BOOK_COUNT_FAIL = 28;
-    
-    final public static int MODIFY_BOOK_INVENTORY_SUCCESS = 29;
-    final public static int MODIFY_BOOK_INVENTORY_FAIL = 30;
-
-    final public static int DELETE_BOOK_SUCCESS_AT_DATABASE = 31;
-    final public static int DELETE_BOOK_FAIL_AT_DATABASE = 32;
-    
+	final public static int USER_ACCOUNT_UNACTIVE_FAIL = 710;
+	final public static int MODIFY_POINT_FAIL_AT_DATABASE = 711;	
+	final public static int RETURN_BOOK_APPROVAL_FAIL = 712;
+	final public static int MODIFY_BOOK_COUNT_FAIL = 713;
+	final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 714;    
+    final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;   
     
 
 }

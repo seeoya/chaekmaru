@@ -6,7 +6,7 @@
     <title>책마루 :: 관리자</title>
 
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin_style.css}">
     <script th:src="@{/js/index.js}"></script>
 </head>
 
@@ -14,11 +14,13 @@
     <div class="wrap">
         <header th:replace="include/admin_header.html::admin_header"></header>
 
-        <section class="main">
+        <section class="container">
             <div layout:fragment="content"></div>
         </section>
 
         <footer th:replace="include/footer::default_footer"></footer>
+        <div th:replace="~{include/footer.html::addition_btn_wrap}"></div>
+   
     </div>
 </body>
 

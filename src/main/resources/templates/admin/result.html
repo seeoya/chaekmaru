@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    lang="ko"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/admin_layout}"
+>
+    <head>
+        <title>책마루 :: 관리자 :: 결과</title>
+    </head>
+
+    
+
+    <div id="result" class="content-wrap" layout:fragment="content">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let result = [[${result}]];
+            let text = "";
+            let href = "";
+
+            switch (result) {
+                case -1:
+                    text = "오류가 발생했습니다.\n다시 시도해주세요."
+                    window.history.back();
+                    break;
+                case 2:
+                    text = "데이터베이스 연결 오류\n다시 시도해주세요."
+                    window.history.back();
+                    break;
+
+                // adminMemberController
+                case 500:
+                    text = "회원가입에 성공했습니다.\n환영합니다.";
+                    href = [[@{/admin/member/login_form}]];
+                    break;
+                
+                case 501:
+                    text = "로그인에 성공했습니다.";
+                    href = [[@{/admin}]];
+                    break;
+
+                case 502:
+                    text = "로그아웃에 성공했습니다.";
+                    href = [[@{/admin}]];
+                    break;
+
+                case 503:
+                    text = "정보 수정에 성공했습니다.";
+                    href = [[@{/admin/member/modify_account_form}]];
+                    break;
+
+                case 504:
+                    text = "관리자 계정 삭제에 성공했습니다.";
+                    href = [[@{/admin/member/admin_list_form}]];
+                    break;
+
+                case 505:
+                    text = "관리자 승인이 처리되었습니다.";
+                    href = [[@{/admin/member/admin_list_form}]];
+                    break;
+
+                case 510:
+                    text = "이미 존재하는 ID입니다.";
+                    window.history.back();
+                    break;
+
+                case 511:
+                    text = "회원가입에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 512:
+                    text = "로그인에 실패하였습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 513:
+                    text = "정보수정에 실패하였습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 514:
+                    text = "관리자 계정 삭제에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/admin_list_form}]];
+                    break;
+                    
+                case 515:
+                    text = "관리자 승인 처리에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/admin_list_form}]];
+                    break;
+
+                case 600:
+                    text = "도서 등록에 성공했습니다.";
+                    window.history.back();
+                    break;
+                    
+                case 601:
+                    text = "도서 정보수정에 성공했습니다.";
+                    href = [[@{/admin/member/book_list_form}]];
+                    break;
+                    
+                case 602:
+                    text = "도서 삭제에 성공했습니다.";
+                    href = [[@{/admin/member/book_list_form}]];
+                    break;
+                    
+                case 610:
+                    text = "이미 등록된 도서입니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 611:
+                    text = "도서 등록에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 612:
+                    text = "도서 정보수정에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/book_list_form}]];
+                    break;
+                    
+                case 613:
+                    text = "도서 삭제에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/book_list_form}]];
+                    break;
+                    
+                case 700:
+                    text = "회원 계정 비활성화에 성공했습니다.";
+                    href = [[@{/admin/member/user_list_form}]];
+                    break;
+                
+                case 701:
+                    text = "회원 포인트 수정에 성공했습니다.";
+                    href = [[@{/admin/member/user_list_form}]];
+                    break;
+                    
+                case 702:
+                    text = "반품도서 승인에 성공했습니다.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+                    
+                case 703:
+                    text = "반품도서 승인불가 처리에 성공했습니다.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+                    
+                case 704:
+                    text = "도서 재고수정에 성공했습니다.";
+                    window.history.back();
+                    break;
+            
+                case 710:
+                    text = "회원 계정 비활성화에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/user_list_form}]];
+                    break;
+                    
+                case 711:
+                    text = "회원 포인트 수정에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/point_list_form}]];
+                    break;
+                    
+                case 712:
+                    text = "반품도서 승인에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+                    
+                case 713:
+                    text = "반품도서 재고 수정에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+        	
+                case 714:
+                    text = "반품도서 승인불가 처리에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+                    
+                case 715:
+                    text = "도서 재고수정에 실패했습니다.\n다시 시도해주세요.";
+                    href = [[@{/admin/member/return_book_list_form}]];
+                    break;
+                    
+                default:
+                    text = "관리자 홈으로 이동합니다.";
+                    href = [[@{/admin}]];
+                    break;
+            }
+
+            if (text != "") {
+                alert(text);
+            }
+
+            if (href != "") {
+                location.href = href;
+            }
+            /*]]>*/
+        </script>
+    </div>
+</html>
