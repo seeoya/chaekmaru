@@ -24,38 +24,25 @@ public class MemberService {
 	@Autowired
 	JavaMailSender javaMailSender;
 
-	public int memberAccountConfirm(MemberDto memberDto) {
-		log.info("--memberAccountConfirm--");
+	public int createAccountConfirm(MemberDto memberDto) {
+		log.info("--createAccountConfirm--");
 
 		int isMember = memberDao.isMember(memberDto.getM_id());
 
 		if (isMember <= 0) {
 			memberDto.setM_pw(passwordEncoder.encode(memberDto.getM_pw()));
+
 			int result = memberDao.insertMember(memberDto);
 
-			switch (result) {
-			case Config.DATABASE_COMMUNICATION_TROUBLE:
-				log.info("DATABASE COMMUNICATION TROUBLE");
-				break;
-
-			case Config.INSERT_FAIL_AT_DATABASE:
-				log.info("INSERT FAIL AT DATABASE");
-				break;
-
-			case Config.INSERT_SUCCESS_AT_DATABASE:
-				log.info("INSERT SUCCESS AT DATABASE");
-				break;
-
+			if (result > 0) {
+				return Config.CREATE_ACCOUNT_SUCCESS;
+			} else {
+				return Config.CREATE_ACCOUNT_FAIL;
 			}
 
-			return result;
-
 		} else {
-
 			return Config.ID_ALREADY_EXIST;
-
 		}
-
 	}
 
 	/*
@@ -74,36 +61,47 @@ public class MemberService {
 	 */
 
 	public MemberDto modifyConfirm(MemberDto memberDto) {
-
 		log.info("modifyConfirm()");
 
-		int result = memberDao.updateMemberForModify(memberDto);
+		// #TODO isMember
+		int isMember = memberDao.isMember(memberDto.getM_id());
+		
+		if (isMember > 0) {
+			int result = memberDao.updateMemberForModify(memberDto);
 
-		if (result > 0) {
-			return memberDao.selectMember(memberDto.getM_id());
-		}
+			if (result > 0) {
+				return memberDao.selectMember(memberDto.getM_id());
+			}
+		} else {
+            
+        }
 
 		return null;
 	}
 
 	public int memberDeleteConfirm(String m_id) {
 		log.info("memberDeleteConfirm()");
-		
+
 		// #TODO isMember
-		// 포인트, 리뷰, 장바구니, 찜목록 삭제
 		
-		
-		return memberDao.deleteMember(m_id);
+		int result = memberDao.deleteMember(m_id);
+		if(result > 0) {
+			// #TODO 포인트, 리뷰, 장바구니, 찜목록 삭제
+			return Config.MEMBER_DELETE_SUCCESS;
+		} else {
+			return Config.MEMBER_DELETE_FAIL;
+		}
 	}
 
 	public String findIdByNameAndEmail(String name, String email) {
 		log.info("findIdByNameAndEmail()");
-		String id = memberDao.findIdByNameAndEmail(name, email);
-		return id;
+		
+		return memberDao.findIdByNameAndEmail(name, email);
 	}
 
 	public void sendEmail(String email, String message) {
 		log.info("sendEmail()");
+		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(email);
 		mailMessage.setSubject("the result of your request");
@@ -112,9 +110,9 @@ public class MemberService {
 		javaMailSender.send(mailMessage);
 	}
 
-	public MemberDto thereIsId(String id, String name, String email) {
-		log.info("thereIsId()");
-		return (MemberDto) memberDao.selectthereIsId(id, name, email);
+	public MemberDto findMember(String id, String name, String email) {
+		log.info("findMember()");
+		return (MemberDto) memberDao.selectMemberByFindPw(id, name, email);
 	}
 
 	public int pwModifyConfirm(String id, String m_pw) {
@@ -122,20 +120,26 @@ public class MemberService {
 
 		int result = memberDao.pwModifyConfirm(id, passwordEncoder.encode(m_pw));
 
-		return result;
+		if (result > 0) {
+			return Config.PW_MODIFY_SUCCESS;
+		} else {
+			return Config.PW_MODIFY_FAIL;
+		}
 	}
 
-	public void refreshPoint(HttpSession session) {
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
-
+	public int refreshPoint(HttpSession session) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+		
+		int point = 0;
+		
 		if (loginedMemberDto != null) {
-			int point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
+			point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
 			loginedMemberDto.setPoint(point);
 
-			session.setAttribute("loginedMemberDto", loginedMemberDto);
+			session.setAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
 		}
 
+		return point;
 	}
 
 }

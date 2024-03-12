@@ -11,6 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.ui.Model;
+
+import com.maru.chaekmaru.config.Config;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -40,12 +43,10 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(request -> request.requestMatchers("/member/modify_form").authenticated()
 				.requestMatchers("/**").permitAll());
 
-		http
-			.formLogin((login) -> login.loginPage("/member/login_form")
-					.loginProcessingUrl("/member/login_confirm")
-					.usernameParameter("m_id").passwordParameter("m_pw")
-					
-					.successHandler((request, response, authentication) -> {
+		http.formLogin((login) -> login.loginPage("/member/login_form").loginProcessingUrl("/member/login_confirm")
+				.usernameParameter("m_id").passwordParameter("m_pw")
+
+				.successHandler((request, response, authentication) -> {
 					log.info("success handler");
 
 					MemberDto memberDto = new MemberDto();
@@ -54,27 +55,28 @@ public class SecurityConfig {
 					MemberDto loginedMemberDto = iMemberDaoForMybatis.selectMember(memberDto.getM_id());
 
 					HttpSession session = request.getSession();
-					session.setAttribute("loginedMemberDto", loginedMemberDto);
+					session.setAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
 					session.setMaxInactiveInterval(60 * 30);
 
 					RequestCache requestCache = new HttpSessionRequestCache();
 					SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-					String uri = "/";
+					String uri = "/result?result=" + Config.LOGIN_SUCCESS;
+
 					if (savedRequest != null) {
 						uri = savedRequest.getRedirectUrl();
 
 						requestCache.removeRequest(request, response);
-
 					}
-
+					
 					response.sendRedirect(uri);
-
 				}).failureHandler((request, response, exception) -> {
 					log.info("fail handler!!");
 					log.error("Login failed: " + exception.getMessage());
-					response.sendRedirect("/member/member_login_form");
-
+					
+					String uri = "/result?result=" + Config.LOGIN_FAIL;
+					
+					response.sendRedirect(uri);
 				}));
 
 		http.logout(logout -> logout.logoutUrl("/member/logout_confirm")
@@ -82,10 +84,11 @@ public class SecurityConfig {
 					log.info("logoutSuccessHandler");
 
 					HttpSession session = request.getSession();
-					session.invalidate();
+					session.removeAttribute(Config.LOGINED_MEMBER_INFO);
 
-					response.sendRedirect("/");
-
+					String uri = "/result?result=" + Config.LOGOUT_SUCCESS;
+					
+					response.sendRedirect(uri);
 				}));
 
 		return http.build();

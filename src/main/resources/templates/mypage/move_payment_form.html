@@ -31,6 +31,7 @@
 							[[${#numbers.formatInteger(bookDto.b_price * 1, 3, 'COMMA')}]] 포인트
 						</p>
 						<input type="hidden" value="1" name="sb_book_count" />
+						<input type="hidden" th:value="${bookDto.b_count}" name="b_count" />
 					</div>
 				</div>
 
@@ -82,6 +83,7 @@
 						<p
 							th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
 						<input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
+						<input type="hidden" name="currentPoint" th:value="${currentPoint}" />
 					</div>
 				</div>
 

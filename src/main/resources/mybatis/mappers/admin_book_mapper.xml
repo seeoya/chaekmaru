@@ -27,15 +27,6 @@
 						 		
 	</insert>
 	
-
-	<select id="selectAllBooks"			
-			resultType="com.maru.chaekmaru.book.BookDto">
-			
-			SELECT * FROM TBL_BOOK 
-			ORDER BY B_NO DESC			
-				 		
-	</select>
-	
 	
 	<select id="selectBookForModify"
 			parameterType="Integer"
@@ -84,17 +75,29 @@
 	
 	</delete>
 	
-<!-- 	<select id="selectBookForSearch"
-			parameterType="String"
-			resultType="com.maru.chaekmaru.book.BookDto">
-			
-			SELECT 
-				* 
-			FROM 
-				TBL_BOOK 
-			WHERE 
-				B_NAME = LIKE '%' + #{search} + '%'
-				 		
-	</select>  -->
+	
+	<select id="countListResult" parameterType="map"
+		resultType="Integer">
+        
+        <![CDATA[
+        SELECT COUNT(*) FROM TBL_BOOK WHERE ${sortSql} LIKE '%' || #{search} || '%'
+        ]]>
+	</select>
+	
+	
+	<select id="setList" parameterType="map"
+		resultType="com.maru.chaekmaru.book.BookDto">
+        
+        <![CDATA[
+        SELECT * FROM
+        (SELECT ROWNUM NUM, A.* FROM
+        (SELECT * FROM TBL_BOOK   
+        WHERE ${sortSql} LIKE '%' || #{search} || '%'  
+        ORDER BY ${sortSql}) A)  
+        WHERE NUM BETWEEN #{startNum} AND #{endNum}
+		]]>
+	</select>
+	
+	
 	
 </mapper>

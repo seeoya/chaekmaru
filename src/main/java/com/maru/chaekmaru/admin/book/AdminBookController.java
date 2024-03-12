@@ -1,6 +1,6 @@
 package com.maru.chaekmaru.admin.book;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.book.BookDto;
+import com.maru.chaekmaru.book.ListPageDto;
 import com.maru.chaekmaru.config.Config;
 
 import lombok.extern.log4j.Log4j2;
@@ -59,20 +60,7 @@ public class AdminBookController {
 			return nextPage;		
 			
 		}
-		
-		@GetMapping("/book_list_form")
-		public String bookListForm(Model model) {
-			log.info("bookListForm()");
-			
-			String nextPage = "admin/book/book_list_form";
-			
-			List<BookDto> bookListDtos = adminBookService.bookListForm();
-			
-			model.addAttribute("bookListDtos", bookListDtos);
-					
-			return nextPage;		
-			
-		}
+	
 		
 		@GetMapping("/modify_book_form")
 		public String modifyBookForm(@RequestParam("b_no") int b_no, Model model) {
@@ -120,22 +108,43 @@ public class AdminBookController {
 			return nextPage;		
 				
 		}
+	
 		
-		// 도서 리스트 SEARCH
+		@GetMapping("/book_list_form")
+		public String bookListForm(Model model, @RequestParam(required = false, value = "search", defaultValue = "") String search,
+							@RequestParam(required = false, value = "sort", defaultValue = "no") String sort,
+							@RequestParam(required = false, value = "page", defaultValue = "1") String page) {
 
-/*		@GetMapping("/admin_search_book_confirm")
-		public String adminSearchBookConfirm(@RequestParam("search")String search, Model model) {
-			log.info("adminSearchBookConfirm()");
+			int pageItemPerPage = 20;
+			int nowPageCount = Integer.parseInt(page);
+			int allBookCount = adminBookService.countBook(search, sort);
+			int allPageCount = adminBookService.countAllPage(allBookCount, pageItemPerPage);
+
+			if(nowPageCount > allPageCount) {
+				nowPageCount = allPageCount;
+			}
 			
+			ArrayList<BookDto> items = new ArrayList<>();
+			ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
+			log.info("{}, {}", search, sort);
+			items = adminBookService.setList(search, sort, pageItemPerPage, nowPageCount);
+			listPageDtos = adminBookService.setPaging(pageItemPerPage, nowPageCount, allPageCount);
+			
+			model.addAttribute("search", search);			
+			model.addAttribute("sort", sort);
+
+			model.addAttribute("nowPage", nowPageCount);
+			model.addAttribute("allPage", allPageCount);
+
+			model.addAttribute("listPageDtos", listPageDtos);
+			model.addAttribute("items", items);
+
 			String nextPage = "admin/book/book_list_form";
-			
-			List<BookDto> bookListDto = adminBookService.adminSearchBookConfirm(search);
-			
-			model.addAttribute("bookListDto", bookListDto);
-			
-			return nextPage;		
-			
-		} */
+
+			return nextPage;
+
+		}
+
 
 }
 	

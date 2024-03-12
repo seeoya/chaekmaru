@@ -23,13 +23,17 @@ public class BookService {
 		recommendBookDtos.add(bookDao.selectBook(randomNo));
 		recommendBookDtos.add(bookDao.selectBook(randomNo2));
 
-		return recommendBookDtos;
+		if (recommendBookDtos.size() > 0) {
+			return recommendBookDtos;
+		} else {
+			return null;
+		}
 	}
 
 	public ArrayList<BookDto> bestItem(int count) {
 		ArrayList<BookDto> bestBookDtos = bookDao.selectBestBooksByStar(count);
 
-		if (bestBookDtos != null) {
+		if (bestBookDtos.size() > 0) {
 			return bestBookDtos;
 		} else {
 			return null;
@@ -39,7 +43,7 @@ public class BookService {
 	public ArrayList<BookDto> newItem(int count) {
 		ArrayList<BookDto> newBookDtos = bookDao.selectNewBooks(count);
 
-		if (newBookDtos != null) {
+		if (newBookDtos.size() > 0) {
 			return newBookDtos;
 		} else {
 			return null;
@@ -58,7 +62,11 @@ public class BookService {
 
 		bookDtos = bookDao.setList(search, filterSql, sortSql, startNum, endNum);
 
-		return bookDtos;
+		if(bookDtos.size() > 0) {
+			return bookDtos;			
+		} else {
+			return null;
+		}
 	}
 
 	private String setSortSql(String sort) {

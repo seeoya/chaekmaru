@@ -28,6 +28,10 @@
 				<div>
 					<p th:text="${items.sb_reg_date}">구입 일자</p><br>
 					<p th:text="${items.b_name}">도서 제목</p><br>
+					<input type="text" th:value="${items.b_no}" />
+					<input type="text" th:value="${items.b_count}" />
+					<input type="text" th:value="${items.sb_book_count}" />
+					<input type="text" th:value="${items.sb_all_price}" />
 				</div>
 
 				<div>
@@ -35,8 +39,8 @@
 						[[${items.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${items.sb_book_count}]] 권 =
 						[[${items.sb_all_price}]] 포인트
 					</p>
-					<a th:href="@{redirect:/mypage/payment_list_form(sb_no=${items.sb_no})}">주문 취소</a>
-					<a th:href="@{redirect:/mypage/payment_list_form(sb_no=${items.sb_no})}">반품 신청</a>
+					<a th:href="@{/mypage/delete_payment_list_form(sb_no=${items.sb_no}, b_no=${items.b_no}, sb_book_count=${items.sb_book_count}, sb_all_price=${items.sb_all_price})}">주문 취소</a>
+					<a th:href="@{/mypage/return_payment_list_form(sb_no=${items.sb_no})}">반품 신청</a>
 				</div>
 
 			</div>

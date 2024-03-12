@@ -26,8 +26,6 @@ public class BookController {
 	@Autowired
 	ReviewService reviewService;
 
-	String nextPage = "";
-
 	@GetMapping("/list")
 	public String list(Model model, @RequestParam(required = false, value = "search", defaultValue = "") String search,
 			@RequestParam(required = false, value = "filter", defaultValue = "") String filter,
@@ -59,25 +57,21 @@ public class BookController {
 		model.addAttribute("listPageDtos", listPageDtos);
 		model.addAttribute("items", items);
 
-		nextPage = "/book/list";
-
-		return nextPage;
-
+		return "/book/list";
 	}
 
 	@GetMapping("/view/{book_no}")
 	public String view(Model model, @PathVariable("book_no") String book_no) {
 		int b_no = Integer.parseInt(book_no);
 		BookDto item = bookService.setView(b_no);
-		model.addAttribute("item", item);
 
 		ArrayList<ReviewDto> reviewDtos = new ArrayList<>();
 		reviewDtos = reviewService.setReviews(b_no);
+
+		model.addAttribute("item", item);
 		model.addAttribute("reviews", reviewDtos);
 
-		nextPage = "/book/view";
-
-		return nextPage;
+		return "/book/view";
 	}
 
 }

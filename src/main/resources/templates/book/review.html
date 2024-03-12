@@ -23,7 +23,7 @@
 	            </div>
             </div>
 
-            <th:block th:if="${session[loginedMemberDto]?.m_id eq review.m_id}">
+            <th:block th:if="${session[loginedMemberInfo]?.m_id eq review.m_id}">
                 <div class="review-btn-wrap">
                     <button type="button" class="btn main modify-review">수정</button>
                     <a th:href="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}"

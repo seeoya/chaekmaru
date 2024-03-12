@@ -1,43 +1,186 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-		<h2 th:if="${result == 1 }">회원가입 성공</h2>
-        <h2 th:if="${result == 2 }">이미 존재하는 아이디입니다.</h2>
-        <h2 th:if="${result == 3 }">DB 에러</h2>
-        <h2 th:if="${result == 4 }">회원가입 실패</h2>
-        
-        <h2 th:if="${result == 5 }">로그인 성공</h2>
-        <h2 th:if="${result == 6 }">로그인 실패</h2>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    lang="ko"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+>
+    <head>
+        <title>책마루 :: 결과</title>
+    </head>
 
-        <h2 th:if="${result == 7 }">정보수정 성공</h2>
-        <h2 th:if="${result == 8 }">정보수정 실패</h2>
+    <!-- final public static int DATABASE_COMMUNICATION_TROUBLE = 2;
+final public static int CREATE_ACCOUNT_SUCCESS = 100;
+final public static int MEMBER_MODIFY_SUCCESS = 101; 	
+final public static int LOGOUT_SUCCESS = 102; 
+final public static int MEMBER_DELETE_SUCCESS = 103;
+final public static int FIND_ID_SUCCESS = 104;
+final public static int FIND_PW_SUCCESS = 105;
+final public static int PW_MODIFY_SUCCESS = 106;
 
-        <h2 th:if="${result == 9 }">계정삭제 성공</h2>
-        <h2 th:if="${result == 10 }">계정삭제 실패</h2>
+final public static int CREATE_ACCOUNT_FAIL = 110;
+final public static int ID_ALREADY_EXIST = 111;
+final public static int MEMBER_MODIFY_FAIL = 112;
+final public static int MEMBER_NOT_FOUND = 113;
+final public static int MEMBER_DELETE_FAIL = 114;
+final public static int FIND_ID_FAIL = 115;
+final public static int FIND_PW_FAIL = 116;
+final public static int PW_MODIFY_FAIL = 117; -->
 
-        <h2 th:if="${result == 11 }">회원계정 휴면처리 성공</h2>
-        <h2 th:if="${result == 12 }">회원계정 휴면처리 실패</h2>
-        
-        <h2 th:if="${result == 13 }">관리자 승인처리 성공</h2>
-        <h2 th:if="${result == 14 }">관리자 승인처리 실패</h2>
-        
-        <h2 th:if="${result == 15 }">도서등록 성공</h2>
-        <h2 th:if="${result == 16 }">이미 존재하는 도서입니다.</h2>                
-        <h2 th:if="${result == 17 }">도서등록 실패</h2>
-         
-        <h2 th:if="${result == 18 }">도서수정 성공</h2>
-        <h2 th:if="${result == 19 }">도서수정 실패</h2>
-        
-               
-        <h2 th:if="${result == 22 }">회원계정 비활성화 성공</h2>             
-        <h2 th:if="${result == 23 }">회원계정 비활성화 실패</h2>
-        
-            
-<a th:href="@{/member/modify_form}">회원정보수정</a>
-<a th:href="@{/admin}">관리자 홈</a>
-</body>
+    <div id="result" class="content-wrap" layout:fragment="content">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let result = [[${ result }]];
+            let text = "";
+            let href = "";
+
+            switch (result) {
+                case -1:
+                    text = "오류가 발생했습니다.\n다시 시도해주세요."
+                    window.history.back();
+                    break;
+                case 2:
+                    text = "데이터베이스 연결 오류\n다시 시도해주세요."
+                    window.history.back();
+                    break;
+
+                // MemberController
+                case 100:
+                    text = "회원가입에 성공했습니다.\n환영합니다.";
+                    href = [[@{/member/login_form}]];
+                    break;
+                
+                case 101:
+                    text = "정보 수정에 성공했습니다.";
+                    href = [[@{/member/modify_form}]];
+                    break;
+
+                case 102:
+                    text = "로그아웃에 성공했습니다.";
+                    href = [[@{/}]];
+                    break;
+
+                case 103:
+                    text = "회원 탈퇴에 성공했습니다.\n안녕히 가세요.";
+                    href = [[@{/}]];
+                    break;
+
+                case 104:
+                    text = "아이디를 메일로 발송했습니다.\n메일을 확인해주세요.";
+                    href = [[@{/member/login_form}]];
+                    break;
+
+                case 105:
+                    text = "비밀번호 재설정 링크를 메일로 발송했습니다.\n메일을 확인해주세요.";
+                    href = [[@{/member/login_form}]];
+                    break;
+
+                case 106:
+                    text = "비밀번호 재설정을 완료했습니다.";
+                    href = [[@{/member/login_form}]];
+                    break;
+
+                case 107:
+                    text = "로그인에 성공했습니다.\n어서오세요.";
+                    href = [[@{/}]];
+                    break;
+
+                case 110:
+                    text = "회원가입에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 111:
+                    text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 112:
+                    text = "정보 수정에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                    
+                case 113:
+                    text = "사용자를 찾을 수 없습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+
+                case 114:
+                    text = "회원 탈퇴에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 115:
+                    text = "아이디 찾기에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 116:
+                    text = "비밀번호 찾기에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 117:
+                    text = "비밀번호 변경에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                    
+                // case 111:
+                //     text = "이미 존재하는 아이디입니다.\n다시 시도해주세요.";
+                //     window.history.back();
+                //     break;
+                
+
+                default:
+                    text = "메인으로 이동합니다."
+                    href = [[@{/}]];
+                    break;
+            }
+
+            if (text != "") {
+                alert(text);
+            }
+
+            if (href != "") {
+                location.href = href;
+            }
+            /*]]>*/
+        </script>
+    </div>
 </html>
