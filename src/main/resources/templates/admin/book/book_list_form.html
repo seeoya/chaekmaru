@@ -19,13 +19,13 @@
     	<div class="search">
                 <form th:action="@{/admin/book/book_list_form}" name="search_book_form" method="get">
                 	
-                 	<select name="sort" id="list_sort" class="input">	                   
+                 	<select name="sort" id="list_sort" class="input" >	                   
 	                    <option value="" >검색조건</option>
 	                    <option value="isbn">ISBN</option>
 	                     <option value="name">도서명</option>
 	                    <option value="author">저자명</option>	                 
 	                </select>
-                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    <input type="search" name="search" th:value="${search}" th:data-link="@{/admin/book/list(search=${search})}" class="input" placeholder="검색어를 입력하세요.">
                     <button type="submit" class="btn main">검색</button>
                 </form>
         </div>
