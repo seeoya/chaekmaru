@@ -28,8 +28,8 @@
                             [[${#numbers.formatInteger(memberCartDto.b_price * memberCartDto.c_book_count, 3, 'COMMA')}]] 포인트
                         </p>
                         <input type="hidden" name="b_no" th:value="${memberCartDto.b_no}" />
-                        <input type="hidden" name="sb_book_count" th:value="${memberCartDto.c_book_count}" />
-                        <input type="hidden" name="b_count" th:value="${memberCartDto.b_count}" />
+                        <input type="hidden" name="sb_book_count" th:value="${memberCartDto.c_book_count}"  class="sb-count" />
+                        <input type="hidden" name="b_count" th:value="${memberCartDto.b_count}" class="b-count" />
                     </div>
                 </div>
 
@@ -77,8 +77,8 @@
                     <p>결제 예정 금액</p>
                     <div>
                         <p th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
-                        <input type="text" name="sb_all_price" th:value="${finalPrice}" />
-                        <input type="text" name="currentPoint" th:value="${currentPoint}" />
+                        <input type="number" name="sb_all_price" th:value="${finalPrice}" />
+                        <input type="number" name="currentPoint" th:value="${currentPoint}" />
                     </div>
                 </div>
 

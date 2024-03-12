@@ -163,7 +163,7 @@ public class MypageService {
 		int result = -1;
 
 		for (int i = 0; i < memberCartDtos.size(); i++) {
-
+			
 			saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
 			saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
 			saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
@@ -172,7 +172,7 @@ public class MypageService {
 
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
 		}
-
+		
 		return result;
 
 	}
@@ -239,7 +239,7 @@ public class MypageService {
 	public int currentPoint(HttpSession session) {
 		int point = -1;
 		
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		if (loginedMemberDto != null) {
 			point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
@@ -267,11 +267,29 @@ public class MypageService {
 
 	public int deleteMyPaymentList(String m_id, int sb_no, int b_no) {
 		int result = -1;
-		log.info("deleteMyPaymentList ===================>");
+		MyPointListDto myPointListDto = new MyPointListDto();
+		
+		// 재고
 		int selectBookCountBySbNo = mypageDao.selectBookCountBySbNo(sb_no);
 		int selectBookCountByBNo = mypageDao.selectBookCountByBNo(b_no);
 		int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
+		
 		result = mypageDao.updateCancelBookCount(updateCancelBookCount, b_no);
+		
+		if (result > 0) {
+			//	금액
+			int paymentPoint = mypageDao.paymentPoint(m_id, sb_no, b_no);
+			
+			myPointListDto.setM_id(m_id);
+			myPointListDto.setPl_payment_book_point(paymentPoint);
+			myPointListDto.setPl_desc("도서 " + selectBookCountBySbNo + "권 취소");
+			result = mypageDao.insertReturnPoint(myPointListDto, paymentPoint, m_id);
+			if (result > 0) {
+				// state 1 -> 0 변경
+				result = mypageDao.saledStateUpdateZero(m_id, sb_no, b_no);
+				log.info(result);
+			}
+		}
 		
 		return result;
 	}
@@ -292,6 +310,21 @@ public class MypageService {
 		} else {
 			return Config.POINT_CHARGE_FAIL;
 		}
+	}
+
+	public int deleteMyPick(String m_id, int b_no) {
+		log.info("deleteMyPick");
+
+		int result = mypageDao.deleteMyPick(m_id, b_no);
+		
+		// #TODO RESULT 처리 필요
+		if (result < 0) {
+			result = Config.DELETE_CART_FAIL;
+		} else {
+			result = Config.DELETE_CART_SUCCESS;
+		}
+		 // #TODO RESULT 처리 필요
+		return result;
 	}
 
 }

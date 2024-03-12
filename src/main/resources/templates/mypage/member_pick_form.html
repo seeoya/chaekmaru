@@ -11,8 +11,8 @@
     <h2 class="title">내 찜 목록</h2>
 
     <div class="content">
-        <form class="form" th:action="@{redirect:/mypage/member_cart_form}" name="membercart_form" method="post">
-
+        <form class="form" th:action="@{redirect:/mypage/all_payment_form}" name="membercart_form" method="post">
+			
             <div th:each="memberPickDtos : ${memberPickDtos}">
 
                 <div>
@@ -31,7 +31,7 @@
                 <div>
                     <a th:href="@{/mypage/payment_form(c_no=${memberPickDtos.b_no})}">결제하기</a>
                     &nbsp;&nbsp;
-                    <a th:href="@{/mypage/delete_mycart_confirm(c_no=${memberPickDtos.b_no})}">장바구니 제거</a>
+                    <a th:href="@{/mypage/delete_member_pick(b_no=${memberPickDtos.b_no})}">찜 제거</a>
                 </div>
 
             </div>

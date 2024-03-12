@@ -35,4 +35,9 @@ public interface IMypageDaoForMybatis {
 	public int selectBookCountBySbNo(@Param("sb_no") int sb_no);
 	public int selectBookCountByBNo(@Param("b_no") int b_no);
 	public int updateCancelBookCount(@Param("updateCancelBookCount") int updateCancelBookCount, @Param("b_no") int b_no);
+	public int paymentPoint(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
+	public int selectNowPoint(String m_id);
+	public int insertReturnPoint(@Param("myPointListDto") MyPointListDto myPointListDto, @Param("paymentPoint") int paymentPoint, @Param("m_id") String m_id);
+	public int saledStateUpdateZero(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
+	public int deleteMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
 }
