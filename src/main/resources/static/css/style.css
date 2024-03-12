@@ -1020,8 +1020,7 @@ header .logo img {
 }
 
 /* 장바구니 */
-
-#cart .form{
+#cart .form {
     max-width: 100%;
 }
 
@@ -1035,10 +1034,10 @@ header .logo img {
     gap: 10px;
 }
 
-#cart .cart-wrap img{
+#cart .cart-wrap img {
     max-width: 200px;
     max-height: 150px;
-} 
+}
 
 #cart .cart-result {
     display: flex;
@@ -1052,7 +1051,7 @@ header .logo img {
     font-weight: 600;
 }
 
-#cart .cart-count-modify input{
+#cart .cart-count-modify input {
     width: 100px;
 }
 
@@ -1171,15 +1170,20 @@ footer .join_footer {
 }
 
 .addition-btn-wrap {
-    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
+    margin: 30px;
     right: 0;
     bottom: 0;
+    gap: 10px;
 }
 
 .addition-btn-wrap .btn {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 40px;
     font-size: 2rem;
 }
