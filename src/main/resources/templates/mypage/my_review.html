@@ -3,6 +3,8 @@
 
 <head>
     <title>책마루 :: 내가 쓴 리뷰</title>
+
+    <th:block th:replace="~{include/js/list_js.html::list_js}"></th:block>
 </head>
 
 <div id="my_review" class="content-wrap" layout:fragment="content">
@@ -21,26 +23,6 @@
             </th:block>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            document.querySelectorAll(".modify-review").forEach(el => {
-                el.addEventListener("click", function (e) {
-
-                    let modifyWrap = this.parentElement.nextSibling.nextSibling;
-
-                    if (modifyWrap.style.display == "none") {
-                        modifyWrap.style.display = "flex";
-                    } else {
-                        modifyWrap.style.display = "none";
-                    }
-                })
-            });
-
-        })
-    </script>
-
 </div>
 
 </html>

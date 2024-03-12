@@ -110,7 +110,7 @@
 
                 case 200:
                     text = "수량 변경에 성공했습니다.";
-                    window.history.back();
+                    href = [[@{/mypage/member_cart_form}]];
                     break;
 
                 case 201:
@@ -144,7 +144,7 @@
 
                 case 210:
                     text = "장바구니 수정에 실패했습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/mypage/member_cart_form}]];
                     break;
 
                 case 211:
@@ -168,7 +168,6 @@
 
                 case 215:
                     text = "(결제중) 장바구니 제거 실패";
-                    window.history.back();
                     break;
 
                 case 216:
