@@ -68,33 +68,27 @@
 
                 <div>
                     <p>전체 금액</p>
-                    <p th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
+                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
                 </div>
 
 
                 <div th:switch="${userInfo.m_grade}">
                     <p>등급 할인</p>
                     <div>
-                        <p th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
                     </div>
                 </div>
-                                            <!-- #to do  
-                                                
-                                                두 인풋 갭으로 벌리고 버튼 색깔 바꾸고
-                                                gpt가 짠 css 내 스타일로 바꾸고
-                                                버튼 오른쪽 밀착 
-                                            -->
                 <div>
                     <p>배송비</p>
                     <div>
-                        <p>3,000 포인트</p>
+                        <p class="delivery-price">3,000 포인트</p>
                     </div>
                 </div>
 
                 <div th:switch="${userInfo.m_grade}">
                     <label>결제 예정 금액</label>
                     <div>
-                        <p th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
+                        <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
                         <input type="number" name="sb_all_price" th:value="${finalPrice}" />
                         <input type="number" name="currentPoint" th:value="${currentPoint}" />
                     </div>
@@ -102,8 +96,8 @@
 
                 <div>
                     <div class="submit-btn-wrap">
-                        <button type="button" class="btn highlight payment" onclick="paymentFormSubmit();">결제하기</button>
                         <a th:href="@{/mypage/member_cart_form}">뒤로 가기</a>
+                        <button type="button" class="btn highlight payment" onclick="paymentFormSubmit();">결제하기</button>
                     </div>
                 </div>
             </div>

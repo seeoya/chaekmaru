@@ -1201,7 +1201,6 @@ header .logo img {
 .member-info input[type="text"],
 .member-info button {
     padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
@@ -1220,12 +1219,11 @@ header .logo img {
 
 #payment .addr-wrap {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 }
 
 #payment .addr-wrap button {
-    width: 100px;
+    width: 120px;
     margin-left: auto;
 }
 
@@ -1239,6 +1237,98 @@ header .logo img {
     align-items: center;
     justify-content: end;
 }
+
+#payment .submit-btn-wrap button {
+    width: 200px;
+}
+
+#payment .price-result,
+#payment .member-sale-price,
+#payment .delivery-price {
+    font-size: 1.8rem;
+}
+
+#payment .total-price-result {
+    font-size: 2.0rem;
+}
+
+/* 찜 목록 */
+
+#member_pick .form {
+    max-width:1000px;
+}
+
+#member_pick .content-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 찜 목록 래퍼 */
+#member_pick .pick-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* 각 찜 목록 아이템 */
+#member_pick .pick-list {
+    width: 30%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+/* 버튼 */
+#member_pick .member-pick-btn {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 5px;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 12px;
+}
+
+#member_pick .member-pick-btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 25px;
+    height: 25px;
+    background-color: #f5f3f3;
+    border-radius: 3px;
+}
+
+#member_pick .member-pick-btn a:hover {
+    background-color: #ddd;
+}
+
+#member_pick .cart-icon {
+    color: black;
+}
+
+/* 도서 썸네일 */
+#member_pick .pick-list img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 도서 제목 */
+#member_pick .pick-list p {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+#member_pick .fa-xmark {
+    cursor: pointer;
+}
+
 
 /* 페이징 */
 .paging {
