@@ -3,17 +3,10 @@
 
 <head>
     <title>책마루 :: 관리자 HOME</title>
-    
-	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-    <!-- <script th:src="@{js/index.js}"></script> -->
 </head>
 
-<div id="admin_home" class="content-wrap" layout:fragment="content">
+<div id="admin-index" class="content-wrap" layout:fragment="content">
     
-
     <div class="content">
         <div class="banner">
             <h2 class="title">진행 중 이벤트</h2>
@@ -33,78 +26,7 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
             </div>
-            <script>
-                var swiper = new Swiper(".mySwiper", {
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        dynamicBullets: true,
-                    },
-                });
-            </script>
-
-            <style>
-                .item-wrap {
-                    position: relative;
-                }
-
-
-                .swiper {
-                    width: 100%;
-                    height: 100%;
-                }
-
-                .swiper-slide {
-                    text-align: center;
-                    font-size: 18px;
-                    background: #fff;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .swiper-pagination-bullet {
-                    border-radius: 0;
-                }
-
-                .swiper-pagination-bullet-active-main {
-                    width: 20px;
-                    height: 20px;
-                    background-color: var(--highlight-color);
-                }
-
-                .swiper-pagination-bullet-active-prev,
-                .swiper-pagination-bullet-active-next {
-                    width: 10px;
-                    height: 10px;
-                }
-
-                .swiper-pagination-bullet-active-prev-prev,
-                .swiper-pagination-bullet-active-next-next {
-                    width: 10px;
-                    height: 10px;
-                }
-
-                .swiper-pagination .swiper-pagination-bullets {
-                    width: 125px;
-                }
-
-                .swiper-button-next,
-                .swiper-button-prev {
-                    color: var(--highlight-color);
-                }
-
-                .swiper-slide img {
-                    display: block;
-                    width: 70%;
-                    height: 350px;
-                    object-fit: contain;
-                }
-            </style>
-       
+          
     </div>
 </div>
 

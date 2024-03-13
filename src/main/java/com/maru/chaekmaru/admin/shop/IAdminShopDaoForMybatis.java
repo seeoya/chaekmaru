@@ -1,8 +1,10 @@
 package com.maru.chaekmaru.admin.shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.member.MemberDto;
@@ -38,15 +40,18 @@ public interface IAdminShopDaoForMybatis {
 	
 	public int updateBookCount(int b_no, int sb_book_count);	
 
-	public int updateNotApprovedForReturnBook(int sb_no);
-
-	public List<BookDto> selectAllBooksForInventory();
+	public int updateNotApprovedForReturnBook(int sb_no);	
 
 	public BookDto selectBookForInventory(int b_no);
 
 	public int updateBookInventory(BookDto bookDto);
 
 	public List<SaledBookDto> selectSaledBooksByPeriod(String saled_start, String saled_end);
+
+	public int countListResult();
+
+	public ArrayList<BookDto> setList(@Param("startNum") int startNum, @Param("endNum") int endNum);
+		
 
 
 	

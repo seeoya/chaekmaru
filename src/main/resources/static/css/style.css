@@ -1163,8 +1163,9 @@ header .logo img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--gray-light-color);
-    border-radius: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     margin-bottom: 15px;
     padding: 20px 20px;
 }
@@ -1204,22 +1205,8 @@ header .logo img {
     border-radius: 5px;
 }
 
-.member-info button {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
 .member-info button:hover {
     background-color: #0056b3;
-}
-
-.member-info .payment {
-    background-color: #28a745;
-}
-
-.member-info .payment:hover {
-    background-color: #218838;
 }
 
 .member-info a {
@@ -1229,6 +1216,28 @@ header .logo img {
 
 .member-info a:hover {
     text-decoration: underline;
+}
+
+#payment .addr-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#payment .addr-wrap button {
+    width: 100px;
+    margin-left: auto;
+}
+
+#payment #address {
+    margin-bottom: 5px;
+}
+
+#payment .submit-btn-wrap {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: end;
 }
 
 /* 페이징 */
