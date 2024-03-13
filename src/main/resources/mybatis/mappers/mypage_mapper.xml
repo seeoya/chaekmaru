@@ -119,7 +119,7 @@
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
-					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					(SELECT NVL(MAX(SB_NO), 0) + 1 FROM TBL_SALED_BOOK), #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
 					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
@@ -195,7 +195,7 @@
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
-					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					(SELECT NVL(MAX(SB_NO), 0) + 1 FROM TBL_SALED_BOOK), #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
 					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
@@ -262,19 +262,6 @@
 					
 	</update>
 	
-	<update id="cancelBookCount">
-	
-					<![CDATA[
-					UPDATE 
-						TBL_BOOK SET 
-					SET 
-						B_COUNT = ${b_count + sb_book_count} 
-					WHERE 
-						B_NO = ${b_no}
-					]]>
-					
-	</update>
-	
 	<insert id="addMyPick"
 			parameterType="map">
 	
@@ -307,5 +294,106 @@
 		SELECT * FROM TBL_POINT_LIST WHERE M_ID = #{m_id}
 			ORDER BY PL_REG_DATE DESC
 	</select>
+	
+	<select id="selectBookCountBySbNo"
+			parameterType="Integer">
+	
+					SELECT 
+						SB_BOOK_COUNT 
+					FROM 
+						TBL_SALED_BOOK 
+					WHERE 
+						SB_NO = #{sb_no}
+	
+	</select>
+	
+	<select id="selectBookCountByBNo"
+			parameterType="Integer">
+	
+					SELECT 
+						B_COUNT 
+					FROM 
+						TBL_BOOK 
+					WHERE 
+						B_NO = #{b_no}
+	
+	</select>
+	
+	<update id="updateCancelBookCount"
+			parameterType="Integer">
+	
+					UPDATE 
+						TBL_BOOK 
+					SET 
+						B_COUNT = #{updateCancelBookCount} 
+					WHERE 
+						B_NO = #{b_no}
+	
+	</update>
+	
+	<select id="paymentPoint"
+			parameterType="map">
+	
+					SELECT 
+						SB_ALL_PRICE 
+					FROM 
+						TBL_SALED_BOOK 
+					WHERE 
+						SB_NO = #{sb_no} 
+					AND 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no} 
+	
+	</select>
+	
+	<select id="selectNowPoint"
+			parameterType="String">
+	
+					SELECT 
+						NVL(SUM(PL_PAYMENT_BOOK_POINT), 0) 
+					FROM 
+						TBL_POINT_LIST 
+					WHERE 
+						M_ID= #{m_id}
+	
+	</select>
+	
+	<insert id="insertReturnPoint"
+			parameterType="map">
+	
+		INSERT INTO 
+			TBL_POINT_LIST 
+		VALUES(#{m_id}, #{paymentPoint}, #{myPointListDto.pl_desc}, SYSTIMESTAMP) 
+	
+	</insert>
+	
+	<update id="saledStateUpdateZero"
+			parameterType="map">
+	
+					UPDATE 
+						TBL_SALED_BOOK 
+					SET 
+						SB_STATE = 0 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						SB_NO = #{sb_no} 
+					AND 
+						B_NO = #{b_no}
+	
+	</update>
+	
+	<delete id="deleteMyPick"
+			parameterType="map">
+		
+					DELETE FROM 
+						TBL_MEMBER_PICK 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+		
+	</delete>
 	
 </mapper>

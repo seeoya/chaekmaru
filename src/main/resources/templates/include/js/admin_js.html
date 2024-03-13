@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-<th:blcok th:fragment="admin_js">
+<th:block th:fragment="admin_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
 
         });
 
         /* Admin Member */
-
+		        
+        // 회원가입
         function createAccountForm() {
             console.log("createAccountForm!!");
 
@@ -31,6 +32,7 @@
             }
         }
 
+        // 로그인
         function loginForm() {
             console.log("loginForm!!");
 
@@ -47,6 +49,7 @@
             }
         }
 
+        // 정보수정
         function modifyAccountForm() {
             console.log("modifyAccountForm!!");
 
@@ -62,7 +65,21 @@
                 form.submit();
             }
         }
+        
+        // 계정삭제
+        function deleteAdminConfirm(a_no) {
+            console.log("deleteAdminConfirm()");
 
+            let result = confirm("정말 삭제하시겠습니까?");
+            if (result) {
+                location.href = "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
+            }
+        }
+        
+
+        /* Admin Book */
+        
+        // 도서 등록
         function registBookForm() {
             console.log("registBookForm!!");
 
@@ -103,6 +120,7 @@
             }
         }
 
+        // 도서 정보수정
         function modifyBookForm() {
             console.log("modifyBookForm!!");
 
@@ -143,15 +161,7 @@
             }
         }
 
-        function deleteAdminConfirm(a_no) {
-            console.log("deleteAdminConfirm()");
-
-            let result = confirm("정말 삭제하시겠습니까?");
-            if (result) {
-                location.href = "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
-            }
-        }
-
+      	// 도서 삭제	
         function deleteBookConfirm(b_no) {
             console.log("deleteBookConfirm()");
 
@@ -160,7 +170,25 @@
                 location.href = "/admin/book/delete_book_confirm" + "?b_no=" + b_no;
             }
         }
+      	
+        // 도서 검색
+        function searchBookForm() {
+            console.log("searchBookForm!!");
 
+            let form = document.search_book_form;
+
+            if (form.search.value === "") {
+                alert("검색어를 입력해 주세요.");
+                form.search.focus();
+            } else {
+                form.submit();
+            }
+        }
+
+
+        /* Admin Shop */
+        
+        // 회원 포인트 수정
         function modifyPointForm() {
             console.log("modifyPointForm!!");
 
@@ -174,6 +202,7 @@
             }
         }
 
+        // 회원 계정 비활성화
         function userAccountActiveConfirm(m_id) {
             console.log("userAccountActiveConfirm()");
 
@@ -183,6 +212,7 @@
             }
         }
 
+        // 반품도서 승인불가
         function returnNotApprovedConfirm(sb_no) {
             console.log("returnNotApprovedConfirm()");
 
@@ -192,6 +222,7 @@
             }
         }
 
+        // 도서 재고 수정
         function modifyBookInventoryForm() {
             console.log("modifyBookInventoryForm!!");
 
@@ -205,6 +236,7 @@
             }
         }
 
+        // 기간별 판매도서 조회
         function saledListByDate() {
             console.log("saledListByDate!!");
 
@@ -222,20 +254,8 @@
             }
         }
 
-        function searchBookForm() {
-            console.log("searchBookForm!!");
-
-            let form = document.search_book_form;
-
-            if (form.search.value === "") {
-                alert("검색어를 입력해 주세요.");
-                form.search.focus();
-            } else {
-                form.submit();
-            }
-        }
-
+       
     </script>
-</th:blcok>
+</th:block>
 
 </html>

@@ -62,8 +62,7 @@ public class MainController {
 	
 	@GetMapping("/test")
 	public String test(HttpSession session, Model model) {
-		model.addAttribute("result", 2);
 
-		return "result";
+		return "test";
 	}
 }

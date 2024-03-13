@@ -187,8 +187,6 @@ public class MypageController {
 	 */
 	@GetMapping("/all_payment_form")
 	public String allPaymentMyCartForm(Model model, HttpSession session) {
-		log.info("allPaymentMyCartForm");
-
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberCartDto> memberCartDtos = mypageService.allPaymentForm(loginedMemberDto.getM_id());
@@ -196,7 +194,7 @@ public class MypageController {
 		int allPrice = mypageService.calcAllPrice(memberCartDtos);
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
         int currentPoint = mypageService.currentPoint(session);
-
+        
 		model.addAttribute("memberCartDtos", memberCartDtos);
 		model.addAttribute("allPrice", allPrice);
 		model.addAttribute("discount", discount);
@@ -221,7 +219,7 @@ public class MypageController {
 		} else {
 			result = Config.ADD_CART_FAIL;
 		}
-
+		memberService.refreshPoint(session);
 		model.addAttribute("result", result);
 		return "result";
 	}
@@ -244,7 +242,7 @@ public class MypageController {
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
 
 			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
-
+			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
 			if (result > 0) {
 				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id());
 
@@ -261,7 +259,7 @@ public class MypageController {
 		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
 			result = Config.PAYMENT_SUCCESS;
 		}
-
+		memberService.refreshPoint(session);
 		model.addAttribute("result", result);
 		return "result";
 	}
@@ -303,24 +301,20 @@ public class MypageController {
 		return "mypage/payment_list_form";
 	}
 
-/*
+	/*
 	 * 주문 취소
 	 */
 	@GetMapping("/delete_payment_list_form")
 	public String deletePaymentList(HttpSession session, 
 														@RequestParam("sb_no") int sb_no, 
-														@RequestParam("b_no") int b_no, 
-														@RequestParam("sb_book_count") int sb_book_count, 
-														@RequestParam("sb_all_price") int sb_all_price) {
-//		log.info("deleteMyPaymentList");
-
+														@RequestParam("b_no") int b_no) {
         // #TODO RESULT 페이지로 이동
 		String nextPage = "redirect:/mypage/payment_list_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		
-//		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id() , sb_no, b_no, sb_book_count, sb_all_price);
-
+		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
+		
         // #TODO result 세팅 필요
 //		if (result <= 0) {
 //            // 실패
@@ -340,7 +334,7 @@ public class MypageController {
         // #TODO RESULT 처리 필요
 		String nextPage = "redirect:/mypage/payment_list_form";
 		
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
         // #TODO RESULT 처리 필요
 		return nextPage;
@@ -356,7 +350,7 @@ public class MypageController {
         // #TODO RESULT 처리 필요
 		String nextPage = "mypage/member_pick_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		List<MemberPickDto> memberPickDtos = mypageService.myPickList(loginedMemberDto.getM_id());
 		
@@ -368,16 +362,16 @@ public class MypageController {
 	}
 	
 	/*
-	 * 도서 상세 페이지 찜 클릭
+	 * 도서 상세 페이지 찜 버튼 클릭
 	 */
-	@PostMapping("/add_member_pick")
+	@GetMapping("/add_member_pick")
 	public String addMyPick(HttpSession session, @RequestParam("b_no") int b_no) {
 		log.info("addMyPick");
 
         // #TODO RESULT 처리 필요
 		String nextPage = "/mypage/member_pick_form";
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute("loginedMemberDto");
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addMyPick(loginedMemberDto.getM_id(), b_no);
         // #TODO RESULT 처리 필요
@@ -387,6 +381,35 @@ public class MypageController {
 		
         // #TODO RESULT 처리 필요
 		return nextPage;
+	}
+	
+	/*
+	 *  찜 제거
+	 */
+	@GetMapping("/delete_member_pick")
+	public String deleteMyPick(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
+		log.info("deleteMyCartList");
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+		 // #TODO RESULT 처리 필요
+		int result = mypageService.deleteMyPick(loginedMemberDto.getM_id(), b_no);
+		 // #TODO RESULT 처리 필요
+		model.addAttribute("result", result);
+		return "result";
+		
+//        // #TODO RESULT 처리 필요
+//		String nextPage = "redirect:/mypage/member_pick_form";
+//
+//		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+//
+//		int result = mypageService.addMyPick(loginedMemberDto.getM_id(), b_no);
+//        // #TODO RESULT 처리 필요
+//		if (result < 0) {
+//			log.info("add pick Fail");
+//		}
+//		
+//        // #TODO RESULT 처리 필요
+//		return nextPage;
 	}
 
 	@GetMapping("/point_charge")

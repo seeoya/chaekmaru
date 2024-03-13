@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-<th:blcok th:fragment="list_js">
+<th:block th:fragment="list_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
             if (document.getElementById("list_sort")) {
@@ -13,7 +13,50 @@
                 });
             }
 
-            document.querySelectorAll("button.submit").forEach((el) => {
+            document.querySelectorAll(".review-list button.submit").forEach((el) => {
+                el.addEventListener("click", function (e) {
+                    let form = e.target.closest("form");
+
+                    if (form.r_stars.value > 5 || form.r_stars.value < 1) {
+                        alert("1~5 사이의 별점을 선택해 주세요.");
+                        form.r_stars.value = 1;
+                        form.r_stars.focus();
+                    } else if (form.r_text.value == "") {
+                        alert("리뷰를 입력해 주세요.");
+                        form.r_text.focus();
+                    } else {
+                        httpRequest = new XMLHttpRequest();
+
+                        httpRequest.onreadystatechange = () => {
+                            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                                if (httpRequest.status === 200) {
+                                    let result = httpRequest.response;
+
+                                    document.getElementById("text").innerText = result;
+                                    alert(result);
+                                } else {
+                                    alert('Request Error!');
+                                }
+                            }
+                        };
+
+                        httpRequest.open('POST', '/ajax/write_confirm?c_no=1', true);
+
+                        // httpRequest.responseType = "json";
+                        // httpRequest.setRequestHeader('Content-Type', 'application/json');
+
+                        httpRequest.send();
+
+
+
+
+
+                        form.closest(".modify-wrap").previousElementSibling.previousElementSibling;
+
+                    }
+                });
+            });
+            document.querySelectorAll(".review-write button.submit").forEach((el) => {
                 el.addEventListener("click", function (e) {
                     let form = e.target.closest("form");
 
@@ -43,16 +86,16 @@
                 })
             });
 
+            function updateTotal() {
+                let count = document.getElementById("cart_count").value;
+                let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
+                let totalPrice = count * price;
+                document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+            }
+
             updateTotal();
         });
-
-        function updateTotal() {
-            let count = document.getElementById("cart_count").value;
-            let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
-            let totalPrice = count * price;
-            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
-        }
     </script>
-</th:blcok>
+</th:block>
 
 </html>
