@@ -161,16 +161,31 @@ public class MypageService {
 		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
 
 		int result = -1;
-
-		for (int i = 0; i < memberCartDtos.size(); i++) {
-			
-			saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
-			saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
-			saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
-			saledBookDto.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
-            mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
+		int max = 0;
+		int sbOrderNoCount = -1;
+		sbOrderNoCount = mypageDao.sbOrderNoCount(m_id);
+		if (sbOrderNoCount <= 0) {
+			max = 1;
+			saledBookDto.setSb_order_no(max);
+			saledBookDto.setB_no(memberCartDtos.get(0).getB_no());
+			saledBookDto.setSb_book_count(memberCartDtos.get(0).getC_book_count());
+			saledBookDto.setB_name(memberCartDtos.get(0).getB_name());
+			saledBookDto.setSb_all_price(memberCartDtos.get(0).getB_price() * memberCartDtos.get(0).getC_book_count());
+	        mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
 
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
+		} else {
+			for (int i = 0; i < memberCartDtos.size(); i++) {
+				max = mypageDao.selectMaxSbOrderNo(m_id);
+				saledBookDto.setSb_order_no(max);
+				saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
+				saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
+				saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
+				saledBookDto.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
+		        mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
+	
+				result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
+			}
 		}
 		
 		return result;
@@ -254,11 +269,26 @@ public class MypageService {
 		log.info("addMyPick()");
 		int result = -1;
 
-		result = mypageDao.addMyPick(m_id, b_no);
-
+		int countBookInList = mypageDao.selectBookInMemberPick(m_id, b_no);
+		log.info("countBookInList ==========================>" + countBookInList);
+		log.info(m_id);
+		log.info(b_no);
+		 // #TODO RESULT 처리 필요
+		if (countBookInList > 0) {
+			log.info("찜 목록에 이미 있는 도서 입니다.");
+		} else {
+			result = mypageDao.addMyPick(m_id, b_no);
+		}
+		 // #TODO RESULT 처리 필요
+		if (result < 0) {
+			log.info("찜 목록 등록에 실패 했습니다.");
+		} else {
+			log.info("찜 목록 등록에 성공 했습니다.");
+		}
+		
 		return result;
 	}
-
+	
 	public List<MemberPickDto> myPickList(String m_id) {
 		log.info("myPickList");
 		

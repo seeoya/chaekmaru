@@ -354,7 +354,6 @@ public class MypageController {
 
 		List<MemberPickDto> memberPickDtos = mypageService.myPickList(loginedMemberDto.getM_id());
 		
-
 		model.addAttribute("memberPickDtos", memberPickDtos);
 
         // #TODO RESULT 처리 필요
@@ -362,25 +361,19 @@ public class MypageController {
 	}
 	
 	/*
-	 * 도서 상세 페이지 찜 버튼 클릭
+	 * 찜 추가
 	 */
 	@GetMapping("/add_member_pick")
-	public String addMyPick(HttpSession session, @RequestParam("b_no") int b_no) {
+	public String addMyPick(HttpSession session,Model model, @RequestParam("b_no") int b_no) {
 		log.info("addMyPick");
-
-        // #TODO RESULT 처리 필요
-		String nextPage = "/mypage/member_pick_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.addMyPick(loginedMemberDto.getM_id(), b_no);
-        // #TODO RESULT 처리 필요
-		if (result < 0) {
-			log.info("add pick Fail");
-		}
+
+		model.addAttribute("result", result);
+		return "result";
 		
-        // #TODO RESULT 처리 필요
-		return nextPage;
 	}
 	
 	/*
