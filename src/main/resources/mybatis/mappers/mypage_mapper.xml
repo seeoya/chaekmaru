@@ -211,17 +211,6 @@
 	
 	</delete>
 	
-	<select id="movePayment"
-			parameterType="map">
-			
-					SELECT * FROM 
-						TBL_MEMBER 
-					WHERE 
-						M_ID = #{m_id} 
-					AND 
-					
-	</select>
-	
 	<select id="selectBook" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
 		
