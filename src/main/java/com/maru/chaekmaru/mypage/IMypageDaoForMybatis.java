@@ -28,7 +28,6 @@ public interface IMypageDaoForMybatis {
 	public BookDto selectBook(@Param("b_no") int b_no);
 	public List<SaledBookDto> getPaymentList(String m_id);
     public void nowBooks(@Param("sb_book_count") int sb_book_count, @Param("b_count") int b_count, @Param("b_no") int b_no);
-	public int addMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public List<MemberPickDto> myPickList(String m_id);
 	public int findCount(int b_no);
 	public ArrayList<MyPointListDto> selectMyPointList(String m_id);
@@ -40,4 +39,8 @@ public interface IMypageDaoForMybatis {
 	public int insertReturnPoint(@Param("myPointListDto") MyPointListDto myPointListDto, @Param("paymentPoint") int paymentPoint, @Param("m_id") String m_id);
 	public int saledStateUpdateZero(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
 	public int deleteMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public int selectMaxSbOrderNo(String m_id);
+	public int selectBookInMemberPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public int addMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public int sbOrderNoCount(String m_id);
 }

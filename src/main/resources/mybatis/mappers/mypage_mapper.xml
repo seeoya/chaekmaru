@@ -182,7 +182,8 @@
 						SB_NO, 
 						B_NO, 
 						M_ID, 
-						sb_book_count, 
+						SB_ORDER_NO, 
+						SB_BOOK_COUNT, 
 						SB_NAME, 
 						SB_ADDR_CODE, 
 						SB_ADDR, 
@@ -195,7 +196,7 @@
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
-					(SELECT NVL(MAX(SB_NO), 0) + 1 FROM TBL_SALED_BOOK), #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					SALED_BOOK_SEQ.NEXTVAL, #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_order_no}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
 					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
@@ -262,15 +263,6 @@
 					
 	</update>
 	
-	<insert id="addMyPick"
-			parameterType="map">
-	
-		INSERT INTO 
-			TBL_MEMBER_PICK 
-		VALUES(MEMBER_PICK_SEQ.NEXTVAL, #{m_id}, #{b_no}, SYSTIMESTAMP)
-	
-	</insert>
-	
 	<select id="myPickList"
 			parameterType="String"
 			resultType="com.maru.chaekmaru.mypage.MemberPickDto">
@@ -281,6 +273,10 @@
 						TBL_MEMBER M 
 					ON 
 						MP.M_ID = M.M_ID 
+					JOIN 
+						TBL_BOOK B 
+					ON 
+						MP.B_NO = B.B_NO 
 					WHERE 
 						MP.M_ID = #{m_id} 
 					ORDER BY 
@@ -395,5 +391,55 @@
 						B_NO = #{b_no}
 		
 	</delete>
+	
+	<select id="selectMaxSbOrderNo"
+			parameterType="String"
+			resultType="Integer">
+	
+					SELECT 
+						MAX(SB_ORDER_NO) 
+					FROM 
+						TBL_SALED_BOOK 
+					WHERE 
+						M_ID = #{m_id}
+	
+	</select>
+	
+	<select id="selectBookInMemberPick"
+			parameterType="map"
+			resultType="Integer">
+			
+					SELECT 
+						COUNT(B_NO) 
+					FROM 
+						TBL_MEMBER_PICK 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+						
+	</select>
+	
+	<insert id="addMyPick"
+			parameterType="map">
+	
+		INSERT INTO 
+			TBL_MEMBER_PICK 
+		VALUES(MEMBER_PICK_SEQ.NEXTVAL, #{m_id}, #{b_no}, SYSTIMESTAMP)
+	
+	</insert>
+	
+	<select id="sbOrderNoCount"
+			parameterType="String"
+			resultType="Integer">
+	
+					SELECT 
+						COUNT(SB_NO) 
+					FROM 
+						TBL_SALED_BOOK 
+					WHERE 
+						M_ID = #{m_id}
+	
+	</select>
 	
 </mapper>
