@@ -126,7 +126,7 @@ public class AdminBookController {
 			
 			ArrayList<BookDto> items = new ArrayList<>();
 			ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
-			log.info("{}, {}", search, sort);
+			
 			items = adminBookService.setList(search, sort, pageItemPerPage, nowPageCount);
 			listPageDtos = adminBookService.setPaging(pageItemPerPage, nowPageCount, allPageCount);
 			

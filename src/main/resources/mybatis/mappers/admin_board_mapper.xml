@@ -1,221 +1,114 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maru.chaekmaru.admin.shop.IAdminBoardDaoForMybatis">
+<mapper namespace="com.maru.chaekmaru.admin.board.IAdminBoardDaoForMybatis">
 
 	
-	<select id="selectAllUserPointsForSum"			
-			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
-			
-			SELECT M_ID, SUM(PL_PAYMENT_BOOK_POINT) AS PL_PAYMENT_BOOK_POINT   
-			FROM TBL_POINT_LIST						 			   			 
-			GROUP BY M_ID 
-	
-	</select>
-	
-	
-	<select id="selectUserPointForModify"
-			parameterType="String"			
-			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
-			
-			SELECT M_ID, SUM(PL_PAYMENT_BOOK_POINT) AS PL_PAYMENT_BOOK_POINT   
-			FROM TBL_POINT_LIST						 			   			 
-			WHERE M_ID = #{m_id}
-			GROUP BY M_ID  
-	
-	</select>
-		
+	<select id="selectDailySales"			
+			resultType="com.maru.chaekmaru.admin.board.AdminBoardDto">
 
-	<insert id="insertPointForMyPointList"
-			parameterType="com.maru.chaekmaru.mypage.MyPointListDto">
+	<![CDATA[				
+			SELECT (SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-7, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-7, 'MM/DD') AS AB_DAILY_SALES_DATE, 
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-6, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-6, 'MM/DD') AS AB_DAILY_SALES_DATE,
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-5, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-5, 'MM/DD') AS AB_DAILY_SALES_DATE,
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-4, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-4, 'MM/DD') AS AB_DAILY_SALES_DATE,
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-3, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-3, 'MM/DD') AS AB_DAILY_SALES_DATE,
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-2, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-2, 'MM/DD') AS AB_DAILY_SALES_DATE,
+				(SELECT SUM(SB_ALL_PRICE - SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK 
+					 WHERE SB_STATE = 3 	
+					 AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'dd')-1, 'YYMMDD')) AS AB_DAILY_SALES,
+				TO_CHAR(TRUNC(SYSDATE,'dd')-1, 'MM/DD') AS AB_DAILY_SALES_DATE
+			 FROM DUAL;		 									 			   			 
 			
-			INSERT INTO 
-				TBL_POINT_LIST(M_ID, PL_PAYMENT_BOOK_POINT, PL_REG_DATE)    
-				VALUES(#{m_id}, #{pl_payment_book_point}, SYSTIMESTAMP)			
-					 		
-	</insert>
-	
-		
-	<select id="selectUserPointForHistory"
-			parameterType="String"			
-			resultType="com.maru.chaekmaru.mypage.MyPointListDto">
-			
-			SELECT *     
-			FROM TBL_POINT_LIST
-			WHERE M_ID = #{m_id} 
-			ORDER BY PL_REG_DATE DESC			
-	
-	</select>
-	
-		
-	<select id="selectAllUsers"				
-			resultType="com.maru.chaekmaru.member.MemberDto">
-			
-			SELECT *     
-			FROM TBL_MEMBER			 
-			ORDER BY M_ID			
-	
-	</select>
-	
-			
-	<update id="updateActiveForUserState"
-			parameterType="String">
-			
-			UPDATE TBL_MEMBER 
-			SET 
-			M_STATE = 0,
-			M_MOD_DATE = SYSTIMESTAMP   
-			WHERE M_ID = #{m_id}			
-			
-	</update>
-	
-	
-	<select id="selectAllSaledBooks"				
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
-			
-			SELECT *  
-			FROM TBL_SALED_BOOK 			 
-			ORDER BY SB_MOD_DATE DESC			
-	
-	</select>
-	
-	
-	
-	<select id="selectSaledBooksByPeriod"
-			parameterType="String"				
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
-	
-	<![CDATA[	
-		SELECT *  
-			FROM TBL_SALED_BOOK
-			WHERE TO_CHAR(SB_SALE_DATE, 'YYMMDD') >= #{param1} AND TO_CHAR(SB_SALE_DATE, 'YYMMDD') <= #{param2}		 
-			ORDER BY SB_MOD_DATE		
 	]]>
-	
+		
 	</select>
 	
 	
-	<select id="selectSaledBookForDetail"	
-			parameterType="Integer"			
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+	<select id="selectDailySalesByCate"			
+			resultType="com.maru.chaekmaru.admin.board.AdminBoardDto">
+
+	<![CDATA[				
+			SELECT (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '0'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '1'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '2'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '3'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '4'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '5'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '6'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '7'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '8'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,		
+			 (SELECT SUM(SB.SB_ALL_PRICE - SB.SB_SALED_PRICE)   
+					 FROM TBL_SALED_BOOK SB JOIN TBL_BOOK B ON SB.B_NO = B.B_NO 
+					 WHERE SB.SB_STATE = 3 AND SUBSTR(B.B_KDC, 1, 1) = '9'	
+					 AND TO_CHAR(SB.SB_SALE_DATE, 'YYMMDD') = TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YYMMDD')) AS AB_SALES_CATE,
+			ROWNUM-1 AS AB_SALES_CATE_NAME,					 
+			TO_CHAR(TRUNC(SYSDATE,'mm')-1, 'YY/MM') AS AB_SALES_CATE_DATE 
+			FROM DUAL; 								 			   			 
 			
-			SELECT *  
-			FROM TBL_SALED_BOOK 			 
-			WHERE SB_NO = #{sb_no}
-	
+	]]>
+		
 	</select>
-	
-	
-	<select id="selectAllReturnBooks"				
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
-			
-			SELECT *  
-			FROM TBL_SALED_BOOK
-			WHERE SB_STATE = 3   			 
-			ORDER BY SB_RETURN_DATE		
-	
-	</select>
-	
-	<select id="selectAllReturnBooksForHistory"				
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
-			
-			SELECT *  
-			FROM TBL_SALED_BOOK
-			WHERE SB_STATE = 3 OR SB_STATE = 4 OR SB_RETURN_DATE IS NOT NULL  			 
-			ORDER BY SB_RETURN_DATE	DESC	
-	
-	</select>
-	
-	
-	
-	<select id="selectReturnBookForDetail"	
-			parameterType="Integer"			
-			resultType="com.maru.chaekmaru.shop.SaledBookDto">
-			
-			SELECT *  
-			FROM TBL_SALED_BOOK 			 
-			WHERE SB_NO = #{sb_no}
-	
-	</select>
-	
-	
-	<update id="updateApprovalForReturnBook"
-			parameterType="Integer">
-			
-			UPDATE TBL_SALED_BOOK  
-			SET 
-			SB_STATE = 4,			 
-			SB_RETURN_MOD_DATE = SYSTIMESTAMP  
-			WHERE SB_NO = #{sb_no}			
-			
-	</update>
-	
-	<update id="updateBookCount"
-			parameterType="Integer">
-			
-			UPDATE TBL_BOOK  
-			SET 
-				B_COUNT = B_COUNT + #{param2},  			 
-				B_MOD_DATE = SYSTIMESTAMP  
-			WHERE 
-				B_NO = #{param1}			
-			
-	</update>
-	
-	
-	<update id="updateNotApprovedForReturnBook"
-			parameterType="Integer">
-			
-			UPDATE TBL_SALED_BOOK  
-			SET 
-			SB_STATE = 2, 
-			SB_RETURN_MOD_DATE = SYSTIMESTAMP 
-			WHERE SB_NO = #{sb_no}			
-			
-	</update>
-	
-	
-	<select id="selectBookForInventory"	
-			parameterType="Integer"	
-			resultType="com.maru.chaekmaru.book.BookDto">
-			
-			SELECT *  
-			FROM TBL_BOOK
-			WHERE B_NO = #{b_no}							
-	
-	</select>
-	
-	
-	<update id="updateBookInventory"
-			parameterType="com.maru.chaekmaru.book.BookDto">
-						
-			UPDATE TBL_BOOK  
-			SET 
-			B_COUNT = B_COUNT + #{b_count},
-			B_MOD_DATE = SYSTIMESTAMP
-			WHERE B_NO = #{b_no}			
-			
-	</update>
-	
-	<select id="countListResult"
-		resultType="Integer">
-        
-        <![CDATA[
-        SELECT COUNT(*) FROM TBL_BOOK  
-        ]]>
-	</select>
-	
-	
-	<select id="setList" parameterType="map"
-		resultType="com.maru.chaekmaru.book.BookDto">
-        
-        <![CDATA[
-        SELECT * FROM
-        (SELECT ROWNUM NUM, A.* FROM
-        (SELECT * FROM TBL_BOOK   
-         ORDER BY B_COUNT) A)  
-        WHERE NUM BETWEEN #{startNum} AND #{endNum}
-		]]>
-	</select>
-	
+		
 	
 </mapper>

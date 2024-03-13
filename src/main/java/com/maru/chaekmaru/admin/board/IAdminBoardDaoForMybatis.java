@@ -1,18 +1,16 @@
 package com.maru.chaekmaru.admin.board;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import com.maru.chaekmaru.book.BookDto;
-import com.maru.chaekmaru.member.MemberDto;
-import com.maru.chaekmaru.mypage.MyPointListDto;
-import com.maru.chaekmaru.shop.SaledBookDto;
 
 @Mapper
 public interface IAdminBoardDaoForMybatis {
+
+	
+	ArrayList<AdminBoardDto> selectDailySales();
+
+	ArrayList<AdminBoardDto> selectDailySalesByCate();
 
 	
 	
