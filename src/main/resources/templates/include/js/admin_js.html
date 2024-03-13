@@ -4,6 +4,9 @@
 <th:block th:fragment="admin_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
+        	
+        	document.getElementById('start').value = new Date().toISOString().substring(0, 10);
+	    	document.getElementById('end').value = new Date().toISOString().substring(0, 10);
 
         });
 

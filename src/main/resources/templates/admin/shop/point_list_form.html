@@ -13,23 +13,21 @@
     <h2 class="title">회원 포인트 관리 LIST</h2>
         
     <div class="content">
-    
-     	<table>
+      <div class="table-wrap">
+     	<table class="point-table">
     		<thead>
     			<tr>
     			    				
-    				<th>회원 ID</th>					
-    				<th>포인트 합계</th>    
-    				<th>포인트 관리</th>		
-    				<th>포인트 내역</th>		
+    				<th style="width: 140px;">회원 ID</th>					
+    				<th style="width: 140px;">포인트 합계</th>    
+    				<th style="width: 100px;">포인트 관리</th>		
+    				<th style="width: 100px;">포인트 내역</th>		
   			
     			</tr>   	
     	
     		</thead>
     		
-    		<tbody>
-    		
-    	
+    		<tbody>   	
     			
     			<tr th:each="list : ${pointListDtos}" >
     				
@@ -40,14 +38,13 @@
     		 		<a th:href="@{/admin/shop/point_management_form(m_id=${list.m_id})}">포인트 관리</a></td>
     		 		<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">
     		 		<a th:href="@{/admin/shop/point_history_form(m_id=${list.m_id})}">포인트 내역</a></td>
-    				    				    			
-    			  
+    				    			  
     			</tr>
     		 
     		</tbody>    	
     	
     	</table>
-       
+      </div> 
     </div>
 </div>
 

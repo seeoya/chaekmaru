@@ -12,13 +12,14 @@
 <div id="example_copy" class="content-wrap" layout:fragment="content">
     <h2 class="title">회원 포인트 내역</h2>
         
-    <div class="content">        			
-     	<table>     	
+    <div class="content">   
+       <div class="table-wrap">    			
+     	<table class="point-table">     	
     		<thead>
   				<tr>
     			    				
-    				<th>회원 ID</th>					
-    				<th>포인트 내역</th>    
+    				<th style="width: 200px;">회원 ID</th>					
+    				<th style="width: 300px;">포인트 내역</th>    
     				<th>포인트 변경일</th>   						
  		
     			</tr>   	
@@ -29,13 +30,13 @@
     				
     				<td th:text="${list.m_id}"></td>   				
     				<td th:text="${list.pl_payment_book_point}"></td>   				
-    				<td th:text="${list.pl_reg_date}"></td>
+    				<td th:text="${#strings.substring(list.pl_reg_date, 0, 19)}"></td>
     				   				
     			</tr>	   				   				 
     		</tbody>    	
     	
     	</table>
-       
+      </div> 
     </div>
 </div>
 

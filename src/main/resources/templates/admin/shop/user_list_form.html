@@ -9,24 +9,24 @@
      <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
-<div id="example_copy" class="content-wrap" layout:fragment="content">
+<div class="content-wrap" layout:fragment="content">
     <h2 class="title">회원 계정 관리 LIST</h2>
         
     <div class="content">
-    
+       <div class="table-wrap">
      	<table>
     		<thead>
     			<tr>
     			    				
-    				<th>회원 ID</th>					
-    				<th>회원 이름</th>    
-    				<th>회원 메일</th>		
-    				<th>회원 연락처</th>    						
-    				<th>회원 등급</th>		
+    				<th style="width: 120px;">회원 ID</th>					
+    				<th style="width: 100px;">회원 이름</th>    
+    				<th style="width: 140px;">회원 메일</th>		
+    				<th style="width: 115px;">회원 연락처</th>    						
+    				<th style="width: 70px;">회원 등급</th>    				
+    				<th style="width: 130px;">등록일</th>
+    				<th style="width: 130px;">수정일</th>
     				<th>계정 상태</th>
-    				<th>등록일</th>
-    				<th>수정일</th>
-    				<th>계정 상태 변경</th>
+    				<th style="width: 120px;">계정 상태 변경</th>
     						
   			
     			</tr>   	
@@ -41,12 +41,13 @@
     				<td th:text="${list.m_name}"></td>   				
     				<td th:text="${list.m_mail}"></td>   				
     				<td th:text="${list.m_phone}"></td>    				   				
-    				<td th:text="${list.m_grade}"></td>   				
+    				<td th:text="${list.m_grade}"></td>
+    				<td th:text="${#strings.substring(list.m_reg_date, 0, 16)}"></td>
+    				<td th:text="${#strings.substring(list.m_mod_date, 0, 16)}"></td>
+        				   				
     				<td th:if="${list.m_state == 0}" th:text="비활성"></td>
     				<td th:if="${list.m_state == 1}" th:text="활성"></td>
-    				<td th:text="${list.m_reg_date}"></td>
-    				<td th:text="${list.m_mod_date}"></td>
-        				 				 				   				 
+    				 				 				   				 
     				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">    		 		
     		 		<a href="#none" th:onclick="userAccountActiveConfirm([[${list.m_id}]])">비활성화</a></td>
     		 	    			 
@@ -55,7 +56,7 @@
     		</tbody>    	
     	
     	</table>
-       
+       </div>
     </div>
 </div>
 
