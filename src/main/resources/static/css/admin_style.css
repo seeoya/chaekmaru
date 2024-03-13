@@ -214,6 +214,29 @@
     max-width: 1000px;
 }
 
+/* BOOK list */
+
+.table-wrap {
+    overflow-x: auto;
+    width: 200%;
+}
+
+.table-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2em;
+}
+
+.table-wrap th,
+.table-wrap td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* 텍스트가 길어도 줄바꿈 방지 */
+    font-size: 1.5rem;
+}
+
+
 /* 헤더 */
 header {
     width: 100%;
