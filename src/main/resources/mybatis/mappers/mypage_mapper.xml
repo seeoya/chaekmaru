@@ -397,7 +397,7 @@
 			resultType="Integer">
 	
 					SELECT 
-						MAX(SB_NO) 
+						MAX(SB_ORDER_NO) 
 					FROM 
 						TBL_SALED_BOOK 
 					WHERE 

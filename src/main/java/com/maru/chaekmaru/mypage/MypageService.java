@@ -175,8 +175,8 @@ public class MypageService {
 
 			result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
 		} else {
+			max = mypageDao.selectMaxSbOrderNo(m_id) + 1;
 			for (int i = 0; i < memberCartDtos.size(); i++) {
-				max = mypageDao.selectMaxSbOrderNo(m_id);
 				saledBookDto.setSb_order_no(max);
 				saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
 				saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
