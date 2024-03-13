@@ -6,6 +6,7 @@ import lombok.Data;
 public class SaledBookDto {
 	
 	private int sb_no;
+	private int sb_order_no;
 	private int sb_book_count;
 	private String sb_name;
 	private String sb_addr_code;
