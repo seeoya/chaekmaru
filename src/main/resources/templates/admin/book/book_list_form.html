@@ -34,25 +34,25 @@
 	     	<table>
 	    		<thead>
 		   			<tr>
-	    				<th>도서 NO</th>
-	    				<th>썸네일</th>
-	    				<th>도서 이름</th>
-	    				<th>도서 저자</th>
-	    				<th>도서 소개</th>    				
-	    				<th>출판사명</th>
+	    				<th style="width: 50px;">도서 NO</th>
+	    				<th style="width: 200px;">썸네일</th>
+	    				<th style="width: 150px;">도서 이름</th>
+	    				<th style="width: 150px;">도서 저자</th>
+	    				<th style="width: 170px;">도서 소개</th>    				
+	    				<th style="width: 100px;">출판사명</th>
 	    				<th>출판일</th>
-	    				<th>분류기호</th>
-	    				<th>ISBN</th>
-	    				<th>도서 가격</th>    						
-	    				<th>재고 수량</th>
-	    				<th>등록일</th>
-	    				<th>수정일</th>    			
-	    				<th>도서수정</th>
-	    				<th>도서삭제</th>	    					   			
+	    				<th style="width: 70px;">분류기호</th>
+	    				<th style="width: 100px;">ISBN</th>
+	    				<th style="width: 70px;">도서 가격</th>    						
+	    				<th style="width: 35px;">재고</th>
+	    				<th style="width: 120px;">등록일</th>
+	    				<th style="width: 120px;">수정일</th>    			
+	    				<th style="width: 35px;">수정</th>
+	    				<th style="width: 35px;">삭제</th>	    					   			
 	    			</tr>   	
     			</thead>
     			<tbody>
-    				<tr th:each="list : ${items}" >
+    				<tr class="table-tr" th:each="list : ${items}" >
 	    				<td th:text="${list.b_no}"></td>
 	    				<td th:text="${#strings.substring(list.b_thumbnail, 34)}"></td>
 	    				<td th:text="${list.b_name}"></td>
@@ -65,12 +65,11 @@
 	    				<td th:text="${list.b_price}"></td>
 	    				<td th:text="${list.b_count}"></td>
 	    				<td th:text="${#strings.substring(list.b_reg_date, 0, 19)}"></td>
-	    				<td th:text="${list.b_mod_date}"></td>    				
-	    				   				 
+	    				<td th:text="${#strings.substring(list.b_mod_date, 0, 19)}"></td>    					 
 	    				<td th:if="${session.loginedAdminMemberDto.a_grade != 0}">
-	    				<a th:href="@{/admin/book/modify_book_form(b_no=${list.b_no})}">도서수정</a></td>
+	    				<a th:href="@{/admin/book/modify_book_form(b_no=${list.b_no})}">수정</a></td>
 	    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
-	    				<a href="#none" th:onclick="deleteBookConfirm([[${list.b_no}]])">도서삭제</a></td>    				    			
+	    				<a href="#none" th:onclick="deleteBookConfirm([[${list.b_no}]])">삭제</a></td>    				    			
     				</tr>
     			</tbody>    	
     		</table>
