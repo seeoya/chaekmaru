@@ -47,15 +47,16 @@
 
                 <div>
                     <label for="search_address_btn">받는 사람 주소</label>
-                    <div>
+                    <div class="addr-wrap">
                         <input type="text" id="postcode" name="sb_addr_code" th:value="${userInfo.m_addr_code}"
                             placeholder="우편번호" readonly>
                         <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호
                             찾기</button>
                     </div>
                     <input type="text" id="address" name="sb_addr" th:value="${userInfo.m_addr}" placeholder="주소"
-                        readonly> <input type="text" id="detailAddress" name="sb_detail_addr"
-                        th:value="${userInfo.m_detail_addr}" placeholder="상세주소">
+                        readonly> 
+                    <input type="text" id="detailAddress" name="sb_detail_addr"
+                    th:value="${userInfo.m_detail_addr}" placeholder="상세주소">
                 </div>
 
                 <div>
@@ -76,7 +77,12 @@
                         <p th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
                     </div>
                 </div>
-
+                                            <!-- #to do  
+                                                
+                                                두 인풋 갭으로 벌리고 버튼 색깔 바꾸고
+                                                gpt가 짠 css 내 스타일로 바꾸고
+                                                버튼 오른쪽 밀착 
+                                            -->
                 <div>
                     <p>배송비</p>
                     <div>
@@ -94,9 +100,8 @@
                 </div>
 
                 <div>
-                    <div>
-                        <button type="button" class="payment" onclick="paymentFormSubmit();">결제하기</button>
-                        &nbsp;&nbsp;
+                    <div class="submit-btn-wrap">
+                        <button type="button" class="btn highlight payment" onclick="paymentFormSubmit();">결제하기</button>
                         <a th:href="@{/mypage/member_cart_form}">뒤로 가기</a>
                     </div>
                 </div>
