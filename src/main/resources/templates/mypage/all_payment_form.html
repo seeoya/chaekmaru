@@ -95,8 +95,8 @@
                     <label>결제 예정 금액</label>
                     <div>
                         <p th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
-                        <input type="number" name="sb_all_price" th:value="${finalPrice}" />
-                        <input type="number" name="currentPoint" th:value="${currentPoint}" />
+                        <input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
+                        <input type="hidden" name="currentPoint" th:value="${currentPoint}" />
                     </div>
                 </div>
 

@@ -28,7 +28,7 @@
 						</a>
 					</div>
 					<div class="cart-count-modify">
-						<input type="number" name="c_book_count" th:value="${memberCartDtos.c_book_count}" />
+						<input type="number" name="c_book_count" min="1" th:value="${memberCartDtos.c_book_count}" />
 						<button type="button" class="modify-count btn" onclick="bookCountSubmit();"
 							th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경
 						</button>
@@ -40,12 +40,10 @@
 					</div>
 				</div>
 			</div>
-
-            <div class="all-pay-success">
+			<div class="all-pay-success">
 				<a class="btn main" th:href="@{/mypage/all_payment_form}">선택 결제하기</a>
-                <a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
+				<a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
             </div>
-
         </form>
     </div>
 </div>

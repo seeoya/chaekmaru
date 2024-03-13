@@ -295,7 +295,7 @@ public class MypageService {
 		return mypageDao.myPickList(m_id);
 	}
 
-	public int deleteMyPaymentList(String m_id, int sb_no, int b_no) {
+	public int cancelMyPaymentList(String m_id, int sb_no, int b_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();
 		
@@ -356,5 +356,17 @@ public class MypageService {
 		 // #TODO RESULT 처리 필요
 		return result;
 	}
+
+	public List<MemberCartDto> directPayment(String m_id, int b_no) {
+		
+		return mypageDao.getBookDetail(b_no);
+	}
+
+	public int returnRequestBookPayment(String m_id, int sb_no, int b_no) {
+		int result = mypageDao.saledStateUpdateThree(m_id, sb_no, b_no);
+		
+		return result;
+	}
+
 
 }

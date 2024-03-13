@@ -431,4 +431,34 @@
 	
 	</select>
 	
+	<select id="getBookDetail"
+			parameterType="List"
+			resultType="com.maru.chaekmaru.mypage.MemberCartDto">
+			
+					SELECT 
+						* 
+					FROM 
+						TBL_BOOK 
+					WHERE 
+						B_NO = #{b_no} 
+						
+	</select>
+	
+	<update id="saledStateUpdateThree"
+			parameterType="map">
+	
+					UPDATE 
+						TBL_SALED_BOOK 
+					SET 
+						SB_STATE = 3, 
+						SB_RETURN_DATE = SYSTIMESTAMP 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						SB_NO = #{sb_no} 
+					AND 
+						B_NO = #{b_no}
+	
+	</update>
+	
 </mapper>

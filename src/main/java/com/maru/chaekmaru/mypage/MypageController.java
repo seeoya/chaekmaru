@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.member.MemberService;
@@ -85,7 +84,7 @@ public class MypageController {
 	}
 
 	/*
-	 * 마이 페이지 장바구니 삭제 클릭
+	 * 장바구니 페이지 장바구니 삭제 클릭
 	 */
 	@GetMapping("/delete_mycart_confirm")
 	public String deleteMyCart(HttpSession session, Model model, @RequestParam("c_no") int c_no) {
@@ -120,7 +119,7 @@ public class MypageController {
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
         model.addAttribute("currentPoint", currentPoint);
 
-		return "mypage/payment_form";
+		return "mypage/all_payment_form";
 	}
 
 	/*
@@ -265,25 +264,30 @@ public class MypageController {
 	}
 
 	/*
-	 * 도서 상세 페이지에서 바로 결제 버튼 클릭
+	 * 도서 상세 페이지, 찜 페이지에서 바로 결제 버튼 클릭
 	 */
 	@GetMapping("/move_payment")
 	public String movePayment(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
-
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-		model.addAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
 
-		BookDto bookDto = mypageService.setView(b_no);
-		model.addAttribute("bookDto", bookDto);
+		List<MemberCartDto> memberCartDtos = mypageService.directPayment(loginedMemberDto.getM_id(), b_no);
+		memberCartDtos.get(0).setC_book_count(1);
+		memberCartDtos.get(0).setM_name(loginedMemberDto.getM_name());
+		memberCartDtos.get(0).setM_addr(loginedMemberDto.getM_addr());
+		memberCartDtos.get(0).setM_detail_addr(loginedMemberDto.getM_detail_addr());
+		memberCartDtos.get(0).setM_addr_code(loginedMemberDto.getM_addr_code());
 
-		int allPrice = bookDto.getB_price();
+		int allPrice = mypageService.calcAllPrice(memberCartDtos);
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
-
+        int currentPoint = mypageService.currentPoint(session);
+        
+		model.addAttribute("memberCartDtos", memberCartDtos);
 		model.addAttribute("allPrice", allPrice);
 		model.addAttribute("discount", discount);
 		model.addAttribute("finalPrice", allPrice - discount + 3000);
+        model.addAttribute("currentPoint", currentPoint);
 
-		return "mypage/move_payment_form";
+		return "mypage/all_payment_form";
 	}
 
 	/*
@@ -304,8 +308,8 @@ public class MypageController {
 	/*
 	 * 주문 취소
 	 */
-	@GetMapping("/delete_payment_list_form")
-	public String deletePaymentList(HttpSession session, 
+	@GetMapping("/cancel_payment_confirm")
+	public String cancelPayment(HttpSession session, 
 														@RequestParam("sb_no") int sb_no, 
 														@RequestParam("b_no") int b_no) {
         // #TODO RESULT 페이지로 이동
@@ -313,7 +317,7 @@ public class MypageController {
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		
-		int result = mypageService.deleteMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
+		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
 		
         // #TODO result 세팅 필요
 //		if (result <= 0) {
@@ -327,8 +331,10 @@ public class MypageController {
 	/*
 	 * 반품 요청
 	 */
-	@GetMapping("/return_payment_list_form")
-	public String returnPaymentList(HttpSession session, Model model) {
+	@GetMapping("/return_payment_confirm")
+	public String returnPaymentList(HttpSession session, Model model, 
+																	@RequestParam("sb_no") int sb_no, 
+																	@RequestParam("b_no") int b_no) {
 		log.info("returnPaymentList");
 		
         // #TODO RESULT 처리 필요
@@ -336,6 +342,13 @@ public class MypageController {
 		
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
+		int result = mypageService.returnRequestBookPayment(loginedMemberDto.getM_id(), sb_no, b_no);
+		
+		// #TODO result 세팅 필요
+//		if (result <= 0) {
+//			// 실패
+//		}
+		
         // #TODO RESULT 처리 필요
 		return nextPage;
 	}
@@ -389,20 +402,6 @@ public class MypageController {
 		 // #TODO RESULT 처리 필요
 		model.addAttribute("result", result);
 		return "result";
-		
-//        // #TODO RESULT 처리 필요
-//		String nextPage = "redirect:/mypage/member_pick_form";
-//
-//		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-//
-//		int result = mypageService.addMyPick(loginedMemberDto.getM_id(), b_no);
-//        // #TODO RESULT 처리 필요
-//		if (result < 0) {
-//			log.info("add pick Fail");
-//		}
-//		
-//        // #TODO RESULT 처리 필요
-//		return nextPage;
 	}
 
 	@GetMapping("/point_charge")
