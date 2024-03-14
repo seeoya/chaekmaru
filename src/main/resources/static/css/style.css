@@ -968,10 +968,13 @@ header .logo img {
 
 .review_id_stars {
     display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+
 #view .review_text {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 #view .review_date {
@@ -1398,6 +1401,10 @@ header .logo img {
     object-fit: contain;
 }
 
+#my_review .my-review-id {
+    display: none;
+}
+
 #review-list .review-img-text {
     display: flex;
     font-size: 1.8rem;
@@ -1412,13 +1419,13 @@ header .logo img {
 }
 
 #review-list .review_id_stars {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 #review-list .review_info {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #review-list .review_info > span{
@@ -1434,6 +1441,22 @@ header .logo img {
     min-height: 150px;
     object-fit: contain;
 }
+
+#my_buy_history .content {
+    width: 100%;
+}
+
+#my_buy_history .form {
+    max-width: 100%;
+}
+
+#my_buy_history .buy-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
 
 /* 페이징 */
 .paging {

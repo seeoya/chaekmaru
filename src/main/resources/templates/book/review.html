@@ -7,7 +7,7 @@
         <div>
             <div class="review_info">
                 <span class="review_id_stars">
-                    <span>[[${review.m_id}]]</span>
+                    <span class="my-review-id">[[${review.m_id}]]</span>
 
                     <span class="star-rate">
                         <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 5 ? 'on' : ''}"></i>
@@ -26,15 +26,18 @@
                 </span>
             </div>
 
+		<div class="review-img-text">
             <th:block th:if="${review.b_thumbnail != null}">
-                <div class="review-img-text">
+               		
                     <a th:href="@{/book/view/{b_no}(b_no=${review.b_no})}">
                         <img th:src="${review.b_thumbnail}" th:alt="${review.b_name}">
-                    </a>
-                    <div class="review_text">[[${review.r_text}]]</div>
-                </div>
-            </th:block>
+                    </a>       	
+                   
+            </th:block>   	
+         			<div class="review_text">[[${review.r_text}]]</div>
 
+        </div>      
+            
             <th:block th:if="${session[loginedMemberInfo]?.m_id eq review.m_id}">
                 <div class="review-btn-wrap">
                     <button type="button" class="btn main modify-review">수정</button>
