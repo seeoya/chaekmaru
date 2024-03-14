@@ -573,6 +573,22 @@ header .logo img {
     font-weight: 600;
 }
 
+#view .book_info .star, .item-wrap.gallery .item .star {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+#view .book_info .star {
+    justify-content: left;
+}
+
+#view .book_info .star .fa-star, .item-wrap.gallery .item .star .fa-star {
+    font-size: 1.2rem;
+    color: var(--highlight-light-color);
+}
+
 .item-wrap.gallery .author, .item-wrap.gallery .introduce, .item-wrap.gallery .publisher {
     display: none;
 }
@@ -705,10 +721,6 @@ header .logo img {
 
 #list .item:hover .thum {
     transform: scale(1.1);
-}
-
-#list .ellipsis {
-    font-size: 1.15em;
 }
 
 /* 스타일가이드 */
@@ -923,19 +935,15 @@ header .logo img {
     font-size: 0;
 }
 
-.review-wrap .star-rate .rate, 
-.review-wrap .star-rate label {
+.review-wrap .star-rate .rate, .review-wrap .star-rate label {
     color: var(--gray-color);
 }
 
-.review-wrap .star-rate .fa-star.on,
-.review-wrap .star-rate .fa-star.on ~ .fa-star,
-.review-wrap .star-rate input[type="radio"]:checked ~ label {
+.review-wrap .star-rate .fa-star.on, .review-wrap .star-rate .fa-star.on ~ .fa-star, .review-wrap .star-rate input[type="radio"]:checked ~ label {
     color: var(--highlight-light-color);
 }
 
-.review-wrap .star-rate label:hover,
-.review-wrap .star-rate label:hover ~ label {
+.review-wrap .star-rate label:hover, .review-wrap .star-rate label:hover ~ label {
     color: #ffe4a1 !important;
 }
 

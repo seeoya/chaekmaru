@@ -52,7 +52,10 @@
                         <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
                         <div>
                             <div class="name ellipsis">[[${item.b_name}]]</div>
-                            <div class="star ellipsis">[[${item.r_avg}]]([[${item.r_count}]])</div>
+                            <div class="star ellipsis">
+                                <i class="fa-solid fa-star"></i>
+                                <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
+                            </div>
                         </div>
                     </a>
                 </div>
