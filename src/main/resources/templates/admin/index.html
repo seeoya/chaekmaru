@@ -8,28 +8,26 @@
 <div id="admin-index" class="content-wrap" layout:fragment="content">
     
     <div class="content">
-       <!--  <div class="banner">
-            <h2 class="title">진행 중 이벤트</h2>
+        <div class="banner">
+            <h2 class="title">관리자 HOME</h2>
 
-            <div class="item-wrap">
-                <div class="swiper mySwiper">
+            <div class="item-wrap" th:if="${session.loginedAdminMemberDto == null}">            	
+                <div id="index_banner" class="swiper mySwiper" >
                     <div class="swiper-wrapper">
                         <div class="swiper-slide"><img th:src="@{/img/banner/banner1.png}"></div>
                         <div class="swiper-slide"><img th:src="@{/img/banner/banner2.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner3.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner1.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner2.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner3.png}"></div>
+                        <div class="swiper-slide"><img th:src="@{/img/banner/banner3.png}"></div>                      
                     </div>
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
             </div>
-           -->
+            
+       
            
-           <canvas id="myChart"></canvas>
-           
+           <div style="width: 1000px;" th:unless="${session.loginedAdminMemberDto == null}"><canvas id="myChart"></canvas></div>
+            <!-- <script type="module" src="dimensions.js"></script> -->
            <script>
 			  const ctx = document.getElementById('myChart');
 			
@@ -127,7 +125,7 @@
 			  
 		</script>
            
-           
+       </div>    
     </div>
 </div>
 

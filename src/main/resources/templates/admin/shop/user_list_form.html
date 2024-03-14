@@ -26,7 +26,7 @@
     				<th style="width: 130px;">등록일</th>
     				<th style="width: 130px;">수정일</th>
     				<th>계정 상태</th>
-    				<th style="width: 120px;">계정 상태 변경</th>
+    				<th style="width: 120px;" th:if="${session.loginedAdminMemberDto.a_grade == 2}">계정 상태 변경</th>
     						
   			
     			</tr>   	

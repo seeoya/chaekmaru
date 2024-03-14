@@ -115,7 +115,7 @@ public class AdminBookController {
 							@RequestParam(required = false, value = "sort", defaultValue = "no") String sort,
 							@RequestParam(required = false, value = "page", defaultValue = "1") String page) {
 
-			int pageItemPerPage = 20;
+			int pageItemPerPage = 10;
 			int nowPageCount = Integer.parseInt(page);
 			int allBookCount = adminBookService.countBook(search, sort);
 			int allPageCount = adminBookService.countAllPage(allBookCount, pageItemPerPage);
@@ -129,6 +129,14 @@ public class AdminBookController {
 			
 			items = adminBookService.setList(search, sort, pageItemPerPage, nowPageCount);
 			listPageDtos = adminBookService.setPaging(pageItemPerPage, nowPageCount, allPageCount);
+		
+			for(int i=0; i<items.size(); i++) {
+				
+				String thumbnail = items.get(i).getB_thumbnail();
+				int index = thumbnail.lastIndexOf("/");
+				thumbnail = thumbnail.substring(index+1);
+				items.get(i).setB_thumbnail(thumbnail);   
+				}
 			
 			model.addAttribute("search", search);			
 			model.addAttribute("sort", sort);

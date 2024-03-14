@@ -61,22 +61,22 @@
 
                 case 510:
                     text = "이미 존재하는 ID입니다.";
-                    window.history.back();
+                    href = [[@{/admin/member/create_account_form}]];
                     break;
 
                 case 511:
                     text = "회원가입에 실패했습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/admin/member/create_account_form}]];
                     break;
 
                 case 512:
                     text = "로그인에 실패하였습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/admin/member/login_form}]];
                     break;
 
                 case 513:
                     text = "정보수정에 실패하였습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/admin/member/modify_account_form}]];
                     break;
 
                 case 514:
@@ -91,7 +91,7 @@
 
                 case 600:
                     text = "도서 등록에 성공했습니다.";
-                    window.history.back();
+                    href = [[@{/admin/member/book_list_form}]];
                     break;
                     
                 case 601:
@@ -106,17 +106,17 @@
                     
                 case 610:
                     text = "이미 등록된 도서입니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/admin/member/regist_book_form}]];
                     break;
                     
                 case 611:
                     text = "도서 등록에 실패했습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/admin/member/regist_book_form}]];
                     break;
                     
                 case 612:
                     text = "도서 정보수정에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/book_list_form}]];
+                    href = [[@{/admin/member/modify_book_form}]];
                     break;
                     
                 case 613:
@@ -146,7 +146,7 @@
                     
                 case 704:
                     text = "도서 재고수정에 성공했습니다.";
-                    window.history.back();
+                    href = [[@{/admin/member/book_inventory_list_form}]];
                     break;
             
                 case 710:
