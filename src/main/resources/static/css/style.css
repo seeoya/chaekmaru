@@ -865,11 +865,6 @@ header .logo img {
     border-bottom: 5px double var(--gray-color);
 }
 
-#my_review .review-list {
-    display: flex;
-    flex-direction: column;
-}
-
 #view .review-write {
     align-items: start;
 }
@@ -1064,8 +1059,11 @@ header .logo img {
 }
 
 #cart .cart-wrap img {
-    max-width: 200px;
+    max-width: 100px;
+    min-width: 100px;
     max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
 }
 
 #cart .cart-pay {
@@ -1329,6 +1327,80 @@ header .logo img {
     cursor: pointer;
 }
 
+/* 내가 쓴 리뷰 */
+
+#my_review {
+    width: 100%;
+}
+
+#my_review .review-wrap{
+    width: 100%;
+    max-width: 1000px;
+    min-width: 1000px;
+}
+
+#my_review .review-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#my_review .content {
+    width: 100%;
+}
+
+#my_review .review-item {
+    width: 100%;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+#my_review img {
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+}
+
+#review-list .review-img-text {
+    display: flex;
+    font-size: 1.8rem;
+    gap: 30px;
+}
+
+#review-list .review-img-text .review_text {
+    background: #fff;
+    border-radius: 10px;
+    width: 900px;
+    padding: 10px;
+}
+
+#review-list .review_id_stars {
+    font-size: 1.8rem;
+}
+
+#review-list .review_info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#review-list .review_info > span{
+    margin-bottom: 0px;
+}
+
+/* 구매내역 */
+
+#my_buy_history img {
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+}
 
 /* 페이징 */
 .paging {
