@@ -24,7 +24,7 @@ public interface IMypageDaoForMybatis {
 	public int addMyCart(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int selectBookCount(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int allPaymentMyCartList(@Param("m_id") String m_id, @Param("saledBookDto") SaledBookDto saledBookDto);
-	public int deleteAllMyCart(String m_id);
+	public int deleteAllMyCart(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public BookDto selectBook(@Param("b_no") int b_no);
 	public List<SaledBookDto> getPaymentList(String m_id);
     public void nowBooks(@Param("sb_book_count") int sb_book_count, @Param("b_count") int b_count, @Param("b_no") int b_no);
