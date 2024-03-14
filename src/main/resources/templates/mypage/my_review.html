@@ -14,7 +14,7 @@
         <div class="review-wrap">
             <th:block th:if="${session.loginedMemberInfo != null}">
                 <th:block th:if="${reviews} != null">
-                    <div th:replace="~{/book/review.html::review-list}"></div>
+                    <div class="review-item" th:replace="~{/book/review.html::review-list}"></div>
                 </th:block>
 
                 <th:block th:if="${reviews} == null">
