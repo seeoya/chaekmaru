@@ -6,7 +6,13 @@
 
 	<select id="selectBook" parameterType="Integer"
 		resultType="com.maru.chaekmaru.book.BookDto">
-		SELECT * FROM TBL_BOOK WHERE B_NO = #{b_no}
+ 		 <![CDATA[
+		 SELECT * FROM TBL_BOOK B LEFT OUTER JOIN 
+        (SELECT B_NO, AVG(R_STARS) R_AVG, COUNT(*) R_COUNT 
+        FROM TBL_REVIEW GROUP BY B_NO) S
+        ON B.B_NO  = S.B_NO
+        WHERE B.B_NO = #{b_no}
+		]]>
 	</select>
 	
 	<select id="selectBestBooksByStar" parameterType="Integer"

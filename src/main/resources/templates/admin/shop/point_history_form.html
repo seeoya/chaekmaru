@@ -18,9 +18,10 @@
     		<thead>
   				<tr>
     			    				
-    				<th style="width: 200px;">회원 ID</th>					
-    				<th style="width: 300px;">포인트 내역</th>    
-    				<th>포인트 변경일</th>   						
+    				<th style="width: 120px;">회원 ID</th>					
+    				<th style="width: 120px;">포인트 내역</th>    
+    				<th style="width: 400px;">포인트 Commnent</th>    
+    				<th style="width: 140px;">포인트 변경일</th>   						
  		
     			</tr>   	
     		</thead>
@@ -30,6 +31,7 @@
     				
     				<td th:text="${list.m_id}"></td>   				
     				<td th:text="${list.pl_payment_book_point}"></td>   				
+    				<td th:text="${list.pl_desc}"></td>   				
     				<td th:text="${#strings.substring(list.pl_reg_date, 0, 19)}"></td>
     				   				
     			</tr>	   				   				 

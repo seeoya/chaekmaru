@@ -8,13 +8,13 @@
     <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
 
-<div id="example_copy" class="content-wrap" layout:fragment="content">
+<div id="my_buy_history" class="content-wrap" layout:fragment="content">
     <h2 class="title">내 구매 내역</h2>
 
     <div class="content">
         <form class="form" th:action="@{mypage/payment_list_form}" name="payment_list_form" method="post">
-
-            <div th:each="items : ${saledBookDtos}">
+			
+            <div class="buy-item" th:each="items : ${saledBookDtos}">
 
                 <div>
                     <p th:text="${items.sb_order_no}"></p>

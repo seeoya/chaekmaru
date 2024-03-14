@@ -19,9 +19,9 @@
     			<tr>
     			    				
     				<th style="width: 140px;">회원 ID</th>					
-    				<th style="width: 140px;">포인트 합계</th>    
-    				<th style="width: 100px;">포인트 관리</th>		
-    				<th style="width: 100px;">포인트 내역</th>		
+    				<th style="width: 140px;">포인트 합계</th>    					
+    				<th style="width: 100px;" th:if="${session.loginedAdminMemberDto.a_grade >= 1}">포인트 내역</th>
+    				<th style="width: 100px;" th:if="${session.loginedAdminMemberDto.a_grade == 2}">포인트 관리</th>			
   			
     			</tr>   	
     	
@@ -33,11 +33,11 @@
     				
     				<td th:text="${list.m_id}"></td>   				
     				<td th:text="${list.pl_payment_book_point}"></td> 				
-    				   				 
+    				<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">
+    		 		<a th:href="@{/admin/shop/point_history_form(m_id=${list.m_id})}">포인트 내역</a></td>   				 
     				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
     		 		<a th:href="@{/admin/shop/point_management_form(m_id=${list.m_id})}">포인트 관리</a></td>
-    		 		<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">
-    		 		<a th:href="@{/admin/shop/point_history_form(m_id=${list.m_id})}">포인트 내역</a></td>
+    		 		
     				    			  
     			</tr>
     		 

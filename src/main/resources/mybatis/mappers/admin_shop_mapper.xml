@@ -29,8 +29,8 @@
 			parameterType="com.maru.chaekmaru.mypage.MyPointListDto">
 			
 			INSERT INTO 
-				TBL_POINT_LIST(M_ID, PL_PAYMENT_BOOK_POINT, PL_REG_DATE)    
-				VALUES(#{m_id}, #{pl_payment_book_point}, SYSTIMESTAMP)			
+				TBL_POINT_LIST(M_ID, PL_PAYMENT_BOOK_POINT, PL_DESC, PL_REG_DATE)    
+				VALUES(#{m_id}, #{pl_payment_book_point}, #{pl_desc}, SYSTIMESTAMP)			
 					 		
 	</insert>
 	

@@ -573,6 +573,22 @@ header .logo img {
     font-weight: 600;
 }
 
+#view .book_info .star, .item-wrap.gallery .item .star {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+#view .book_info .star {
+    justify-content: left;
+}
+
+#view .book_info .star .fa-star, .item-wrap.gallery .item .star .fa-star {
+    font-size: 1.2rem;
+    color: var(--highlight-light-color);
+}
+
 .item-wrap.gallery .author, .item-wrap.gallery .introduce, .item-wrap.gallery .publisher {
     display: none;
 }
@@ -705,10 +721,6 @@ header .logo img {
 
 #list .item:hover .thum {
     transform: scale(1.1);
-}
-
-#list .ellipsis {
-    font-size: 1.15em;
 }
 
 /* 스타일가이드 */
@@ -865,11 +877,6 @@ header .logo img {
     border-bottom: 5px double var(--gray-color);
 }
 
-#my_review .review-list {
-    display: flex;
-    flex-direction: column;
-}
-
 #view .review-write {
     align-items: start;
 }
@@ -905,6 +912,47 @@ header .logo img {
     min-width: 600px;
 }
 
+.review_info > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px
+}
+
+.review_info .fa-star {
+    font-size: 1.4rem;
+}
+
+.review-wrap .star-rate {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row-reverse;
+    position: relative;
+    width: 100%;
+    gap: 0;
+    font-size: 1.8rem;
+}
+
+.review-wrap .star-rate input[type="radio"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    font-size: 0;
+}
+
+.review-wrap .star-rate .rate, .review-wrap .star-rate label {
+    color: var(--gray-color);
+}
+
+.review-wrap .star-rate .fa-star.on, .review-wrap .star-rate .fa-star.on ~ .fa-star, .review-wrap .star-rate input[type="radio"]:checked ~ label {
+    color: var(--highlight-light-color);
+}
+
+.review-wrap .star-rate label:hover, .review-wrap .star-rate label:hover ~ label {
+    color: #ffe4a1 !important;
+}
+
 .review-btn-wrap .btn {
     padding: 5px 10px;
 }
@@ -937,8 +985,14 @@ header .logo img {
     margin-bottom: 10px;
 }
 
+.review_id_stars {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #view .review_text {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 #view .review_date {
@@ -1125,14 +1179,13 @@ header .logo img {
 }
 
 /* 전체 결제 */
-
 #payment .form {
     width: 100%;
     max-width: 100%;
     flex-direction: row;
 }
 
-#payment .form > div{
+#payment .form > div {
     width: 50%;
 }
 
@@ -1207,8 +1260,7 @@ header .logo img {
     margin: 5px 0;
 }
 
-.member-info input[type="text"],
-.member-info button {
+.member-info input[type="text"], .member-info button {
     padding: 8px;
     border-radius: 5px;
 }
@@ -1251,9 +1303,7 @@ header .logo img {
     width: 200px;
 }
 
-#payment .price-result,
-#payment .member-sale-price,
-#payment .delivery-price {
+#payment .price-result, #payment .member-sale-price, #payment .delivery-price {
     font-size: 1.8rem;
 }
 
@@ -1262,9 +1312,8 @@ header .logo img {
 }
 
 /* 찜 목록 */
-
 #member_pick .form {
-    max-width:1000px;
+    max-width: 1000px;
 }
 
 #member_pick .content-wrap {
@@ -1338,6 +1387,96 @@ header .logo img {
     cursor: pointer;
 }
 
+/* 내가 쓴 리뷰 */
+#my_review {
+    width: 100%;
+}
+
+#my_review .review-wrap {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 1000px;
+}
+
+#my_review .review-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#my_review .content {
+    width: 100%;
+}
+
+#my_review .review-item {
+    width: 100%;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+#my_review img {
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+}
+
+#my_review .my-review-id {
+    display: none;
+}
+
+#review-list .review-img-text {
+    display: flex;
+    font-size: 1.8rem;
+    gap: 30px;
+}
+
+#review-list .review-img-text .review_text {
+    background: #fff;
+    border-radius: 10px;
+    width: 900px;
+    padding: 10px;
+}
+
+#review-list .review_id_stars {
+    font-size: 1.6rem;
+}
+
+#review-list .review_info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#review-list .review_info > span {
+    margin-bottom: 0px;
+}
+
+/* 구매내역 */
+#my_buy_history img {
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+}
+
+#my_buy_history .content {
+    width: 100%;
+}
+
+#my_buy_history .form {
+    max-width: 100%;
+}
+
+#my_buy_history .buy-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
 
 /* 페이징 */
 .paging {
