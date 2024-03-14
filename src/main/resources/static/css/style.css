@@ -1024,7 +1024,7 @@ header .logo img {
     max-width: 100%;
 }
 
-#cart .cart-wrap {
+#cart .cart-item {
     display: flex;
     position: relative;
     background-color: var(--gray-light-color);
@@ -1063,9 +1063,18 @@ header .logo img {
     background-color: #e3e2e2;
 }
 
-#cart .cart-wrap img {
-    max-width: 200px;
-    max-height: 150px;
+#cart .cart-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#cart .cart-item img {
+    width: 100px;
+    height: 120px;
+    object-fit: contain;
 }
 
 #cart .cart-pay {
