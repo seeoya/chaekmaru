@@ -8,7 +8,7 @@
 <div id="admin-index" class="content-wrap" layout:fragment="content">
     
     <div class="content">
-        <div class="banner">
+       <!--  <div class="banner">
             <h2 class="title">진행 중 이벤트</h2>
 
             <div class="item-wrap">
@@ -26,7 +26,108 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
             </div>
-          
+           -->
+           
+           <canvas id="myChart"></canvas>
+           
+           <script>
+			  const ctx = document.getElementById('myChart');
+			
+			  new Chart(ctx, {
+			    type: 'bar',
+			    data: {
+			      labels: ['총류', '철학', '종교', '사회과학', '자연과학', '기술과학', '예술', '언어', '역사', '문학'],
+			      datasets: [
+			    	  {type: 'bar',
+			          label: '카테고리별 전월 매출액',
+			          backgroundColor: 'rgba(66, 113, 70, 0.8)',
+			          data: [
+			        		{ x: '총류', y: 100000 },
+				            { x: '철학', y: 200000 },
+				            { x: '종교', y: 300000 },
+				            { x: '사회과학', y: 400000 },
+				            { x: '자연과학', y: 500000 },
+				            { x: '기술과학', y: 600000 },
+				            { x: '예술', y: 700000 },
+				            { x: '언어', y: 800000 },
+				            { x: '역사', y: 900000 },
+				            { x: '문학', y: 1000000 }
+			          ],
+			          borderColor: 'rgb(100, 100, 100, 0.8)',
+			          borderWidth: 1,
+			        },
+			        { type: 'bar',
+			          label: '카테고리별 당월 매출액',
+			          backgroundColor: 'rgba(255, 204, 0, 0.5)',
+			          data: [
+			        	 	{ x: '총류', y: 100000 },
+				            { x: '철학', y: 200000 },
+				            { x: '종교', y: 300000 },
+				            { x: '사회과학', y: 400000 },
+				            { x: '자연과학', y: 500000 },
+				            { x: '기술과학', y: 600000 },
+				            { x: '예술', y: 700000 },
+				            { x: '언어', y: 800000 },
+				            { x: '역사', y: 900000 },
+				            { x: '문학', y: 1000000 }
+			          ],
+			          borderColor: 'rgb(100, 100, 100, 0.8)',
+			          borderWidth: 1,
+			    	  
+			        }
+			    ],
+			    	options: {
+			    		maxBarThickness: 10,
+			    		grouped: true,
+			    		showLine: false,
+			    			    	
+			      		scales: {
+			       			 y: {
+			          			beginAtZero: true
+			        		}
+			      		}
+			    	},
+			    	
+			    	 plugins: {
+			    		    legend: { // 범례 스타일링
+			    		      labels: {
+			    		        usePointStyle: true,
+			    		        // 범례 도형 모양과 관련된 속성으로, false일 경우엔 기본 직사각형 도형으로 표시됩니다.
+			    		        padding: 10,
+			    		        // 범례 간 가로 간격을 조정할 수 있습니다. 범례의 상하 padding을 지정하는 기능은 따로 지원되지 않아요. ㅠㅠ
+			    		        font: { // 범례의 폰트 스타일도 지정할 수 있습니다.
+			    		          family: "'Noto Sans KR', 'serif'",
+			    		          lineHeight: 1,
+			    		        },
+			    		      }
+			    		    },
+			    		    tooltip: { // 툴팁 스타일링
+			    		    //  backgroundColor: 'rgba(124, 35, 35, 0.4)',
+			    		      // 툴팁 색상을 지정할 수 있습니다.
+			    		      padding: 10,
+			    		      // 툴팁 패딩을 지정할 수 있습니다.
+			    		      bodySpacing: 10,
+			    		      // 툴팁 내부의 항목들 간 간격을 조정할 수 있습니다.
+			    		      bodyFont: {
+			    		        font: { // 툴팁 내용의 폰트 스타일을 지정할 수 있습니다.
+			    		          family: "'Noto Sans KR', sans-serif",
+			    		        }
+			    		      },
+			    		      usePointStyle: true,
+			    		      // 범례 도형 모양과 마찬가지로 툴팁 내부에서도 도형의 모양을 지정할 수 있어요.
+			    		      //filter: (item) => item.parsed.y !== null,
+			    		      // 툴팁에 표시될 항목을 필터링할 수 있는데요,
+			    		      // 예를 들어 값이 null인 항목은 툴팁에 나타나지 않게 하려면
+			    		      // 위와 같이 설정해주시면 됩니다.
+			    		    },
+			    
+			    	 }
+			    }
+			    });
+			  
+		</script>
+           
+           
     </div>
 </div>
 
