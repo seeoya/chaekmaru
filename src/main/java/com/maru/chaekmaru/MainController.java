@@ -34,7 +34,7 @@ public class MainController {
 	public String index(HttpSession session, Model model) {
 		memberService.refreshPoint(session);
 
-		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem();
+		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem(9);
 		model.addAttribute("recommend", recommendBookDtos);
 
 		ArrayList<BookDto> bestBookDtos = bookService.bestItem(5);
