@@ -900,6 +900,40 @@ header .logo img {
     min-width: 600px;
 }
 
+.review-wrap .star-rate {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row-reverse;
+    position: relative;
+    width: 100%;
+    gap: 0;
+    font-size: 1.8rem;
+}
+
+.review-wrap .star-rate input[type="radio"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    font-size: 0;
+}
+
+.review-wrap .star-rate .rate, 
+.review-wrap .star-rate label {
+    color: var(--gray-color);
+}
+
+.review-wrap .star-rate .fa-star.on,
+.review-wrap .star-rate .fa-star.on ~ .fa-star,
+.review-wrap .star-rate input[type="radio"]:checked ~ label {
+    color: var(--highlight-light-color);
+}
+
+.review-wrap .star-rate label:hover,
+.review-wrap .star-rate label:hover ~ label {
+    color: #ffe4a1 !important;
+}
+
 .review-btn-wrap .btn {
     padding: 5px 10px;
 }
@@ -930,6 +964,10 @@ header .logo img {
 
 .review_date, .review_id_stars, .review_text {
     margin-bottom: 10px;
+}
+
+.review_id_stars {
+    display: flex;
 }
 
 #view .review_text {
@@ -1114,14 +1152,13 @@ header .logo img {
 }
 
 /* 전체 결제 */
-
 #payment .form {
     width: 100%;
     max-width: 100%;
     flex-direction: row;
 }
 
-#payment .form > div{
+#payment .form > div {
     width: 50%;
 }
 
@@ -1196,8 +1233,7 @@ header .logo img {
     margin: 5px 0;
 }
 
-.member-info input[type="text"],
-.member-info button {
+.member-info input[type="text"], .member-info button {
     padding: 8px;
     border-radius: 5px;
 }
@@ -1240,9 +1276,7 @@ header .logo img {
     width: 200px;
 }
 
-#payment .price-result,
-#payment .member-sale-price,
-#payment .delivery-price {
+#payment .price-result, #payment .member-sale-price, #payment .delivery-price {
     font-size: 1.8rem;
 }
 
@@ -1251,9 +1285,8 @@ header .logo img {
 }
 
 /* 찜 목록 */
-
 #member_pick .form {
-    max-width:1000px;
+    max-width: 1000px;
 }
 
 #member_pick .content-wrap {

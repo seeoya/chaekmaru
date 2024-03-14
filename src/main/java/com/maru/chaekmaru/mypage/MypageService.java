@@ -213,12 +213,12 @@ public class MypageService {
 
 	}
 
-	public int deleteAllMyCart(String m_id) {
+	public int deleteAllMyCart(String m_id, int b_no) {
 		log.info("deleteAllMyCart()");
 
 		int result = -1;
 
-		result = mypageDao.deleteAllMyCart(m_id);
+		result = mypageDao.deleteAllMyCart(m_id, b_no);
 
 		return result;
 

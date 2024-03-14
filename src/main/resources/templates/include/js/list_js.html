@@ -13,50 +13,7 @@
                 });
             }
 
-            document.querySelectorAll(".review-list button.submit").forEach((el) => {
-                el.addEventListener("click", function (e) {
-                    let form = e.target.closest("form");
-
-                    if (form.r_stars.value > 5 || form.r_stars.value < 1) {
-                        alert("1~5 사이의 별점을 선택해 주세요.");
-                        form.r_stars.value = 1;
-                        form.r_stars.focus();
-                    } else if (form.r_text.value == "") {
-                        alert("리뷰를 입력해 주세요.");
-                        form.r_text.focus();
-                    } else {
-                        httpRequest = new XMLHttpRequest();
-
-                        httpRequest.onreadystatechange = () => {
-                            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                                if (httpRequest.status === 200) {
-                                    let result = httpRequest.response;
-
-                                    document.getElementById("text").innerText = result;
-                                    alert(result);
-                                } else {
-                                    alert('Request Error!');
-                                }
-                            }
-                        };
-
-                        httpRequest.open('POST', '/ajax/write_confirm?c_no=1', true);
-
-                        // httpRequest.responseType = "json";
-                        // httpRequest.setRequestHeader('Content-Type', 'application/json');
-
-                        httpRequest.send();
-
-
-
-
-
-                        form.closest(".modify-wrap").previousElementSibling.previousElementSibling;
-
-                    }
-                });
-            });
-            document.querySelectorAll(".review-write button.submit").forEach((el) => {
+            document.querySelectorAll(".review-wrap button.submit").forEach((el) => {
                 el.addEventListener("click", function (e) {
                     let form = e.target.closest("form");
 
