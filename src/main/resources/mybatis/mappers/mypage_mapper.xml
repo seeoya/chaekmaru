@@ -5,7 +5,7 @@
 	<select id="getMyCartList"
 			parameterType="String"
 			resultType="com.maru.chaekmaru.mypage.MemberCartDto">
-			
+				<![CDATA[
 					SELECT * FROM 
 						TBL_MEMBER_CART MC 
 					JOIN 
@@ -20,7 +20,7 @@
 						MC.M_ID = #{m_id} 
 					ORDER BY 
 						MC.C_NO DESC
-				 		
+				 			]]>
 	</select>
 	
 	<update id="addBookCount"
@@ -67,7 +67,7 @@
 	</delete>
 	
 	<delete id="deleteMyCartByBNo"
-			parameterType="Object">
+			parameterType="map">
 		
 					DELETE FROM 
 						TBL_MEMBER_CART 
@@ -94,7 +94,7 @@
 					WHERE 
 						MC.M_ID = #{m_id} 
 					AND 
-						MC.C_NO = #{c_no}
+						MC.B_NO = #{b_no}
 
 	</select>
 	
@@ -463,5 +463,18 @@
 						B_NO = #{b_no}
 	
 	</update>
+	
+	
+	<select id="selectBookData"
+			parameterType="Integer"
+			resultType="com.maru.chaekmaru.mypage.MemberCartDto">
+					SELECT * FROM 
+						TBL_BOOK
+					WHERE 
+						b_no = #{b_no} 
+	</select>
+	
+	
+	
 	
 </mapper>
