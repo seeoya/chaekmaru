@@ -11,7 +11,17 @@
 
         <div>
             <div class="review_info">
-                <span class="review_id_stars">[[${review.m_id}]] | [[${review.r_stars}]]</span>
+                <span class="review_id_stars">
+                    <span>[[${review.m_id}]]</span>
+
+                    <span class="star-rate">
+                        <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 5 ? 'on' : ''}"></i>
+                        <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 4 ? 'on' : ''}"></i>
+                        <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 3 ? 'on' : ''}"></i>
+                        <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 2 ? 'on' : ''}"></i>
+                        <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 1 ? 'on' : ''}"></i>
+                    </span>
+                </span>
 
                 <span class="review_date" th:if="${review.r_reg_date == review.r_mod_date}">
                     등록일 : [[${#strings.substring(review.r_reg_date, 0, 16)}]]
@@ -32,8 +42,21 @@
                 <div class="modify-wrap" style="display: none;">
                     <form th:action="@{/review/modify_confirm(r_no=${review.r_no})}" name="review_modify_form" method="post" class="form">
                         <input type="hidden" name="b_no" th:value="${review.b_no}" />
+
+                        <div class="star-rate">
+                            <input type="radio" name="r_stars" id="r_modify_star_5" value="5" th:checked="${review.r_stars} == 5">
+                            <label for="r_modify_star_5"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" name="r_stars" id="r_modify_star_4" value="4" th:checked="${review.r_stars} == 4">
+                            <label for="r_modify_star_4"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" name="r_stars" id="r_modify_star_3" value="3" th:checked="${review.r_stars} == 3">
+                            <label for="r_modify_star_3"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" name="r_stars" id="r_modify_star_2" value="2" th:checked="${review.r_stars} == 2">
+                            <label for="r_modify_star_2"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" name="r_stars" id="r_modify_star_1" value="1" th:checked="${review.r_stars} == 1">
+                            <label for="r_modify_star_1"><i class="fa-solid fa-star"></i></label>
+                        </div>
+
                         <textarea name="r_text" cols="30" rows="10" placeholder="리뷰 내용을 작성해주세요.">[[${review.r_text}]]</textarea>
-                        <input type="number" name="r_stars" min="1" max="5" step="1" th:value="${review.r_stars}">
                         <button class="btn main submit" type="button">리뷰 수정</button>
                     </form>
                 </div>
@@ -45,7 +68,20 @@
 <div class="review-write" th:fragment="review-write">
     <form th:action="@{/review/write_confirm}" name="review_write_form" method="post" class="form">
         <input type="hidden" name="b_no" th:value="${item.b_no}" />
-        <input type="number" name="r_stars" min="1" max="5" step="1" value="1">
+
+        <div class="star-rate">
+            <input type="radio" name="r_stars" id="r_star_5" value="5">
+            <label for="r_star_5"><i class="fa-solid fa-star"></i></label>
+            <input type="radio" name="r_stars" id="r_star_4" value="4">
+            <label for="r_star_4"><i class="fa-solid fa-star"></i></label>
+            <input type="radio" name="r_stars" id="r_star_3" value="3">
+            <label for="r_star_3"><i class="fa-solid fa-star"></i></label>
+            <input type="radio" name="r_stars" id="r_star_2" value="2">
+            <label for="r_star_2"><i class="fa-solid fa-star"></i></label>
+            <input type="radio" name="r_stars" id="r_star_1" value="1">
+            <label for="r_star_1"><i class="fa-solid fa-star"></i></label>
+        </div>
+
         <textarea name="r_text" cols="30" rows="10" placeholder="리뷰 내용을 작성해주세요."></textarea>
         <button class="btn main submit review_write_btn" type="button">리뷰 등록</button>
     </form>
