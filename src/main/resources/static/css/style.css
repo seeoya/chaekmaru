@@ -912,6 +912,17 @@ header .logo img {
     min-width: 600px;
 }
 
+.review_info > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px
+}
+
+.review_info .fa-star {
+    font-size: 1.4rem;
+}
+
 .review-wrap .star-rate {
     display: flex;
     justify-content: start;
@@ -979,7 +990,6 @@ header .logo img {
     align-items: center;
     gap: 10px;
 }
-
 
 #view .review_text {
     font-size: 1.4rem;
@@ -1372,12 +1382,11 @@ header .logo img {
 }
 
 /* 내가 쓴 리뷰 */
-
 #my_review {
     width: 100%;
 }
 
-#my_review .review-wrap{
+#my_review .review-wrap {
     width: 100%;
     max-width: 1000px;
     min-width: 1000px;
@@ -1436,12 +1445,11 @@ header .logo img {
     margin-bottom: 10px;
 }
 
-#review-list .review_info > span{
+#review-list .review_info > span {
     margin-bottom: 0px;
 }
 
 /* 구매내역 */
-
 #my_buy_history img {
     max-width: 100px;
     min-width: 100px;
@@ -1463,8 +1471,6 @@ header .logo img {
     align-items: center;
     width: 100%;
 }
-
-
 
 /* 페이징 */
 .paging {
