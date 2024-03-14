@@ -106,6 +106,7 @@
 						SB_NO, 
 						B_NO, 
 						M_ID, 
+						SB_ORDER_NO, 
 						sb_book_count, 
 						SB_NAME, 
 						SB_ADDR_CODE, 
@@ -119,7 +120,7 @@
 						SB_REG_DATE, 
 						SB_MOD_DATE) 
 					VALUES(
-					(SELECT NVL(MAX(SB_NO), 0) + 1 FROM TBL_SALED_BOOK), #{saledBookDto.b_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
+					(SELECT NVL(MAX(SB_NO), 0) + 1 FROM TBL_SALED_BOOK), #{saledBookDto.b_no}, #{saledBookDto.sb_order_no}, #{m_id}, #{saledBookDto.sb_book_count}, #{saledBookDto.sb_name}, #{saledBookDto.sb_addr_code}, 
 					#{saledBookDto.sb_addr}, #{saledBookDto.sb_detail_addr}, #{saledBookDto.sb_memo}, SYSTIMESTAMP , #{saledBookDto.sb_all_price} , #{saledBookDto.sb_saled_price} , 1, SYSTIMESTAMP, SYSTIMESTAMP)
 					
 	</insert>
@@ -202,12 +203,14 @@
 	</insert>
 	
 	<delete id="deleteAllMyCart"
-			parameterType="Object">
+			parameterType="map">
 	
 			DELETE FROM 
 				TBL_MEMBER_CART 
 			WHERE 
 				M_ID = #{m_id}
+			AND 
+				B_NO = #{b_no}
 	
 	</delete>
 	

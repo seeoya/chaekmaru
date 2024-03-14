@@ -218,8 +218,10 @@ public class MypageController {
 		} else {
 			result = Config.ADD_CART_FAIL;
 		}
-		memberService.refreshPoint(session);
+		int point = memberService.refreshPoint(session);
 		model.addAttribute("result", result);
+		model.addAttribute("point", point);
+		
 		return "result";
 	}
 
@@ -227,7 +229,7 @@ public class MypageController {
 	 * 모두 결제 폼에서 결제하기 버튼 클릭
 	 */
 	@PostMapping("/all_payment_form_confirm")
-	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto) {
+	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto, @RequestParam("b_no") int b_no) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
 		MyPointListDto myPointListDto = new MyPointListDto();
@@ -243,7 +245,7 @@ public class MypageController {
 			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
 			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
 			if (result > 0) {
-				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id());
+				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id(), b_no);
 
 				if (result > 0) {
 					result = Config.DELETE_PAYMENT_CART_SUCCESS;
