@@ -13,6 +13,7 @@
     <h2 class="title">도서 재고 등록</h2>
         
     <div class="content">
+    	
      	 <form class="form" th:action="@{/admin/shop/modify_book_inventory_confirm}" name="modify_book_inventory_form" method="post">
      	   <div class="input-wrap">   
      	 	<span>도서 NO</span>
@@ -23,7 +24,8 @@
             <input type="text" name="b_isbn" th:value="${bookDto.b_isbn}" readonly>
             <span>도서 가격</span>
             <input type="text" name="b_price" th:value="${bookDto.b_price}" readonly>
-            <span>입출고 수량[입력방법: 입고 +10, 출고 -10]</span>
+            <span>입출고 수량[입력방법: 입고 10, 출고 -10]</span>
+            <p>[&nbsp;&nbsp; 현재 재고 수량 : [[${bookDto.b_count}]]&nbsp;&nbsp;]</p>
             <input type="text" name="b_count" th:value="${bookDto.b_count}">
           </div>
 	      <div class="btn-wrap">                  

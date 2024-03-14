@@ -9,12 +9,13 @@
    
 </head>
 
-<div id="example_copy" class="content-wrap" layout:fragment="content">
+<div class="content-wrap" layout:fragment="content">
     <h2 class="title">판매 상세 내역</h2>
         
     <div class="content">
+   	  <div class="table-wrap">
     	 
-     	 <table>
+     	 <table class="detail">
      	 	<tr>	
 	     	 	<td>판매 NO</td>
 	            <td th:text="${saledBookDto.sb_no}"></td>                 
@@ -53,7 +54,7 @@
 	     	</tr>
 			<tr>
 	     	 	<td>주문일</td>
-	            <td th:text="${saledBookDto.sb_sale_date}"></td>
+	            <td th:text="${#strings.substring(saledBookDto.sb_sale_date, 0, 16)}"></td>
 	        </tr>
 			<tr>    
 	            <td>주문금액</td>
@@ -74,18 +75,18 @@
 			</tr>
 			<tr>
 				<td>반품요청일</td>
-				<td th:text="${saledBookDto.sb_return_date}"></td>
+				<td th:text="${#strings.substring(saledBookDto.sb_return_date, 0, 16)}"></td>
 	        </tr>
 			<tr>
 	            <td>등록일</td>
-				<td th:text="${saledBookDto.sb_reg_date}"></td>
+				<td th:text="${#strings.substring(saledBookDto.sb_reg_date, 0, 16)}"></td>
 	        </tr>
 			<tr>
 			    <td>수정일</td>
-	        	<td th:text="${saledBookDto.sb_mod_date}"></td>    
+	        	<td th:text="${#strings.substring(saledBookDto.sb_mod_date, 0, 16)}"></td>    
 			</tr>
        </table>
-    	
+      	
     </div>
 </div>
 
