@@ -13,7 +13,7 @@
             });
 
             if (document.getElementById("main_banner")) {
-                var swiper = new Swiper("#main_banner", {
+               var swiper = new Swiper("#main_banner", {
                     loop: true,
                     navigation: {
                         nextEl: ".swiper-button-next",
@@ -25,7 +25,16 @@
                     },
                 });
             }
+            
+           
+            var swiper = new Swiper(".mySwiper", {
+              effect: "cards",
+              grabCursor: true,
+              loop: true
+            });
+        
         });
+       
 
         function spinnerStatus(status) {
             let spinner = document.getElementById("spinner");

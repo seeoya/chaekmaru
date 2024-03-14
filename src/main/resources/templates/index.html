@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: 메인</title>
@@ -11,7 +12,7 @@
             <!-- <h2 class="title">메인 배너</h2> -->
 
             <div class="item-wrap">
-                <div id="main_banner" class="swiper mySwiper">
+                <div id="main_banner" class="main-banner swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide"><img th:src="@{/img/banner/banner1.png}"></div>
                         <div class="swiper-slide"><img th:src="@{/img/banner/banner2.png}"></div>
@@ -27,8 +28,9 @@
         <div class="recommend">
             <h2 class="title">오늘의 발견</h2>
 
-            <div class="item-wrap list">
-                <div th:each="item: ${recommend}" class="item">
+            <div class="item-wrap list swiper mySwiper">
+            <div class="swiper-wrapper">            
+                <div th:each="item: ${recommend}" class="item swiper-slide">
                     <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
                         <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
 
@@ -39,6 +41,7 @@
                             <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
                         </div>
                     </a>
+                </div>
                 </div>
             </div>
         </div>
@@ -58,6 +61,27 @@
                 </div>
             </div>
         </div>
+	  
+	  <style>
+   
+    .swiper {
+      width: 240px;
+      height: 320px;
+    }
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+      background: #ddd;
+    }
+  </style>
+	  
+	  
 
         <div class="new">
             <h2 class="title">새로운 책</h2>
