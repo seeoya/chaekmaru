@@ -16,12 +16,11 @@
     
     	 <div class="admin-category-return">   
 		    	<nav>
-		    		 <a th:href="@{/admin/shop/return_book_list_form}" class="cate-link">반품요청 LIST</a>   	
-		    		 <a th:href="@{/admin/shop/return_book_history_list}" class="cate-link">반품이력 LIST</a>		    		 
+		    		 <a th:href="@{/admin/shop/return_book_list_form}" th:classappend="${active} == 'form' ? 'on'" >반품요청 LIST</a>   	
+		    		 <a th:href="@{/admin/shop/return_book_history_list}" th:classappend="${active} == 'list' ? 'on'">반품이력 LIST</a>		    		 
 		    	</nav>
     	     
           </div>
-        
     	<div class="table-wrap">
 	     	<table class="book-table">
 	    		<thead>

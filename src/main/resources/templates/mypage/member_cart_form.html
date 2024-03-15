@@ -1,51 +1,104 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 장바구니</title>
+	<title>책마루 :: 장바구니</title>
 
-    <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
+	<th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
 
 <div id="cart" class="content-wrap" layout:fragment="content">
 	<h2 class="title">내 장바구니</h2>
 
-    <div class="content">
-        <form class="form" th:action="@{redirect:/mypage/member_cart_form}" name="membercart_form" method="post">
+	<div class="content">
+		<form th:action="@{/mypage/payment_form}" name="membercart_form" method="post" class="form">
 
-			<div class="cart-wrap" th:each="memberCartDtos : ${memberCartDtos}">
-				
-				<div class="cart-result">
-					<div class="cart-book-img">
-						<a class="cart-link" th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
-							<span>
-								<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
-							</span>
-							<span class="cart-book-name-price">
-								<p th:text="${memberCartDtos.b_name}">도서 제목</p>
-								<p th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">책 가격</p>
-							</span>
-						</a>
-					</div>
-					<div class="cart-count-modify">
-						<input type="number" name="c_book_count" min="1" th:value="${memberCartDtos.c_book_count}" />
-						<button type="button" class="modify-count btn" onclick="bookCountSubmit();"
-							th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">수량 변경
-						</button>
-					</div>
-					<div class="cart-pay">
-						<p th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}"></p>
-						<a class="btn main pay-success" th:href="@{/mypage/payment_form(c_no=${memberCartDtos.c_no})}">결제하기</a>
-						<a class="btn sub cancle-xmark" th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i class="fa-solid fa-xmark"></i></a>
+			<div class="cart-wrap">
+
+				<div class="cart-item" th:each="memberCartDtos : ${memberCartDtos}">
+					<input type="hidden" th:id="${'b_no_' + memberCartDtos.b_no}" th:value="${memberCartDtos.b_no}">
+
+					<input type="checkbox" th:data-index="${memberCartDtos.b_no}" class="ck-box">
+
+					<div class="cart-result">
+						<div class="cart-book-img">
+							<a class="cart-link" th:href="@{/book/view/{b_no}(b_no=${memberCartDtos.b_no})}">
+								<span>
+									<img th:src="@{${memberCartDtos.b_thumbnail}}" alt="book_thumbnail" />
+								</span>
+								<span class="cart-book-name-price">
+									<p th:text="${memberCartDtos.b_name}">도서 제목</p>
+									<p
+										th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">
+										책 가격</p>
+								</span>
+							</a>
+						</div>
+
+						<div class="cart-count-modify">
+							<input type="number" min="1" th:id="${'c_book_count_' + memberCartDtos.b_no}"
+								th:value="${memberCartDtos.c_book_count}" />
+							<button type="button" class="modify-count btn" onclick="bookCountSubmit();"
+								th:data-link="@{/mypage/cart_modify_form(c_no=${memberCartDtos.c_no})}">
+								수량 변경
+							</button>
+						</div>
+
+						<div class="cart-pay">
+							<p
+								th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">
+							</p>
+
+							<button type="button"></button>
+
+							<a class="btn main pay-success"
+								th:href="@{/mypage/payment_form(b_no=${memberCartDtos.b_no})}">결제하기</a>
+							<a class="btn sub cancle-xmark"
+								th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i
+									class="fa-solid fa-xmark"></i></a>
+						</div>
 					</div>
 				</div>
+
 			</div>
+
 			<div class="all-pay-success">
-				<a class="btn main" th:href="@{/mypage/all_payment_form}">선택 결제하기</a>
-				<a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a>
-            </div>
-        </form>
-    </div>
+				<button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
+				<button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
+
+				<!-- <a class="btn main" th:href="@{/mypage/all_payment_form}">선택 결제하기</a> -->
+				<!-- <a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a> -->
+			</div>
+
+			<script>
+				function selectBuy() {
+					document.querySelectorAll(".ck-box").forEach(el => {
+						if (el.checked) {
+							let index = el.dataset.index;
+							document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+							document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+						}
+
+						document.membercart_form.submit();
+					})
+				}
+				
+				function allBuy() {
+					document.querySelectorAll(".ck-box").forEach(el => {
+						if (el) {
+							let index = el.dataset.index;
+							document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+							document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+						}
+
+						document.membercart_form.submit();
+					})
+				}
+
+			</script>
+		</form>
+	</div>
 </div>
 
 </html>

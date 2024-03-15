@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.member.MemberService;
 import com.maru.chaekmaru.mypage.MypageService;
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import oracle.jdbc.proxy.annotation.Post;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Log4j2
 @RestController
@@ -27,6 +31,10 @@ public class AjaxController {
 
 	@Autowired
 	ReviewService reviewService;
+
+	
+	@Autowired
+	MemberService memberService;
 	
 	@GetMapping("/test")
 	public String ajaxTest() {
@@ -73,7 +81,7 @@ public class AjaxController {
 
 		return text;
 	}
-	
+
 	@PostMapping("/write_confirm")
 	public String ajaxWriteConfirm(Model model, HttpSession session, ReviewDto reviewDto) {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
@@ -82,13 +90,62 @@ public class AjaxController {
 
 		int result = -1;
 		result = reviewService.writeConfirm(reviewDto);
-		
-		if(result > 0) {
-			return "리뷰 등록 완료";			
+
+		if (result > 0) {
+			return "리뷰 등록 완료";
 		} else {
 			return "리뷰 등록 실패";
 		}
 
+	}
+	
+	@PostMapping("/ismember")
+	public boolean isMember(@RequestParam("m_id") String m_id) {
+	
+		log.info(m_id);
+		
+		int result = memberService.isMember(m_id);
+		
+		if (result != 1) {
+			return true;
+		} else {
+		return false;
+		}
+	}
+	
+	@PostMapping("/member_modify_confirm")
+	public String memberModifyConfirm(@RequestBody MemberDto memberDto, HttpSession session, Model model) {
+		log.info("modify_confirm()");
+		
+		log.info(" ++++++++++++" + memberDto.getM_id());
+		
+		MemberDto loginedMemberDto = memberService.modifyConfirm(memberDto);
+
+		if (loginedMemberDto != null) {
+			session.setAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
+			model.addAttribute("result", Config.MEMBER_MODIFY_SUCCESS);
+			session.setMaxInactiveInterval(60 * 30);
+		} else {
+			model.addAttribute("result", Config.MEMBER_NOT_FOUND);	
+		}
+
+		return "result";
+	}
+	
+
+	@PostMapping("/attendance")
+	public String ajaxAttendance(HttpSession session, Model model) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = -1;
+
+		result = mypageService.attendence(loginedMemberDto.getM_id());
+
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
 	}
 
 }

@@ -4,6 +4,8 @@
 <th:block th:fragment="list_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
+
+            // 리스트 > 정렬
             if (document.getElementById("list_sort")) {
                 document.getElementById("list_sort").addEventListener("change", (e) => {
                     let sortSelect = document.getElementById("list_sort");
@@ -13,45 +15,59 @@
                 });
             }
 
-            document.querySelectorAll(".review-wrap button.submit").forEach((el) => {
-                el.addEventListener("click", function (e) {
-                    let form = e.target.closest("form");
+            // 리뷰 작성, 수정
+            if (document.getElementById(".review-wrap button.submit")) {
+                document.querySelectorAll(".review-wrap button.submit").forEach((el) => {
+                    el.addEventListener("click", function (e) {
+                        let form = e.target.closest("form");
 
-                    if (form.r_stars.value > 5 || form.r_stars.value < 1) {
-                        alert("1~5 사이의 별점을 선택해 주세요.");
-                        form.r_stars.value = 1;
-                        form.r_stars.focus();
-                    } else if (form.r_text.value == "") {
-                        alert("리뷰를 입력해 주세요.");
-                        form.r_text.focus();
-                    } else {
-                        form.submit();
-                    }
+                        if (form.r_stars.value > 5 || form.r_stars.value < 1) {
+                            alert("1~5 사이의 별점을 선택해 주세요.");
+                            form.r_stars.value = 1;
+                            form.r_stars.focus();
+                        } else if (form.r_text.value == "") {
+                            alert("리뷰를 입력해 주세요.");
+                            form.r_text.focus();
+                        } else {
+                            form.submit();
+                        }
+                    });
                 });
-            });
+            };
 
-            document.querySelectorAll(".modify-review").forEach(el => {
-                el.addEventListener("click", function (e) {
+            // 리뷰 수정창 on/off
+            if (document.getElementById(".modify-review")) {
+                document.querySelectorAll(".modify-review").forEach(el => {
+                    el.addEventListener("click", function (e) {
 
-                    let modifyWrap = this.parentElement.nextSibling.nextSibling;
+                        let modifyWrap = this.parentElement.nextSibling.nextSibling;
 
-                    if (modifyWrap.style.display == "none") {
-                        modifyWrap.style.display = "flex";
-                    } else {
-                        modifyWrap.style.display = "none";
-                    }
-                })
-            });
-
-            function updateTotal() {
-                let count = document.getElementById("cart_count").value;
-                let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
-                let totalPrice = count * price;
-                document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+                        if (modifyWrap.style.display == "none") {
+                            modifyWrap.style.display = "flex";
+                        } else {
+                            modifyWrap.style.display = "none";
+                        }
+                    })
+                });
             }
 
-            updateTotal();
+            // 뷰 number 수정 시 보이는 금액 변경
+            if (document.getElementById("cart_count")) {
+                updateTotal();
+
+                document.getElementById("cart_count").addEventListener("input", function () {
+                    updateTotal();
+                })
+            }
+
         });
+
+        function updateTotal() {
+            let count = document.getElementById("cart_count").value;
+            let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
+            let totalPrice = count * price;
+            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+        }
     </script>
 </th:block>
 

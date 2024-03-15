@@ -64,8 +64,8 @@
         </nav>
 
         <nav>
-            <a th:href="@{/}" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">출석체크</a>
-            <div th:href="@{/}" id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
+            <a th:href="@{/mypage/attendance_list}" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">출석체크</a>
+            <div id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
                 <p>[[${session[loginedMemberInfo].m_id}]]님</p>
 
                 <div class="usermenu-list">
