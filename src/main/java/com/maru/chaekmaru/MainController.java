@@ -37,10 +37,10 @@ public class MainController {
 		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem(9);
 		model.addAttribute("recommend", recommendBookDtos);
 
-		ArrayList<BookDto> bestBookDtos = bookService.bestItem(5);
+		ArrayList<BookDto> bestBookDtos = bookService.bestItem(10);
 		model.addAttribute("best", bestBookDtos);
 
-		ArrayList<BookDto> newBookDtos = bookService.newItem(5);
+		ArrayList<BookDto> newBookDtos = bookService.newItem(10);
 		model.addAttribute("news", newBookDtos);
 
 		return "index";
