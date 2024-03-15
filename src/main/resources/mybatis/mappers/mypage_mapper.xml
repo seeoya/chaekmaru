@@ -210,7 +210,7 @@
 			WHERE 
 				M_ID = #{m_id}
 			AND 
-				B_NO = #{b_no}
+				B_NO = #{selectBook}
 	
 	</delete>
 	
@@ -241,17 +241,15 @@
 						SB.SB_NO DESC
 	</select>
 
-    <update id="nowBooks"
+    <update id="remainBooks"
 			parameterType="map">
 			
-					<![CDATA[
 					UPDATE  
 						TBL_BOOK 
 					SET 
-						B_COUNT = ${b_count - sb_book_count} 
+						B_COUNT = ${remainBooks} 
 					WHERE 
 						B_NO = #{b_no}
-					]]>
 					
 	</update>
 	
@@ -474,7 +472,25 @@
 						b_no = #{b_no} 
 	</select>
 	
+	<delete id="removeCartByBNo"
+			parameterType="map">
+		
+					DELETE FROM 
+						TBL_MEMBER_CART 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+		
+	</delete>
 	
-	
-	
+	<insert id="removePointByBuyBooks"
+			parameterType="map">
+			
+			INSERT INTO 
+				TBL_POINT_LIST 
+			VALUES(#{m_id}, #{myPointListDto.pl_payment_book_point}, #{myPointListDto.pl_desc}, SYSTIMESTAMP)
+			
+	</insert>
+
 </mapper>

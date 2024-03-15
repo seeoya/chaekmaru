@@ -12,8 +12,8 @@
 
     <div class="content">
         <form th:action="@{/member/login_confirm}" name="login_form" method="post" class="form member">
-            <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
-            <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요.">
+            <input type="text" name="m_id" placeholder="아이디를 입력해 주세요." value="chanho">
+            <input type="password" name="m_pw" placeholder="비밀번호를 입력해 주세요." value="1234567!">
             <button type="button" onclick="loginForm()" id="submit_btn" class="btn main">로그인</button>
         </form>
         <div class="login_link_wrap">

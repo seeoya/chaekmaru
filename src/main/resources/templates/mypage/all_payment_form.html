@@ -33,9 +33,10 @@
                         </a>
                         <input type="hidden" name="b_no" th:value="${buyBooksData.b_no}" />
                     </div>
-                    
-                    <input type="hidden" name="b_no" th:value="${buyBooksData.b_no}" />
+                    <input type="hidden" th:data-index="${buyBooksData.b_no}" class="ck-box">
+                    <input type="hidden" th:id="${'b_no_' + buyBooksData.b_no}" th:value="${buyBooksData.b_no}" >
                     <input type="hidden" name="sb_book_count" th:value="${buyBooksData.c_book_count}" class="sb-count" />
+                    <input type="hidden" name="c_book_count" th:value="${buyBooksData.c_book_count}" th:id="${'c_book_count_' + buyBooksData.b_no}" class="sb-count" />
                     <input type="hidden" name="b_count" th:value="${buyBooksData.b_count}" class="b-count" />
                 </div>
             </div>
@@ -101,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
 </div>

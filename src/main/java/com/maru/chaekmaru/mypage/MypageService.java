@@ -157,37 +157,41 @@ public class MypageService {
 		return ((int) discount / 10) * 10;
 	}
 
-	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, int b_no) {
+	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas) {
 		log.info("allPaymentMyCartList()");
 
-		List<MemberCartDto> memberCartDtos = mypageDao.getMyCartList(m_id);
 		int result = -1;
-		int maxOrderNo = 0;
+		int orderNo = 1;
+		
+		MyPointListDto myPointListDto = new MyPointListDto();
+		
 		int sbOrderNoCount = mypageDao.sbOrderNoCount(m_id);
-		log.info("saledBookDto.getB_no" + saledBookDto.getB_no()); // 단 하나의 b_no 출력
 		if (sbOrderNoCount == 0) {
-			maxOrderNo = 1;
-			saledBookDto.setSb_order_no(maxOrderNo);
-			saledBookDto.setB_no(memberCartDtos.get(0).getB_no());
-			saledBookDto.setSb_book_count(memberCartDtos.get(0).getC_book_count());
-			saledBookDto.setB_name(memberCartDtos.get(0).getB_name());
-			saledBookDto.setSb_all_price(memberCartDtos.get(0).getB_price() * memberCartDtos.get(0).getC_book_count());
-			mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
+			saledBookDto.setSb_order_no(orderNo);
 		} else {
-			maxOrderNo = mypageDao.selectMaxSbOrderNo(m_id) + 1;
-			for (int i = 0; i < memberCartDtos.size(); i++) {
-				saledBookDto.setSb_order_no(maxOrderNo);
-				saledBookDto.setB_no(memberCartDtos.get(i).getB_no());
-				saledBookDto.setSb_book_count(memberCartDtos.get(i).getC_book_count());
-				saledBookDto.setB_name(memberCartDtos.get(i).getB_name());
-				saledBookDto
-						.setSb_all_price(memberCartDtos.get(i).getB_price() * memberCartDtos.get(i).getC_book_count());
-				mypageDao.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
-				mypageDao.deleteMyCartByBNo(m_id, memberCartDtos.get(i).getB_no());
+			orderNo = mypageDao.selectMaxSbOrderNo(m_id) + 1;
+		}
+		for (int i = 0; i < buyBooksDatas.size(); i++) {
+			saledBookDto.setSb_order_no(orderNo);
+			saledBookDto.setB_no(buyBooksDatas.get(i).getB_no());
+			saledBookDto.setSb_book_count(buyBooksDatas.get(i).getC_book_count());
+			saledBookDto.setB_name(buyBooksDatas.get(i).getB_name());
+			saledBookDto.setSb_all_price(buyBooksDatas.get(i).getB_price() * buyBooksDatas.get(i).getC_book_count());
+			int remainBooks = buyBooksDatas.get(i).getB_count() - buyBooksDatas.get(i).getC_book_count();
+			int isOrderde = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
+			if (isOrderde > 0) {
+				int minusBookCount = mypageDao.remainBooks(buyBooksDatas.get(i).getB_no(), remainBooks);
+				if (minusBookCount > 0) {
+					int removeCart = mypageDao.removeCartByBNo(m_id, buyBooksDatas.get(i).getB_no());
+					if (removeCart > 0) {
+						myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price() * -1);
+						myPointListDto.setPl_desc("도서 " + buyBooksDatas.get(i).getC_book_count() + "권 구매");
+						mypageDao.removePointByBuyBooks(m_id, myPointListDto);
+					}
+				}
 			}
 		}
-
-		result = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
+		
 
 		// if 이 주문서가 장바구니에서 왔고, 내 장바구니에 b_no = 1 있으면 지워
 
@@ -198,12 +202,6 @@ public class MypageService {
 
 		ArrayList<MemberCartDto> buyBooksData = new ArrayList<>();
 
-//		MemberCartDto temp = mypageDao.selectBookData(buyBooks.get(0).getB_no());
-
-//		buyBooksData.add(temp);
-
-//		log.info("--------------------" + buyBooks.size());
-		
 		MemberCartDto temp = new MemberCartDto();
 
 		for (int i = 0; i < buyBooks.size(); i++) {
@@ -238,12 +236,15 @@ public class MypageService {
 
 	}
 
-	public int deleteAllMyCart(String m_id, int b_no) {
+	public int deleteAllMyCart(String m_id, ArrayList<MemberCartDto> buyBooksDatas) {
 		log.info("deleteAllMyCart()");
 
-		int result = -1;
-
-		result = mypageDao.deleteAllMyCart(m_id, b_no);
+		int result = 0;
+		
+		for (int i = 0; i < buyBooksDatas.size(); i++) {
+			int selectBook = buyBooksDatas.get(i).getB_no();
+			mypageDao.deleteAllMyCart(m_id, selectBook);
+		}
 
 		return result;
 
@@ -270,11 +271,11 @@ public class MypageService {
 
 	}
 
-	public void nowBooks(int sb_book_count, int b_count, int b_no) {
-		log.info("nowBooks");
-
-		mypageDao.nowBooks(sb_book_count, b_count, b_no);
-	}
+//	public void nowBooks(int sb_book_count, int b_count, int b_no) {
+//		log.info("nowBooks");
+//
+//		mypageDao.nowBooks(sb_book_count, b_count, b_no);
+//	}
 
 	public int currentPoint(HttpSession session) {
 		int point = -1;

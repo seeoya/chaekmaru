@@ -24,10 +24,10 @@ public interface IMypageDaoForMybatis {
 	public int addMyCart(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int selectBookCount(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int allPaymentMyCartList(@Param("m_id") String m_id, @Param("saledBookDto") SaledBookDto saledBookDto);
-	public int deleteAllMyCart(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public int deleteAllMyCart(@Param("m_id") String m_id, @Param("selectBook") int selectBook);
 	public BookDto selectBook(@Param("b_no") int b_no);
 	public List<SaledBookDto> getPaymentList(String m_id);
-    public void nowBooks(@Param("sb_book_count") int sb_book_count, @Param("b_count") int b_count, @Param("b_no") int b_no);
+//    public void nowBooks(@Param("sb_book_count") int sb_book_count, @Param("b_count") int b_count, @Param("b_no") int b_no);
 	public List<MemberPickDto> myPickList(String m_id);
 	public ArrayList<MyPointListDto> selectMyPointList(String m_id);
 	public int selectBookCountBySbNo(@Param("sb_no") int sb_no);
@@ -45,4 +45,7 @@ public interface IMypageDaoForMybatis {
 	public List<MemberCartDto> getBookDetail(int b_no);
 	public int saledStateUpdateThree(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
 	public MemberCartDto selectBookData(@Param("b_no") int b_no);
+	public int remainBooks(@Param("b_no") int b_no, @Param("remainBooks") int remainBooks);
+	public int removeCartByBNo(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public void removePointByBuyBooks(@Param("m_id") String m_id, @Param("myPointListDto") MyPointListDto myPointListDto);
 }
