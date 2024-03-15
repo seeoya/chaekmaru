@@ -18,6 +18,10 @@
                 <div class="info">
                     <div class="book_info">
                         <div class="name ellipsis">[[${item.b_name}]]</div>
+                        <div class="star ellipsis">
+                            <i class="fa-solid fa-star"></i>
+                            <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
+                        </div>
                         <div class="author ellipsis">[[${item.b_author}]]</div>
                         <div class="publisher ellipsis">
                             [[${item.b_publisher}]] /
@@ -74,4 +78,5 @@
         </div>
     </div>
 </div>
+
 </html>

@@ -45,7 +45,10 @@
                             <div class="introduce">[[${item.b_introduce}]]</div>
                             <div class="publisher ellipsis">[[${item.b_publisher}]] /
                                 [[${item.b_publish_date}]]</div>
-                            <div class="star ellipsis">[[${item.r_avg}]]([[${item.r_count}]])</div>
+                            <div class="star ellipsis">
+                                <i class="fa-solid fa-star"></i>
+                                <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
+                            </div>
                         </div>
                     </a>
                 </div>

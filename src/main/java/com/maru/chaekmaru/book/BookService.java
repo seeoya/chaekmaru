@@ -15,13 +15,12 @@ public class BookService {
 	@Autowired
 	IBookDao bookDao;
 
-	public ArrayList<BookDto> recommendItem() {
-		int randomNo = (int) (Math.random() * 5000) + 1;
-		int randomNo2 = (int) (Math.random() * 5000) + 1;
+	public ArrayList<BookDto> recommendItem(int count) {
 
 		ArrayList<BookDto> recommendBookDtos = new ArrayList<>();
-		recommendBookDtos.add(bookDao.selectBook(randomNo));
-		recommendBookDtos.add(bookDao.selectBook(randomNo2));
+		for (int i = 0; i < count; i++) {
+			recommendBookDtos.add(bookDao.selectBook((int) (Math.random() * 5000) + 1));
+		}
 
 		if (recommendBookDtos.size() > 0) {
 			return recommendBookDtos;
@@ -62,8 +61,8 @@ public class BookService {
 
 		bookDtos = bookDao.setList(search, filterSql, sortSql, startNum, endNum);
 
-		if(bookDtos.size() > 0) {
-			return bookDtos;			
+		if (bookDtos.size() > 0) {
+			return bookDtos;
 		} else {
 			return null;
 		}
