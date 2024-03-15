@@ -211,8 +211,9 @@ public class AdminShopController {
 		String nextPage = "admin/shop/return_book_list_form";
 		
 		List<SaledBookDto> returnBookDtos = adminShopService.returnBookListForm();
-		
+
 		model.addAttribute("returnBookDtos", returnBookDtos);
+		model.addAttribute("active", "form");
 		
 		return nextPage;		
 		
@@ -228,8 +229,9 @@ public class AdminShopController {
 			String nextPage = "admin/shop/return_book_list_form";
 			
 			List<SaledBookDto> returnBookDtos = adminShopService.returnBookHistoryList();
-			
+
 			model.addAttribute("returnBookDtos", returnBookDtos);
+			model.addAttribute("active", "list");
 			
 			return nextPage;		
 			
