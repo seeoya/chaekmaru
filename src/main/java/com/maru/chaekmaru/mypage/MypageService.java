@@ -1,6 +1,9 @@
 package com.maru.chaekmaru.mypage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,7 +206,7 @@ public class MypageService {
 //		buyBooksData.add(temp);
 
 //		log.info("--------------------" + buyBooks.size());
-		
+
 		MemberCartDto temp = new MemberCartDto();
 
 		for (int i = 0; i < buyBooks.size(); i++) {
@@ -393,4 +396,79 @@ public class MypageService {
 		return result;
 	}
 
+	public ArrayList<AttendenceDto> getAttendenceList(String m_id) {
+
+		ArrayList<AttendenceDto> attendenceDtos = mypageDao.selectAttendenceList(m_id);
+
+		int listSize = attendenceDtos.size();
+
+		int startNum = (listSize / 10) * 10;
+
+		// 오늘 출석했고, 리스트 사이즈가 10의 배수일 때 (한판 꽉 채웠을 때)
+		if (checkTodayAttend(m_id) && listSize % 10 == 0) {
+			startNum = ((listSize / 10) - 1) * 10;
+		}
+
+		if (listSize > startNum && listSize > 0) {
+			attendenceDtos = new ArrayList<>(attendenceDtos.subList(startNum, listSize));
+
+			for (int i = 0; i < attendenceDtos.size(); i++) {
+				attendenceDtos.get(i).setAc_reg_date(attendenceDtos.get(i).getAc_reg_date().substring(0, 10));
+			}
+
+		} else {
+			attendenceDtos = new ArrayList<>();
+		}
+
+		int leftNum = 10 - attendenceDtos.size();
+
+		if (leftNum > 0) {
+			for (int i = 0; i < leftNum; i++) {
+				attendenceDtos.add(new AttendenceDto(""));
+			}
+		}
+
+		return attendenceDtos;
+	}
+
+	public int attendence(String m_id) {
+
+		int result = -1;
+
+		int acc = mypageDao.selectAccAttendence(m_id) + 1;
+
+		result = mypageDao.insertAttendence(m_id, acc);
+
+		return result;
+	}
+
+	public boolean checkTodayAttend(String m_id) {
+		ArrayList<AttendenceDto> attendenceDtos = mypageDao.selectAttendenceList(m_id);
+		int listSize = attendenceDtos.size();
+
+		String lastAttend = "";
+		String today = "";
+
+		if (listSize > 0 && attendenceDtos.get(listSize - 1).getAc_reg_date() != null && today != null) {
+			lastAttend = attendenceDtos.get(listSize - 1).getAc_reg_date().substring(0, 10);
+			today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+			if (today.equals(lastAttend)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public int attendenceAcc(String m_id) {
+		ArrayList<AttendenceDto> attendenceDtos = mypageDao.selectAttendenceList(m_id);
+		int listSize = attendenceDtos.size();
+
+		if (listSize > 0) {
+			return attendenceDtos.get(listSize - 1).getAc_attend_date();
+		}
+
+		return 0;
+	}
 }

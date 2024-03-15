@@ -45,4 +45,7 @@ public interface IMypageDaoForMybatis {
 	public List<MemberCartDto> getBookDetail(int b_no);
 	public int saledStateUpdateThree(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
 	public MemberCartDto selectBookData(@Param("b_no") int b_no);
+	public ArrayList<AttendenceDto> selectAttendenceList(String m_id);
+	public int insertAttendence(@Param("m_id") String m_id, @Param("acc") int acc);
+	public int selectAccAttendence(String m_id);
 }

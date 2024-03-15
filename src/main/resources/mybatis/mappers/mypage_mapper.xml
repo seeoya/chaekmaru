@@ -474,7 +474,34 @@
 						b_no = #{b_no} 
 	</select>
 	
+	<select id="selectAttendenceList"
+		parameterType="String"
+		resultType="com.maru.chaekmaru.mypage.AttendenceDto">
+			SELECT * FROM 
+				TBL_ATTEND_CHECK
+			WHERE 
+				m_id = #{m_id}
+				
+			ORDER BY AC_ATTEND_DATE ASC
+	</select>
 	
+	
+	<insert id="insertAttendence"
+			parameterType="map">
+	
+	INSERT INTO TBL_ATTEND_CHECK VALUES(#{m_id}, #{acc}, SYSTIMESTAMP)
+	
+	</insert>
+	
+		<select id="selectAccAttendence"
+		parameterType="String"
+		resultType="Integer">
+			SELECT NVL(MAX(AC_ATTEND_DATE), 0) FROM 
+				TBL_ATTEND_CHECK
+			WHERE 
+				m_id = #{m_id}
+			ORDER BY AC_ATTEND_DATE DESC
+	</select>
 	
 	
 </mapper>

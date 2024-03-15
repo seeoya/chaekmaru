@@ -36,7 +36,10 @@
         }
 
         function test2() {
-            var httpRequest = new XMLHttpRequest();
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/addCart", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
 
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
@@ -60,27 +63,9 @@
 
             spinnerStatus("on");
 
-            httpRequest.open("POST", "/ajax/addCart", true);
-            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            httpRequest.send("b_no=117");
-
-
-
+            httpRequest.send({ b_no: 117 });
         }
 
-        function test3() {
-            var httpRequest = new XMLHttpRequest();
-
-            httpRequest.onreadystatechange = function () {
-                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                    console.log(httpRequest.responseText);
-                }
-            };
-
-            httpRequest.open("POST", "/ajax/deleteCart", true);
-            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            httpRequest.send("c_no=10");
-        }
 
 
         /*]]>*/

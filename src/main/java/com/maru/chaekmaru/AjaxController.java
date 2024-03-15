@@ -16,6 +16,7 @@ import com.maru.chaekmaru.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Log4j2
 @RestController
@@ -27,7 +28,7 @@ public class AjaxController {
 
 	@Autowired
 	ReviewService reviewService;
-	
+
 	@GetMapping("/test")
 	public String ajaxTest() {
 		log.info("11111");
@@ -73,7 +74,7 @@ public class AjaxController {
 
 		return text;
 	}
-	
+
 	@PostMapping("/write_confirm")
 	public String ajaxWriteConfirm(Model model, HttpSession session, ReviewDto reviewDto) {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
@@ -82,13 +83,28 @@ public class AjaxController {
 
 		int result = -1;
 		result = reviewService.writeConfirm(reviewDto);
-		
-		if(result > 0) {
-			return "리뷰 등록 완료";			
+
+		if (result > 0) {
+			return "리뷰 등록 완료";
 		} else {
 			return "리뷰 등록 실패";
 		}
 
+	}
+
+	@PostMapping("/attendance")
+	public String ajaxAttendance(HttpSession session, Model model) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = -1;
+
+		result = mypageService.attendence(loginedMemberDto.getM_id());
+
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
 	}
 
 }
