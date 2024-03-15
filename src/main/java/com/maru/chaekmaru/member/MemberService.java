@@ -44,6 +44,13 @@ public class MemberService {
 			return Config.ID_ALREADY_EXIST;
 		}
 	}
+	
+	public int isMember(String m_id) {
+		log.info("--isMember--");
+		log.info(m_id);
+		
+		return memberDao.isMember(m_id);
+	}
 
 	/*
 	 * public MemberDto loginConfirm(MemberDto memberDto) {
