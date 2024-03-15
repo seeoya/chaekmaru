@@ -50,10 +50,8 @@
 								th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">
 							</p>
 
-							<button type="button"></button>
+							<button type="button" class="btn main" th:onclick="|oneBuy(${memberCartDtos.b_no})|">결제하기</button>
 
-							<a class="btn main pay-success"
-								th:href="@{/mypage/payment_form(b_no=${memberCartDtos.b_no})}">결제하기</a>
 							<a class="btn sub cancle-xmark"
 								th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i
 									class="fa-solid fa-xmark"></i></a>
@@ -66,9 +64,6 @@
 			<div class="all-pay-success">
 				<button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
 				<button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
-
-				<!-- <a class="btn main" th:href="@{/mypage/all_payment_form}">선택 결제하기</a> -->
-				<!-- <a class="btn highlight" th:href="@{/mypage/all_payment_form}">모두 결제하기</a> -->
 			</div>
 
 			<script>
@@ -95,6 +90,15 @@
 						document.membercart_form.submit();
 					})
 				}
+
+				function oneBuy(b_no) {
+					let index = b_no;
+					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+
+					document.membercart_form.submit();
+				}
+				
 
 			</script>
 		</form>

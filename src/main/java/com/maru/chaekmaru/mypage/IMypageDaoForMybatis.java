@@ -48,4 +48,7 @@ public interface IMypageDaoForMybatis {
 	public int remainBooks(@Param("b_no") int b_no, @Param("remainBooks") int remainBooks);
 	public int removeCartByBNo(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public void removePointByBuyBooks(@Param("m_id") String m_id, @Param("myPointListDto") MyPointListDto myPointListDto);
+	public List<SaledBookDto> getOrderNo(String m_id);
+	public ArrayList<SaledBookDto> getPaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
+	
 }

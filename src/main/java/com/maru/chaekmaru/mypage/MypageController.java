@@ -1,7 +1,11 @@
 package com.maru.chaekmaru.mypage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -216,13 +220,13 @@ public class MypageController {
 	 * 모두 결제 폼에서 결제하기 버튼 클릭
 	 */
 	@PostMapping("/all_payment_form_confirm")
-	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto, 
+	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto,
 			@RequestParam("b_no") ArrayList<Integer> b_nos,
 			@RequestParam("c_book_count") ArrayList<Integer> c_book_counts) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
 		MyPointListDto myPointListDto = new MyPointListDto();
-		
+
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		ArrayList<MemberCartDto> buyBooks = new ArrayList<>();
 		for (int i = 0; i < b_nos.size(); i++) {
@@ -256,7 +260,7 @@ public class MypageController {
 		memberService.refreshPoint(session);
 //		model.addAttribute("result", result);
 //		return "result";
-		return "/mypage/member_cart_form";
+		return "redirect:/mypage/member_cart_form";
 	}
 
 	/*
@@ -268,9 +272,14 @@ public class MypageController {
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		List<SaledBookDto> saledBookDtos = mypageService.getPaymentList(loginedMemberDto.getM_id());
+		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = mypageService.getMyPaymentList(loginedMemberDto.getM_id());
 
-		model.addAttribute("saledBookDtos", saledBookDtos);
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		// 키 값으로 내림차순 정렬
+		Collections.reverse(keySet);
+
+		model.addAttribute("list", list);
 
 		return "mypage/payment_list_form";
 	}

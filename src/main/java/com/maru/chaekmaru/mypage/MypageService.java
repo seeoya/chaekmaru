@@ -1,6 +1,9 @@
 package com.maru.chaekmaru.mypage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +184,8 @@ public class MypageService {
 			int isOrderde = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
 			if (isOrderde > 0) {
 				int minusBookCount = mypageDao.remainBooks(buyBooksDatas.get(i).getB_no(), remainBooks);
+				
+				
 				if (minusBookCount > 0) {
 					int removeCart = mypageDao.removeCartByBNo(m_id, buyBooksDatas.get(i).getB_no());
 					if (removeCart > 0) {
@@ -394,4 +399,26 @@ public class MypageService {
 		return result;
 	}
 
+	public List<SaledBookDto> getOrderNo(String m_id) {
+		
+		return mypageDao.getOrderNo(m_id);
+	}
+
+	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyPaymentList(String m_id) {
+		
+		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = new LinkedHashMap<>();
+		
+		List<SaledBookDto> orderNos =  getOrderNo(m_id);
+		
+		for (int i = 0; i < orderNos.size(); i++) {
+			int o_no = orderNos.get(i).getSb_order_no();
+			
+			ArrayList<SaledBookDto> sBookDtos = mypageDao.getPaymentListByONo(m_id, o_no);
+			
+			list.put(o_no, sBookDtos);
+		}
+		
+		return list;
+	}
+	
 }
