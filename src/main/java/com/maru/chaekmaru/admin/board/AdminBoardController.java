@@ -31,7 +31,7 @@ public class AdminBoardController {
 		model.addAttribute("salesdaily", salesdaily);
 		model.addAttribute("salesCateDaily", salesCateDaily);
 		
-		String nextPage = "/admin/book/admin_board_form";
+		String nextPage = "admin/index";
 		
 		return nextPage;		
 		

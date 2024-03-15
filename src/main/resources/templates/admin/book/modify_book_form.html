@@ -23,7 +23,7 @@
 	            <span>도서 저자</span>          
 	            <input type="text" name="b_author" th:value="${bookDto.b_author}">
 	            <span>도서 소개</span>
-	            <textarea name="b_introduce" th:value="${bookDto.b_introduce}" rows="5" cols="50" ></textarea>     
+	            <textarea name="b_introduce" rows="5" cols="50" >[[${bookDto.b_introduce}]]</textarea>     
 	            <span>출판사명</span>
 	            <input type="text" name="b_publisher" th:value="${bookDto.b_publisher}">
 	            <span>출판일</span>

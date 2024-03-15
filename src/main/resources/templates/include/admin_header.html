@@ -17,8 +17,9 @@
 	        	<a th:href="@{/}" class="sub-link">CHAEKMARU HOME</a>
 	            <a th:href="@{/admin}" class="sub-link">관리자 홈</a>
 	            <a th:href="@{/admin/member/modify_account_form}">관리자 정보수정</a>
-	            <a th:href="@{/admin/member/logout_confirm}">관리자 로그아웃</a> 
+				<a th:href="@{/admin/member/logout_confirm}">관리자 로그아웃</a>             
 	        </nav>
+	       
 	    </div>    
 	 </div>
 	       
@@ -29,12 +30,13 @@
             </div>
            
             <div th:unless="${session.loginedAdminMemberDto == null}">
-		        <nav>   
-		            <a th:href="@{/admin/member/admin_list_form}" class="cate-link">관리자 LIST</a>     
+		         <nav>     
+		            <a th:href="@{/admin/member/admin_list_form}" class="cate-link" th:if="${session.loginedAdminMemberDto.a_grade == 2}">관리자 LIST</a>                  	
+	        		        	 
 		            <a th:href="@{/admin/book/regist_book_form}" class="cate-link">BOOK 등록</a>
 		            <a th:href="@{/admin/book/book_list_form}" class="cate-link">BOOK LIST</a>
 		            <a th:href="@{/admin/shop/point_list_form}" class="cate-link">POINT LIST</a>           
-		            <a th:href="@{/admin/shop/user_account_active_form}" class="cate-link">회원계정관리</a>           
+		            <a th:href="@{/admin/shop/user_account_active_form}" class="cate-link">회원계정관리</a>		            
 		            <a th:href="@{/admin/shop/sale_management_form}" class="cate-link">판매 관리</a>           
 		            <a th:href="@{/admin/shop/q_n_a_form}" class="cate-link">Q&A 관리</a>           
 		         </nav>

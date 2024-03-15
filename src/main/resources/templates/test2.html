@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: {페이지 이름}</title>
+</head>
+
+<div id="test" class="content-wrap" layout:fragment="content">
+    <h2 class="title">테스트</h2>
+
+    <div class="content">
+        <button type="button" onclick="test1()" class="btn main">get 테스트1</button>
+        <button type="button" onclick="test2()" class="btn sub">post 테스트2</button>
+
+        <button type="button" onclick="test3()" class="btn sub">테스트3</button>
+        <button type="button" onclick="test2()" class="btn sub">테스트4</button>
+
+        <div id="text"></div>
+    </div>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function test1() {
+            var httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    console.log(httpRequest.responseText);
+                }
+            };
+
+            httpRequest.open("GET", "/ajax/test", true);
+            httpRequest.send();
+        }
+
+        function test2() {
+            var httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    // 성공했을 때
+                    // alert(httpRequest.responseText);
+                    // alert('통신 성공');
+
+                    spinnerStatus("off");
+                    document.getElementById("text").innerHTML = "<p>성공했어요</p>";
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            httpRequest.open("POST", "/ajax/addCart", true);
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            httpRequest.send("b_no=117");
+
+
+
+        }
+
+        function test3() {
+            var httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    console.log(httpRequest.responseText);
+                }
+            };
+
+            httpRequest.open("POST", "/ajax/deleteCart", true);
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            httpRequest.send("c_no=10");
+        }
+
+
+        /*]]>*/
+    </script>
+</div>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: 구매내역</title>
@@ -16,7 +17,7 @@
             <div class="buy-item" th:each="items : ${saledBookDtos}">
 
                 <div>
-                    <p th:text="${items.sb_no}"></p>
+                    <p th:text="${items.sb_order_no}"></p>
                     <a th:href="@{/book/view/{b_no}(b_no=${items.b_no})}">
                         <img th:src="${items.b_thumbnail}" alt="book_thumbnail" />
                     </a>
@@ -37,16 +38,18 @@
                         [[${items.sb_all_price}]] 포인트
                     </p>
                     <th:block th:switch="${items.sb_state}">
-					    <div th:case="0">주문 취소</div>
-					    <div th:case="1">
-						    <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${items.sb_no}, b_no=${items.b_no})}">주문 취소</a>
-	                    	<a th:href="@{/mypage/return_payment_confirm(sb_no=${items.sb_no}, b_no=${items.b_no})}">반품 신청</a>
-	                    </div>
-					    <div th:case="2">배송 완료</div>
-					    <div th:case="3">반품 처리 중</div>
-					    <div th:case="4">반품 완료</div>
-					</th:block>
-                    
+                        <div th:case="0">주문 취소</div>
+                        <div th:case="1">
+                            <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${items.sb_no}, b_no=${items.b_no})}">주문
+                                취소</a>
+                            <a th:href="@{/mypage/return_payment_confirm(sb_no=${items.sb_no}, b_no=${items.b_no})}">반품
+                                신청</a>
+                        </div>
+                        <div th:case="2">배송 완료</div>
+                        <div th:case="3">반품 처리 중</div>
+                        <div th:case="4">반품 완료</div>
+                    </th:block>
+
                 </div>
 
             </div>

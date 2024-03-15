@@ -6,6 +6,7 @@
  	    
     <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
     <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    <th:block th:replace="~{include/js/list_js.html::list_js}"></th:block>
      <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
@@ -21,7 +22,7 @@
                  	<select name="sort" id="list_sort" class="select" >	                   
 	                    <option value="" >검색조건</option>
 	                    <option value="isbn">ISBN</option>
-	                     <option value="name">도서명</option>
+	                     <option value="name" selected>도서명</option>
 	                    <option value="author">저자명</option>	                 
 	                </select>
                     <input type="search" name="search" th:value="${search}" th:data-link="@{/admin/book/list(search=${search})}" class="input" placeholder="검색어를 입력하세요.">
@@ -34,28 +35,28 @@
 	     	<table class="book-table">
 	    		<thead>
 		   			<tr>
-	    				<th style="width: 50px;">도서 NO</th>
-	    				<th style="width: 200px;">썸네일</th>
-	    				<th style="width: 150px;">도서 이름</th>
+	    				<th style="width: 55px;">도서 NO</th>
+	    				<th style="width: 100px;">썸네일</th>
+	    				<th style="width: 180px;">도서 이름</th>
 	    				<th style="width: 120px;">도서 저자</th>
 	    				<th style="width: 170px;">도서 소개</th>    				
 	    				<th style="width: 100px;">출판사명</th>
-	    				<th>출판일</th>
+	    				<th style="width: 80px;">출판일</th>
 	    				<th style="width: 60px;">분류기호</th>
 	    				<th style="width: 100px;">ISBN</th>
 	    				<th style="width: 70px;">도서 가격</th>    						
 	    				<th style="width: 50px;">재고</th>
-	    				<th style="width: 120px;">등록일</th>
-	    				<th style="width: 120px;">수정일</th>    			
-	    				<th style="width: 50px;">수정</th>
-	    				<th style="width: 50px;">삭제</th>	    					   			
+	    				<th style="width: 85px;">등록일</th>
+	    				<th style="width: 85px;">수정일</th>    			
+	    				<th style="width: 50px;" th:if="${session.loginedAdminMemberDto.a_grade != 0}">수정</th>
+	    				<th style="width: 50px;" th:if="${session.loginedAdminMemberDto.a_grade == 2}">삭제</th>	    					   			
 	    			</tr>   	
     			</thead>
     			<tbody>
     				<tr class="table-tr" th:each="list : ${items}" >
 	    				<td th:text="${list.b_no}"></td>
-	    				<td th:text="${#strings.substring(list.b_thumbnail, 34)}"></td>
-	    				<td th:text="${list.b_name}"></td>
+	    				<td th:text="${list.b_thumbnail}"></td>
+	    				<td><a th:href="@{/book/view/{b_no}(b_no=${list.b_no})}">[[${list.b_name}]]</a></td>	    				 
 	    				<td th:text="${list.b_author}"></td>
 	    				<td th:text="${#strings.substring(list.b_introduce, 0, 20)}"></td>
 	    				<td th:text="${list.b_publisher}"></td>
@@ -64,8 +65,8 @@
 	    				<td th:text="${list.b_isbn}"></td>
 	    				<td th:text="${list.b_price}"></td>
 	    				<td th:text="${list.b_count}"></td>
-	    				<td th:text="${#strings.substring(list.b_reg_date, 0, 19)}"></td>
-	    				<td th:text="${#strings.substring(list.b_mod_date, 0, 19)}"></td>    					 
+	    				<td th:text="${#strings.substring(list.b_reg_date, 0, 11)}"></td>
+	    				<td th:text="${#strings.substring(list.b_mod_date, 0, 11)}"></td>    					 
 	    				<td th:if="${session.loginedAdminMemberDto.a_grade != 0}">
 	    				<a th:href="@{/admin/book/modify_book_form(b_no=${list.b_no})}">수정</a></td>
 	    				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">
