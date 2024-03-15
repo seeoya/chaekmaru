@@ -44,9 +44,14 @@
     				<td th:text="${#strings.substring(list.a_mod_date, 0, 19)}"></td>
     				<td th:text="${list.a_grade}"></td>
     				   				 
-    				<td>
+    				<td th:if="${list.a_id == 'super admin'} ">
+    				<a href="#none"></a></td>
+    				<td th:unless="${list.a_id == 'super admin'} ">
     				<a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
-    				<td>    				    				    			
+    				
+    				<td th:if="${list.a_id == 'super admin'} ">
+    				<a href="#none"></a></td>
+    				<td th:unless="${list.a_id == 'super admin'} ">    				    				    			
     				<a href="#none" th:onclick="deleteAdminConfirm([[${list.a_no}]])">삭제</a></td>    				    			
     			  
     			</tr>

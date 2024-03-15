@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maru.chaekmaru.admin.qna.IQNADao">
+
+	<select id="selectSbNos" parameterType="String"
+		resultType="com.maru.chaekmaru.admin.qna.QNADto">
+		SELECT * FROM TBL_SALED_BOOK WHERE M_ID = #{m_id}
+	</select>
+	
+	<select id="selectQNA" parameterType="Integer"
+		resultType="com.maru.chaekmaru.admin.qna.QNADto">
+		SELECT * FROM TBL_QNA WHERE Q_NO = #{q_no}
+	</select>
+	
+	
+	<insert id="insertQ"
+		parameterType="com.maru.chaekmaru.admin.qna.QNADto">
+		INSERT INTO TBL_QNA 
+		(Q_NO, M_ID, SB_NO, Q_TEXT, Q_REG_DATE, Q_MOD_DATE) 
+		VALUES(QNA_SEQ.NEXTVAL,#{m_id}, #{sb_no},
+		#{q_text}, SYSTIMESTAMP, SYSTIMESTAMP)
+	</insert>
+	
+	<update id="updateA"
+		parameterType="com.maru.chaekmaru.admin.qna.QNADto">
+		UPDATE TBL_QNA 
+		SET A_TEXT=#{a_text}, A_REG_DATE=SYSTIMESTAMP, A_MOD_DATE=SYSTIMESTAMP 
+		WHERE Q_NO=#{q_no}   
+	
+	</update>
+	
+
+	<update id="modifyQNA"
+		parameterType="com.maru.chaekmaru.admin.qna.QNADto">
+		UPDATE TBL_REVIEW SET R_TEXT = #{r_text}, R_STARS =
+		#{r_stars}, R_MOD_DATE =
+		SYSTIMESTAMP WHERE R_NO = #{r_no}
+	</update>
+
+	<delete id="deleteQNA" parameterType="Integer">
+		DELETE TBL_REVIEW WHERE R_NO = #{r_no}
+	</delete>
+	
+	<select id="selectMyQNAs" parameterType="String"
+	    resultType="com.maru.chaekmaru.admin.qna.QNADto">
+       SELECT * FROM TBL_REVIEW R JOIN TBL_BOOK B ON R.B_NO = B.B_NO WHERE M_ID = #{m_id}
+	</select>
+</mapper>
