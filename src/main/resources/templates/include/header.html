@@ -5,7 +5,8 @@
     <div class="member-menu">
         <div class="header-wrap">
             <nav>
-                <a th:href="@{/admin/shop/qNA}" class="sub-link">문의게시판</a>
+            	
+                <a th:href="@{/admin/qna}" class="sub-link" >고객문의</a>
 
                 <th:block th:if="${session.loginedMemberInfo != null}">
                     <th:block th:replace="~{::logined_nav_sub_link}"></th:block>

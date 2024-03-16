@@ -10,7 +10,7 @@ public class QNADto {
 	private String q_reg_date;
 	private String q_mod_date;
 		
-	private String q_a_text;		
+	private String q_a_text;	
 	private String q_a_reg_date;
 	private String q_a_mod_date;
 	

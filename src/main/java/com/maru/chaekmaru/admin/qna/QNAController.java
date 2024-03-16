@@ -1,5 +1,7 @@
 package com.maru.chaekmaru.admin.qna;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,24 +18,33 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-@RequestMapping("/qNA")
+@RequestMapping("/admin/qna")
 public class QNAController {
 
 	@Autowired
 	QNAService qNAService;
 
-	@GetMapping("/get_sb_no")
-	public String getSbNo(Model model, HttpSession session) {
-
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-
-		//		nextPage = "redirect:/qNA" + q_no;
-		int result = -1;
+	@GetMapping({"/", ""})
+	public String qNAForm(HttpSession session, Model model) {
+		log.info("qNAForm()");
+			
+			String nextPage = "admin/shop/qna";
 		
-		result = qNAService.getSbNo(loginedMemberDto.getM_id());
+		//	MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		model.addAttribute("result", result);
-		return "result";
+		//	ArrayList<QNADto> qnas =  qNAService.setMyQNAs(loginedMemberDto.getM_id());
+			ArrayList<QNADto> qnas =  qNAService.setMyQNAs("gildong2");
+			//		nextPage = "redirect:/qNA" + q_no;
+						
+		//	ArrayList<QNADto> sbnos = qNAService.getSbData(loginedMemberDto.getM_id());
+			ArrayList<QNADto> sbnos = qNAService.getSbData("gildong2");
+
+			model.addAttribute("sbnos", sbnos);
+			model.addAttribute("qnas", qnas);
+			
+			return nextPage;
+			
+	
 	}
 	
 	

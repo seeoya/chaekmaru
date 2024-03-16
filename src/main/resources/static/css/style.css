@@ -1829,3 +1829,124 @@ footer .join_footer {
     }
 
 }
+
+/* Q & A */
+
+#qna-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#qna_list .content-wrap {
+    width: 100%;
+}
+
+#qna_list .qna-item {
+      
+    max-width: 1000px;
+    min-width: 1000px;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+
+#qna_list .my-qna-id {
+    display: flex;
+}
+
+
+#qna-list .qna_text {
+    background: #fff;
+    border-radius: 10px;
+    width: 900px;
+    padding: 10px;
+}
+
+#qna-list .qna_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#qna-list .qna_info > span {
+    margin-bottom: 5px;
+}
+
+.qna-write .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    min-width: 600px;
+    gap: 10px;
+    align-items: end;
+}
+
+.qna-wrap {
+    max-width: 600px;
+    min-width: 600px;
+}
+
+.qna_info > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px
+}
+
+
+.qna-wrap {
+    color: #ffe4a1 !important;
+}
+
+.qna-btn-wrap .btn {
+    padding: 5px 10px;
+}
+
+.qna-desk {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.6rem;
+}
+
+.qna-write textarea {
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.qna_write_btn {
+    width: 20%;
+}
+
+#qna_list .content-wrap .content .qna_table table thead tr th {
+	border: 1px solid #e1e1e1;
+	padding: 10px 3px;
+	text-align: center;
+	}
+	
+#qna_list .content-wrap .content .qna_table tr td a {
+	color: #478fdb;
+    text-decoration: none;
+    margin: 0 60px;    
+    font-size: 1.0em;
+    font-weight: bold;   
+}
+
+#qna_list .content-wrap .content .qna_table tr td a:hover {
+    text-decoration: underline;
+}
+
+#qna_list .content-wrap .content .qna_table table tbody tr:nth-child(2n-1) {
+	background-color: #f3f3f3;
+}
+
+#qna_list .content-wrap .content .qna_table table tbody tr td {
+	border: 1px solid #e1e1e1;
+	padding: 10px 3px;
+	text-align: center;
+	}
+	

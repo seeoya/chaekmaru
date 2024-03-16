@@ -4,9 +4,16 @@
 
 <mapper namespace="com.maru.chaekmaru.admin.qna.IQNADao">
 
-	<select id="selectSbNos" parameterType="String"
+	<select id="selectMyQNAs" parameterType="String"
+	    resultType="com.maru.chaekmaru.admin.qna.QNADto">
+       SELECT * FROM TBL_QNA WHERE M_ID = #{m_id}
+	</select>
+	
+	<select id="selectSbData" parameterType="String"
 		resultType="com.maru.chaekmaru.admin.qna.QNADto">
-		SELECT * FROM TBL_SALED_BOOK WHERE M_ID = #{m_id}
+		SELECT S.SB_NO, S.SB_SALE_DATE FROM TBL_QNA Q JOIN TBL_SALED_BOOK S ON Q.M_ID = S.M_ID 
+		WHERE S.M_ID = #{m_id} 
+		ORDER BY S.SB_SALE_DATE DESC  
 	</select>
 	
 	<select id="selectQNA" parameterType="Integer"
@@ -43,8 +50,5 @@
 		DELETE TBL_REVIEW WHERE R_NO = #{r_no}
 	</delete>
 	
-	<select id="selectMyQNAs" parameterType="String"
-	    resultType="com.maru.chaekmaru.admin.qna.QNADto">
-       SELECT * FROM TBL_REVIEW R JOIN TBL_BOOK B ON R.B_NO = B.B_NO WHERE M_ID = #{m_id}
-	</select>
+	
 </mapper>

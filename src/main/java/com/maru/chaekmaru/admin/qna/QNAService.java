@@ -13,10 +13,16 @@ public class QNAService {
 	@Autowired
 	IQNADao qNADao;
 
-		
-	public int getSbNo(String m_id) {
 	
-		return qNADao.selectSbNos(m_id);
+
+	public ArrayList<QNADto> setMyQNAs(String m_id) {
+		return qNADao.selectMyQNAs(m_id);
+	}
+
+		
+	public ArrayList<QNADto> getSbData(String m_id) {
+	
+		return qNADao.selectSbData(m_id);
 		
 	}
 	
@@ -74,11 +80,6 @@ public class QNAService {
 			return Config.REVIEW_DELETE_FAIL;
 		}
 	}
-
-	public ArrayList<QNADto> setMyQNAs(String m_id) {
-		return qNADao.selectMyQNAs(m_id);
-	}
-
 
 	
 }
