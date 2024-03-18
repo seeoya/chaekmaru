@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: 메인</title>
@@ -7,38 +8,28 @@
 
 <div id="index" class="content-wrap" layout:fragment="content">
     <div class="content">
-        <div class="banner">
-            <!-- <h2 class="title">메인 배너</h2> -->
 
-            <div class="item-wrap">
-                <div id="main_banner" class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner1.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner2.png}"></div>
-                        <div class="swiper-slide"><img th:src="@{/img/banner/banner3.png}"></div>
-                    </div>
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
 
         <div class="recommend">
-            <h2 class="title">오늘의 발견</h2>
+            <h2 class="title today-title">오늘의 발견</h2>
 
-            <div class="item-wrap list">
-                <div th:each="item: ${recommend}" class="item">
+            <div id="today_banner" class="item-wrap list swiper mySwiper">
+            <div class="swiper-wrapper">            
+                <div th:each="item: ${recommend}" class="item swiper-slide">
                     <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
-                        <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
-
-                        <div class="info">
-                            <div class="name ellipsis">[[${item.b_name}]]</div>
-                            <div class="author ellipsis">[[${item.b_author}]]</div>
-                            <div class="introduce">[[${item.b_introduce}]]</div>
-                            <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
-                        </div>
+                        <div class="today-book-info">
+                            <div class="book-img">
+                                <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
+                            </div>
+                            <div class="book-info">
+                                <div class="name ellipsis">[[${item.b_name}]]</div>
+                                <div class="author ellipsis">[[${item.b_author}]]</div>
+                                <div class="introduce">[[${item.b_introduce}]]</div>
+                                <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
+                            </div>
+                        </div>                                
                     </a>
+                </div>
                 </div>
             </div>
         </div>
@@ -61,6 +52,22 @@
                 </div>
             </div>
         </div>
+        
+        <div class="banner-main">
+            <!-- <h2 class="title">메인 배너</h2> -->
+
+            <div class="item-wrap">
+                <div id="main_banner" class="main-banner swiper mySwiper">
+                    <div class="swiper-wrapper banner">
+                        <div class="swiper-slide"><img th:src="@{/img/banner/addBanner1.png}"></div>
+                        <div class="swiper-slide"><img th:src="@{/img/banner/addBanner2.png}"></div>
+                        <div class="swiper-slide"><img th:src="@{/img/banner/addBanner3.png}"></div>
+                        <div class="swiper-slide"><img th:src="@{/img/banner/addBanner4.png}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="new">
             <h2 class="title">새로운 책</h2>

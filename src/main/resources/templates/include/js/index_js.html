@@ -13,19 +13,28 @@
             });
 
             if (document.getElementById("main_banner")) {
-                var swiper = new Swiper("#main_banner", {
-                    loop: true,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        dynamicBullets: true,
-                    },
-                });
+            	var swiper = new Swiper("#main_banner", {
+            	    loop: true,
+            	    autoplay: {
+            	        delay: 3500,
+            	        disableOnInteraction: false,
+            	    },
+            	});
             }
+            
+           
+            var swiper = new Swiper("#today_banner", {
+              effect: "cards",
+              grabCursor: true,
+              loop: true,
+              autoplay: {
+                  delay: 4000,
+                  disableOnInteraction: false,
+                },
+            });
+        
         });
+       
 
         function spinnerStatus(status) {
             let spinner = document.getElementById("spinner");

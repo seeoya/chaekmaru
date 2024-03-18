@@ -43,10 +43,6 @@
     right: 15px;
 }
 
-.form .input-wrap #icon_m_id {
-    right: 105px;
-}
-
 .form .input-wrap .input-message {
     display: none;
     margin-top: 3px;
@@ -56,7 +52,7 @@
 }
 
 .form .input-wrap > div input {
-    width: 80%;
+    width: 100%;
 }
 
 .form .input-wrap .btn {
@@ -452,16 +448,20 @@ header .logo img {
     object-fit: cover;
 }
 
+#index #main_banner {
+    text-align: center;
+}
+
 #index .banner .item-wrap {
     position: relative;
 }
 
-#index .banner .swiper {
+#index #main_banner .banner .swiper {
     width: 100%;
     height: 100%;
 }
 
-#index .banner .swiper-slide {
+#index #main_banner .banner .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -470,40 +470,100 @@ header .logo img {
     align-items: center;
 }
 
-#index .banner .swiper-pagination-bullet {
+#index #main_banner .banner .swiper-pagination-bullet {
     border-radius: 0;
 }
 
-#index .banner .swiper-pagination-bullet-active-main {
+#index #main_banner .banner .swiper-pagination-bullet-active-main {
     width: 20px;
     height: 20px;
     background-color: var(--highlight-color);
 }
 
-#index .banner .swiper-pagination-bullet-active-prev, #index .banner .swiper-pagination-bullet-active-next {
+#index #main_banner .banner .swiper-pagination-bullet-active-prev, #index .banner .swiper-pagination-bullet-active-next {
     width: 15px;
     height: 15px;
 }
 
-#index .banner .swiper-pagination-bullet-active-prev-prev, #index .banner .swiper-pagination-bullet-active-next-next {
+#index #main_banner .banner .swiper-pagination-bullet-active-prev-prev, #index .banner .swiper-pagination-bullet-active-next-next {
     width: 10px;
     height: 10px;
 }
 
-#index .banner .swiper-pagination .swiper-pagination-bullets {
+#index #main_banner .banner .swiper-pagination .swiper-pagination-bullets {
     width: 125px;
 }
 
-#index .banner .swiper-button-next, #index .banner .swiper-button-prev {
+#index #main_banner .banner .swiper-button-next, #index .banner .swiper-button-prev {
     color: var(--highlight-color);
+    
 }
 
-#index .banner .swiper-slide img {
+#index #main_banner .banner .swiper-slide img {
     display: block;
     width: 100%;
-    height: 500px;
+    height: 200px;
     object-fit: contain;
 }
+
+/* 오늘의 발견 */
+
+#index .today-title {
+    margin-bottom: 10px;
+}
+
+#today_banner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    background: #dadada;
+    padding: 30px 20px;
+    border: 1px solid #dadada;
+}
+
+#today_banner .swiper-slide.swiper-slide-next,
+#today_banner .swiper-slide.swiper-slide-prev {
+    background-color: #fff;
+}
+
+#today_banner .swiper-slide.swiper-slide-active {
+    background-color: #fff;
+}
+
+#today_banner .book-img {
+    max-width: 150px;
+    min-width: 150px;
+}
+
+#today_banner .book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 750px;
+    min-width: 750px;
+    margin-top: 15px;
+    color: #000;
+}
+
+#today_banner .today-book-info {
+    display: flex;
+    gap: 20px;
+}
+
+#today_banner img {
+    max-width: 150px;
+    min-width: 150px;
+    max-height: 200px;
+    min-height: 200px;
+    object-fit: contain;
+}
+
+
+
+
 
 #index .recommend .item {
     width: 50%;
@@ -1312,6 +1372,7 @@ header .logo img {
 }
 
 /* 찜 목록 */
+
 #member_pick .form {
     max-width: 1000px;
 }
@@ -1324,14 +1385,13 @@ header .logo img {
 
 /* 찜 목록 래퍼 */
 #member_pick .pick-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3열로 나누기 */
+    gap: 20px; /* 각 항목 사이의 간격 */
 }
 
 /* 각 찜 목록 아이템 */
 #member_pick .pick-list {
-    width: 30%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -1373,8 +1433,10 @@ header .logo img {
 
 /* 도서 썸네일 */
 #member_pick .pick-list img {
-    max-width: 100%;
-    height: auto;
+    max-width: 130px;
+    min-width: 130px;
+    max-height: 200px;
+    min-height: 200px;
 }
 
 /* 도서 제목 */
@@ -1476,6 +1538,96 @@ header .logo img {
     display: flex;
     align-items: center;
     width: 100%;
+}
+
+#attendance_list .attendance-wrap {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    font-size: 5rem;
+    color: #fff;
+    gap: 10px;
+}
+
+#attendance_list .attendance-wrap .stamp-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    background-color: #f9f9f9;
+    border: 5px dotted #ddd;
+    gap: 5px;
+}
+
+#attendance_list .attendance-wrap .stamp-wrap.on {
+    border: 5px solid transparent;
+}
+
+#attendance_list .attendance-wrap .stamp-wrap .date {
+    font-size: 1.4rem;
+}
+
+#attendance_list .attendance-wrap .stamp-wrap > * {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#attendance_list .attendance-wrap .stamp-wrap.on > * {
+    display: flex;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(1) {
+    background-color: #709964;
+    border-color: #485c42;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(2) {
+    background-color: #8d5b6d;
+    border-color: #513a42;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(3) {
+    background-color: #918b4c;
+    border-color: #615e3a;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(4) {
+    background-color: #9b865f;
+    border-color: #625744;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(5) {
+    background-color: #533f28;
+    border-color: #32281c;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(6) {
+    background-color: #659593;
+    border-color: #485f5e;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(7) {
+    background-color: #d7ce66;
+    border-color: #8d8853;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(8) {
+    background-color: #89bf8e;
+    border-color: #627864;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(9) {
+    background-color: #7782a7;
+    border-color: #595f70;
+}
+
+#attendance_list .stamp-wrap.on:nth-child(10) {
+    background-color: #ab92bb;
+    border-color: #73687a;
 }
 
 /* 페이징 */

@@ -47,6 +47,10 @@
                         document.getElementsByName("m_id")[0].focus();
                         return false;
                         break;
+                    case 5:
+                        alert("중복된 아이디입니다.");
+                        document.getElementsByName("m_id")[0].focus();
+                        return false;
                 }
 
                 // 비밀번호 검증: 최소 8자 이상 및 특수문자 1개 이상 포함
@@ -133,7 +137,11 @@
             }
 
             // 유효한 경우 폼 제출
+            if (type == "modify") {
+            	memberModifyConfirm();
+            } else if (type == "create") {
             document.create_account_form.submit();
+            }
         }
 
         /* 전화번호에 숫자만 들어올 수 있게 */
@@ -183,10 +191,14 @@
                     break;
             }
 
-            if (result == 1) {
-                hideMessage(inputEl);
+            if (inputName == "m_id") {
+                idMessage(result);
             } else {
-                showMessage(inputEl);
+                if (result == 1) {
+                    hideMessage(inputEl);
+                } else {
+                    showMessage(inputEl);
+                }
             }
         }
 
@@ -215,6 +227,40 @@
                 messageEl.style.display = "none";
             }
         }
+
+        function idMessage(result) {
+            let messageEl = document.getElementById("message_m_id");
+            let messageSameEl = document.getElementById("message_same_m_id");
+            let iconEl = document.getElementById("icon_m_id");
+
+
+            if (messageEl && messageSameEl && iconEl) {
+                if (result == 1) {
+                    messageEl.style.color = "var(--main-light-color)";
+                    messageSameEl.style.color = "var(--main-light-color)";
+                    iconEl.style.color = "var(--main-light-color)";
+
+                    iconEl.innerHTML = "<i class='fa-solid fa-circle-check'></i>";
+                    messageEl.style.display = "none";
+                    messageSameEl.style.display = "none";
+                } else if (result != 5) {
+                    messageEl.style.color = "#ff0000";
+                    iconEl.style.color = "#ff0000";
+
+                    iconEl.innerHTML = "<i class='fa-solid fa-circle-xmark'></i>";
+                    messageSameEl.style.display = "none";
+                    messageEl.style.display = "block";
+                } else {
+                    messageSameEl.style.color = "#ff0000";
+                    iconEl.style.color = "#ff0000";
+
+                    iconEl.innerHTML = "<i class='fa-solid fa-circle-xmark'></i>";
+                    messageEl.style.display = "none";
+                    messageSameEl.style.display = "block";
+                }
+            }
+        }
+
 
 
 
@@ -309,7 +355,6 @@
 
         function idCheck() {
             let id = document.getElementsByName("m_id")[0].value;
-
             // 아이디 검증: 영어 소문자와 숫자로만 구성되어야 함
 
             if (id.trim() === "") {
@@ -323,6 +368,13 @@
             let idRegex = /^[a-z0-9]+$/;
             if (!idRegex.test(id)) {
                 return 3;
+            }
+
+            let result = isMember();
+            console.log("++++" + result);
+            if (result === "false") {
+
+                return 5;
             }
 
             return 1;
@@ -453,6 +505,80 @@
                 },
             }).open();
         }
+
+        function isMember() {
+            var httpRequest = new XMLHttpRequest();
+            let result = "";
+
+            httpRequest.open("POST", "/ajax/ismember", false);
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    // 성공했을 때
+                    /* alert(httpRequest.responseText); */
+                    // alert('통신 성공');
+
+                    result = httpRequest.responseText;
+                    console.log(result);
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            let m_id = document.getElementsByName("m_id")[0].value;
+
+            httpRequest.send("m_id=" + m_id);
+
+            return result;
+        }
+        
+        function memberModifyConfirm() {
+            let httpRequest = new XMLHttpRequest();
+            
+            let form = document.modify_form;
+            let memberData = {
+                m_id : form.m_id.value,
+                m_name : form.m_name.value,
+                m_mail: form.m_mail.value,
+                m_phone: form.m_phone.value,
+                m_addr_code: form.m_addr_code.value,
+                m_addr: form.m_addr.value,
+                m_detail_addr: form.m_detail_addr.value
+            };
+            
+            
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    // 성공했을 때
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+            
+            spinnerStatus("on");
+            
+            httpRequest.open("POST", "/ajax/member_modify_confirm", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify(memberData));
+            alert("정보 수정 완료이 성공적으로 완료됐습니다.");
+        }
+
     </script>
 </th:block>
 

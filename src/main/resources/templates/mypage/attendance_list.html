@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>책마루 :: 출석체크</title>
+
+    <th:block th:replace="~{include/js/attendance_js.html::attendance_js}"></th:block>
+
+</head>
+
+<div id="attendance_list" class="content-wrap" layout:fragment="content">
+    <h2 class="title">출석체크</h2>
+
+    <div class="content">
+
+        <th:block th:if="${todayAttend} == 'false'">
+            <button type="button" id="attendance">출석체크</button>
+        </th:block>
+
+        <div>
+            [[${session[loginedMemberInfo].m_id}]] 님 누적 [[${acc}]]일 출석
+        </div>
+
+        <div>
+            <p>매일 출석 시 200P 지급</p>
+            <p>누적 10일 출석 시 3000P 추가 지급</p>
+        </div>
+
+        <div class="attendance-wrap">
+            <div class="stamp-wrap" th:classappend="${items[0].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-dove"></i>
+                <span class="date">[[${items[0].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[1].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-dog"></i>
+                <span class="date">[[${items[1].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[2].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-cat"></i>
+                <span class="date">[[${items[2].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[3].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-frog"></i>
+                <span class="date">[[${items[3].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[4].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-otter"></i>
+                <span class="date">[[${items[4].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[5].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-fish-fins"></i>
+                <span class="date">[[${items[5].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[6].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-horse"></i>
+                <span class="date">[[${items[6].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[7].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-crow"></i>
+                <span class="date">[[${items[7].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[8].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-hippo"></i>
+                <span class="date">[[${items[8].ac_reg_date}]]</span>
+            </div>
+            <div class="stamp-wrap" th:classappend="${items[9].ac_reg_date} != '' ? 'on'">
+                <i class="fa-solid fa-gift"></i>
+                <span class="date">[[${items[9].ac_reg_date}]]</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+</div>
+
+</html>

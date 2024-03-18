@@ -414,4 +414,34 @@ public class MypageController {
 		model.addAttribute("result", result);
 		return "result";
 	}
+
+	@GetMapping("/attendance_list")
+	public String attendanceList(HttpSession session, Model model) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		ArrayList<AttendenceDto> attendenceDtos = mypageService.getAttendenceList(loginedMemberDto.getM_id());
+		int acc = mypageService.attendenceAcc(loginedMemberDto.getM_id());
+
+		boolean todayAttend = mypageService.checkTodayAttend(loginedMemberDto.getM_id());
+
+		log.info("acc" + acc);
+		log.info("todayatt" + todayAttend);
+
+		model.addAttribute("items", attendenceDtos);
+		model.addAttribute("acc", acc);
+		model.addAttribute("todayAttend", todayAttend);
+
+		return "/mypage/attendance_list";
+	}
+
+	@GetMapping("/attendance")
+	public String attendance(HttpSession session, Model model) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = -1;
+
+		result = mypageService.attendence(loginedMemberDto.getM_id());
+		
+		return "redirect:/mypage/attendance_list";
+	}
 }

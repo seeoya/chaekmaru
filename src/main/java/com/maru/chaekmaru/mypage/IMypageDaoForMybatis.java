@@ -51,4 +51,7 @@ public interface IMypageDaoForMybatis {
 	public List<SaledBookDto> getOrderNo(String m_id);
 	public ArrayList<SaledBookDto> getPaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
 	
+	public ArrayList<AttendenceDto> selectAttendenceList(String m_id);
+	public int insertAttendence(@Param("m_id") String m_id, @Param("acc") int acc);
+	public int selectAccAttendence(String m_id);
 }
