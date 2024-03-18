@@ -2,6 +2,7 @@ package com.maru.chaekmaru;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -145,6 +146,34 @@ public class AjaxController {
 			return "true";
 		} else if(result == Config.ADD_PICK_DUPPLICATE) {
 			return "duple";
+		} else {
+			return "false";
+		}
+	}
+	
+	@PostMapping("/delete_member_pick")
+	public String deleteMyPick(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = mypageService.deleteMyPick(loginedMemberDto.getM_id(), b_no);
+		
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+	
+	@PostMapping("/delete_mycart_confirm")
+	public String deleteMyCart(HttpSession session, Model model, @RequestParam("c_no") int c_no) {
+		log.info("deleteMyCartList");
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = mypageService.deleteMyCart(loginedMemberDto.getM_id(), c_no);
+		
+		if (result > 0) {
+			return "true";
 		} else {
 			return "false";
 		}

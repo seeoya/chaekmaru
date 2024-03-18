@@ -15,7 +15,7 @@
 
             <div class="cart-wrap">
 
-                <div class="cart-item" th:each="memberCartDtos : ${memberCartDtos}">
+                <div class="cart-item" th:each="memberCartDtos : ${memberCartDtos}" th:id="${'cart_' + memberCartDtos.c_no}">
                     <input type="hidden" th:id="${'b_no_' + memberCartDtos.b_no}" th:value="${memberCartDtos.b_no}">
 
                     <input type="checkbox" th:data-index="${memberCartDtos.b_no}" class="ck-box">
@@ -45,7 +45,7 @@
 
                             <button type="button" class="btn main" th:onclick="|oneBuy(${memberCartDtos.b_no})|">결제하기</button>
 
-                            <a class="btn sub cancle-xmark" th:href="@{/mypage/delete_mycart_confirm(c_no=${memberCartDtos.c_no})}"><i class="fa-solid fa-xmark"></i></a>
+                            <button type="button" class="btn sub remove-cart" th:data-index="${memberCartDtos.c_no}"><i class="fa-solid fa-xmark"></i></bu>
                         </div>
                     </div>
                 </div>

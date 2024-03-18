@@ -25,6 +25,31 @@
                     document.getElementById("bp").value = parseInt(e.target.dataset.price) + parseInt(document.getElementById("bp").value);
                 })
             })
+
+            document.querySelectorAll(".add-cart").forEach((el) => {
+                el.addEventListener("click", function () {
+                    let bNo = el.dataset.index;
+
+                    ajaxAddCart(bNo, 1);
+                })
+            })
+
+            document.querySelectorAll(".remove-cart").forEach((el) => {
+                el.addEventListener("click", function () {
+                    let cNo = el.dataset.index;
+
+                    ajaxRemoveCart(cNo);
+                })
+            })
+
+            document.querySelectorAll(".remove-pick").forEach((el) => {
+                el.addEventListener("click", function () {
+                    let bNo = el.dataset.index;
+
+                    ajaxRemovePick(bNo);
+                })
+            })
+
         });
 
         function ajaxBookCount(cNo, count) {
@@ -63,6 +88,107 @@
             };
 
             httpRequest.send(JSON.stringify(data));
+        }
+
+        function ajaxAddCart(bNo, count) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/add_my_cart", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+                        alert("장바구니에 추가되었습니다.");
+                    } else if (httpRequest.responseText == "false") {
+                        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+                    }
+
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            let data = { b_no: bNo, c_book_count: count };
+
+            httpRequest.send(JSON.stringify(data));
+        }
+
+        function ajaxRemoveCart(cNo) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/delete_mycart_confirm", true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+                        document.getElementById("cart_" + cNo).remove();
+                        alert("장바구니에서 제거되었습니다.");
+                    } else if (httpRequest.responseText == "false") {
+                        alert("장바구니에서 제거에 실패했습니다. 다시 시도해주세요.");
+                    }
+
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            httpRequest.send("c_no=" + cNo);
+        }
+
+        function ajaxRemovePick(bNo) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/delete_member_pick", true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+                        document.getElementById("pick_" + bNo).remove();
+                        alert("찜 목록에서 제거되었습니다.");
+
+                    } else if (httpRequest.responseText == "false") {
+                        alert("찜 목록 제거에 실패했습니다. 다시 시도해주세요.");
+                    }
+
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            httpRequest.send("b_no=" + bNo);
         }
 
         function updateTotal(cNo, count) {
