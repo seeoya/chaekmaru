@@ -130,8 +130,21 @@
                     alert("잔여 포인트가 부족합니다. 포인트를 충전해 주세요");
                 }
             }
+            
+            function allBuy() {
+    			document.querySelectorAll(".ck-box").forEach(el => {
+    				if (el) {
+    					let index = el.dataset.index;
+    					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+    					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+    				}
+
+    				document.payment_form.submit();
+    			})
+    		}
         }
     </script>
+    
 </th:block>
 
 </html>

@@ -1,8 +1,11 @@
 package com.maru.chaekmaru.mypage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -151,7 +153,7 @@ public class MypageController {
 			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
 			myPointListDto.setPl_desc("도서 " + saledBookDto.getSb_book_count() + "권 구매");
 
-			mypageService.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
+//			mypageService.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
 			memberService.refreshPoint(session);
 			result = mypageService.insertPoint(myPointListDto);
 
@@ -219,39 +221,46 @@ public class MypageController {
 	 */
 	@PostMapping("/all_payment_form_confirm")
 	public String allPaymentMyCartList(HttpSession session, Model model, @ModelAttribute SaledBookDto saledBookDto,
-			@RequestParam("b_no") int b_no) {
+			@RequestParam("b_no") ArrayList<Integer> b_nos,
+			@RequestParam("c_book_count") ArrayList<Integer> c_book_counts) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
 		MyPointListDto myPointListDto = new MyPointListDto();
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-
-		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, b_no);
-		if (result > 0) {
-			myPointListDto.setM_id(loginedMemberDto.getM_id());
-			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
-
-			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
-			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
-			if (result > 0) {
-				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id(), b_no);
-
-				if (result > 0) {
-					result = Config.DELETE_PAYMENT_CART_SUCCESS;
-				} else {
-					result = Config.DELETE_PAYMENT_CART_FAIL;
-				}
-			} else {
-				result = Config.INSERT_POINT_FAIL;
-			}
+		ArrayList<MemberCartDto> buyBooks = new ArrayList<>();
+		for (int i = 0; i < b_nos.size(); i++) {
+			buyBooks.add(new MemberCartDto(b_nos.get(i), c_book_counts.get(i)));
 		}
-
-		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
-			result = Config.PAYMENT_SUCCESS;
-		}
+		ArrayList<MemberCartDto> buyBooksDatas = mypageService.setPaymentForm(buyBooks);
+		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas);
+		log.info("result ====================================>" + result);
+//		if (result > 0) {
+//			myPointListDto.setM_id(loginedMemberDto.getM_id());
+//			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
+//
+//			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
+//			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
+//			if (result > 0) {
+//				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id(), buyBooksDatas);
+//
+//				if (result > 0) {
+//					result = Config.DELETE_PAYMENT_CART_SUCCESS;
+//				} else {
+//					result = Config.DELETE_PAYMENT_CART_FAIL;
+//				}
+//			} else {
+//				result = Config.INSERT_POINT_FAIL;
+//			}
+//		}
+//
+//		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+//			result = Config.PAYMENT_SUCCESS;
+//		}
 		memberService.refreshPoint(session);
-		model.addAttribute("result", result);
-		return "result";
+//		model.addAttribute("result", result);
+//		return "result";
+		return "redirect:/mypage/member_cart_form";
 	}
 
 	/*
@@ -263,8 +272,14 @@ public class MypageController {
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		List<SaledBookDto> saledBookDtos = mypageService.getPaymentList(loginedMemberDto.getM_id());
-		model.addAttribute("saledBookDtos", saledBookDtos);
+		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = mypageService.getMyPaymentList(loginedMemberDto.getM_id());
+
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		// 키 값으로 내림차순 정렬
+		Collections.reverse(keySet);
+
+		model.addAttribute("list", list);
 
 		return "mypage/payment_list_form";
 	}

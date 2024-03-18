@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<th:block th:fragment="qna_js">
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+			
+            document.querySelectorAll(".answer-click").forEach((el) => {
+                el.addEventListener("click", function(e) {
+                	let index = e.target.dataset.index;
+					let answerItem = document.querySelectorAll(".answer-item")[index];
+					
+					console.log(answerItem.style.display);
+					
+					if(answerItem.style.display == "none") {
+						answerItem.style.display = "flex"
+					} else {
+						answerItem.style.display = "none"
+					}
+                })
+            })
+
+        });
+            // 문의 작성
+           
+            function qWriteForm () {
+            	
+            	let form = document.q_write_form;
+            	
+            	if (form.q_title.value == "") {
+                    alert("제목을 입력해 주세요.");
+                    form.q_title.focus();
+                } else if (form.q_text.value == "") {
+                    alert("문의 내용을 입력해 주세요.");
+                    form.q_text.focus();
+                } else {
+                    form.submit();
+                }
+            }
+            
+         
+        
+
+    </script>
+</th:block>
+
+</html>

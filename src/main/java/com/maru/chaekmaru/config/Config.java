@@ -99,5 +99,14 @@ public class Config {
 	final public static int RETURN_BOOK_APPROVAL_FAIL = 712;
 	final public static int MODIFY_BOOK_COUNT_FAIL = 713;
 	final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 714;    
-    final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;   
+    final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;
+    
+    // AdminQNAController 800 ~ 899    
+    final public static int QNA_REGIST_SUCCESS = 800;
+    final public static int QNA_ANSWER_REGIST_SUCCESS = 801;
+    final public static int QNA_DELETE_SUCCESS = 802;
+    
+    final public static int QNA_REGIST_FAIL = 810;
+    final public static int QNA_ANSWER_REGIST_FAIL = 811;
+    final public static int QNA_DELETE_FAIL = 812;
 }

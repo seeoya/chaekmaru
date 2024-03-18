@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 고객 문의</title>
+
+    <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
+</head>
+
+<div id="qna-list" class="content-wrap" layout:fragment="content">
+    <h2 class="title">고객 문의 LIST</h2>
+
+    <div class="content">
+
+	    <div class="qna-item" >
+	    	               
+           <div class="table-wrap">
+           		<table>
+           			<thead>
+	           			<tr>           			
+	           				<th>고객 ID</th>
+	           				<th>제목</th>
+	           				<th>작성일</th>
+	           				<th>답변상태</th>
+	           				<th>답변완료일</th>
+	           				<th>답변등록</th>
+	           			</tr>
+	           		<tbody>
+	           			<tr th:each="list: ${qnas}">
+	           				<td>[[${list.m_id}]]</td>
+	           				<td>[[${list.q_title}]]</td>
+	            			<td>[[${#strings.substring(list.q_reg_date, 0, 16)}]]</td>
+	            			<td th:if="${list.qa_reg_date == null}">답변대기</td>
+	            			<td th:unless="${list.qa_reg_date == null}">답변완료</td>
+	            			<td>[[${#strings.substring(list.qa_reg_date, 0, 16)}]]</td>
+							<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">            				
+                    		<a th:href="@{/qna/qna_answer(q_no=${list.q_no})}" class="btn main" >답변 등록</a></td>
+	            		</tr>	           		
+	           		</tbody>	
+           		
+           		</table>
+	        </div>        
+            
+    	</div>
+	</div>	
+</div>
+
+</html>

@@ -1829,3 +1829,133 @@ footer .join_footer {
     }
 
 }
+
+/* Q & A */
+
+#my-qna-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#my-qna-list .content-wrap {
+    width: 100%;
+}
+
+#my-qna-list .qna-item {
+    max-width: 1000px;    
+    padding: 20px 30px;
+    margin-bottom: 10px;   
+}
+
+#my-qna-list .qna-wrap {
+    max-width: 800px;
+    min-width: 800px;
+    color: #ffe4a1 !important;   
+    
+}
+
+#my-qna-list .qna-write {
+    display: flex;
+    flex-direction: column;    
+    gap: 10px;
+    align-items: center;
+    
+}
+
+#my-qna-list .qna-write .form {
+    display: flex;
+    flex-direction: column;    
+    width: 100%;
+    max-width: 800px;
+    min-width: 800px;  
+    gap: 10px;
+    align-items: end;
+}
+
+
+#my-qna-list .qna-info {
+    display: flex;    
+    max-width: 600px;
+    min-width: 600px;    
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    gap: 30px
+}
+
+#my-qna-list .qna-info > span {
+    display: flex;
+    flex-direction: column;    
+    margin-bottom: 5px;
+    
+}
+
+#my-qna-list .qna-info .qna-title {	
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+#my-qna-list .qna-info .qna-id {	
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #365a41;
+}
+
+#my-qna-list .list-wrap li {	
+	padding: 10px 3px;
+}
+
+#my-qna-list .list-wrap ul li list-title {
+	display: flex;
+	justify-content: space-between;	
+	border-top: 1px solid #e1e1e1; 
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #f9f9f9;	
+	text-align: center;
+}
+
+
+#my-qna-list .list-wrap ul li list-item div {
+	display: flex;	
+	border-top: 1px solid #e1e1e1; 
+	border-bottom: 1px solid #e1e1e1;
+	text-align: center;
+}
+
+#my-qna-list .list-wrap ul li answer-item {
+	display: flex;	
+	flex-direction: column;	
+	border-top: 1px solid #e1e1e1; 
+	border-bottom: 1px solid #e1e1e1;
+	text-align: left;
+}
+
+
+
+#my-qna-list .list-item div a:last-child {	
+	justify-content: flex-end;
+    padding: 5px 10px;
+	
+}
+#my-qna-list .a-btn-wrap {
+	display: flex;
+	justify-content: flex-end;
+    padding: 5px 10px;
+   
+}
+
+#my-qna-list .qna-write textarea {
+    max-width: 100%;
+    min-width: 100%;
+}
+
+#my-qna-list .answer-write .form {
+    display: flex;
+    flex-direction: column;    
+    width: 100%;
+    max-width: 800px;
+    min-width: 800px;  
+    gap: 10px;
+    align-items: end;
+}
+
