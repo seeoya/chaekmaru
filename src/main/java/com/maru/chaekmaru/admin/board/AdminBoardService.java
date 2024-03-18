@@ -27,4 +27,12 @@ public class AdminBoardService {
 		
 	}
 	
+	public ArrayList<AdminBoardDto> salesCateDailyThis() {
+		log.info("salesCateDailyThis()");
+		
+		return adminBoardDao.selectDailySalesByCateThis();
+		
+	}
+
+	
 }

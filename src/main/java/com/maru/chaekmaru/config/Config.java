@@ -40,6 +40,7 @@ public class Config {
 	final public static int INSERT_POINT_SUCCESS = 204;
 	final public static int DELETE_PAYMENT_CART_SUCCESS = 205; 
 	final public static int POINT_CHARGE_SUCCESS = 206;
+	final public static int ADD_PICK_SUCCESS = 207;
 	
 	final public static int MODIFY_CART_FAIL = 210;
 	final public static int ADD_CART_FAIL = 211;
@@ -48,7 +49,9 @@ public class Config {
 	final public static int INSERT_POINT_FAIL = 214;
 	final public static int DELETE_PAYMENT_CART_FAIL = 215;
 	final public static int POINT_CHARGE_FAIL = 216;
-
+	final public static int ADD_PICK_FAIL = 217;
+	final public static int ADD_PICK_DUPPLICATE = 218;
+	
 	// ReviewController 300 ~ 399
 	final public static int REVIEW_WRITE_SUCCESS = 300;
 	final public static int REVIEW_MODIFY_SUCCESS = 301;
@@ -99,5 +102,14 @@ public class Config {
 	final public static int RETURN_BOOK_APPROVAL_FAIL = 712;
 	final public static int MODIFY_BOOK_COUNT_FAIL = 713;
 	final public static int RETURN_BOOK_NOT_APPROVED_FAIL = 714;    
-    final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;   
+    final public static int MODIFY_BOOK_INVENTORY_FAIL = 715;
+    
+    // AdminQNAController 800 ~ 899    
+    final public static int QNA_REGIST_SUCCESS = 800;
+    final public static int QNA_ANSWER_REGIST_SUCCESS = 801;
+    final public static int QNA_DELETE_SUCCESS = 802;
+    
+    final public static int QNA_REGIST_FAIL = 810;
+    final public static int QNA_ANSWER_REGIST_FAIL = 811;
+    final public static int QNA_DELETE_FAIL = 812;
 }

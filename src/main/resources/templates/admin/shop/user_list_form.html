@@ -47,6 +47,7 @@
         				   				
     				<td th:if="${list.m_state == 0}" th:text="비활성"></td>
     				<td th:if="${list.m_state == 1}" th:text="활성"></td>
+    				<td th:if="${list.m_state == 2}" th:text="계정중지"></td>
     				 				 				   				 
     				<td th:if="${session.loginedAdminMemberDto.a_grade == 2}">    		 		
     		 		<a href="#none" th:onclick="userAccountActiveConfirm([[${list.m_id}]])">비활성화</a></td>

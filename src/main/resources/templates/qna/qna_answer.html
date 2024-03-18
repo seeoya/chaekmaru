@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 고객 문의</title>
+
+    <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
+</head>
+
+<div id="qna-list" class="content-wrap" layout:fragment="content">
+    <h2 class="title">고객 문의 답변등록</h2>
+
+    <div class="content">
+
+	    <div class="answer-wrap" >
+    	         
+               <div class="answer-write" >
+   						<form th:action="@{/admin/qna/a_write_confirm}" name="answer_write_form" method="post" class="form">   							
+   							<input type="hidden" name="q_no" th:value="${qna.q_no}">
+   							<span>고객 ID</span>
+   							<input type="text" name="m_id" th:value="${qna.m_id}" readonly>					                    
+   							<span>제목</span>
+   							<input type="text" name="q_title" th:value="${qna.q_title}" readonly>
+   							<span>문의 내용</span>					                    
+   							<textarea name="q_text" cols="30" rows="5">[[${qna.q_text}]]</textarea>
+   							<span>판매 번호</span>					                    
+   							<input type="text" name="sb_no" th:value="${qna.sb_no}" readonly>
+   							<span>답변 내용</span>					                    
+       						<textarea name="qa_text" cols="30" rows="5" placeholder="답변 내용을 입력해주세요." >[[${qna?.qa_text}]]</textarea>
+       						<button type="button" class="btn main" th:onclick="aWriteForm();">저장</button>		
+   					     					    	
+   						</form>		
+				</div>     	             
+            
+   		 </div>
+	</div>
+</div>
+
+</html>

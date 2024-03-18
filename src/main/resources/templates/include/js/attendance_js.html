@@ -17,18 +17,24 @@
 
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                    alert("출석 완료!");
 
-                    let count = 0;
-                    document.querySelectorAll(".stamp-wrap").forEach((el) => {
-                        if (el.classList.contains("on")) {
-                            count++;
-                        }
-                    })
+                    if (httpRequest.responseText == "false") {
+                        alert("이미 출석했어요!");
+                    } else {
+                        alert("출석 완료!");
 
-                    document.getElementById("attendance").style.display = "none";
-                    document.querySelectorAll(".stamp-wrap")[count].classList.add("on");
-                    document.querySelectorAll(".stamp-wrap span")[count].innerHTML = getToday();
+                        let count = 0;
+                        document.querySelectorAll(".stamp-wrap").forEach((el) => {
+                            if (el.classList.contains("on")) {
+                                count++;
+                            }
+                        })
+
+                        document.getElementById("attendance").style.display = "none";
+                        document.querySelectorAll(".stamp-wrap")[count].classList.add("on");
+                        document.querySelectorAll(".stamp-wrap span")[count].innerHTML = getToday();
+                        document.getElementById("acc").innerText = (parseInt([[${ acc }]]) + 1);
+                    }
 
                     spinnerStatus("off");
                 } else if (httpRequest.status == 403) {
@@ -45,7 +51,11 @@
 
             spinnerStatus("on");
 
-            httpRequest.send({ m_id: [[${ session[loginedMemberInfo].m_id }]] });
+            let data = {
+                ac_attend_date: [[${ acc }]]
+            }
+
+            httpRequest.send(JSON.stringify(data));
         }
 
         function getToday() {

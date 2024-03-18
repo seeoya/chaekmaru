@@ -23,8 +23,8 @@
                         <input type="hidden" name="c_no" th:value="${memberCartDto.c_no}" />
                         <div>[[${memberCartDto.b_name}]]</div>
                         <p>
-                            [[${#numbers.formatInteger(memberCartDto.b_price, 3, 'COMMA')}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDto.c_book_count}]] 권 =
-                            [[${#numbers.formatInteger(memberCartDto.b_price * memberCartDto.c_book_count, 3, 'COMMA')}]] 포인트
+                            [[${#numbers.formatInteger(memberCartDto.b_price, 1, 'COMMA')}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${memberCartDto.c_book_count}]] 권 =
+                            [[${#numbers.formatInteger(memberCartDto.b_price * memberCartDto.c_book_count, 1, 'COMMA')}]] 포인트
                         </p>
                         <input type="hidden" th:value="${memberCartDto.c_book_count}" name="sb_book_count" />
                         <input type="hidden" th:value="${memberCartDto.b_count}" name="b_count" />
@@ -54,13 +54,13 @@
 
                 <div>
                     <p>전체 금액</p>
-                    <p th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
+                    <p th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  포인트'}"></p>
                 </div>
 
                 <div th:switch="${userInfo.m_grade}">
                     <p>등급 할인</p>
                     <div>
-                        <p th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                        <p th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  포인트'}"></p>
                         <input type="hidden" name="sb_saled_price" th:value="${discount}" />
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div th:switch="${userInfo.m_grade}">
                     <p>결제 예정 금액</p>
                     <div>
-                        <p th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
+                        <p th:text="${#numbers.formatInteger(finalPrice, 1, 'COMMA') + '  포인트'}"></p>
                         <input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
                         <input type="hidden" name="currentPoint" th:value="${currentPoint}" />
                     </div>

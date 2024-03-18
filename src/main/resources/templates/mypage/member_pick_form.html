@@ -13,10 +13,10 @@
     <div class="content">
         <form class="form" th:action="@{redirect:/mypage/all_payment_form}" name="membercart_form" method="post">
         <div class="pick-wrap">
-            <div class="pick-list" th:each="memberPickDtos : ${memberPickDtos}">
+            <div class="pick-list" th:each="memberPickDtos : ${memberPickDtos}" th:id="${'pick_' + memberPickDtos.b_no}">
 				<div class="member-pick-btn">
-					<a class="cart-icon" th:href="@{/mypage/add_cart(b_no=${memberPickDtos.b_no})}"><i class="fa-solid fa-cart-shopping"></i></a>
-                    <a th:href="@{/mypage/delete_member_pick(b_no=${memberPickDtos.b_no})}"><i class="fa-solid fa-xmark"></i></a>
+                    <button type="button" class="add-cart cart-icon" th:data-index="${memberPickDtos.b_no}" th:href="@{/mypage/add_cart(b_no=${memberPickDtos.b_no})}"><i class="fa-solid fa-cart-shopping"></i></button>
+                    <button type="button" class="remove-pick" th:data-index="${memberPickDtos.b_no}" th:href="@{/mypage/delete_member_pick(b_no=${memberPickDtos.b_no})}"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div>
                     <a th:href="@{/book/view/{b_no}(b_no=${memberPickDtos.b_no})}">
@@ -24,12 +24,11 @@
                     </a>
                 </div>
                 <div>
-                	<a th:href="@{/book/view/{b_no}(b_no=${memberPickDtos.b_no})}">
+                    <a th:href="@{/book/view/{b_no}(b_no=${memberPickDtos.b_no})}">
                         <p th:text="${memberPickDtos.b_name}">도서 제목</p>
                     </a>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 </div>
