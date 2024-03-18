@@ -210,7 +210,7 @@
 			WHERE 
 				M_ID = #{m_id}
 			AND 
-				B_NO = #{b_no}
+				B_NO = #{selectBook}
 	
 	</delete>
 	
@@ -241,17 +241,15 @@
 						SB.SB_NO DESC
 	</select>
 
-    <update id="nowBooks"
+    <update id="remainBooks"
 			parameterType="map">
 			
-					<![CDATA[
 					UPDATE  
 						TBL_BOOK 
 					SET 
-						B_COUNT = ${b_count - sb_book_count} 
+						B_COUNT = ${remainBooks} 
 					WHERE 
 						B_NO = #{b_no}
-					]]>
 					
 	</update>
 	
@@ -464,7 +462,6 @@
 	
 	</update>
 	
-	
 	<select id="selectBookData"
 			parameterType="Integer"
 			resultType="com.maru.chaekmaru.mypage.MemberCartDto">
@@ -474,6 +471,17 @@
 						b_no = #{b_no} 
 	</select>
 	
+	<delete id="removeCartByBNo"
+			parameterType="map">
+		
+					DELETE FROM 
+						TBL_MEMBER_CART 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						B_NO = #{b_no}
+		
+	</delete>
 	<select id="selectAttendenceList"
 		parameterType="String"
 		resultType="com.maru.chaekmaru.mypage.AttendenceDto">
@@ -485,7 +493,27 @@
 			ORDER BY AC_ATTEND_DATE ASC
 	</select>
 	
+	<insert id="removePointByBuyBooks"
+			parameterType="map">
+			
+			INSERT INTO 
+				TBL_POINT_LIST 
+			VALUES(#{m_id}, #{myPointListDto.pl_payment_book_point}, #{myPointListDto.pl_desc}, SYSTIMESTAMP)
+			
+	</insert>
 	
+	<select id="getOrderNo"
+			parameterType="String"
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+					SELECT DISTINCT 
+						SB_ORDER_NO 
+					FROM 
+						TBL_SALED_BOOK 
+					WHERE 
+						M_ID = #{m_id} 
+					ORDER BY 
+						SB_ORDER_NO DESC
+	</select>
 	<insert id="insertAttendence"
 			parameterType="map">
 	
@@ -504,4 +532,21 @@
 	</select>
 	
 	
+		<select id="getPaymentListByONo"
+			parameterType="map"
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+				SELECT * FROM 
+						TBL_SALED_BOOK SB 
+					JOIN 
+						TBL_BOOK B 
+					ON 
+						SB.B_NO = B.B_NO 
+					WHERE 
+						SB.M_ID = #{m_id}
+						AND SB.SB_ORDER_NO = #{o_no}
+					ORDER BY 
+						SB.SB_NO DESC
+	</select>
+	
+
 </mapper>
