@@ -1290,31 +1290,54 @@ header .logo img {
 
 /* 구매 내역 */
 
-#my_buy_history .form {
-    width: 0 auto;
-    align-items: center;
-}
-
-#my_buy_history .buy-item {
+#my_buy_history form {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    width: 80%;
-    background: #dadada;
+}
+#my_buy_history .item-wrap {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-light-color);
     border-radius: 10px;
-    padding: 10px;
-    gap: 20px;
+    padding: 20px 30px;
 }
 
-#my_buy_history .payment-btn-wrap {
-    text-align: right;
+#my_buy_history .book {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-top: dotted 1px #000;
+    padding: 10px 0;
 }
 
 #my_buy_history .payment-book-name {
+    width: 400px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 230px;
+}
+
+#my_buy_history .payment-send-btn {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
+
+#my_buy_history .payment-date {
+    text-align: right;
+}
+
+#my_buy_history .payment-point-and-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#my_buy_history .o_no {
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
 /* 전체 결제 */
