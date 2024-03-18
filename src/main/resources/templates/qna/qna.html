@@ -20,7 +20,7 @@
 				    	<input type="hidden" name="m_id" th:value="${session[loginedMemberInfo]?.m_id}">
 				    	<input type="text" name="q_title" placeholder="제목을 입력해주세요."></input>			        
 				        <select name="sb_no">
-							<option value="">주문선택</option>
+							<option value="0">주문선택</option>
 					        <option th:each="opt : ${sbnos}" th:value="${opt.sb_no}" 
 	                				th:text="${#strings.substring(opt.sb_sale_date, 0, 16)}">
 	        				</option>						
