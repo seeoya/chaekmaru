@@ -6,7 +6,7 @@
 
 	<select id="selectMyQNAs" parameterType="String"
 	    resultType="com.maru.chaekmaru.qna.QNADto">
-       SELECT * FROM TBL_QNA WHERE M_ID = #{m_id, jdbcType=VARCHAR}
+       SELECT * FROM TBL_QNA WHERE M_ID = #{m_id, jdbcType=VARCHAR} ORDER BY Q_NO DESC
 	</select>
 	
 	<select id="selectSbData" parameterType="String"
@@ -18,7 +18,7 @@
 	
 	<select id="selectQNA" parameterType="Integer"
 		resultType="com.maru.chaekmaru.qna.QNADto">
-		SELECT * FROM TBL_QNA WHERE Q_NO = #{q_no}
+		SELECT * FROM TBL_QNA WHERE Q_NO = #{q_no} ORDER BY Q_NO DESC 
 	</select>
 	
 	

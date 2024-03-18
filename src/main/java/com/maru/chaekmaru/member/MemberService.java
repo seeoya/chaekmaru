@@ -1,8 +1,8 @@
 package com.maru.chaekmaru.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,8 @@ import com.maru.chaekmaru.mypage.IMypageDaoForMybatis;
 import com.maru.chaekmaru.mypage.MyPointListDto;
 import com.maru.chaekmaru.mypage.MypageService;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
@@ -128,16 +130,21 @@ public class MemberService {
 		return memberDao.findIdByNameAndEmail(name, email);
 	}
 
-	public void sendEmail(String email, String message) {
-		log.info("sendEmail()");
+	 public void sendEmail(String email, String content) {
+	        log.info("sendEmail()");
 
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(email);
-		mailMessage.setSubject("the result of your request");
-		mailMessage.setText(message);
+	        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+	        try {
+	            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+	            helper.setTo(email);
+	            helper.setSubject("'북마루' 비밀번호 변경 링크입니다.");
+	            helper.setText(content, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
+	        } catch (MessagingException e) {
+	            log.error("이메일 전송 중 에러 발생", e);
+	        }
 
-		javaMailSender.send(mailMessage);
-	}
+	        javaMailSender.send(mimeMessage);
+	    }
 
 	public MemberDto findMember(String id, String name, String email) {
 		log.info("findMember()");

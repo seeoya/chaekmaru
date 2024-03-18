@@ -15,7 +15,7 @@
 	    <div class="answer-wrap" >
     	         
                <div class="answer-write" >
-   						<form th:action="@{/admin/qna/a_write_confirm}" name="answer_write_form" method="post" class="form">   							
+   						<form th:action="@{/qna/a_write_confirm}" name="answer_write_form" method="post" class="form">   							
    							<input type="hidden" name="q_no" th:value="${qna.q_no}">
    							<span>고객 ID</span>
    							<input type="text" name="m_id" th:value="${qna.m_id}" readonly>					                    

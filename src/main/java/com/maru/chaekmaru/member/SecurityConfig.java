@@ -40,7 +40,9 @@ public class SecurityConfig {
 
 		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable());
 
-		http.authorizeHttpRequests(request -> request.requestMatchers("/member/modify_form").authenticated()
+		http.authorizeHttpRequests(request -> request.requestMatchers(
+				"/member/modify_form",
+				"/qna/qna").authenticated()
 				.requestMatchers("/**").permitAll());
 
 		http.formLogin((login) -> login.loginPage("/member/login_form").loginProcessingUrl("/member/login_confirm")

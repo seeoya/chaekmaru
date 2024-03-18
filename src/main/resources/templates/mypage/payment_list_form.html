@@ -16,7 +16,7 @@
             <div class="item-wrap" th:each="item : ${list}">
 
                 <div class="o_no">[[${item.key}]]</div>
-
+                <p class="payment-date" th:text="${#strings.substring(item.value[0].sb_reg_date, 0, 19)}">구입 일자</p><br>
                 <div class="book-wrap">
 
                     <div th:each="book : ${item.value}" class="book">
@@ -26,24 +26,25 @@
                             </a>
                         </div>
                         <div>
-                            <p th:text="${book.sb_reg_date}">구입 일자</p><br>
-                            <p th:text="${book.b_name}">도서 제목</p><br>
+                            <p class="payment-book-name" th:text="${book.b_name}">도서 제목</p><br>
                             <input type="hidden" th:value="${book.b_no}" />
                             <input type="hidden" th:value="${book.b_count}" />
                             <input type="hidden" th:value="${book.sb_book_count}" />
                             <input type="hidden" th:value="${book.sb_all_price}" />
                         </div>
 
-                        <div>
+                        <div class="payment-point-and-btn">
                             <p>
                                 [[${book.b_price}]] BP <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
                                 [[${book.sb_all_price}]] BP
                             </p>
                             <th:block th:switch="${book.sb_state}">
                                 <div th:case="0">주문 취소</div>
-                                <div th:case="1">
-                                    <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">주문 취소</a>
-                                    <a th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">반품 신청</a>
+                                <div class="payment-send-btn" th:case="1">
+                                    <a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">주문
+                                        취소</a>
+                                    <a class="sub btn" th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">반품
+                                        신청</a>
                                 </div>
                                 <div th:case="2">배송 완료</div>
                                 <div th:case="3">반품 처리 중</div>
@@ -54,10 +55,30 @@
                     </div>
                 </div>
 
-            </div>
+                <div>
+                    <p>
+                        [[${book.b_price}]] BP <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
+                        [[${book.sb_all_price}]] BP
+                    </p>
+                    <th:block th:switch="${book.sb_state}">
+                        <div th:case="0">주문 취소</div>
+                        <div th:case="1">
+                            <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">주문 취소</a>
+                            <a th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">반품 신청</a>
+                        </div>
+                        <div th:case="2">배송 완료</div>
+                        <div th:case="3">반품 처리 중</div>
+                        <div th:case="4">반품 완료</div>
+                    </th:block>
 
-        </form>
+                </div>
+            </div>
     </div>
+
+</div>
+
+</form>
+</div>
 </div>
 
 </html>
