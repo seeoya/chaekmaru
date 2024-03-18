@@ -99,7 +99,11 @@
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                     if (httpRequest.responseText == "true") {
-                        alert("장바구니에 추가되었습니다.");
+                        let result = confirm("장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?");
+
+                        if (result) {
+                            location.href = [[@{/mypage/member_cart_form}]];
+                        }
                     } else if (httpRequest.responseText == "false") {
                         alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
                     }

@@ -14,9 +14,11 @@
             }
 
             // 리뷰 작성, 수정
-            if (document.getElementById(".review-wrap button.submit")) {
+            if (document.querySelectorAll(".review-wrap button.submit")[0]) {
                 document.querySelectorAll(".review-wrap button.submit").forEach((el) => {
                     el.addEventListener("click", function (e) {
+                        console.log(1111);
+
                         let form = e.target.closest("form");
 
                         if (form.r_stars.value > 5 || form.r_stars.value < 1) {
@@ -34,7 +36,7 @@
             };
 
             // 리뷰 수정창 on/off
-            if (document.getElementById(".modify-review")) {
+            if (document.querySelectorAll(".modify-review")[0]) {
                 document.querySelectorAll(".modify-review").forEach(el => {
                     el.addEventListener("click", function (e) {
 
@@ -95,27 +97,32 @@
                     spinnerStatus("off");
 
                     if (httpRequest.responseText == "true") {
-                        alert("장바구니에 추가되었습니다.");
-                    } else if (httpRequest.responseText == "false") {
-                        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+                        let result = confirm("장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?");
+
+                        if (result) {
+                            location.href = [[@{/mypage/member_cart_form}]];
                     }
-                } else if (httpRequest.status == 403) {
-                    alert("접근 거부");
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 404) {
-                    alert("페이지 없음")
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 500) {
-                    alert("서버 오류 발생");
-                    spinnerStatus("off");
+
+                } else if (httpRequest.responseText == "false") {
+                    alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
                 }
-            };
+            } else if (httpRequest.status == 403) {
+                alert("접근 거부");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 404) {
+                alert("페이지 없음")
+                spinnerStatus("off");
+            } else if (httpRequest.status == 500) {
+                alert("서버 오류 발생");
+                spinnerStatus("off");
+            }
+        };
 
-            spinnerStatus("on");
+        spinnerStatus("on");
 
-            let data = { b_no: bNo, c_book_count: count };
+        let data = { b_no: bNo, c_book_count: count };
 
-            httpRequest.send(JSON.stringify(data));
+        httpRequest.send(JSON.stringify(data));
         }
 
         function ajaxAddPick(bNo) {
@@ -129,27 +136,32 @@
                     spinnerStatus("off");
 
                     if (httpRequest.responseText == "true") {
-                        alert("찜 목록에 추가되었습니다.");
-                    } else if (httpRequest.responseText == "duple") {
-                        alert("이미 찜 목록에 존재하는 도서입니다.");
-                    } else if (httpRequest.responseText == "false") {
-                        alert("찜 목록 추가에 실패했습니다. 다시 시도해주세요.");
+                        let result = confirm("찜 목록에 추가되었습니다.\n찜 목록으로 이동하시겠습니까?");
+
+                        if (result) {
+                            location.href = [[@{/mypage/member_pick}]];
                     }
-                } else if (httpRequest.status == 403) {
-                    alert("접근 거부");
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 404) {
-                    alert("페이지 없음")
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 500) {
-                    alert("서버 오류 발생");
-                    spinnerStatus("off");
+
+                } else if (httpRequest.responseText == "duple") {
+                    alert("이미 찜 목록에 존재하는 도서입니다.");
+                } else if (httpRequest.responseText == "false") {
+                    alert("찜 목록 추가에 실패했습니다. 다시 시도해주세요.");
                 }
-            };
+            } else if (httpRequest.status == 403) {
+                alert("접근 거부");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 404) {
+                alert("페이지 없음")
+                spinnerStatus("off");
+            } else if (httpRequest.status == 500) {
+                alert("서버 오류 발생");
+                spinnerStatus("off");
+            }
+        };
 
-            spinnerStatus("on");
+        spinnerStatus("on");
 
-            httpRequest.send("b_no=" + bNo);
+        httpRequest.send("b_no=" + bNo);
         }
     </script>
 </th:block>

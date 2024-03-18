@@ -156,9 +156,8 @@ public class MypageController {
 			myPointListDto.setPl_desc("도서 " + saledBookDto.getSb_book_count() + "권 구매");
 
 //			mypageService.nowBooks(saledBookDto.getSb_book_count(), saledBookDto.getB_count(), saledBookDto.getB_no());
-			memberService.refreshPoint(session);
 			result = mypageService.insertPoint(myPointListDto);
-
+			memberService.refreshPoint(session);
 			if (result > 0) {
 //				result = mypageService.deletePaymentMyCart(loginedMemberDto.getM_id(), saledBookDto.getB_no());
 
@@ -412,6 +411,7 @@ public class MypageController {
 		myPointListDto.setPl_desc("포인트 충전");
 
 		int result = mypageService.chargePoint(myPointListDto);
+        memberService.refreshPoint(session);
 
 		model.addAttribute("result", result);
 		return "result";

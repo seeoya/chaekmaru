@@ -91,22 +91,56 @@
 				M_ID = #{id}	
 	
 	</update>
-	
-	<delete id="deleteMember"
-			parameterType="String">
+		
+	<update id="leaveMember"
+			parameterType="map">
 			
-			DELETE FROM 
+			UPDATE 
 				TBL_MEMBER 
+			SET 
+				M_STATE = 0
 			WHERE 
-				M_ID=#{m_id}
+				M_ID = #{m_id}	
+	</update>
 	
-	</delete>
 	
 	<select id="selectNowPoint"
 			parameterType="String"
 			resultType="Integer">
 			SELECT NVL(SUM(PL_PAYMENT_BOOK_POINT), 0) FROM TBL_POINT_LIST WHERE M_ID= #{m_id}
 	</select>
+	
+	<delete id="deleteReview"
+		parameterType="String">
+			DELETE FROM 
+				TBL_REVIEW 
+			WHERE 
+				M_ID=#{m_id}
+	</delete>
+
+	<delete id="deleteCart"
+		parameterType="String">
+			DELETE FROM 
+				TBL_MEMBER_CART 
+			WHERE 
+				M_ID=#{m_id}
+	</delete>
+    
+	<delete id="deletePick"
+		parameterType="String">
+			DELETE FROM 
+				TBL_MEMBER_PICK 
+			WHERE 
+				M_ID=#{m_id}
+	</delete>
+	
+		<delete id="deleteAttend"
+		parameterType="String">
+			DELETE FROM 
+				TBL_ATTEND_CHECK 
+			WHERE 
+				M_ID=#{m_id}
+	</delete>
 	
 		
 </mapper>
