@@ -37,15 +37,6 @@ public class AdminHomeController {
 				ArrayList<AdminBoardDto> salesCateDaily = adminBoardService.salesCateDaily();
 				ArrayList<AdminBoardDto> salesCateDailyThis = adminBoardService.salesCateDailyThis();
 				
-				log.info("{}", salesDaily.get(0).getSc_sales1());				
-				log.info("{}", salesDaily.get(0).getSc_date3());
-				
-				log.info("{}", salesCateDaily.get(0).getSc_c_sales3());
-				log.info("{}", salesCateDaily.get(0).getSc_c_date1());
-				
-				log.info("{}", salesCateDailyThis.get(0).getSc_c_sales13());
-				log.info("{}", salesCateDailyThis.get(0).getSc_c_date2());
-				
 				
 				model.addAttribute("sales1", salesDaily.get(0).getSc_sales1());
 				model.addAttribute("sales2", salesDaily.get(0).getSc_sales2());
@@ -96,10 +87,11 @@ public class AdminHomeController {
 
 	@GetMapping("/result")
 	public String test(HttpSession session, Model model, @RequestParam( value = "result", defaultValue = "0") String result) {
-		int resultNum = Integer.parseInt(result);
 		
+		String nextPage = "admin/result";
+		int resultNum = Integer.parseInt(result);
 		model.addAttribute("result", resultNum);
 
-		return "result";
+		return nextPage;
 	}
 }

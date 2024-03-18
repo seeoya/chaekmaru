@@ -4,59 +4,42 @@
 <th:block th:fragment="qna_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-
-           
-
-            // 문의 작성, 수정
-            if (document.getElementById(".qna-wrap button.submit")) {
-                document.querySelectorAll(".qna-wrap button.submit").forEach((el) => {
-                    el.addEventListener("click", function (e) {
-                        let form = e.target.closest("form");
-
-                        if (form.q_text.value == "") {
-                            alert("문의 내용을 입력해 주세요.");
-                            form.q_text.focus();
-                        } else {
-                            form.submit();
-                        }
-                    });
-                });
-            };
-
-            // 문의 수정창 on/off
-            if (document.getElementById(".modify-qna")) {
-                document.querySelectorAll(".modify-qna").forEach(el => {
-                    el.addEventListener("click", function (e) {
-
-                        let modifyWrap = this.parentElement.nextSibling.nextSibling;
-
-                        if (modifyWrap.style.display == "none") {
-                            modifyWrap.style.display = "flex";
-                        } else {
-                            modifyWrap.style.display = "none";
-                        }
-                    })
-                });
-            }
-
-            
-            // 문의 등록창 on/off
-            if (document.getElementById(".qna-wrap")) {
-                document.querySelectorAll(".qna-wrap").forEach(el => {
-                    el.addEventListener("click", function (e) {
-
-                        let qnaWriteWrap = this.parentElement.nextSibling.nextSibling;
-
-                        if (qnaWriteWrap.style.display == "none") {
-                        	qnaWriteWrap.style.display = "flex";
-                        } else {
-                        	qnaWriteWrap.style.display = "none";
-                        }
-                    })
-                });
-            }
+			
+            document.querySelectorAll(".answer-click").forEach((el) => {
+                el.addEventListener("click", function(e) {
+                	let index = e.target.dataset.index;
+					let answerItem = document.querySelectorAll(".answer-item")[index];
+					
+					console.log(answerItem.style.display);
+					
+					if(answerItem.style.display == "none") {
+						answerItem.style.display = "flex"
+					} else {
+						answerItem.style.display = "none"
+					}
+                })
+            })
 
         });
+            // 문의 작성
+           
+            function qWriteForm () {
+            	
+            	let form = document.q_write_form;
+            	
+            	if (form.q_title.value == "") {
+                    alert("제목을 입력해 주세요.");
+                    form.q_title.focus();
+                } else if (form.q_text.value == "") {
+                    alert("문의 내용을 입력해 주세요.");
+                    form.q_text.focus();
+                } else {
+                    form.submit();
+                }
+            }
+            
+         
+        
 
     </script>
 </th:block>

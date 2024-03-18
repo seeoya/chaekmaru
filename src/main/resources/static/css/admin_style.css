@@ -431,7 +431,7 @@ header .logo img {
 	margin-top: 15px;
 	padding: 10px;
     background: none;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 500;
     cursor: pointer;
 }
@@ -980,13 +980,6 @@ footer .join_footer {
 }
 
 
-#qna-list .qna_text {
-    background: #fff;
-    border-radius: 10px;
-    width: 900px;
-    padding: 10px;
-}
-
 #qna-list .qna_info {
     display: flex;
     align-items: center;
@@ -1048,38 +1041,27 @@ footer .join_footer {
     width: 20%;
 }
 
-#qna_list .qna_table tr td:nth-child(1) {
-	width: 30%;
-	}
-
-#qna_list .qna_table tr td:nth-child(2) {
-	width: 70%;
-	text-align: left;
-	padding: 0 20px;
-	}
-
-#qna_list .qna_table tr td a {
-	color: #478fdb;
-    text-decoration: none;
-    margin: 0 60px;    
-    font-size: 1.0em;
-    font-weight: bold;   
-	}
-#qna_list .qna_table tr td a:hover {
-    text-decoration: underline;
+.answer-write .form {
+    display: flex;
+    flex-direction: column;    
+    max-width: 600px;
+    min-width: 600px;
+    gap: 10px;
+    align-items: flex-start;
 }
-
-#qna_list .qna_table table tbody tr:nth-child(2n-1) {
-	background-color: #f3f3f3;
-}
-
-#qna_list .qna_table table tbody tr td {
-	border: 1px solid #e1e1e1;
-	padding: 10px 3px;
-	text-align: center;
-	}
 	
+.answer-write .form button{   
+    align-items: end;
+}
 
+.push-wrap .form {
+    display: flex;
+    flex-direction: column;    
+    max-width: 800px;
+    min-width: 800px;
+    gap: 10px;
+    
+}
 .spinner-wrap {
     display: none;
     justify-content: center;

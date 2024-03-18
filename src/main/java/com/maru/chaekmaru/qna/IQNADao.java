@@ -1,4 +1,4 @@
-package com.maru.chaekmaru.admin.qna;
+package com.maru.chaekmaru.qna;
 
 import java.util.ArrayList;
 
@@ -13,15 +13,13 @@ public interface IQNADao {
 	
 	public QNADto selectQNA(int q_no);
 
-	public ArrayList<QNADto> selectQNAsBySbNo(int sb_no);
+	public int insertQ(QNADto qNADto);	
 
-	public int insertQ(QNADto qNADto);
-
-	public int updateA(QNADto qNADto);
-
-	public int modifyQNA(QNADto qNADto);
+	public int updateA(QNADto qNADto);	
 
 	public int deleteQNA(int q_no);
+
+	public ArrayList<QNADto> selectQNAs();
 
 	
 

@@ -1,4 +1,4 @@
-package com.maru.chaekmaru.admin.qna;
+package com.maru.chaekmaru.qna;
 
 import lombok.Data;
 
@@ -6,13 +6,13 @@ import lombok.Data;
 public class QNADto {
 	
 	private int q_no;	
+	private String q_title;	
 	private String q_text;	
 	private String q_reg_date;
-	private String q_mod_date;
 		
-	private String q_a_text;	
-	private String q_a_reg_date;
-	private String q_a_mod_date;
+	private String qa_text;	
+	private String qa_reg_date;
+	private String qa_mod_date;
 	
 		
 	private String m_id;

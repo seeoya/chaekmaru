@@ -1,4 +1,4 @@
-package com.maru.chaekmaru.admin.qna;
+package com.maru.chaekmaru.qna;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.config.Config;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class QNAService {
 
@@ -16,69 +19,75 @@ public class QNAService {
 	
 
 	public ArrayList<QNADto> setMyQNAs(String m_id) {
+		log.info("setMyQNAs()");
+		
 		return qNADao.selectMyQNAs(m_id);
 	}
 
 		
 	public ArrayList<QNADto> getSbData(String m_id) {
-	
+		log.info("getSbData()");
+		
 		return qNADao.selectSbData(m_id);
 		
 	}
 	
 	
 	public QNADto setQNA(int q_no) {
-
+		log.info("setQNA()");
+		
 		return qNADao.selectQNA(q_no);
 	}
 	
 
 	public int qWriteConfirm(QNADto qNADto) {
+		log.info("qWriteConfirm()");
+		
 		int result = -1;
 		result = qNADao.insertQ(qNADto);
 
 		if (result > 0) {
-			return Config.REVIEW_WRITE_SUCCESS;
+			return Config.QNA_REGIST_SUCCESS;
 		} else {
-			return Config.REVIEW_WRITE_FAIL;
+			return Config.QNA_REGIST_FAIL;
 		}
 	}
 	
 	
-	public int aWriteConfirm(QNADto qNADto) {
+	public void aWriteConfirm(QNADto qNADto) {
+		log.info("aWriteConfirm()");
+		
 		int result = -1;
 		result = qNADao.updateA(qNADto);
 
 		if (result > 0) {
-			return Config.REVIEW_WRITE_SUCCESS;
+			log.info(Config.QNA_ANSWER_REGIST_SUCCESS);
 		} else {
-			return Config.REVIEW_WRITE_FAIL;
+			log.info(Config.QNA_ANSWER_REGIST_FAIL);
 		}
 	}
 	
 
-		public int modifyConfirm(QNADto qNADto) {
-		int result = -1;
-
-		result = qNADao.modifyQNA(qNADto);
-
-		if (result > 0) {
-			return Config.REVIEW_MODIFY_SUCCESS;
-		} else {
-			return Config.REVIEW_MODIFY_FAIL;
-		}
-	}
-
 	public int deleteConfirm(int q_no) {
+		log.info("deleteConfirm()");
+		
 		int result = -1;
 
 		result = qNADao.deleteQNA(q_no);
 
 		if (result > 0) {
-			return Config.REVIEW_DELETE_SUCCESS;
+			return Config.QNA_DELETE_SUCCESS;
 		} else {
-			return Config.REVIEW_DELETE_FAIL;
+			return Config.QNA_DELETE_FAIL;
 		}
+	}
+
+
+	public ArrayList<QNADto> setQNAs() {
+		log.info("setQNAs()");
+		
+		return qNADao.selectQNAs();
+		
 	}
 
 	

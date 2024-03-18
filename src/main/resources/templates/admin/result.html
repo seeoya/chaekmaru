@@ -91,92 +91,102 @@
 
                 case 600:
                     text = "도서 등록에 성공했습니다.";
-                    href = [[@{/admin/member/book_list_form}]];
+                    href = [[@{/admin/book/book_list_form}]];
                     break;
                     
                 case 601:
                     text = "도서 정보수정에 성공했습니다.";
-                    href = [[@{/admin/member/book_list_form}]];
+                    href = [[@{/admin/book/book_list_form}]];
                     break;
                     
                 case 602:
                     text = "도서 삭제에 성공했습니다.";
-                    href = [[@{/admin/member/book_list_form}]];
+                    href = [[@{/admin/book/book_list_form}]];
                     break;
                     
                 case 610:
                     text = "이미 등록된 도서입니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/regist_book_form}]];
+                    href = [[@{/admin/book/regist_book_form}]];
                     break;
                     
                 case 611:
                     text = "도서 등록에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/regist_book_form}]];
+                    href = [[@{/admin/book/regist_book_form}]];
                     break;
                     
                 case 612:
                     text = "도서 정보수정에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/modify_book_form}]];
+                    href = [[@{/admin/book/modify_book_form}]];
                     break;
                     
                 case 613:
                     text = "도서 삭제에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/book_list_form}]];
+                    href = [[@{/admin/book/book_list_form}]];
                     break;
                     
                 case 700:
                     text = "회원 계정 비활성화에 성공했습니다.";
-                    href = [[@{/admin/member/user_list_form}]];
+                    href = [[@{/admin/shop/user_list_form}]];
                     break;
                 
                 case 701:
                     text = "회원 포인트 수정에 성공했습니다.";
-                    href = [[@{/admin/member/user_list_form}]];
+                    href = [[@{/admin/shop/user_list_form}]];
                     break;
                     
                 case 702:
                     text = "반품도서 승인에 성공했습니다.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    href = [[@{/admin/shop/return_book_list_form}]];
                     break;
                     
                 case 703:
                     text = "반품도서 승인불가 처리에 성공했습니다.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    href = [[@{/admin/shop/return_book_list_form}]];
                     break;
                     
                 case 704:
                     text = "도서 재고수정에 성공했습니다.";
-                    href = [[@{/admin/member/book_inventory_list_form}]];
+                    href = [[@{/admin/shop/book_inventory_list_form}]];
                     break;
             
                 case 710:
                     text = "회원 계정 비활성화에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/user_list_form}]];
+                    href = [[@{/admin/shop/user_list_form}]];
                     break;
                     
                 case 711:
                     text = "회원 포인트 수정에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/point_list_form}]];
+                    href = [[@{/admin/shop/point_list_form}]];
                     break;
                     
                 case 712:
                     text = "반품도서 승인에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    href = [[@{/admin/shop/return_book_list_form}]];
                     break;
                     
                 case 713:
                     text = "반품도서 재고 수정에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    window.history.back();
                     break;
         	
                 case 714:
                     text = "반품도서 승인불가 처리에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    window.history.back();
                     break;
                     
                 case 715:
                     text = "도서 재고수정에 실패했습니다.\n다시 시도해주세요.";
-                    href = [[@{/admin/member/return_book_list_form}]];
+                    window.history.back();
+                    break;
+               
+                case 801:
+                    text = "고객문의 답변 등록에 성공하였습니다.";
+                    window.history.back();
+                    break;
+            
+                case 811:
+                    text = "고객문의 답변 등록에 실패하였습니다.\n다시 시도해주세요.";
+                    window.history.back();
                     break;
                     
                 default:

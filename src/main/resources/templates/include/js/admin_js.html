@@ -281,8 +281,39 @@
                 form.submit();
             }
         }
+        
+        // 고객문의 답변 등록        
+ 			function aWriteForm() {
+            	console.log("aWriteForm()");
+            	
+            	let form = document.answer_write_form;
+            	   
+            	if(form.qa_text.value == ""){            	       
+	                 alert("답변 내용을 입력해 주세요.");
+	                 form.qa_text.focus();
+	             } else {
+	                 form.submit();
+	             }
+            }
 
-       
+ 			 // 고객알람 등록     
+ 			function pushForm() {
+            	console.log("pushForm()");
+            	
+            	let form = document.push_form;
+            	   
+            	if(form.message.value == ""){            	       
+	                 alert("메세지 내용을 입력해 주세요.");
+	                 form.message.focus();
+	             } else if(form.redirectURI.value == ""){            	       
+	                 alert("redirectURI를 입력해 주세요.");
+	                 form.redirectURI.focus();
+	             } else {
+	                 form.submit();
+	             }
+            }
+
+        
     </script>
 </th:block>
 
