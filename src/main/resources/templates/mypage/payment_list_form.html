@@ -1,68 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-<title>책마루 :: 구매내역</title>
+    <title>책마루 :: 구매내역</title>
 
-<th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
+    <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
 
 <div id="my_buy_history" class="content-wrap" layout:fragment="content">
-	<h2 class="title">내 구매 내역</h2>
+    <h2 class="title">내 구매 내역</h2>
 
-	<div class="content">
-		<form class="form" th:action="@{mypage/payment_list_form}"
-			name="payment_list_form" method="post">
+    <div class="content">
+        <form class="form" th:action="@{mypage/payment_list_form}" name="payment_list_form" method="post">
 
-			<div class="item-wrap" th:each="item : ${list}">
+            <div class="item-wrap" th:each="item : ${list}">
 
-				<div class="o_no">[[${item.key}]]</div>
+                <div class="o_no">[[${item.key}]]</div>
 
-				<div class="book-wrap">
+                <div class="book-wrap">
 
-					<div th:each="book : ${item.value}" class="book">
-						<div>
-                    		<a th:href="@{/book/view/{b_no}(b_no=${book.b_no})}">
-                        		<img th:src="${book.b_thumbnail}" alt="book_thumbnail" />
-		                    </a>
-		                </div>
-		                <div>
-		                    <p th:text="${book.sb_reg_date}">구입 일자</p><br>
-		                    <p th:text="${book.b_name}">도서 제목</p><br>
-		                    <input type="hidden" th:value="${book.b_no}" />
-		                    <input type="hidden" th:value="${book.b_count}" />
-		                    <input type="hidden" th:value="${book.sb_book_count}" />
-		                    <input type="hidden" th:value="${book.sb_all_price}" />
-		                </div>
-		                
-		                <div>
-							<p>
-								[[${book.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
-								[[${book.sb_all_price}]] 포인트
-							</p>
-							<th:block th:switch="${book.sb_state}">
-		                        <div th:case="0">주문 취소</div>
-		                        <div th:case="1">
-		                            <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">주문
-		                                취소</a>
-		                            <a th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">반품
-		                                신청</a>
-		                        </div>
-		                        <div th:case="2">배송 완료</div>
-		                        <div th:case="3">반품 처리 중</div>
-		                        <div th:case="4">반품 완료</div>
-		                    </th:block>
-		
-		                </div>
-					</div>
-				</div>
+                    <div th:each="book : ${item.value}" class="book">
+                        <div>
+                            <a th:href="@{/book/view/{b_no}(b_no=${book.b_no})}">
+                                <img th:src="${book.b_thumbnail}" alt="book_thumbnail" />
+                            </a>
+                        </div>
+                        <div>
+                            <p th:text="${book.sb_reg_date}">구입 일자</p><br>
+                            <p th:text="${book.b_name}">도서 제목</p><br>
+                            <input type="hidden" th:value="${book.b_no}" />
+                            <input type="hidden" th:value="${book.b_count}" />
+                            <input type="hidden" th:value="${book.sb_book_count}" />
+                            <input type="hidden" th:value="${book.sb_all_price}" />
+                        </div>
 
-			</div>
+                        <div>
+                            <p>
+                                [[${book.b_price}]] BP <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
+                                [[${book.sb_all_price}]] BP
+                            </p>
+                            <th:block th:switch="${book.sb_state}">
+                                <div th:case="0">주문 취소</div>
+                                <div th:case="1">
+                                    <a th:href="@{/mypage/cancel_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">주문 취소</a>
+                                    <a th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">반품 신청</a>
+                                </div>
+                                <div th:case="2">배송 완료</div>
+                                <div th:case="3">반품 처리 중</div>
+                                <div th:case="4">반품 완료</div>
+                            </th:block>
 
-		</form>
-	</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
 </div>
 
 </html>

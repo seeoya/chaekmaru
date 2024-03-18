@@ -3,35 +3,31 @@
 
 <head>
     <title>책마루 :: 관리자 POINT LIST</title>
- 	    
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-     <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
+
+    <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
-<div id="regist-point"  class="content-wrap" layout:fragment="content">
-    <h2 class="title">회원 포인트 관리</h2>
-        
+<div id="regist-point" class="content-wrap" layout:fragment="content">
+    <h2 class="title">회원 BP 관리</h2>
+
     <div class="content">
-    
-    	 <form class="form" th:action="@{/admin/shop/modify_point_confirm}" name="modify_point_form" method="post">
-     	   <div class="input-wrap">   
-     	 	<span>회원 ID</span>
-            <input type="text" name="m_id" th:value="${myPointDto.m_id}" readonly>            
-            <span>포인트 합계</span>
-            <input type="text" name="sum" th:value="${myPointDto.pl_payment_book_point}" readonly>            
-            <span>포인트 입력 Comment</span>
-            <input type="text" name="pl_desc" placeholder="포인트 수정 Comment를 입력하세요.">
-            <span>포인트 입력</span>           
-            <input type="text" name="pl_payment_book_point" placeholder="적립하거나 차감할 포인트를 입력하세요. ex) 적립: 1000, 차감: -1000">
-          </div>
-	      <div class="btn-wrap">                              
-            <button type="button" onclick="modifyPointForm();" class="btn main">저장</button>           
-            <button type="reset" class="btn highlight">초기화</button>
-          </div>  
+        <form class="form" th:action="@{/admin/shop/modify_point_confirm}" name="modify_point_form" method="post">
+            <div class="input-wrap">
+                <span>회원 ID</span>
+                <input type="text" name="m_id" th:value="${myPointDto.m_id}" readonly>
+                <span>BP 합계</span>
+                <input type="text" name="sum" th:value="${myPointDto.pl_payment_book_point}" readonly>
+                <span>BP 입력 Comment</span>
+                <input type="text" name="pl_desc" placeholder="BP 수정 Comment를 입력하세요.">
+                <span>BP 입력</span>
+                <input type="text" name="pl_payment_book_point" placeholder="적립하거나 차감할 BP를 입력하세요. ex) 적립: 1000, 차감: -1000">
+            </div>
+
+            <div class="btn-wrap">
+                <button type="button" onclick="modifyPointForm();" class="btn main">저장</button>
+                <button type="reset" class="btn highlight">초기화</button>
+            </div>
         </form>
-       
-    	
     </div>
 </div>
 

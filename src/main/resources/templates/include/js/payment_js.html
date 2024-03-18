@@ -199,7 +199,7 @@
             let price = parseInt(document.getElementById("price_" + cNo).innerText.replace(/[^0-9]/g, ''));
             let totalPrice = count * price;
 
-            document.getElementById("total_price_" + cNo).innerText = numberWithCommas(totalPrice) + " 포인트";
+            document.getElementById("total_price_" + cNo).innerText = numberWithCommas(totalPrice) + " BP";
         }
 
         function point_charge_form_check() {
@@ -297,7 +297,7 @@
                 if (parseInt(form.currentPoint.value) >= parseInt(form.sb_all_price.value)) {
                     form.submit();
                 } else {
-                    alert("잔여 포인트가 부족합니다. 포인트를 충전해 주세요");
+                    alert("잔여 BP가 부족합니다. BP를 충전해 주세요");
                 }
             }
 

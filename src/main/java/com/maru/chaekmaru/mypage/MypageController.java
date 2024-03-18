@@ -408,7 +408,7 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		myPointListDto.setM_id(loginedMemberDto.getM_id());
-		myPointListDto.setPl_desc("포인트 충전");
+		myPointListDto.setPl_desc("BP 충전");
 
 		int result = mypageService.chargePoint(myPointListDto);
         memberService.refreshPoint(session);

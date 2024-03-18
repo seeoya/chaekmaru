@@ -30,7 +30,7 @@
 
             if (document.getElementById("delete_account")) {
                 document.getElementById("delete_account").addEventListener("click", function () {
-                    let result = confirm("탈퇴 시 잔여 포인트는 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?");
+                    let result = confirm("탈퇴 시 잔여 BP는 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?");
 
                     if(result) {
                         location.href = [[@{/member/delete_confirm}]];

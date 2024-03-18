@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 포인트 내역</title>
+    <title>책마루 :: BP 내역</title>
 </head>
 
 <div id="point_list" class="content-wrap" layout:fragment="content">
-    <h2 class="title">[[${session[loginedMemberInfo].m_id}]]님의 포인트 내역</h2>
+    <h2 class="title">[[${session[loginedMemberInfo].m_id}]]님의 BP 내역</h2>
 
     <div class="content">
         <div class="point-list">
-            <div class="now-point">잔여 포인트 : [[${#numbers.arrayFormatInteger(point, 1,'COMMA')+ ' BP'}]]</div>
+            <div class="now-point">잔여 BP : [[${#numbers.arrayFormatInteger(point, 1,'COMMA')+ ' BP'}]]</div>
 
             <div th:each=" item: ${items}" class="item">
                 <div class="date">[[${item.pl_reg_date}]]</div>

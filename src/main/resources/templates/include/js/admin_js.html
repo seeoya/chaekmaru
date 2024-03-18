@@ -4,11 +4,11 @@
 <th:block th:fragment="admin_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-        	
-        	document.getElementById('start').value = new Date().toISOString().substring(0, 10);
-	    	document.getElementById('end').value = new Date().toISOString().substring(0, 10);
-	    	
-	    	document.getElementById("to_top").addEventListener("click", function () {
+
+            document.getElementById('start').value = new Date().toISOString().substring(0, 10);
+            document.getElementById('end').value = new Date().toISOString().substring(0, 10);
+
+            document.getElementById("to_top").addEventListener("click", function () {
                 window.scrollTo(0, 0);
             });
 
@@ -33,7 +33,7 @@
         });
 
         /* Admin Member */
-		        
+
         // 회원가입
         function createAccountForm() {
             console.log("createAccountForm!!");
@@ -90,7 +90,7 @@
                 form.submit();
             }
         }
-        
+
         // 계정삭제
         function deleteAdminConfirm(a_no) {
             console.log("deleteAdminConfirm()");
@@ -100,10 +100,10 @@
                 location.href = "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
             }
         }
-        
+
 
         /* Admin Book */
-        
+
         // 도서 등록
         function registBookForm() {
             console.log("registBookForm!!");
@@ -186,7 +186,7 @@
             }
         }
 
-      	// 도서 삭제	
+        // 도서 삭제	
         function deleteBookConfirm(b_no) {
             console.log("deleteBookConfirm()");
 
@@ -195,7 +195,7 @@
                 location.href = "/admin/book/delete_book_confirm" + "?b_no=" + b_no;
             }
         }
-      	
+
         // 도서 검색
         function searchBookForm() {
             console.log("searchBookForm!!");
@@ -212,7 +212,7 @@
 
 
         /* Admin Shop */
-        
+
         // 회원 포인트 수정
         function modifyPointForm() {
             console.log("modifyPointForm!!");
@@ -220,12 +220,12 @@
             let form = document.modify_point_form;
 
             if (form.pl_desc.value === "") {
-                alert("포인트 입력 Comment를 입력해 주세요.");
+                alert("BP 입력 Comment를 입력해 주세요.");
                 form.pl_desc.focus();
             } else if (form.pl_payment_book_point.value === "") {
-                alert("적립하거나 차감할 포인트를 입력해 주세요.");
+                alert("적립하거나 차감할 BP를 입력해 주세요.");
                 form.pl_payment_book_point.focus();
-            } else { 
+            } else {
                 form.submit();
             }
         }
@@ -281,39 +281,39 @@
                 form.submit();
             }
         }
-        
+
         // 고객문의 답변 등록        
- 			function aWriteForm() {
-            	console.log("aWriteForm()");
-            	
-            	let form = document.answer_write_form;
-            	   
-            	if(form.qa_text.value == ""){            	       
-	                 alert("답변 내용을 입력해 주세요.");
-	                 form.qa_text.focus();
-	             } else {
-	                 form.submit();
-	             }
-            }
+        function aWriteForm() {
+            console.log("aWriteForm()");
 
- 			 // 고객알람 등록     
- 			function pushForm() {
-            	console.log("pushForm()");
-            	
-            	let form = document.push_form;
-            	   
-            	if(form.message.value == ""){            	       
-	                 alert("메세지 내용을 입력해 주세요.");
-	                 form.message.focus();
-	             } else if(form.redirectURI.value == ""){            	       
-	                 alert("redirectURI를 입력해 주세요.");
-	                 form.redirectURI.focus();
-	             } else {
-	                 form.submit();
-	             }
-            }
+            let form = document.answer_write_form;
 
-        
+            if (form.qa_text.value == "") {
+                alert("답변 내용을 입력해 주세요.");
+                form.qa_text.focus();
+            } else {
+                form.submit();
+            }
+        }
+
+        // 고객알람 등록     
+        function pushForm() {
+            console.log("pushForm()");
+
+            let form = document.push_form;
+
+            if (form.message.value == "") {
+                alert("메세지 내용을 입력해 주세요.");
+                form.message.focus();
+            } else if (form.redirectURI.value == "") {
+                alert("redirectURI를 입력해 주세요.");
+                form.redirectURI.focus();
+            } else {
+                form.submit();
+            }
+        }
+
+
     </script>
 </th:block>
 
