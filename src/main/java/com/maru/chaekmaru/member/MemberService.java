@@ -129,7 +129,23 @@ public class MemberService {
 
 		return memberDao.findIdByNameAndEmail(name, email);
 	}
+	
+	public void sendIdEmail(String email,String htmlContent) {
+        log.info("sendEmail()");
 
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setTo(email);
+            helper.setSubject("'북마루' 아이디 찾기 메일입니다.");
+            helper.setText(htmlContent, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
+        } catch (MessagingException e) {
+            log.error("이메일 전송 중 에러 발생", e);
+        }
+
+        javaMailSender.send(mimeMessage);
+    }
+	
 	 public void sendEmail(String email, String content) {
 	        log.info("sendEmail()");
 
@@ -137,7 +153,7 @@ public class MemberService {
 	        try {
 	            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	            helper.setTo(email);
-	            helper.setSubject("'북마루' 비밀번호 변경 링크입니다.");
+	            helper.setSubject("'북마루' 비밀번호 변경 메일입니다.");
 	            helper.setText(content, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
 	        } catch (MessagingException e) {
 	            log.error("이메일 전송 중 에러 발생", e);
