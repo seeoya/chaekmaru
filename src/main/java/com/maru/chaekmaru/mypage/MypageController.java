@@ -225,42 +225,25 @@ public class MypageController {
 			@RequestParam("c_book_count") ArrayList<Integer> c_book_counts) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
-		MyPointListDto myPointListDto = new MyPointListDto();
-
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		ArrayList<MemberCartDto> buyBooks = new ArrayList<>();
 		for (int i = 0; i < b_nos.size(); i++) {
 			buyBooks.add(new MemberCartDto(b_nos.get(i), c_book_counts.get(i)));
 		}
 		ArrayList<MemberCartDto> buyBooksDatas = mypageService.setPaymentForm(buyBooks);
-		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas);
-		log.info("result ====================================>" + result);
-//		if (result > 0) {
-//			myPointListDto.setM_id(loginedMemberDto.getM_id());
-//			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
-//
-//			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
-//			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
-//			if (result > 0) {
-//				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id(), buyBooksDatas);
-//
-//				if (result > 0) {
-//					result = Config.DELETE_PAYMENT_CART_SUCCESS;
-//				} else {
-//					result = Config.DELETE_PAYMENT_CART_FAIL;
-//				}
-//			} else {
-//				result = Config.INSERT_POINT_FAIL;
-//			}
-//		}
-//
-//		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
-//			result = Config.PAYMENT_SUCCESS;
-//		}
+		int allPrice = mypageService.calcAllPrice(buyBooksDatas);
+		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
+		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas, allPrice, discount);
+
+		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+			result = Config.PAYMENT_SUCCESS;
+		} else {
+			result = Config.PAYMENT_FAIL;
+		}
+		
 		memberService.refreshPoint(session);
-//		model.addAttribute("result", result);
-//		return "result";
-		return "redirect:/mypage/member_cart_form";
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*

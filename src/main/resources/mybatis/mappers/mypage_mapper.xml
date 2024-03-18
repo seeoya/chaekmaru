@@ -547,6 +547,5 @@
 					ORDER BY 
 						SB.SB_NO DESC
 	</select>
-	
 
 </mapper>

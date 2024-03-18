@@ -217,5 +217,42 @@
 		]]>
 	</select>
 	
+	<select id="returnPoint"	
+			parameterType="Integer">
+			
+			SELECT 
+				SB_ALL_PRICE 
+			FROM 
+				TBL_SALED_BOOK 
+			WHERE 
+				SB_NO = #{sb_no}							
+	
+	</select>
+	
+	<select id="getMId"	
+			parameterType="Integer">
+			
+			SELECT 
+				M_ID 
+			FROM 
+				TBL_SALED_BOOK 
+			WHERE 
+				SB_NO = #{sb_no}							
+	
+	</select>
+	
+	<insert id="insertRetrunPayment"
+			parameterType="com.maru.chaekmaru.mypage.MyPointListDto">
+	
+			INSERT INTO 
+				TBL_POINT_LIST( 
+				M_ID, PL_PAYMENT_BOOK_POINT, PL_DESC, PL_REG_DATE) 
+			VALUES(
+				#{m_id}, 
+				#{pl_payment_book_point}, 
+				#{pl_desc}, 
+				SYSTIMESTAMP)
+			
+	</insert>
 	
 </mapper>

@@ -163,7 +163,8 @@ public class MypageService {
 		return ((int) discount / 10) * 10;
 	}
 
-	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas) {
+	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas, 
+									int allPrice, int discount) {
 		log.info("allPaymentMyCartList()");
 
 		int result = -1;
@@ -182,40 +183,40 @@ public class MypageService {
 			saledBookDto.setB_no(buyBooksDatas.get(i).getB_no());
 			saledBookDto.setSb_book_count(buyBooksDatas.get(i).getC_book_count());
 			saledBookDto.setB_name(buyBooksDatas.get(i).getB_name());
-			saledBookDto.setSb_all_price(buyBooksDatas.get(i).getB_price() * buyBooksDatas.get(i).getC_book_count());
+			saledBookDto.setSb_all_price(allPrice - discount + 3000);
 			int remainBooks = buyBooksDatas.get(i).getB_count() - buyBooksDatas.get(i).getC_book_count();
 			int isOrderde = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
-			if (isOrderde > 0) {
+			if (isOrderde < 0) {
+				result = Config.DELETE_PAYMENT_CART_FAIL;
+			} else {
 				int minusBookCount = mypageDao.remainBooks(buyBooksDatas.get(i).getB_no(), remainBooks);
 				
-				
-				if (minusBookCount > 0) {
+				if (minusBookCount < 0) {
+					result = Config.MODIFY_BOOK_COUNT_FAIL;
+				} else {
 					int removeCart = mypageDao.removeCartByBNo(m_id, buyBooksDatas.get(i).getB_no());
-					if (removeCart > 0) {
+					if (removeCart < 0) {
+						result = Config.DELETE_CART_FAIL;
+					} else {
 						myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price() * -1);
 						myPointListDto.setPl_desc("도서 " + buyBooksDatas.get(i).getC_book_count() + "권 구매");
-						mypageDao.removePointByBuyBooks(m_id, myPointListDto);
-					}
+						int removePointByBuyBooks = mypageDao.removePointByBuyBooks(m_id, myPointListDto);
+						if (removePointByBuyBooks > 0) {
+							result = Config.DELETE_PAYMENT_CART_SUCCESS;
+						} else {
+							result = Config.DELETE_PAYMENT_CART_FAIL;
+						}
+					} 
 				}
 			}
 		}
 		
-
-		// if 이 주문서가 장바구니에서 왔고, 내 장바구니에 b_no = 1 있으면 지워
-
 		return result;
 	}
 
 	public ArrayList<MemberCartDto> setPaymentForm(ArrayList<MemberCartDto> buyBooks) {
 
 		ArrayList<MemberCartDto> buyBooksData = new ArrayList<>();
-
-//		MemberCartDto temp = mypageDao.selectBookData(buyBooks.get(0).getB_no());
-
-//		buyBooksData.add(temp);
-
-//		log.info("--------------------" + buyBooks.size());
-
 		MemberCartDto temp = new MemberCartDto();
 
 		for (int i = 0; i < buyBooks.size(); i++) {

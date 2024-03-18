@@ -73,10 +73,14 @@
                 </div>
 
 
-                <div th:switch="${memberInfo.m_grade}">
+                <div>
                     <p>등급 할인</p>
                     <div>
-                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                    	<th:block th:switch="${memberInfo.m_grade}">
+                    		<p class="member-sale-price" th:case="0" th:text="${discount + ' 포인트'}"></p>
+                       		<p class="member-sale-price" th:case="1" th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                        	<p class="member-sale-price" th:case="2" th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                    	</th:block>
                     </div>
                 </div>
                 <div>
