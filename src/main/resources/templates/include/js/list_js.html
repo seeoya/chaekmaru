@@ -9,16 +9,16 @@
             if (document.getElementById("list_sort")) {
                 document.getElementById("list_sort").addEventListener("change", (e) => {
                     let sortSelect = document.getElementById("list_sort");
-                    console.log(sortSelect.value);
-
                     location.href = sortSelect.dataset.link + "&sort=" + sortSelect.value;
                 });
             }
 
             // 리뷰 작성, 수정
-            if (document.getElementById(".review-wrap button.submit")) {
+            if (document.querySelectorAll(".review-wrap button.submit")[0]) {
                 document.querySelectorAll(".review-wrap button.submit").forEach((el) => {
                     el.addEventListener("click", function (e) {
+                        console.log(1111);
+
                         let form = e.target.closest("form");
 
                         if (form.r_stars.value > 5 || form.r_stars.value < 1) {
@@ -36,7 +36,7 @@
             };
 
             // 리뷰 수정창 on/off
-            if (document.getElementById(".modify-review")) {
+            if (document.querySelectorAll(".modify-review")[0]) {
                 document.querySelectorAll(".modify-review").forEach(el => {
                     el.addEventListener("click", function (e) {
 
@@ -60,6 +60,23 @@
                 })
             }
 
+            if (document.getElementById("add_cart")) {
+                document.getElementById("add_cart").addEventListener("click", function () {
+                    let bNo = this.dataset.index;
+                    let count = document.getElementById("cart_count").value;
+
+                    ajaxAddCart(bNo, count);
+                })
+            }
+
+            if (document.getElementById("add_pick")) {
+                document.getElementById("add_pick").addEventListener("click", function () {
+                    let bNo = this.dataset.index;
+
+                    ajaxAddPick(bNo);
+                })
+            }
+
         });
 
         function updateTotal() {
@@ -67,6 +84,84 @@
             let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
             let totalPrice = count * price;
             document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+        }
+
+        function ajaxAddCart(bNo, count) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/add_my_cart", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    spinnerStatus("off");
+
+                    if (httpRequest.responseText == "true") {
+                        let result = confirm("장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?");
+
+                        if (result) {
+                            location.href = [[@{/mypage/member_cart_form}]];
+                    }
+
+                } else if (httpRequest.responseText == "false") {
+                    alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+                }
+            } else if (httpRequest.status == 403) {
+                alert("접근 거부");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 404) {
+                alert("페이지 없음")
+                spinnerStatus("off");
+            } else if (httpRequest.status == 500) {
+                alert("서버 오류 발생");
+                spinnerStatus("off");
+            }
+        };
+
+        spinnerStatus("on");
+
+        let data = { b_no: bNo, c_book_count: count };
+
+        httpRequest.send(JSON.stringify(data));
+        }
+
+        function ajaxAddPick(bNo) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/add_member_pick", true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    spinnerStatus("off");
+
+                    if (httpRequest.responseText == "true") {
+                        let result = confirm("찜 목록에 추가되었습니다.\n찜 목록으로 이동하시겠습니까?");
+
+                        if (result) {
+                            location.href = [[@{/mypage/member_pick}]];
+                    }
+
+                } else if (httpRequest.responseText == "duple") {
+                    alert("이미 찜 목록에 존재하는 도서입니다.");
+                } else if (httpRequest.responseText == "false") {
+                    alert("찜 목록 추가에 실패했습니다. 다시 시도해주세요.");
+                }
+            } else if (httpRequest.status == 403) {
+                alert("접근 거부");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 404) {
+                alert("페이지 없음")
+                spinnerStatus("off");
+            } else if (httpRequest.status == 500) {
+                alert("서버 오류 발생");
+                spinnerStatus("off");
+            }
+        };
+
+        spinnerStatus("on");
+
+        httpRequest.send("b_no=" + bNo);
         }
     </script>
 </th:block>

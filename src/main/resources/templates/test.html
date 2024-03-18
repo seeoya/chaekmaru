@@ -32,7 +32,7 @@
             };
 
             httpRequest.open("GET", "/ajax/test", true);
-            httpRequest.send();
+            httpRequest.send("b_no = 11");
         }
 
         function test2() {
@@ -40,15 +40,16 @@
 
             httpRequest.open("POST", "/ajax/addCart", true);
             httpRequest.setRequestHeader("Content-Type", "application/json");
+            // httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                     // 성공했을 때
-                    // alert(httpRequest.responseText);
+                    alert(httpRequest.responseText);
                     // alert('통신 성공');
 
                     spinnerStatus("off");
-                    document.getElementById("text").innerHTML = "<p>성공했어요</p>";
+                    // document.getElementById("text").innerHTML = "<p>성공했어요</p>";
                 } else if (httpRequest.status == 403) {
                     alert("접근 거부");
                     spinnerStatus("off");
@@ -63,7 +64,11 @@
 
             spinnerStatus("on");
 
-            httpRequest.send({ b_no: 117 });
+            let data = { b_no: 117 };
+
+            // controller에서 dto로 받기
+            httpRequest.send(JSON.stringify(data));
+            // httpRequest.send("b_no=117&c_no=1");
         }
 
 

@@ -110,6 +110,8 @@ public class MemberController {
 
 		int result = memberService.memberDeleteConfirm(loginedMemberDto.getM_id());
 
+		session.removeAttribute(Config.LOGINED_MEMBER_INFO);
+
 		model.addAttribute("result", result);
 		return "result";
 	}

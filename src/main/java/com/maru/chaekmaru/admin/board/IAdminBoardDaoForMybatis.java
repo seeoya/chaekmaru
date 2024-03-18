@@ -12,16 +12,6 @@ public interface IAdminBoardDaoForMybatis {
 
 	ArrayList<AdminBoardDto> selectDailySalesByCate();
 
-	
-	
-	
-//	public List<SaledBookDto> selectSaledBooksByPeriod(String saled_start, String saled_end);
-//
-//	public int countListResult();
-//
-//	public ArrayList<BookDto> setList(@Param("startNum") int startNum, @Param("endNum") int endNum);
-		
-
-
+	ArrayList<AdminBoardDto> selectDailySalesByCateThis();
 	
 }

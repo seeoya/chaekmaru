@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.admin.board.AdminBoardDto;
 import com.maru.chaekmaru.admin.board.AdminBoardService;
+import com.maru.chaekmaru.admin.member.AdminMemberDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -20,34 +21,77 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/admin")
 public class AdminHomeController {
 	
+	@Autowired
+	AdminBoardService adminBoardService;
+	
 	@GetMapping({"/", ""})
-	public String home() {
+	public String home(HttpSession session, Model model) {
 		log.info("home()");
-		
-	/*	@Autowired
-		AdminBoardService adminBoardService;
-		
-		@GetMapping({"/", ""})
-		public String adminBoardForm(Model model) {
-			log.info("adminBoardForm()");
-					
-			ArrayList<AdminBoardDto> salesdaily = adminBoardService.totalSalesDaily();
-			ArrayList<AdminBoardDto> salesCateDaily = adminBoardService.salesCateDaily();
-					
-			model.addAttribute("salesdaily", salesdaily);
-			model.addAttribute("salesCateDaily", salesCateDaily);*/
 			
 			String nextPage = "admin/index";
+			
+			AdminMemberDto loginedAdminMemberDto = (AdminMemberDto) session.getAttribute("loginedAdminMemberDto");
+			if(loginedAdminMemberDto != null) {
+				
+				ArrayList<AdminBoardDto> salesDaily = adminBoardService.totalSalesDaily();				
+				ArrayList<AdminBoardDto> salesCateDaily = adminBoardService.salesCateDaily();
+				ArrayList<AdminBoardDto> salesCateDailyThis = adminBoardService.salesCateDailyThis();
+				
+				
+				model.addAttribute("sales1", salesDaily.get(0).getSc_sales1());
+				model.addAttribute("sales2", salesDaily.get(0).getSc_sales2());
+				model.addAttribute("sales3", salesDaily.get(0).getSc_sales3());
+				model.addAttribute("sales4", salesDaily.get(0).getSc_sales4());
+				model.addAttribute("sales5", salesDaily.get(0).getSc_sales5());
+				model.addAttribute("sales6", salesDaily.get(0).getSc_sales6());
+				model.addAttribute("sales7", salesDaily.get(0).getSc_sales7());			
+
+				model.addAttribute("date1", salesDaily.get(0).getSc_date1());
+				model.addAttribute("date2", salesDaily.get(0).getSc_date2());
+				model.addAttribute("date3", salesDaily.get(0).getSc_date3());
+				model.addAttribute("date4", salesDaily.get(0).getSc_date4());
+				model.addAttribute("date5", salesDaily.get(0).getSc_date5());
+				model.addAttribute("date6", salesDaily.get(0).getSc_date6());
+				model.addAttribute("date7", salesDaily.get(0).getSc_date7());
+				
+					
+				model.addAttribute("cate0", salesCateDaily.get(0).getSc_c_sales0());
+				model.addAttribute("cate1", salesCateDaily.get(0).getSc_c_sales1());
+				model.addAttribute("cate2", salesCateDaily.get(0).getSc_c_sales2());
+				model.addAttribute("cate3", salesCateDaily.get(0).getSc_c_sales3());
+				model.addAttribute("cate4", salesCateDaily.get(0).getSc_c_sales4());
+				model.addAttribute("cate5", salesCateDaily.get(0).getSc_c_sales5());
+				model.addAttribute("cate6", salesCateDaily.get(0).getSc_c_sales6());
+				model.addAttribute("cate7", salesCateDaily.get(0).getSc_c_sales7());
+				model.addAttribute("cate8", salesCateDaily.get(0).getSc_c_sales8());
+				model.addAttribute("cate9", salesCateDaily.get(0).getSc_c_sales9());		
+				model.addAttribute("c_date1", salesCateDaily.get(0).getSc_c_date1());		
+
+				model.addAttribute("cate10", salesCateDailyThis.get(0).getSc_c_sales10());
+				model.addAttribute("cate11", salesCateDailyThis.get(0).getSc_c_sales11());
+				model.addAttribute("cate12", salesCateDailyThis.get(0).getSc_c_sales12());
+				model.addAttribute("cate13", salesCateDailyThis.get(0).getSc_c_sales13());
+				model.addAttribute("cate14", salesCateDailyThis.get(0).getSc_c_sales14());
+				model.addAttribute("cate15", salesCateDailyThis.get(0).getSc_c_sales15());
+				model.addAttribute("cate16", salesCateDailyThis.get(0).getSc_c_sales16());
+				model.addAttribute("cate17", salesCateDailyThis.get(0).getSc_c_sales17());
+				model.addAttribute("cate18", salesCateDailyThis.get(0).getSc_c_sales18());
+				model.addAttribute("cate19", salesCateDailyThis.get(0).getSc_c_sales19());
+				model.addAttribute("c_date2", salesCateDailyThis.get(0).getSc_c_date2());
+				
+				
+			}
 			
 			return nextPage;		
 	}
 
 	@GetMapping("/result")
 	public String test(HttpSession session, Model model, @RequestParam( value = "result", defaultValue = "0") String result) {
-		int resultNum = Integer.parseInt(result);
 		
+		String nextPage = "admin/result";
+		int resultNum = Integer.parseInt(result);
 		model.addAttribute("result", resultNum);
 
-		return "result";
+		return nextPage;
 	}
 }

@@ -37,6 +37,7 @@
 						C_NO = #{c_no} 
 						
 	</update>
+
 	<update id="addBookCountByBNo"
 			parameterType="Object">
 				<![CDATA[
@@ -45,7 +46,7 @@
 					SET
 						C_BOOK_COUNT =
 						(SELECT C_BOOK_COUNT FROM TBL_MEMBER CART WHERE 
-						M_ID = #{m_id} AND B_NO = #{b_no}) +1,
+						M_ID = #{m_id} AND B_NO = #{b_no}) + #{count},
 						C_MOD_DATE = SYSTIMESTAMP 
 					WHERE 
 						M_ID = #{m_id} 
@@ -158,10 +159,10 @@
 	
 		INSERT INTO 
 			TBL_MEMBER_CART 
-		VALUES(MEMBER_CART_SEQ.NEXTVAL, #{m_id}, #{b_no}, 1, SYSTIMESTAMP, SYSTIMESTAMP) 
+		VALUES(MEMBER_CART_SEQ.NEXTVAL, #{m_id}, #{b_no}, #{count}, SYSTIMESTAMP, SYSTIMESTAMP) 
 	
 	</insert>
-	
+
 	<select id="selectBookCount"
 			parameterType="map"
 			resultType="Integer">

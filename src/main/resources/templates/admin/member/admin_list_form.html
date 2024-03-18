@@ -42,11 +42,18 @@
     				<td th:text="${list.a_phone}"></td>
     				<td th:text="${#strings.substring(list.a_reg_date, 0, 19)}"></td>
     				<td th:text="${#strings.substring(list.a_mod_date, 0, 19)}"></td>
-    				<td th:text="${list.a_grade}"></td>
+    				<td th:if="${list.a_grade == 0}" th:text="미승인"></td>
+    				<td th:if="${list.a_grade == 1}" th:text="승인"></td>
+    				<td th:if="${list.a_grade == 2}" th:text="super"></td>   				
     				   				 
-    				<td>
+    				<td th:if="${list.a_id == 'super admin'} ">
+    				<a href="#none"></a></td>
+    				<td th:unless="${list.a_id == 'super admin'} ">
     				<a th:href="@{/admin/member/set_admin_approval(a_no=${list.a_no})}">승인</a></td>
-    				<td>    				    				    			
+    				
+    				<td th:if="${list.a_id == 'super admin'} ">
+    				<a href="#none"></a></td>
+    				<td th:unless="${list.a_id == 'super admin'} ">    				    				    			
     				<a href="#none" th:onclick="deleteAdminConfirm([[${list.a_no}]])">삭제</a></td>    				    			
     			  
     			</tr>
