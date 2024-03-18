@@ -5,11 +5,17 @@
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
             // 수량 변경
-            document.querySelectorAll(".modify-count").forEach((e) => {
-                e.addEventListener("click", function () {
-                    let count = this.previousElementSibling.value;
+            document.querySelectorAll(".book-count").forEach((e) => {
+                e.addEventListener("change", function () {
+                    let count = this.value;
+                    let cNo = this.dataset.index;
 
-                    location.href = this.dataset.link + "&c_book_count=" + count;
+                    if (count <= 0) {
+                        alert("올바른 수량을 입력해주세요");
+                        this.value = 0;
+                    } else {
+                        ajaxBookCount(cNo, count);
+                    }
                 });
             });
 
@@ -21,15 +27,49 @@
             })
         });
 
-        function bookCountSubmit() {
-            console.log("bookCountSubmit()");
+        function ajaxBookCount(cNo, count) {
+            let httpRequest = new XMLHttpRequest();
 
-            let bookCount = parseInt(document.getElementsByName("c_book_count").value);
-            if (bookCount <= 0) {
-                alert("올바른 수량을 입력해주세요");
-            } else {
-                form.submit();
-            }
+            httpRequest.open("POST", "/ajax/cart_modify_form", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+                        console.log("수량 변경 성공");
+                        updateTotal(cNo, count);
+                    } else {
+                        alert("수량 변경에 실패했습니다. 다시 시도해주세요.");
+                    }
+
+                    // spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            // spinnerStatus("on");
+
+            let data = {
+                c_no: cNo,
+                c_book_count: count
+            };
+
+            httpRequest.send(JSON.stringify(data));
+        }
+
+        function updateTotal(cNo, count) {
+            let price = parseInt(document.getElementById("price_" + cNo).innerText.replace(/[^0-9]/g, ''));
+            let totalPrice = count * price;
+
+            document.getElementById("total_price_" + cNo).innerText = numberWithCommas(totalPrice) + " 포인트";
         }
 
         function point_charge_form_check() {
@@ -130,21 +170,21 @@
                     alert("잔여 포인트가 부족합니다. 포인트를 충전해 주세요");
                 }
             }
-            
-            function allBuy() {
-    			document.querySelectorAll(".ck-box").forEach(el => {
-    				if (el) {
-    					let index = el.dataset.index;
-    					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-    					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-    				}
 
-    				document.payment_form.submit();
-    			})
-    		}
+            function allBuy() {
+                document.querySelectorAll(".ck-box").forEach(el => {
+                    if (el) {
+                        let index = el.dataset.index;
+                        document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+                        document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+                    }
+
+                    document.payment_form.submit();
+                })
+            }
         }
     </script>
-    
+
 </th:block>
 
 </html>

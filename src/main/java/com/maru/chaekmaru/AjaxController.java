@@ -13,6 +13,7 @@ import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.member.MemberService;
 import com.maru.chaekmaru.mypage.AttendenceDto;
+import com.maru.chaekmaru.mypage.MemberCartDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
 import com.maru.chaekmaru.mypage.MypageService;
 import com.maru.chaekmaru.review.ReviewDto;
@@ -159,6 +160,24 @@ public class AjaxController {
 				mypageService.chargePoint(myPointListDto2);
 			}
 
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+
+	@PostMapping("/cart_modify_form")
+	public String cartModifyForm(@RequestBody MemberCartDto memberCartDto, HttpSession session, Model model) {
+		log.info("cart_modify_form()");
+
+		int c_no = memberCartDto.getC_no();
+		int c_book_count = memberCartDto.getC_book_count();
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = mypageService.addBookCount(loginedMemberDto.getM_id(), c_no, c_book_count);
+
+		if (result > 0) {
 			return "true";
 		} else {
 			return "false";
