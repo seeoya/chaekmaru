@@ -120,6 +120,25 @@ public class AjaxController {
 		}
 	}
 	
+	@PostMapping("/find_id_send")
+	public String findIdAndSendEmail(@RequestBody MemberDto memberDto, Model model) {
+		
+		String name = memberDto.getM_name();
+		String email = memberDto.getM_mail();
+		
+		String id = memberService.findIdByNameAndEmail(name, email);
+
+		if (id != null) {
+			memberService.sendEmail(email, "Your ID is : " + id);
+			model.addAttribute("result", Config.FIND_ID_SUCCESS);
+			
+		} else {
+			model.addAttribute("result", Config.FIND_ID_FAIL);
+		}
+		
+		return "result";
+	}
+	
 	@PostMapping("/pw_mail_send")
 	public String findPwConfirm(@RequestBody MemberDto memberDto, Model model) {
 		log.info("findPwConfirm()");
