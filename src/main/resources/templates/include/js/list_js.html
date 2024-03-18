@@ -83,7 +83,7 @@
             let count = document.getElementById("cart_count").value;
             let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
             let totalPrice = count * price;
-            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " 원";
+            document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " BP";
         }
 
         function ajaxAddCart(bNo, count) {

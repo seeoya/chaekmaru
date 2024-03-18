@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 포인트 충전</title>
+    <title>책마루 :: BP 충전</title>
 
     <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
 
 <div id="point_charge" class="content-wrap" layout:fragment="content">
-    <h2 class="title">포인트 충전</h2>
+    <h2 class="title">BP 충전</h2>
 
     <div class="content">
-        <div class="now-point">잔여 포인트 : [[${#numbers.arrayFormatInteger(point, 1,'COMMA')+ ' BP'}]]</div>
+        <div class="now-point">잔여 BP : [[${#numbers.arrayFormatInteger(point, 1,'COMMA')+ ' BP'}]]</div>
 
         <form th:action="@{/mypage/point_charge_confirm}" name="point_charge_form" class="form" method="post">
             <div>1,000 BP부터 충전 가능합니다.</div>
@@ -26,7 +26,7 @@
 
             <div class="point-wrap">
                 <input type="number" id="bp" name="pl_payment_book_point" min="1000" step="100" value="0">
-                <span> 원</span>
+                <span> BP</span>
                 <button type="button" class="btn" onclick="point_charge_form_check()">충전</button>
             </div>
         </form>

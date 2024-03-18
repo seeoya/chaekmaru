@@ -12,8 +12,7 @@
 
     <div class="content">
 
-        <aside th:replace="~{/book/aside.html::aside}">
-        </aside>
+        <aside th:replace="~{/book/aside.html::aside}"></aside>
 
         <div class="list-wrap">
             <div class="sort">
@@ -22,10 +21,8 @@
                     <option value="old" th:selected="${sort} == 'old'">오래된 순</option>
                     <option value="best" th:selected="${sort} == 'best'">인기순</option>
                     <option value="review" th:selected="${sort} == 'review'">리뷰많은순</option>
-                    <option value="price_low" th:selected="${sort} == 'price_low'">낮은
-                        가격 순</option>
-                    <option value="price_high" th:selected="${sort} == 'price_high'">높은
-                        가격 순</option>
+                    <option value="price_low" th:selected="${sort} == 'price_low'">낮은 가격 순</option>
+                    <option value="price_high" th:selected="${sort} == 'price_high'">높은 가격 순</option>
                     <option value="name_asc" th:selected="${sort} == 'name_asc'">이름순</option>
                     <option value="name_desc" th:selected="${sort} == 'name_desc'">이름역순</option>
                 </select>
@@ -41,10 +38,9 @@
                         <div class="info">
                             <div class="name ellipsis">[[${item.b_name}]]</div>
                             <div class="author ellipsis">[[${item.b_author}]]</div>
-                            <div class="price ellipsis">[[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ '원'}]]</div>
+                            <div class="price ellipsis">[[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]</div>
                             <div class="introduce">[[${item.b_introduce}]]</div>
-                            <div class="publisher ellipsis">[[${item.b_publisher}]] /
-                                [[${item.b_publish_date}]]</div>
+                            <div class="publisher ellipsis">[[${item.b_publisher}]] / [[${item.b_publish_date}]]</div>
                             <div class="star ellipsis">
                                 <i class="fa-solid fa-star"></i>
                                 <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>

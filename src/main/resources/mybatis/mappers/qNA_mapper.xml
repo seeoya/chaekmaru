@@ -26,7 +26,7 @@
 		parameterType="com.maru.chaekmaru.qna.QNADto">
 		INSERT INTO TBL_QNA  
 		(Q_NO, M_ID, SB_NO, Q_TITLE, Q_TEXT, Q_REG_DATE)  
-		VALUES(QNA_SEQ.NEXTVAL, #{m_id, jdbcType=VARCHAR}, #{sb_no, jdbcType=NUMERIC}, #{q_title, jdbcType=VARCHAR}, 
+		VALUES(QNA_SEQ.NEXTVAL, #{m_id, jdbcType=VARCHAR}, #{sb_no, jdbcType=VARCHAR}, #{q_title, jdbcType=VARCHAR}, 
 		#{q_text, jdbcType=VARCHAR}, SYSTIMESTAMP)
 	</insert>
 		
