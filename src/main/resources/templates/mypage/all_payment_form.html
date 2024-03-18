@@ -24,10 +24,9 @@
                                 <span class="pay-bookname">[[${buyBooksData.b_name}]]</span>
 
                                 <p class="pay-price-result">
-                                    [[${#numbers.formatInteger(buyBooksData.b_price, 3, 'COMMA')}]] 포인트 <i
+                                    [[${#numbers.formatInteger(buyBooksData.b_price, 1, 'COMMA')}]] 포인트 <i
                                         class="fa-solid fa-xmark"></i> [[${buyBooksData.c_book_count}]] 권 =
-                                    [[${#numbers.formatInteger(buyBooksData.b_price * buyBooksData.c_book_count, 3,
-                                    'COMMA')}]] 포인트
+                                    [[${#numbers.formatInteger(buyBooksData.b_price * buyBooksData.c_book_count, 1, 'COMMA')}]] 포인트
                                 </p>
                             </div>
                         </a>
@@ -69,14 +68,14 @@
 
                 <div>
                     <p>전체 금액</p>
-                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 3, 'COMMA') + '  포인트'}"></p>
+                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  포인트'}"></p>
                 </div>
 
 
                 <div th:switch="${memberInfo.m_grade}">
                     <p>등급 할인</p>
                     <div>
-                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 3, 'COMMA') + '  포인트'}"></p>
+                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  포인트'}"></p>
                     </div>
                 </div>
                 <div>
@@ -89,7 +88,7 @@
                 <div th:switch="${memberInfo.m_grade}">
                     <label>결제 예정 금액</label>
                     <div>
-                        <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 3, 'COMMA') + '  포인트'}"></p>
+                        <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 1, 'COMMA') + '  포인트'}"></p>
                         <input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
                         <input type="hidden" name="currentPoint" th:value="${currentPoint}" />
                     </div>

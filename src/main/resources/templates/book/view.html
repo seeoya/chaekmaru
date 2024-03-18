@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: [[${item.b_name}]]</title>
@@ -44,21 +43,18 @@
                                         <div th:if="${item.b_count > 0}" class="count ellipsis">
                                             재고: [[${item.b_count}]]
                                         </div>
-                                        <input class="input" type="number" name="c_book_count" value="1" id="cart_count"
-                                            oninput="updateTotal()">
+                                        <input class="input" type="number" name="c_book_count" value="1" id="cart_count">
                                     </div>
 
                                     <div id="total_price" class="price ellipsis">총 금액: 0 원</div>
                                 </div>
 
                                 <div class="view_pay_a">
-                                    <a th:href="@{/mypage/add_member_pick(b_no=${item.b_no})}" class="btn">
+                                    <button type="button" id="add_pick" th:data-index="${item.b_no}" class="btn">
                                         <i class="fa-regular fa-heart"></i>
-                                    </a>
-                                    <a th:href="@{/mypage/add_cart(b_no=${item.b_no})}"
-                                        class="btn main disable">장바구니</a>
-
-                                    <button type="submit" class="btn sub">바로결제</button>
+                                    </button>
+                                    <button type="button" id="add_cart" th:data-index="${item.b_no}" class="btn main half">장바구니</button>
+                                    <button type="submit" class="btn sub half">바로결제</button>
                                 </div>
                             </div>
                         </form>

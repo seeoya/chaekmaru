@@ -106,7 +106,7 @@ public class MypageService {
 		return mypageDao.allPaymentForm(m_id);
 	}
 
-	public int addMyCart(String m_id, int b_no) {
+	public int addMyCart(String m_id, int b_no, int count) {
 		log.info("addMyCart()");
 		int result = -1;
 
@@ -115,9 +115,9 @@ public class MypageService {
 		countBookInCart = mypageDao.selectBookCount(m_id, b_no);
 
 		if (countBookInCart > 0) {
-			result = mypageDao.addBookCountByBNo(m_id, b_no);
+			result = mypageDao.addBookCountByBNo(m_id, b_no, count);
 		} else {
-			result = mypageDao.addMyCart(m_id, b_no);
+			result = mypageDao.addMyCart(m_id, b_no, count);
 		}
 
 		if (result < 0) {
@@ -316,17 +316,18 @@ public class MypageService {
 		// #TODO RESULT 처리 필요
 		if (countBookInList > 0) {
 			log.info("찜 목록에 이미 있는 도서 입니다.");
+			return Config.ADD_PICK_DUPPLICATE;
 		} else {
 			result = mypageDao.addMyPick(m_id, b_no);
 		}
 		// #TODO RESULT 처리 필요
 		if (result < 0) {
 			log.info("찜 목록 등록에 실패 했습니다.");
+			return Config.ADD_PICK_FAIL;
 		} else {
 			log.info("찜 목록 등록에 성공 했습니다.");
+			return Config.ADD_PICK_SUCCESS;
 		}
-
-		return result;
 	}
 
 	public List<MemberPickDto> myPickList(String m_id) {
