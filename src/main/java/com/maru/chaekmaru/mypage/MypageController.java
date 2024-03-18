@@ -421,12 +421,13 @@ public class MypageController {
 
 	@GetMapping("/attendance")
 	public String attendance(HttpSession session, Model model) {
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-
-		int result = -1;
-
-		result = mypageService.attendence(loginedMemberDto.getM_id());
-		
+		//ajax로 패치함
+//		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+//
+//		int result = -1;
+//
+//		result = mypageService.attendence(loginedMemberDto.getM_id());
+//		
 		return "redirect:/mypage/attendance_list";
 	}
 }
