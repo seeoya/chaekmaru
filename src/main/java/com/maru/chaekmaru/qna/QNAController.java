@@ -24,11 +24,11 @@ public class QNAController {
 	@Autowired
 	QNAService qNAService;
 
-	@GetMapping({"/", ""})
+	@GetMapping("/qna")
 	public String qNAForm(HttpSession session, Model model) {
 		log.info("qNAForm()");
 			
-			String nextPage = "qna";
+			String nextPage = "qna/qna";
 		
 			MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
@@ -62,7 +62,7 @@ public class QNAController {
 	public String qNAList(Model model) {
 		log.info("qNAList()");
 			
-			String nextPage = "qna_list_form";
+			String nextPage = "qna/qna_list_form";
 		
 			ArrayList<QNADto> qnas =  qNAService.setQNAs();
 		
@@ -76,7 +76,7 @@ public class QNAController {
 	public String qNAAnswer(@RequestParam("q_no") int q_no, Model model) {
 		log.info("qNAForm()");
 			
-			String nextPage = "qna_answer";
+			String nextPage = "qna/qna_answer";
 		
 			QNADto qna =  qNAService.setQNA(q_no);
 		
