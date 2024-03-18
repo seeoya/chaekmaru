@@ -152,7 +152,16 @@ public class MemberController {
 		MemberDto getId = memberService.findMember(id, name, email);
 
 		String link = "http://localhost:8090/member/pw_modify_form?id=" + id;
-		String message = "비밀번호 변경 링크 : " + link;
+		String logoUrl = "http://localhost:8090/img/logo3.png";
+		String message = "<div style='width: 400px; margin: 20px auto; padding: 30px 50px; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>" +
+		        "<img src='" + logoUrl + "' alt='Logo' style='display: block; margin: 0 auto 20px; width: 100px;'>" + // 로고 이미지 크기 조절
+		        "<h2 style='color: #333; text-align: center; margin: 0 0 20px;'>" + // 헤더 가운데 정렬
+		        "비밀번호 변경 안내</h2>" +
+		        "<p style='color: #555; text-align: center;'>" + // 본문 가운데 정렬
+		        "아래의 링크를 클릭하여 비밀번호를 변경하세요.</p>" +
+		        "<a href='" + link + "' style='display: block; margin-top: 20px; text-align: center; padding: 10px 20px; color: #fff; background-color: #365a41; border-radius: 5px; text-decoration: none;'>" + // 버튼 스타일 조정
+		        "비밀번호 변경하기</a>" +
+		        "</div>";
 
 		if (getId != null) {
 			memberService.sendEmail(email, message);

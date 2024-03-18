@@ -24,7 +24,9 @@
                     </a>
                 </div>
                 <div>
-                    <p th:text="${memberPickDtos.b_name}">도서 제목</p>
+                	<a th:href="@{/book/view/{b_no}(b_no=${memberPickDtos.b_no})}">
+                        <p th:text="${memberPickDtos.b_name}">도서 제목</p>
+                    </a>
                 </div>
             </div>
         </div>
