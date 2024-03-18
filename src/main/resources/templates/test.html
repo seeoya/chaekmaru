@@ -32,7 +32,7 @@
             };
 
             httpRequest.open("GET", "/ajax/test", true);
-            httpRequest.send();
+            httpRequest.send("b_no = 11");
         }
 
         function test2() {
@@ -63,7 +63,10 @@
 
             spinnerStatus("on");
 
-            httpRequest.send({ b_no: 117 });
+            let data = { b_no: 117 };
+
+            httpRequest.send(JSON.stringify(data));
+            // controller에서 dto로 받기
         }
 
 

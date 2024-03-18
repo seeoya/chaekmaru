@@ -13,12 +13,12 @@
 
     <div class="content">
 
-        <th:block th:if="${todayAttend} == 'false'">
-            <button type="button" id="attendance">출석체크</button>
+        <th:block th:if="${todayAttend} == false">
+            <button type="button" id="attendance" class="btn highlight">출석체크</button>
         </th:block>
 
         <div>
-            [[${session[loginedMemberInfo].m_id}]] 님 누적 [[${acc}]]일 출석
+            [[${session[loginedMemberInfo].m_id}]] 님 누적 <span id="acc">[[${acc}]]</span>일 출석
         </div>
 
         <div>
