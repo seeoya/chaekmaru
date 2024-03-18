@@ -8,28 +8,19 @@
         	document.getElementById('start').value = new Date().toISOString().substring(0, 10);
 	    	document.getElementById('end').value = new Date().toISOString().substring(0, 10);
 	    	
-	    	document.getElementById("to_top").addEventListener("click", function () {
-                window.scrollTo(0, 0);
-            });
+	    	  document.addEventListener("DOMContentLoaded", function () {
+	              document.getElementById("to_top").addEventListener("click", function () {
+	                  window.scrollTo(0, 0);
+	              });
 
-            document.getElementById("to_bottom").addEventListener("click", function () {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
+	              document.getElementById("to_bottom").addEventListener("click", function () {
+	                  window.scrollTo(0, document.body.scrollHeight);
+	              });
 
-            if (document.getElementById("index_banner")) {
-                var swiper = new Swiper("#index_banner", {
-                    loop: true,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        dynamicBullets: true,
-                    },
-                });
-            }
-
+	             
+	              
+	       	     
+	    	  });
         });
 
         /* Admin Member */
@@ -291,23 +282,6 @@
             	if(form.qa_text.value == ""){            	       
 	                 alert("답변 내용을 입력해 주세요.");
 	                 form.qa_text.focus();
-	             } else {
-	                 form.submit();
-	             }
-            }
-
- 			 // 고객알람 등록     
- 			function pushForm() {
-            	console.log("pushForm()");
-            	
-            	let form = document.push_form;
-            	   
-            	if(form.message.value == ""){            	       
-	                 alert("메세지 내용을 입력해 주세요.");
-	                 form.message.focus();
-	             } else if(form.redirectURI.value == ""){            	       
-	                 alert("redirectURI를 입력해 주세요.");
-	                 form.redirectURI.focus();
 	             } else {
 	                 form.submit();
 	             }

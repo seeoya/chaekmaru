@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<th:block th:fragment="admin_chart_js">		
+	<div class="title" >     
+		<h3 style="text-align:left; margin:10px auto; margin-top: 20px; color:#f82;">일자별 매출현황</h3> 
+	</div>
+    <div class="chart" style="width: 600px;">
+	 	<canvas id="SalesChart"></canvas>
+     
+      	 <script th:inline="javascript">
+        			
+		             var sales0 = [[${sales0}]];
+		             var sales1 = [[${sales1}]];
+		             var sales2 = [[${sales2}]];
+		             var sales3 = [[${sales3}]];
+		             var sales4 = [[${sales4}]];
+		             var sales5 = [[${sales5}]];
+		             var sales6 = [[${sales6}]];
+		             var sales7 = [[${sales7}]];
+		             var date1= [[${date1}]];
+		             var date2= [[${date2}]];
+		             var date3= [[${date3}]];
+		             var date4= [[${date4}]];
+		             var date5= [[${date5}]];
+		             var date6= [[${date6}]];
+		             var date7= [[${date7}]];            
+		           
+		             console.log("sales2, date2:" , sales2, date2);
+		             
+				  const ctx = document.getElementById('SalesChart');
+				
+				  new Chart(ctx, {
+				    type: 'line',			    
+				    data: {
+				      labels: [date1, date2, date3, date4, date5, date6, date7],
+				      datasets: [{
+				    	    label: '일자별 매출액',
+				    	    data: [sales1, sales2, sales3, sales4, sales5, sales6, sales7],
+				    	    fill: false,
+				    	    borderColor: 'rgb(20, 150, 50)',
+				    	    tension: 0.1,
+				    	    pointStyle: 'circle',
+					        pointRadius: 10,
+					        pointHoverRadius: 15                 
+					      
+				    	  }],
+				    	
+					  options: {
+						  spanGaps: true,	
+						  legend: {
+					            display: true,
+					            labels: {
+					                fontColor: 'rgb(255, 99, 132)',
+					                fillStyle: 'rgb(255, 99, 132)'
+					            }
+						  },
+				      		scales: {
+				      			 x: {
+					          			beginAtZero: true
+					        		},
+				      		
+				       			 y: {
+				          			beginAtZero: true
+				        		}
+				      		}
+					  	   
+				     }
+				  }
+				  
+			  });
+				  
+			</script>           
+		     </div>    
+     
+    <div class="title">    
+   		<h3 style="text-align:left; margin:10px auto; margin-top: 20px; color:#f82;">카테고리별 매출현황</h3>
+    </div>
+    <div class="chart" style="width: 600px;">
+      	<canvas id="SalesChartCate"></canvas>
+          
+          <script th:inline="javascript">
+          			
+             var cate0 = [[${cate0}]];
+             var cate1 = [[${cate1}]];
+             var cate2 = [[${cate2}]];
+             var cate3 = [[${cate3}]];
+             var cate4 = [[${cate4}]];
+             var cate5 = [[${cate5}]];
+             var cate6 = [[${cate6}]];
+             var cate7 = [[${cate7}]];
+             var cate8 = [[${cate8}]];
+             var cate9 = [[${cate9}]];
+             var cate10 = [[${cate10}]];
+             var cate11 = [[${cate11}]];
+             var cate12 = [[${cate12}]];
+             var cate13 = [[${cate13}]];
+             var cate14 = [[${cate14}]];
+             var cate15 = [[${cate15}]];
+             var cate16 = [[${cate16}]];
+             var cate17 = [[${cate17}]];
+             var cate18 = [[${cate18}]];
+             var cate19 = [[${cate19}]];
+             var c_date1 = [[${c_date1}]];
+             var c_date2 = [[${c_date2}]];
+             
+            
+		  const ctx2 = document.getElementById('SalesChartCate');
+		
+		  new Chart(ctx2, {
+		    type: 'bar',
+		    data: {
+		      labels: ['총류', '철학', '종교', '사회과학', '자연과학', '기술과학', '예술', '언어', '역사', '문학'],
+		      datasets: [
+		    	  {type: 'bar',
+		          label: '카테고리별 전월 매출액' + '  [ ' + c_date1 + ' ]',
+		          backgroundColor: 'rgba(255, 204, 0, 0.8)',
+		          data: [
+		        		{ x: '총류', y: cate0},
+			            { x: '철학', y: cate1},
+			            { x: '종교', y: cate2},
+			            { x: '사회과학', y: cate3},
+			            { x: '자연과학', y: cate4},
+			            { x: '기술과학', y: cate5},
+			            { x: '예술', y: cate6},
+			            { x: '언어', y: cate7},
+			            { x: '역사', y: cate8},
+			            { x: '문학', y: cate9}
+		          ],
+		          borderColor: 'rgb(255, 255, 255)',
+		          borderWidth: 1,
+		        },
+		        { type: 'bar',
+		          label: '카테고리별 당월 매출액' + '  [ ' + c_date2 + ' ]',
+		          backgroundColor: 'rgba(70, 100, 30, 0.7)',
+		          data: [
+		        	  { x: '총류', y: cate10},
+			            { x: '철학', y: cate11},
+			            { x: '종교', y: cate12},
+			            { x: '사회과학', y: cate13},
+			            { x: '자연과학', y: cate14},
+			            { x: '기술과학', y: cate15},
+			            { x: '예술', y: cate16},
+			            { x: '언어', y: cate17},
+			            { x: '역사', y: cate18},
+			            { x: '문학', y: cate19}
+		          ], 
+		          borderColor: 'rgb(255, 255, 255)', 
+		          borderWidth: 1,
+		    	  
+		        }
+		    ],
+		    	options: {
+		    		maxBarThickness: 10,
+		    		grouped: true,
+		    		showLine: false,
+		    			    	
+		      		scales: {
+		       			 y: {
+		          			beginAtZero: true
+		        		}
+		      		}
+		    	},
+		    		    
+		    	 }
+		    
+		    });
+		  
+		</script>
+     </div>         
+            
+</th:block>
+
+</html>
