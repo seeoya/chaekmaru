@@ -578,82 +578,38 @@ header .logo img {
 /* 메인 */
 
 
-#admin-index .banner {
+#admin-index .admin-banner {
     width: 100%;
+ 
+    
+    
 }
 
-#admin-index .banner img {
-    height: 400px;
-    object-fit: cover;
-}
-
-#admin-index .banner .item-wrap {
-    position: relative;
-}
-
-#admin-index .banner .item-wrap.list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 20px;
-}
-
-#admin-index .banner .swiper {
-    width: 100%;
-    height: 100%;
-}
-
-#admin-index .banner .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#admin-index .banner .swiper-pagination-bullet {
-    border-radius: 0;
-}
-
-#admin-index .banner .swiper-pagination-bullet-active-main {
-    width: 20px;
-    height: 20px;
-    background-color: var(--highlight-color);
-}
-
-#admin-index .banner .swiper-pagination-bullet-active-prev,
-#admin-index .banner .swiper-pagination-bullet-active-next {
-    width: 10px;
-    height: 10px;
-}
-
-#admin-index .banner .swiper-pagination-bullet-active-prev-prev,
-#admin-index .banner .swiper-pagination-bullet-active-next-next {
-    width: 10px;
-    height: 10px;
-}
-
-#admin-index .banner .swiper-pagination .swiper-pagination-bullets {
-    width: 125px;
-}
-
-#admin-index .banner .swiper-button-next,
-#admin-index .banner .swiper-button-prev {
-    color: var(--highlight-color);
-}
-
-#admin-index .banner .swiper-slide img {
+#admin-index .admin-banner img {
     display: block;
-    width: 70%;
-    height: 350px;
+    width: 100%;
+    height: 300px;    
     object-fit: contain;
+    justify-content: center;
+    margin-left:50px;    
 }
 
-/* 리스트 */
+
+#admin-index .content {
+	width: 100%; 
+	display: flex;
+	padding: 0 50px;	
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: end;
+}
 
 
+#admin-index .admin-chart .chart {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0;
+}
 
 .admin-category-return nav a.on {
     background-color: var(--gray-light-color);
