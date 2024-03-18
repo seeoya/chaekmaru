@@ -1437,6 +1437,7 @@ header .logo img {
     min-width: 130px;
     max-height: 200px;
     min-height: 200px;
+    object-fit: contain;
 }
 
 /* 도서 제목 */
