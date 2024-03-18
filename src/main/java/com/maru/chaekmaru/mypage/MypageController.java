@@ -75,17 +75,19 @@ public class MypageController {
 	/*
 	 * 도서 상세 페이지 장바구니 클릭
 	 */
-	@PostMapping("/member_cart_form")
-	public String addMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
-		log.info("addMyCart");
+	// @PostMapping("/member_cart_form")
+	// public String addMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
+    //     // ajax로 변환
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+	// 	log.info("addMyCart");
 
-		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
+	// 	MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		model.addAttribute("result", result);
-		return "result";
-	}
+	// 	int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
+
+	// 	model.addAttribute("result", result);
+	// 	return "result";
+	// }
 
 	/*
 	 * 장바구니 페이지 장바구니 삭제 클릭
@@ -200,18 +202,18 @@ public class MypageController {
 	@GetMapping("/add_cart")
 	public String moveMyCart(HttpSession session, Model model, @RequestParam("b_no") int b_no) {
 
-		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-
-		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
-
-		if (result > 0) {
-			result = Config.ADD_CART_SUCCESS;
-		} else {
-			result = Config.ADD_CART_FAIL;
-		}
-		int point = memberService.refreshPoint(session);
-		model.addAttribute("result", result);
-		model.addAttribute("point", point);
+//		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+//
+//		int result = mypageService.addMyCart(loginedMemberDto.getM_id(), b_no);
+//
+//		if (result > 0) {
+//			result = Config.ADD_CART_SUCCESS;
+//		} else {
+//			result = Config.ADD_CART_FAIL;
+//		}
+//		int point = memberService.refreshPoint(session);
+//		model.addAttribute("result", result);
+//		model.addAttribute("point", point);
 
 		return "result";
 	}
