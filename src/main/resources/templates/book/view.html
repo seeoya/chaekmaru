@@ -58,9 +58,18 @@
                                     <div id="total_price" class="price ellipsis">총 금액: 0 BP</div>
                                 </div>
 
-                                <div class="view_pay_a">
-                                    <button type="button" id="add_pick" th:data-index="${item.b_no}" class="btn">
+                                <div class="view_pay_a" th:if="${session.loginedMemberInfo == null}">
+                                    <a th:href="@{/result?result=999}" class="btn highlight disable">
                                         <i class="fa-regular fa-heart"></i>
+                                    </a>
+                                    <a th:href="@{/result?result=999}" class="btn main half disable">장바구니</a>
+                                    <button type="submit" class="btn sub half disable">바로결제</button>
+                                </div>
+
+                                <div class="view_pay_a" th:if="${session.loginedMemberInfo != null}">
+                                    <button type="button" id="add_pick" th:data-index="${item.b_no}" class="btn" th:classappend="${pick} == true ? 'on' : 'off'">
+                                        <i class="fa-solid fa-heart on"></i>
+                                        <i class="fa-regular fa-heart off"></i>
                                     </button>
                                     <button type="button" id="add_cart" th:data-index="${item.b_no}" class="btn main half">장바구니</button>
                                     <button type="submit" class="btn sub half">바로결제</button>

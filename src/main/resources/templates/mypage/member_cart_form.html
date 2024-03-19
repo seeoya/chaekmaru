@@ -45,19 +45,24 @@
 
                             <button type="button" class="btn main" th:onclick="|oneBuy(${memberCartDtos.b_no})|">결제하기</button>
 
-                            <button type="button" class="btn sub remove-cart" th:data-index="${memberCartDtos.c_no}"><i class="fa-solid fa-xmark"></i></bu>
+                            <button type="button" class="btn sub remove-cart" th:data-index="${memberCartDtos.c_no}"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
                 </div>
 
-			</div>
-			<div class="all-pay-success" th:if="${memberCartDtos != null}">
-				<button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
-				<button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
-			</div>
+            </div>
 
-		</form>
-	</div>
+            <div class="cart-item" th:if="${#lists.size(memberCartDtos) == 0}">
+                장바구니에 도서가 없습니다.
+            </div>
+
+            <div class="all-pay-success" th:if="${#lists.size(memberCartDtos) > 0}">
+                <button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
+                <button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
+            </div>
+
+        </form>
+    </div>
 </div>
 
 </html>

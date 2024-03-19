@@ -59,15 +59,15 @@ public class AdminBookService {
 		
 	}
 
-	public void deleteBookConfirm(int b_no) {
+	public int deleteBookConfirm(int b_no) {
 		log.info("deleteBookConfirm()");
 		
 		int result = adminBookDao.deleteBookConfirm(b_no);
 		
 		if(result > 0)
-			log.info(Config.DELETE_BOOK_SUCCESS_AT_DATABASE);
+			return Config.DELETE_BOOK_SUCCESS_AT_DATABASE;
 		else 
-			log.info(Config.DELETE_BOOK_FAIL_AT_DATABASE);		
+			return Config.DELETE_BOOK_FAIL_AT_DATABASE;		
 	}
 
 	public int countBook(String search, String sort) {

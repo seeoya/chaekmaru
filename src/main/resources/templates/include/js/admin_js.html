@@ -17,8 +17,250 @@
                     window.scrollTo(0, document.body.scrollHeight);
                 });
             });
+        
         });
+        
 
+        // 관리자 정보 수정
+        function modifyAccountConfirm() {
+            let httpRequest = new XMLHttpRequest();
+
+            let form = document.modify_account_form;
+            let adminData = {
+                a_no: form.a_no.value,                
+                a_id: form.a_id.value,
+                a_name: form.a_name.value,
+                a_pw: form.a_pw.value,
+                a_phone: form.a_phone.value                
+            };
+
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    // 성공했을 때
+                    
+                	if (httpRequest.responseText == "true") {
+                   	 // 성공했을 때
+                   	 	alert("관리자 정보 수정이 성공적으로 완료됐습니다.");           	
+                                                
+                   } else if (httpRequest.responseText == "false"){
+                       	alert("관리자 정보 수정에 실패했습니다.");
+                   }
+                	spinnerStatus("off");
+                                           
+                   
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            httpRequest.open("POST", "/ajax/modify_account_confirm", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify(adminData));
+            
+        }
+    
+
+        // 관리자 계정 삭제
+        function adminMemDeleteConfirm(aNo) {
+        	
+            let httpRequest = new XMLHttpRequest();               
+           
+            httpRequest.open("POST", "/ajax/delete_account_confirm", true);
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+                    	 // 성공했을 때                            
+                        alert("관리자 계정 삭제에 성공했습니다.");                            
+                    } else if (httpRequest.responseText == "false"){
+                        	alert("관리자 계정 삭제에 실패했습니다.");
+                    }
+                    spinnerStatus("off");
+                  
+                    // spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            // spinnerStatus("on");
+            spinnerStatus("on");               
+       
+            httpRequest.send("a_no=" + aNo);
+        }
+        
+       
+        // 도서 정보 수정
+        function bookModifyConfirm() {
+            let httpRequest = new XMLHttpRequest();
+
+            let form = document.modify_book_form;
+            let bookData = {
+                b_no: form.b_no.value,
+                b_thumbnail: form.b_thumbnail.value,
+                b_name: form.b_name.value,
+                b_author: form.b_author.value,
+                b_introduce: form.b_introduce.value,
+                b_publisher: form.b_publisher.value,
+                b_publish_date: form.b_publish_date.value,
+                b_kdc: form.b_kdc.value,
+                b_isbn: form.b_isbn.value,
+                b_price: form.b_price.value,
+                b_count: form.b_count.value
+            };
+
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    // 성공했을 때
+                    
+                	if (httpRequest.responseText == "true") {
+                   	 // 성공했을 때
+                   	 	alert("도서 정보 수정이 성공적으로 완료됐습니다.");           	
+                                                
+                   } else if (httpRequest.responseText == "false"){
+                       	alert("도서 정보 수정에 실패했습니다.");
+                   }
+                	spinnerStatus("off");
+                                           
+                   
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            spinnerStatus("on");
+
+            httpRequest.open("POST", "/ajax/modify_book_confirm", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify(bookData));
+            
+        }
+          
+	    // 도서 삭제
+	    function bookDeleteConfirm(bNo) {
+	    	
+	        let httpRequest = new XMLHttpRequest();               
+	       
+	        httpRequest.open("POST", "/ajax/delete_book_confirm", true);
+	        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	        httpRequest.onreadystatechange = function () {
+	            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+	                if (httpRequest.responseText == "true") {
+	                	 // 성공했을 때                            
+	                     showBookDelete(bNo);                           
+	                } else if (httpRequest.responseText == "false"){
+	                    	alert("도서 삭제에 실패했습니다.");
+	                }
+	                spinnerStatus("off");
+	              
+	                // spinnerStatus("off");
+	            } else if (httpRequest.status == 403) {
+	                alert("접근 거부");
+	                spinnerStatus("off");
+	            } else if (httpRequest.status == 404) {
+	                alert("페이지 없음")
+	                spinnerStatus("off");
+	            } else if (httpRequest.status == 500) {
+	                alert("서버 오류 발생");
+	                spinnerStatus("off");
+	            }
+	        };
+	
+	        // spinnerStatus("on");
+	        spinnerStatus("on");               
+	   
+	        httpRequest.send("b_no=" + bNo);
+	    }
+	
+	    function showBookDelete(bNo) {
+		    
+		    document.getElementById("del_no_" + bNo).remove();
+		    alert("도서 삭제에 성공했습니다.");
+		    }
+		          
+		
+	    // user 계정 비활성화
+	    function UserActiveModify(mId) {  	
+	    	
+	        let httpRequest = new XMLHttpRequest();               
+	       
+	        httpRequest.open("POST", "/ajax/user_account_active_confirm", true);
+	        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	        httpRequest.onreadystatechange = function () {
+	            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+	                if (httpRequest.responseText == "true") {
+	                	 // 성공했을 때                            
+	                    alert("회원계정 비활성화에 성공했습니다."); 
+	                	 showActiveModify(mId);
+	                } else if (httpRequest.responseText == "false"){
+	                    	alert("회원계정 비활성화에 실패했습니다.");
+	                }
+	                spinnerStatus("off");
+	              
+	                // spinnerStatus("off");
+	            } else if (httpRequest.status == 403) {
+	                alert("접근 거부");
+	                spinnerStatus("off");
+	            } else if (httpRequest.status == 404) {
+	                alert("페이지 없음")
+	                spinnerStatus("off");
+	            } else if (httpRequest.status == 500) {
+	                alert("서버 오류 발생");
+	                spinnerStatus("off");
+	            }
+	        };
+	
+	        // spinnerStatus("on");
+	        spinnerStatus("on");               
+	   
+	        httpRequest.send("m_id=" + mId);
+	    }
+	    
+	    function showActiveModify(mId) {
+	    
+	    document.getElementById("state_" + mId).innerText = "비활성";
+	    
+	    }
+	          
+	
+	     function spinnerStatus(status) {
+	         let spinner = document.getElementById("spinner");
+	
+	         if (status == "on") {
+	             spinner.style.display = "flex";
+	         } else if (status == "off") {
+	             spinner.style.display = "none";
+	         }
+	     }
+
+    
+        
+        
         /* Admin Member */
 
         // 회원가입
@@ -74,17 +316,18 @@
                 alert("연락처를 입력해 주세요.");
                 form.a_phone.focus();
             } else {
-                form.submit();
+            	modifyAccountConfirm();
             }
         }
 
-        // 계정삭제
-        function deleteAdminConfirm(a_no) {
+        // 관리자 계정삭제
+        function deleteAdminConfirm(aNo) {
             console.log("deleteAdminConfirm()");
 
             let result = confirm("정말 삭제하시겠습니까?");
             if (result) {
-                location.href = "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
+                // location.href = "/admin/member/delete_account_confirm" + "?a_no=" + a_no;
+            	adminMemDeleteConfirm(aNo);
             }
         }
 
@@ -169,17 +412,17 @@
                 alert("입고 수량을 입력해 주세요.");
                 form.b_count.focus();
             } else {
-                form.submit();
+            	bookModifyConfirm();                
             }
         }
 
         // 도서 삭제	
-        function deleteBookConfirm(b_no) {
+        function deleteBookConfirm(bNo) {
             console.log("deleteBookConfirm()");
 
             let result = confirm("정말 삭제하시겠습니까?");
             if (result) {
-                location.href = "/admin/book/delete_book_confirm" + "?b_no=" + b_no;
+            	bookDeleteConfirm(bNo);
             }
         }
 
@@ -218,12 +461,12 @@
         }
 
         // 회원 계정 비활성화
-        function userAccountActiveConfirm(m_id) {
+        function userAccountActiveConfirm(mId) {
             console.log("userAccountActiveConfirm()");
 
             let result = confirm("정말 비활성화하시겠습니까?");
             if (result) {
-                location.href = "/admin/shop/user_account_active_confirm" + "?m_id=" + m_id;
+                UserActiveModify(mId);
             }
         }
 
