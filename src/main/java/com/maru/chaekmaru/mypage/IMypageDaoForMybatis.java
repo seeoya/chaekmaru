@@ -59,6 +59,7 @@ public interface IMypageDaoForMybatis {
 	public void updateGradeOne(String m_id);
 	public void updateGradeTwo(String m_id);
 	public void updateGradeZero(String m_id);
+	public MemberPickDto isMemberPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public List<SaledBookDto> selectMyPaymentBySbON(@Param("sb_order_no") int sb_order_no, @Param("m_id") String m_id);
 	public int sumPaymentBookBySbON(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
 	public int confirmPayment(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);

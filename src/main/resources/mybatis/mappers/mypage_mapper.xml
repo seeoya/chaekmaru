@@ -411,6 +411,29 @@
 						
 	</select>
 	
+		<select id="isMemberPick"
+			parameterType="map"
+			resultType="com.maru.chaekmaru.mypage.MemberPickDto">
+			
+					SELECT * FROM 
+						TBL_MEMBER_PICK MP 
+					JOIN 
+						TBL_MEMBER M 
+					ON 
+						MP.M_ID = M.M_ID 
+					JOIN 
+						TBL_BOOK B 
+					ON 
+						MP.B_NO = B.B_NO 
+					WHERE 
+						MP.M_ID = #{m_id}
+						AND MP.B_NO = #{b_no} 
+					ORDER BY 
+						MP.MP_NO DESC
+
+	</select>
+	
+	
 	<insert id="addMyPick"
 			parameterType="map">
 	

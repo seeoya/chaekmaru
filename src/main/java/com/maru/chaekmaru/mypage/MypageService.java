@@ -361,6 +361,14 @@ public class MypageService {
 		return mypageDao.myPickList(m_id);
 	}
 
+	public MemberPickDto isMemberPick(String m_id, int b_no) {
+		log.info("isMemberPick");
+
+		log.info(m_id + "/" + b_no);
+
+		return mypageDao.isMemberPick(m_id, b_no);
+	}
+
 	public int cancelMyPaymentList(String m_id, int sb_order_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();

@@ -73,7 +73,11 @@
                 document.getElementById("add_pick").addEventListener("click", function () {
                     let bNo = this.dataset.index;
 
-                    ajaxAddPick(bNo);
+                    if(this.classList.contains("on")) {
+                        ajaxRemovePick(bNo);
+                    } else {
+                        ajaxAddPick(bNo);
+                    }
                 })
             }
 
@@ -101,28 +105,27 @@
 
                         if (result) {
                             location.href = [[@{/mypage/member_cart_form}]];
+                        }
+                    } else if (httpRequest.responseText == "false") {
+                        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
                     }
-
-                } else if (httpRequest.responseText == "false") {
-                    alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
                 }
-            } else if (httpRequest.status == 403) {
-                alert("접근 거부");
-                spinnerStatus("off");
-            } else if (httpRequest.status == 404) {
-                alert("페이지 없음")
-                spinnerStatus("off");
-            } else if (httpRequest.status == 500) {
-                alert("서버 오류 발생");
-                spinnerStatus("off");
             }
-        };
 
-        spinnerStatus("on");
+            spinnerStatus("on");
 
-        let data = { b_no: bNo, c_book_count: count };
+            let data = { b_no: bNo, c_book_count: count };
 
-        httpRequest.send(JSON.stringify(data));
+            httpRequest.send(JSON.stringify(data));
         }
 
         function ajaxAddPick(bNo) {
@@ -133,36 +136,76 @@
 
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                    spinnerStatus("off");
+                    // spinnerStatus("off");
 
                     if (httpRequest.responseText == "true") {
-                        let result = confirm("찜 목록에 추가되었습니다.\n찜 목록으로 이동하시겠습니까?");
 
-                        if (result) {
-                            location.href = [[@{/mypage/member_pick}]];
+                        document.getElementById("add_pick").classList.remove("off");
+                        document.getElementById("add_pick").classList.add("on");
+
+                        // let result = confirm("찜 목록에 추가되었습니다.\n찜 목록으로 이동하시겠습니까?");
+
+                        // if (result) {
+                        //     location.href = [[@{/mypage/member_pick}]];
+                        // }
+                        // 
+
+                    } else if (httpRequest.responseText == "duple") {
+                        alert("이미 찜 목록에 존재하는 도서입니다.");
+                    } else if (httpRequest.responseText == "false") {
+                        alert("찜 목록 추가에 실패했습니다. 다시 시도해주세요.");
+                    }
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
+                }
+            };
+
+            // spinnerStatus("on");
+
+            httpRequest.send("b_no=" + bNo);
+        }
+
+        
+        function ajaxRemovePick(bNo) {
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("POST", "/ajax/delete_member_pick", true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                    if (httpRequest.responseText == "true") {
+
+                        document.getElementById("add_pick").classList.remove("on");
+                        document.getElementById("add_pick").classList.add("off");
+                        
+                    } else if (httpRequest.responseText == "false") {
+                        alert("찜 목록 제거에 실패했습니다. 다시 시도해주세요.");
                     }
 
-                } else if (httpRequest.responseText == "duple") {
-                    alert("이미 찜 목록에 존재하는 도서입니다.");
-                } else if (httpRequest.responseText == "false") {
-                    alert("찜 목록 추가에 실패했습니다. 다시 시도해주세요.");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
                 }
-            } else if (httpRequest.status == 403) {
-                alert("접근 거부");
-                spinnerStatus("off");
-            } else if (httpRequest.status == 404) {
-                alert("페이지 없음")
-                spinnerStatus("off");
-            } else if (httpRequest.status == 500) {
-                alert("서버 오류 발생");
-                spinnerStatus("off");
-            }
-        };
+            };
 
-        spinnerStatus("on");
-
-        httpRequest.send("b_no=" + bNo);
+            httpRequest.send("b_no=" + bNo);
         }
+
     </script>
 </th:block>
 
