@@ -56,15 +56,15 @@ public class AdminMemberService {
 		
 	}
 
-	public void deleteAccountConfirm(int a_no) {
+	public int deleteAccountConfirm(int a_no) {
 		log.info("deleteAccountConfirm");
 		
 		int result = adminMemberDao.deleteAdminAccount(a_no);
 		
 		if(result > 0)
-			log.info(Config.ADMIN_MEMBER_DELETE_SUCCESS);
+			return Config.ADMIN_MEMBER_DELETE_SUCCESS;
 		else 
-			log.info(Config.ADMIN_MEMBER_DELETE_FAIL);		
+			return Config.ADMIN_MEMBER_DELETE_FAIL;		
 		
 	}
 

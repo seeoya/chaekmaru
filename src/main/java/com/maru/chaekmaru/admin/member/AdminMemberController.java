@@ -143,16 +143,23 @@ public class AdminMemberController {
 	}
 	
 
-	@GetMapping("/delete_account_confirm")
-	public String deleteAccountConfirm(@RequestParam("a_no") int a_no) {
+	@PostMapping("/delete_account_confirm")
+	public String deleteAccountConfirm(@RequestParam("a_no") int a_no, Model model) {
 		log.info("deleteAccountConfirm()");
 		log.info(a_no);
-		String nextPage = "redirect:/admin/member/admin_list_form";
 		
-		adminMemberService.deleteAccountConfirm(a_no);
+		String nextPage = "admin/result";	
 		
-		return nextPage;
+		int result = adminMemberService.deleteAccountConfirm(a_no);
 		
+		if (result > 0) 
+			model.addAttribute("result", Config.ADMIN_MEMBER_DELETE_SUCCESS);
+		
+		else 
+		
+			model.addAttribute("result", Config.ADMIN_MEMBER_DELETE_FAIL);
+		
+		return nextPage;			
 			
 	}
 	

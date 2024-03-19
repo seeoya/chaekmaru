@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maru.chaekmaru.admin.book.AdminBookService;
+import com.maru.chaekmaru.admin.member.AdminMemberDto;
+import com.maru.chaekmaru.admin.member.AdminMemberService;
+import com.maru.chaekmaru.admin.shop.AdminShopService;
+import com.maru.chaekmaru.book.BookDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.member.MemberService;
@@ -34,6 +39,15 @@ public class AjaxController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	AdminBookService adminBookService;
+	
+	@Autowired
+	AdminMemberService adminMemberService;
+	
+	@Autowired
+	AdminShopService adminShopService;
 
 	@PostMapping("/ismember")
 	public boolean isMember(@RequestParam("m_id") String m_id) {
@@ -229,5 +243,90 @@ public class AjaxController {
 			return "false";
 		}
 	}
+	
+	
+	// 도서 정보 수정
+	@PostMapping("/modify_book_confirm")
+	public String modifyBookConfirm(@RequestBody BookDto bookDto, Model model) {
+		log.info("modifyBookConfirm()");
+								
+		int result = adminBookService.modifyBookConfirm(bookDto);
+				
+
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
+				
+	}
+	
+	// 도서 삭제
+	@PostMapping("/delete_book_confirm")
+	public String deleteBookConfirm(@RequestParam(value = "b_no") int b_no) {
+		log.info("deleteBookConfirm()");		
+		
+		int result = adminBookService.deleteBookConfirm(b_no);
+		
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
+					
+			
+	}
+	
+	
+	// 관리자 정보 수정
+	@PostMapping("/modify_account_confirm")
+	public String modifyAccountConfirm(@RequestBody AdminMemberDto adminMemberDto, HttpSession session) {
+		log.info("modifyAccountConfirm()");
+				
+		AdminMemberDto  loginedAdminMemberDto = adminMemberService.modifyAccountConfirm(adminMemberDto);
+				
+		if(loginedAdminMemberDto != null) {
+			
+			session.setAttribute("loginedAdminMemberDto", loginedAdminMemberDto);
+			session.setMaxInactiveInterval( 60 * 30 );		
+			return "true";
+		} else {
+				return "false";
+		}
+	
+				
+	}
+	
+	// 관리자계정 삭제
+	@PostMapping("/delete_account_confirm")
+	public String deleteAccountConfirm(@RequestParam(value = "a_no") int a_no) {
+		log.info("deleteAccountConfirm()");
+		log.info(a_no);		
+		
+		int result = adminMemberService.deleteAccountConfirm(a_no);
+		
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}
+		
+			
+	}
+	
+	// 회원계정 비활성화	
+	@PostMapping("/user_account_active_confirm")
+	public String userAccountActiveConfirm(@RequestParam(value = "m_id") String m_id) {
+		log.info("userAccountActiveConfirm()");	
+				
+		int result = adminShopService.userAccountActiveConfirm(m_id);
+		
+		if (result > 0) {
+			return "true";
+		} else {
+			return "false";
+		}		
+	}
+	
 
 }

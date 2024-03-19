@@ -65,6 +65,7 @@ public class AdminShopService {
 		log.info("userAccountActiveConfirm()");
 		
 		int result = adminShopDao.updateActiveForUserState(m_id);
+		
 		if(result > 0) 
 			return Config.USER_ACCOUNT_UNACTIVE_SUCCESS;			
 		 else

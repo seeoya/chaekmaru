@@ -126,6 +126,15 @@
 	text-align:left;    
 }
 
+#login-admin input,
+#regist-admin input{
+	width: 400px;
+	
+}
+
+
+#login-admin .form span,
+#regist-admin .form span,
 #regist-point .form span,
 #regist-book .form span {
 	display: inline-flex;
