@@ -50,50 +50,14 @@
                     </div>
                 </div>
 
-            </div>
+			</div>
+			<div class="all-pay-success" th:if="${memberCartDtos != null}">
+				<button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
+				<button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
+			</div>
 
-            <div class="all-pay-success">
-                <button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
-                <button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
-            </div>
-
-            <script>
-                function selectBuy() {
-                    document.querySelectorAll(".ck-box").forEach(el => {
-                        if (el.checked) {
-                            let index = el.dataset.index;
-                            document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-                            document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-                        }
-
-                        document.membercart_form.submit();
-                    })
-                }
-
-                function allBuy() {
-                    document.querySelectorAll(".ck-box").forEach(el => {
-                        if (el) {
-                            let index = el.dataset.index;
-                            document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-                            document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-                        }
-
-                        document.membercart_form.submit();
-                    })
-                }
-
-                function oneBuy(b_no) {
-                    let index = b_no;
-                    document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-                    document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-
-                    document.membercart_form.submit();
-                }
-
-
-            </script>
-        </form>
-    </div>
+		</form>
+	</div>
 </div>
 
 </html>

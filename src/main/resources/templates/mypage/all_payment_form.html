@@ -67,7 +67,7 @@
                 </div>
 
 
-                <div th:switch="${memberInfo.m_grade}">
+                <div>
                     <p>등급 할인</p>
                     <div>
                         <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  BP'}"></p>

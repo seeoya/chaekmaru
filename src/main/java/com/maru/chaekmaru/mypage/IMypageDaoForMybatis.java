@@ -27,7 +27,6 @@ public interface IMypageDaoForMybatis {
 	public int deleteAllMyCart(@Param("m_id") String m_id, @Param("selectBook") int selectBook);
 	public BookDto selectBook(@Param("b_no") int b_no);
 	public List<SaledBookDto> getPaymentList(String m_id);
-//    public void nowBooks(@Param("sb_book_count") int sb_book_count, @Param("b_count") int b_count, @Param("b_no") int b_no);
 	public List<MemberPickDto> myPickList(String m_id);
 	public ArrayList<MyPointListDto> selectMyPointList(String m_id);
 	public int selectBookCountBySbNo(@Param("sb_no") int sb_no);
@@ -35,7 +34,7 @@ public interface IMypageDaoForMybatis {
 	public int updateCancelBookCount(@Param("updateCancelBookCount") int updateCancelBookCount, @Param("b_no") int b_no);
 	public int paymentPoint(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
 	public int selectNowPoint(String m_id);
-	public int insertReturnPoint(@Param("myPointListDto") MyPointListDto myPointListDto, @Param("paymentPoint") int paymentPoint, @Param("m_id") String m_id);
+	public int insertReturnPoint(@Param("myPointListDto") MyPointListDto myPointListDto, @Param("returnPoint") int returnPoint, @Param("m_id") String m_id);
 	public int saledStateUpdateZero(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
 	public int deleteMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int selectMaxSbOrderNo(String m_id);
@@ -47,11 +46,19 @@ public interface IMypageDaoForMybatis {
 	public MemberCartDto selectBookData(@Param("b_no") int b_no);
 	public int remainBooks(@Param("b_no") int b_no, @Param("remainBooks") int remainBooks);
 	public int removeCartByBNo(@Param("m_id") String m_id, @Param("b_no") int b_no);
-	public void removePointByBuyBooks(@Param("m_id") String m_id, @Param("myPointListDto") MyPointListDto myPointListDto);
+	public int removePointByBuyBooks(@Param("m_id") String m_id, @Param("myPointListDto") MyPointListDto myPointListDto);
 	public List<SaledBookDto> getOrderNo(String m_id);
 	public ArrayList<SaledBookDto> getPaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
 	
 	public ArrayList<AttendenceDto> selectAttendenceList(String m_id);
 	public int insertAttendence(@Param("m_id") String m_id, @Param("acc") int acc);
 	public int selectAccAttendence(String m_id);
+	public ArrayList<SaledBookDto> getAllpaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
+	public int sumAllBook(@Param("m_id") String m_id, @Param("orderNo") int orderNo);
+	public int selectSalePrice(@Param("m_id") String m_id, @Param("sb_no") int sb_no);
+	public int sumSbAllPointByMId(String m_id);
+	public int sumSbSalePointByMId(String m_id);
+	public void updateGradeOne(String m_id);
+	public void updateGradeTwo(String m_id);
+	public void updateGradeZero(String m_id);
 }
