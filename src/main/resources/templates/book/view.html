@@ -17,6 +17,18 @@
 
                 <div class="info">
                     <div class="book_info">
+                        <th:block th:switch="${cate}">
+                            <div class="cate ellipsis" th:case="0">총류</div>
+                            <div class="cate ellipsis" th:case="1">철학</div>
+                            <div class="cate ellipsis" th:case="2">종교</div>
+                            <div class="cate ellipsis" th:case="3">사회과학</div>
+                            <div class="cate ellipsis" th:case="4">자연과학</div>
+                            <div class="cate ellipsis" th:case="5">기술과학</div>
+                            <div class="cate ellipsis" th:case="6">예술</div>
+                            <div class="cate ellipsis" th:case="7">언어</div>
+                            <div class="cate ellipsis" th:case="8">문학</div>
+                            <div class="cate ellipsis" th:case="9">역사</div>
+                        </th:block>
                         <div class="name ellipsis">[[${item.b_name}]]</div>
                         <div class="star ellipsis">
                             <i class="fa-solid fa-star"></i>

@@ -40,10 +40,10 @@ public class BookController {
 		int allBookCount = bookService.countBook(search, filter);
 		int allPageCount = bookService.countAllPage(allBookCount, pageItemPerPage);
 
-		if(nowPageCount > allPageCount) {
+		if (nowPageCount > allPageCount) {
 			nowPageCount = allPageCount;
 		}
-		
+
 		ArrayList<BookDto> items = new ArrayList<>();
 		ArrayList<ListPageDto> listPageDtos = new ArrayList<>();
 
@@ -70,18 +70,19 @@ public class BookController {
 
 		ArrayList<ReviewDto> reviewDtos = new ArrayList<>();
 		reviewDtos = reviewService.setReviews(b_no);
-		
+
 		boolean isReviewWrite = false;
-		
+
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
-		
-		if(loginedMemberDto!= null) {
+
+		if (loginedMemberDto != null) {
 			isReviewWrite = reviewService.isReviewWrite(loginedMemberDto.getM_id(), b_no);
 		}
-		
+
 		model.addAttribute("item", item);
 		model.addAttribute("reviews", reviewDtos);
 		model.addAttribute("isReviewWrite", isReviewWrite);
+		model.addAttribute("cate", Integer.parseInt(item.getB_kdc()) / 100);
 
 		return "/book/view";
 	}
