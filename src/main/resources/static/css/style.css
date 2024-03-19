@@ -287,6 +287,17 @@ header .logo img {
     background-color: var(--main-color);
 }
 
+.header-category .cate-link .member-name  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-category .cate-link .member-name .level {
+    font-size: 1.8rem;
+}
+
 .header-category .usermenu-list a:hover {
     background-color: var(--main-light-color);
 }
@@ -398,7 +409,7 @@ header .logo img {
 
 /* 페이지 */
 .container {
-    padding: 50px 0 70px;
+    padding: 50px 0 90px;
     min-height: 75vh;
 }
 
@@ -1151,9 +1162,31 @@ header .logo img {
     text-indent: 0.5rem;
 }
 
+#point_charge .title span, #point_list .title span {
+    position: relative;
+}
+
+#point_charge .title span::after, #point_list .title span::after {
+    content: "";
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: var(--highlight-light-color);
+    bottom: 5px;
+    left: 0;
+    z-index: -1;
+    opacity: 0.7;
+}
+
 #point_charge .now-point, #point_list .now-point {
-    font-size: 2rem;
+    width: 85%;
+    padding-bottom: 40px;
+    margin: 10px 0 20px;
+    border-bottom: 2px dashed var(--gray-color);
+    font-size: 2.2rem;
     font-weight: 600;
+    text-align: center;
 }
 
 #point_list .item {
@@ -1175,6 +1208,14 @@ header .logo img {
     font-weight: 600;
 }
 
+#point_charge form {
+	gap: 30px;
+}
+
+#point_charge .desc {
+	text-align: center;	
+}
+
 #point_charge .point-btn-wrap {
     display: flex;
     justify-content: space-between;
@@ -1189,8 +1230,19 @@ header .logo img {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    flex-direction: column;
+    gap: 10px;
 }
+
+#point_charge .point-wrap > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    font-size: 1.8rem;
+}
+
 
 /* login form */
 .login_link_wrap {
@@ -1668,21 +1720,48 @@ header .logo img {
     object-fit: contain;
 }
 
-#my_review .my-review-id {
+.my-review-id {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+#my_review .review_info {
+	justify-content: right;
+}
+
+#my_review .review_date {
+	font-size: 1.2rem;
+    color: var(--gray-dark-color);
+}
+
+#my_review .review_info .review_id_stars {
     display: none;
 }
 
 #review-list .review-img-text {
     display: flex;
-    font-size: 1.8rem;
     gap: 30px;
 }
 
+#review-list .review-img-text .text-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
 #review-list .review-img-text .review_text {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
     background: #fff;
     border-radius: 10px;
-    width: 900px;
-    padding: 10px;
+    font-size: 1.6rem;
+}
+
+.my-review-title {
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
 #review-list .review_id_stars {

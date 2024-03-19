@@ -5,8 +5,7 @@
     <div class="member-menu">
         <div class="header-wrap">
             <nav>
-            	
-                <a th:href="@{/qna/qna}" class="sub-link" >고객문의</a>
+                <a th:href="@{/qna/qna}" class="sub-link">고객문의</a>
 
                 <th:block th:if="${session.loginedMemberInfo != null}">
                     <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
@@ -67,7 +66,12 @@
         <nav>
             <a th:href="@{/mypage/attendance_list}" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">출석체크</a>
             <div id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
-                <p>[[${session[loginedMemberInfo].m_id}]]님</p>
+                <p class="member-name">
+                    <span>[[${session[loginedMemberInfo].m_id}]]님</span>
+                    <span class="level level1" th:if="${session[loginedMemberInfo].m_state} == 0"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="level level2" th:if="${session[loginedMemberInfo].m_state} == 1"><i class="fa-solid fa-seedling"></i></span>
+                    <span class="level level3" th:if="${session[loginedMemberInfo].m_state} == 2"><i class="fa-brands fa-pagelines"></i></span>
+                </p>
 
                 <div class="usermenu-list">
                     <div class="point">
