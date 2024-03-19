@@ -272,8 +272,10 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = mypageService.getMyPaymentList(loginedMemberDto.getM_id());
+		LinkedHashMap<Integer, Integer> stateList = mypageService.getMyPaymentStateList(list); 
 
 		List<Integer> keySet = new ArrayList<>(list.keySet());
+		List<Integer> stateKeySet = new ArrayList<>(stateList.keySet());
 
 //		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = mypageService.getMyAllPaymentList(loginedMemberDto.getM_id());
 //
@@ -281,9 +283,11 @@ public class MypageController {
 		
 		// 키 값으로 내림차순 정렬
 		Collections.reverse(keySet);
+		Collections.reverse(stateKeySet);
 //		Collections.reverse(priceKeySet);
 
 		model.addAttribute("list", list);
+		model.addAttribute("stateList", stateList);
 //		model.addAttribute("priceList", priceList);
 
 		return "mypage/payment_list_form";
@@ -293,13 +297,13 @@ public class MypageController {
 	 * 주문 취소
 	 */
 	@GetMapping("/cancel_payment_confirm")
-	public String cancelPayment(HttpSession session, @RequestParam("sb_no") int sb_no, @RequestParam("b_no") int b_no) {
+	public String cancelPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
 		// #TODO RESULT 페이지로 이동
 		String nextPage = "redirect:/mypage/payment_list_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
+		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_order_no);
 
 		// #TODO result 세팅 필요
 //		if (result <= 0) {
@@ -450,5 +454,26 @@ public class MypageController {
 //		result = mypageService.attendence(loginedMemberDto.getM_id());
 //		
 		return "redirect:/mypage/attendance_list";
+	}
+	
+	/*
+	 * 주문 완료
+	 */
+	@GetMapping("/payment_confirm")
+	public String confirmPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
+		// #TODO RESULT 페이지로 이동
+		String nextPage = "redirect:/mypage/payment_list_form";
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = mypageService.confirmPayment(loginedMemberDto.getM_id(), sb_order_no);
+
+		// #TODO result 세팅 필요
+//		if (result <= 0) {
+//            // 실패
+//			log.info("Delete Fail");
+//		}
+
+		return nextPage;
 	}
 }

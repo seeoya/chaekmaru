@@ -29,13 +29,12 @@ public interface IMypageDaoForMybatis {
 	public List<SaledBookDto> getPaymentList(String m_id);
 	public List<MemberPickDto> myPickList(String m_id);
 	public ArrayList<MyPointListDto> selectMyPointList(String m_id);
-	public int selectBookCountBySbNo(@Param("sb_no") int sb_no);
-	public int selectBookCountByBNo(@Param("b_no") int b_no);
-	public int updateCancelBookCount(@Param("updateCancelBookCount") int updateCancelBookCount, @Param("b_no") int b_no);
-	public int paymentPoint(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
+	public int selectBookCountByBNo(@Param("sb_order_no") int sb_order_no, @Param("b_no") int b_no);
+	public int updateCancelBookCount(@Param("updateCancelBookCount") int updateCancelBookCount, @Param("selectBNo") int selectBNo);
+	public int paymentPoint(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
 	public int selectNowPoint(String m_id);
 	public int insertReturnPoint(@Param("myPointListDto") MyPointListDto myPointListDto, @Param("returnPoint") int returnPoint, @Param("m_id") String m_id);
-	public int saledStateUpdateZero(@Param("m_id") String m_id, @Param("sb_no") int sb_no, @Param("b_no") int b_no);
+	public int saledStateUpdateZero(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
 	public int deleteMyPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
 	public int selectMaxSbOrderNo(String m_id);
 	public int selectBookInMemberPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
@@ -49,17 +48,19 @@ public interface IMypageDaoForMybatis {
 	public int removePointByBuyBooks(@Param("m_id") String m_id, @Param("myPointListDto") MyPointListDto myPointListDto);
 	public List<SaledBookDto> getOrderNo(String m_id);
 	public ArrayList<SaledBookDto> getPaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
-	
 	public ArrayList<AttendenceDto> selectAttendenceList(String m_id);
 	public int insertAttendence(@Param("m_id") String m_id, @Param("acc") int acc);
 	public int selectAccAttendence(String m_id);
 	public ArrayList<SaledBookDto> getAllpaymentListByONo(@Param("m_id") String m_id, @Param("o_no") int o_no);
 	public int sumAllBook(@Param("m_id") String m_id, @Param("orderNo") int orderNo);
-	public int selectSalePrice(@Param("m_id") String m_id, @Param("sb_no") int sb_no);
+	public int selectSalePrice(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
 	public int sumSbAllPointByMId(String m_id);
 	public int sumSbSalePointByMId(String m_id);
 	public void updateGradeOne(String m_id);
 	public void updateGradeTwo(String m_id);
 	public void updateGradeZero(String m_id);
 	public MemberPickDto isMemberPick(@Param("m_id") String m_id, @Param("b_no") int b_no);
+	public List<SaledBookDto> selectMyPaymentBySbON(@Param("sb_order_no") int sb_order_no, @Param("m_id") String m_id);
+	public int sumPaymentBookBySbON(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
+	public int confirmPayment(@Param("m_id") String m_id, @Param("sb_order_no") int sb_order_no);
 }

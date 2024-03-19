@@ -307,14 +307,14 @@
 	</select>
 	
 	<update id="updateCancelBookCount"
-			parameterType="Integer">
+			parameterType="map">
 	
 					UPDATE 
 						TBL_BOOK 
 					SET 
 						B_COUNT = #{updateCancelBookCount} 
 					WHERE 
-						B_NO = #{b_no}
+						B_NO = #{selectBNo}
 	
 	</update>
 	
@@ -322,15 +322,15 @@
 			parameterType="map">
 	
 					SELECT 
-						SB_ALL_PRICE 
+						NVL(SUM(SB_ALL_PRICE), 0) 
 					FROM 
 						TBL_SALED_BOOK 
 					WHERE 
-						SB_NO = #{sb_no} 
+						SB_ORDER_NO = #{sb_order_no} 
 					AND 
 						M_ID = #{m_id} 
 					AND 
-						B_NO = #{b_no} 
+						SB_STATE = 1
 	
 	</select>
 	
@@ -365,9 +365,9 @@
 					WHERE 
 						M_ID = #{m_id} 
 					AND 
-						SB_NO = #{sb_no} 
+						SB_ORDER_NO = #{sb_order_no} 
 					AND 
-						B_NO = #{b_no}
+						SB_STATE = 1
 	
 	</update>
 	
@@ -605,13 +605,15 @@
 			parameterType="map">
 	
 					SELECT 
-						SB_SALED_PRICE 
+						NVL(SUM(SB_SALED_PRICE), 0) 
 					FROM 
 						TBL_SALED_BOOK 
 					WHERE 
-						SB_NO = #{sb_no} 
+						SB_ORDER_NO = #{sb_order_no} 
 					AND 
 						M_ID = #{m_id} 
+					AND 
+						SB_STATE = 1
 	
 	</select>
 	
@@ -672,6 +674,54 @@
 						M_GRADE = 0 
 					WHERE 
 						M_ID = #{m_id}
+	
+	</update>
+	
+	<select id="selectMyPaymentBySbON"
+			parameterType="map"
+			resultType="com.maru.chaekmaru.shop.SaledBookDto">
+				SELECT 
+					* 
+				FROM 
+					TBL_SALED_BOOK SB 
+				JOIN 
+					TBL_BOOK B 
+				ON 
+					SB.b_no = B.B_NO 
+				WHERE 
+					SB.SB_ORDER_NO = #{sb_order_no} 
+				AND 
+					SB.SB_STATE = 1 
+				AND 
+					SB.M_ID = #{m_id}
+	</select>
+	
+	<select id="sumPaymentBookBySbON"
+			parameterType="map">
+				SELECT 
+					NVL(SUM(SB_BOOK_COUNT), 0) 
+				FROM 
+					TBL_SALED_BOOK 
+				WHERE 
+					SB_ORDER_NO = #{sb_order_no} 
+				AND 
+					SB_STATE = 1 
+				AND 
+					M_ID = #{m_id} 
+	</select>
+	
+	<update id="confirmPayment"
+			parameterType="map">
+	
+					UPDATE 
+						TBL_SALED_BOOK 
+					SET 
+						SB_STATE = 2, 
+						SB_MOD_DATE = SYSTIMESTAMP 
+					WHERE 
+						M_ID = #{m_id} 
+					AND 
+						SB_ORDER_NO = #{sb_order_no}
 	
 	</update>
 

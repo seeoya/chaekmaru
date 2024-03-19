@@ -370,27 +370,39 @@ public class MypageService {
 	}
 
 	public int cancelMyPaymentList(String m_id, int sb_no, int b_no) {
+	public int cancelMyPaymentList(String m_id, int sb_order_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();
+		List<SaledBookDto> saledBookDtos = mypageDao.selectMyPaymentBySbON(sb_order_no, m_id);
 
 		// 재고
-		int selectBookCountBySbNo = mypageDao.selectBookCountBySbNo(sb_no);
-		int selectBookCountByBNo = mypageDao.selectBookCountByBNo(b_no);
-		int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
-
-		result = mypageDao.updateCancelBookCount(updateCancelBookCount, b_no);
+		for (int i = 0; i < saledBookDtos.size(); i++) {
+			int selectBNo = saledBookDtos.get(i).getB_no();
+			log.info("saledBookDtos.get(i).getB_no() ==================>" + saledBookDtos.get(i).getB_no());
+			int selectBookCountBySbNo = saledBookDtos.get(i).getSb_book_count();
+			log.info("saledBookDtos.get(i).getSb_book_count() ==================>"
+					+ saledBookDtos.get(i).getSb_book_count());
+			int selectBookCountByBNo = saledBookDtos.get(i).getB_count();
+			log.info("saledBookDtos.get(i).getB_count() ==================>" + saledBookDtos.get(i).getB_count());
+			int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
+			result = mypageDao.updateCancelBookCount(updateCancelBookCount, selectBNo);
+		}
 
 		if (result > 0) {
 			// 금액
-			int paymentPoint = mypageDao.paymentPoint(m_id, sb_no, b_no);
-			int selectSalePrice = mypageDao.selectSalePrice(m_id, sb_no);
-			myPointListDto.setM_id(m_id);
-			int returnPoint = (paymentPoint - selectSalePrice + 3000);
-			myPointListDto.setPl_desc("도서 " + selectBookCountBySbNo + "권 취소");
+			int paymentPoint = mypageDao.paymentPoint(m_id, sb_order_no); // 결제 총액
+			log.info("paymentPoint ===============>" + paymentPoint);
+			int selectSalePrice = mypageDao.selectSalePrice(m_id, sb_order_no); // 할인 금액
+			log.info("selectSalePrice ===============------->" + selectSalePrice);
+			int returnPoint = (paymentPoint - selectSalePrice + 3000); // 반환 금액
+			log.info("returnPoint ----------===============>" + returnPoint);
+			int sumPaymentBookBySbON = mypageDao.sumPaymentBookBySbON(m_id, sb_order_no);
+			log.info("sumPaymentBookBySbON +-+-+-+-+--+++-+-+-+-++->" + sumPaymentBookBySbON);
+			myPointListDto.setPl_desc("도서 " + sumPaymentBookBySbON + "권 취소"); // 결제 도서 총합 (따로 구해야함)
 			result = mypageDao.insertReturnPoint(myPointListDto, returnPoint, m_id);
 			if (result > 0) {
 				// state 1 -> 0 변경
-				result = mypageDao.saledStateUpdateZero(m_id, sb_no, b_no);
+				result = mypageDao.saledStateUpdateZero(m_id, sb_order_no); // 스테이트 변경
 				log.info(result);
 			}
 		}
@@ -607,5 +619,50 @@ public class MypageService {
 
 		mypageDao.updateGradeZero(m_id);
 
+	}
+
+	public LinkedHashMap<Integer, Integer> getMyPaymentStateList(
+			LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
+
+		LinkedHashMap<Integer, Integer> stateList = new LinkedHashMap<>();
+
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		for (int i = 0; i < list.size(); i++) {
+//				list의 i번째 key
+			int key = keySet.get(i);
+			
+			int state = 1;
+			// key = o_no
+			// o_no의 현재 상태
+			// 0 => 주문 취소, 1 => 주문 완료, 2 => 배송 완료
+			// 3 => 반품 처리 중 , 4 => 반품 완료
+
+			ArrayList<SaledBookDto> saledBookDtos = list.get(key);
+
+			for (int j = 0; j < saledBookDtos.size(); j++) {
+				if (saledBookDtos.get(j).getSb_state() == 0) {
+					state = 0;
+					break;
+				}
+
+				if (saledBookDtos.get(j).getSb_state() > 1) {
+					state = 2;
+					break;
+				}
+			}
+
+			stateList.put(key, state);
+		}
+
+		return stateList;
+	}
+
+	public int confirmPayment(String m_id, int sb_order_no) {
+		int result = -1;
+		
+		result = mypageDao.confirmPayment(m_id, sb_order_no);
+		
+		return result;
 	}
 }
