@@ -32,7 +32,7 @@ public class MainController {
 
 	@GetMapping({ "/", "" })
 	public String index(HttpSession session, Model model) {
-		memberService.refreshPoint(session);
+		memberService.refreshMemberInfo(session);
 
 		ArrayList<BookDto> recommendBookDtos = bookService.recommendItem(9);
 		model.addAttribute("recommend", recommendBookDtos);

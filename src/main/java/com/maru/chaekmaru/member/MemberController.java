@@ -176,24 +176,29 @@ public class MemberController {
 	}
 
 	@GetMapping("/pw_modify_form")
-	public String pwModifyForm(@RequestParam("id") String id, Model model) {
+	public String pwModifyForm(@RequestParam("id") String id, Model model, @RequestParam("actionType") String actionType) {
 		log.info("pwModifyForm()");
 		log.info("-----------" + id);
 		
 		model.addAttribute("id", id);
+		model.addAttribute("actionType", actionType);
+		
 		
 		return "member/pw_modify_form";
 	}
 
 	@PostMapping("/pw_modify_confirm")
-	public String pwModifyForm(@RequestParam("id") String id, @RequestParam("m_pw") String m_pw, Model model) {
+	public String pwModifyForm(@RequestParam("id") String id, @RequestParam("m_pw") String m_pw, Model model,  @RequestParam("actionType") String actionType) {
 		log.info("pwModifyForm()");
-		log.info("+++++++++++" + id);
 		
 		int result = memberService.pwModifyConfirm(id, m_pw);
 
-		model.addAttribute("result", result);
 		
+		if (actionType.equals("passwordChange")) {
+			result = Config.PW_MODIFY_SAME_SUCCESS;
+		}
+		
+		model.addAttribute("result", result);
 		return "result";
 		
 	}

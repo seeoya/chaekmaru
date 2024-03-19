@@ -18,16 +18,18 @@
                 <div class="info">
                     <div class="book_info">
                         <th:block th:switch="${cate}">
-                            <div class="cate ellipsis" th:case="0">총류</div>
-                            <div class="cate ellipsis" th:case="1">철학</div>
-                            <div class="cate ellipsis" th:case="2">종교</div>
-                            <div class="cate ellipsis" th:case="3">사회과학</div>
-                            <div class="cate ellipsis" th:case="4">자연과학</div>
-                            <div class="cate ellipsis" th:case="5">기술과학</div>
-                            <div class="cate ellipsis" th:case="6">예술</div>
-                            <div class="cate ellipsis" th:case="7">언어</div>
-                            <div class="cate ellipsis" th:case="8">문학</div>
-                            <div class="cate ellipsis" th:case="9">역사</div>
+                            <a th:href="@{/book/list(filter=${cate})}">
+                                <div class="cate ellipsis" th:case="0">총류</div>
+                                <div class="cate ellipsis" th:case="1">철학</div>
+                                <div class="cate ellipsis" th:case="2">종교</div>
+                                <div class="cate ellipsis" th:case="3">사회과학</div>
+                                <div class="cate ellipsis" th:case="4">자연과학</div>
+                                <div class="cate ellipsis" th:case="5">기술과학</div>
+                                <div class="cate ellipsis" th:case="6">예술</div>
+                                <div class="cate ellipsis" th:case="7">언어</div>
+                                <div class="cate ellipsis" th:case="8">문학</div>
+                                <div class="cate ellipsis" th:case="9">역사</div>
+                            </a>
                         </th:block>
                         <div class="name ellipsis">[[${item.b_name}]]</div>
                         <div class="star ellipsis">
@@ -52,7 +54,7 @@
                                         <div th:if="${item.b_count > 0}" class="count ellipsis">
                                             재고: [[${item.b_count}]]
                                         </div>
-                                        <input class="input" type="number" name="c_book_count" value="1" id="cart_count">
+                                        <input class="input" type="number" name="c_book_count" value="1"  min="1" id="cart_count">
                                     </div>
 
                                     <div id="total_price" class="price ellipsis">총 금액: 0 BP</div>

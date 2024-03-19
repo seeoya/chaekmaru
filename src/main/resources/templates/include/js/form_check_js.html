@@ -292,7 +292,7 @@
         }
 
         /* ID 찾기 */
-        function findIdForm() {
+        function IdFindCheck() {
             console.log("findIdForm!!");
 
             let form = document.find_id_form;
@@ -304,12 +304,12 @@
                 alert("이메일을 입력해 주세요.");
                 form.m_mail.focus();
             } else {
-                form.submit();
+                findIdForm();
             }
         }
 
         /* PW 찾기 */
-        function findPwForm() {
+        function PwFindCheck() {
             console.log("findPwForm!!");
             let form = document.find_pw_form;
 
@@ -323,7 +323,7 @@
                 alert("이메일을 입력해 주세요.");
                 form.m_mail.focus();
             } else {
-                form.submit();
+                findPwForm();
             }
         }
 
@@ -515,6 +515,8 @@
                 },
             }).open();
         }
+
+        
 
         function isMember() {
             var httpRequest = new XMLHttpRequest();

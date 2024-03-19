@@ -43,6 +43,10 @@
     right: 15px;
 }
 
+#address {
+    margin-bottom: 5px;
+}
+
 .form .input-wrap .input-message {
     display: none;
     margin-top: 3px;
@@ -283,6 +287,17 @@ header .logo img {
     background-color: var(--main-color);
 }
 
+.header-category .cate-link .member-name  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-category .cate-link .member-name .level {
+    font-size: 1.8rem;
+}
+
 .header-category .usermenu-list a:hover {
     background-color: var(--main-light-color);
 }
@@ -394,7 +409,7 @@ header .logo img {
 
 /* 페이지 */
 .container {
-    padding: 50px 0 70px;
+    padding: 50px 0 90px;
     min-height: 75vh;
 }
 
@@ -789,13 +804,6 @@ header .logo img {
 }
 
 /* 출석체크 */
-.attendance-info {
-    background-color: #e7eff7;     /* 배경색 */
-    border-radius: 8px;     /* 모서리 둥글기 */
-    padding: 20px;     /* 내부 여백 */
-    margin: 20px 0;     /* 위아래 마진 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);     /* 그림자 효과 */
-}
 
 .attendance-info div, .attendance-info p {
     color: #333;     /* 글자색 */
@@ -812,11 +820,40 @@ header .logo img {
     font-weight: 600;
 }
 
+#attendance_list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#attendance_list #attendance {
+    width: 130px;
+    height: 130px;
+    border-radius: 130px;
+}
+
+#attendance_list .attendance-notice {
+    display: flex;
+    flex-direction: column;
+    background-color: #e7eff7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#attendance_list .attendance-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 #attendance_list .content {
     font-weight: bold;     /* 글씨를 두껍게 */
     font-family: 'Noto Sans KR', sans-serif;     /* 글씨체 변경 */
     color: #333;     /* 글씨 색상 */
-    padding: 10px 20px 20px;     /* 안쪽 여백 */
+    padding: 20px;     /* 안쪽 여백 */
     margin: 20px 0;     /* 바깥쪽 여백 */
     border: 1px solid #ddd;     /* 테두리 */
     border-radius: 5px;     /* 테두리 둥글게 */
@@ -1125,9 +1162,31 @@ header .logo img {
     text-indent: 0.5rem;
 }
 
+#point_charge .title span, #point_list .title span {
+    position: relative;
+}
+
+#point_charge .title span::after, #point_list .title span::after {
+    content: "";
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: var(--highlight-light-color);
+    bottom: 5px;
+    left: 0;
+    z-index: -1;
+    opacity: 0.7;
+}
+
 #point_charge .now-point, #point_list .now-point {
-    font-size: 2rem;
+    width: 85%;
+    padding-bottom: 40px;
+    margin: 10px 0 20px;
+    border-bottom: 2px dashed var(--gray-color);
+    font-size: 2.2rem;
     font-weight: 600;
+    text-align: center;
 }
 
 #point_list .item {
@@ -1149,6 +1208,14 @@ header .logo img {
     font-weight: 600;
 }
 
+#point_charge form {
+	gap: 30px;
+}
+
+#point_charge .desc {
+	text-align: center;	
+}
+
 #point_charge .point-btn-wrap {
     display: flex;
     justify-content: space-between;
@@ -1163,8 +1230,19 @@ header .logo img {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    flex-direction: column;
+    gap: 10px;
 }
+
+#point_charge .point-wrap > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    font-size: 1.8rem;
+}
+
 
 /* login form */
 .login_link_wrap {
@@ -1325,8 +1403,26 @@ header .logo img {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    border-top: dotted 1px #000;
+    border-top: dashed 1px var(--gray-color);
     padding: 10px 0;
+}
+
+#my_buy_history .payment-list-result {
+    text-align: right;
+}
+
+#my_buy_history .request-result {
+    text-align: right;
+}
+
+#my_buy_history .book:last-child {
+    border-bottom: dashed 1px var(--gray-color);
+    margin-bottom: 10px;
+}
+
+#my_buy_history .payment-price-result {
+    font-weight: 500;
+    font-size: 1.7rem;
 }
 
 #my_buy_history .payment-book-name {
@@ -1334,16 +1430,33 @@ header .logo img {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 500;
+    font-size: 1.8rem;
 }
 
 #my_buy_history .payment-send-btn {
     display: flex;
     gap: 10px;
     justify-content: end;
+    align-items: normal;
+    flex-direction: column;
+}
+
+#my_buy_history .payment-send-btn-bottom {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    align-items: normal;
 }
 
 #my_buy_history .payment-date {
     text-align: right;
+    margin-bottom: 5px;
+}
+
+#my_buy_history .payment-result-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 #my_buy_history .payment-point-and-btn {
@@ -1449,8 +1562,9 @@ header .logo img {
 }
 
 .member-info a {
-    color: #007bff;
+    color: var(--gray-color);
     text-decoration: none;
+    font-size: 1.1rem;
 }
 
 .member-info a:hover {
@@ -1473,7 +1587,7 @@ header .logo img {
 
 #payment .submit-btn-wrap {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     justify-content: end;
 }
@@ -1488,6 +1602,7 @@ header .logo img {
 
 #payment .total-price-result {
     font-size: 2.0rem;
+    font-weight: 600;
 }
 
 /* 찜 목록 */
@@ -1605,21 +1720,48 @@ header .logo img {
     object-fit: contain;
 }
 
-#my_review .my-review-id {
+.my-review-id {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+#my_review .review_info {
+	justify-content: right;
+}
+
+#my_review .review_date {
+	font-size: 1.2rem;
+    color: var(--gray-dark-color);
+}
+
+#my_review .review_info .review_id_stars {
     display: none;
 }
 
 #review-list .review-img-text {
     display: flex;
-    font-size: 1.8rem;
     gap: 30px;
 }
 
+#review-list .review-img-text .text-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
 #review-list .review-img-text .review_text {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
     background: #fff;
     border-radius: 10px;
-    width: 900px;
-    padding: 10px;
+    font-size: 1.6rem;
+}
+
+.my-review-title {
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
 #review-list .review_id_stars {
@@ -1640,8 +1782,8 @@ header .logo img {
 #my_buy_history img {
     max-width: 100px;
     min-width: 100px;
-    max-height: 150px;
-    min-height: 150px;
+    max-height: 130px;
+    min-height: 130px;
     object-fit: contain;
 }
 
@@ -1786,7 +1928,7 @@ header .logo img {
 footer {
     width: 100%;
     background-color: #60866b;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 footer div.logo img {
@@ -1795,6 +1937,13 @@ footer div.logo img {
     min-height: 100px;
     max-height: 100px;
     object-fit: contain;
+}
+
+footer .join_footer a {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer .footer-wrap {
@@ -1830,8 +1979,8 @@ footer .top_footer {
 footer .join_footer img {
     min-width: 100px;
     max-width: 100px;
-    min-height: 30px;
-    max-height: 30px;
+    min-height: 40px;
+    max-height: 40px;
     object-fit: contain;
 }
 
@@ -1857,6 +2006,23 @@ footer .join_footer {
     display: flex;
     width: 40%;
     gap: 20px;
+    height: 40px;
+    padding: 10px 0 0 0;
+}
+
+footer .join_footer a:nth-child(1) {
+    position: relative;
+    top: -8px
+}
+
+footer .join_footer a:nth-child(3) {
+    position: relative;
+    top: -7px;
+}
+
+footer .join_footer a:nth-child(4) {
+    position: relative;
+    top: -7px;
 }
 
 .addition-btn-wrap {
