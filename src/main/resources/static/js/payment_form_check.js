@@ -72,7 +72,7 @@ function paymentFormSubmit() {
 			if (form.currentPoint.value >= form.sb_all_price.value) {
 				form.submit();
 			} else {
-				alert('잔여 포인트가 부족합니다. 포인트를 충전해 주세요');
+				alert('잔여 BP가 부족합니다. BP를 충전해 주세요');
 			}
 		} else {
 			alert('도서 재고가 부족합니다. 수량을 조절하거나 관리자에게 문의하세요');

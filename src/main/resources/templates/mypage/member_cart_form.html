@@ -28,7 +28,7 @@
                                 </span>
                                 <span class="cart-book-name-price">
                                     <p th:text="${memberCartDtos.b_name}">도서 제목</p>
-                                    <p th:id="${'price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">
+                                    <p th:id="${'price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' BP'}">
                                         책 가격
                                     </p>
                                 </span>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="cart-pay">
-                            <p th:id="${'total_price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' 포인트'}">
+                            <p th:id="${'total_price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' BP'}">
                             </p>
 
                             <button type="button" class="btn main" th:onclick="|oneBuy(${memberCartDtos.b_no})|">결제하기</button>

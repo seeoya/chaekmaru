@@ -24,12 +24,15 @@
             // 문의 작성
            
             function qWriteForm () {
-            	
+            	            	
             	let form = document.q_write_form;
+            	
+            	console.log("++++" + form.sb_no.value);
             	
             	if (form.q_title.value == "") {
                     alert("제목을 입력해 주세요.");
                     form.q_title.focus();
+                            
                 } else if (form.q_text.value == "") {
                     alert("문의 내용을 입력해 주세요.");
                     form.q_text.focus();
@@ -38,7 +41,17 @@
                 }
             }
             
-         
+           function deleteConfirm(q_no){
+        	   
+        	   let result = confirm("문의내용을 삭제하시겠습니까?");
+        	   
+        	   if(result){
+        		   location.href= "/qna/delete_confirm" + "?q_no=" + q_no;
+        	   }
+           }
+           
+           
+           
         
 
     </script>

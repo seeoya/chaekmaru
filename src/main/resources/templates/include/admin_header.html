@@ -2,56 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <header th:fragment="admin_header">
-	<div class="member-menu">
-	    <div class="header-wrap" th:if="${session.loginedAdminMemberDto == null}">
-	        <nav>
-	            <a th:href="@{/}" class="sub-link">CHAEKMARU HOME</a>
-	            <a th:href="@{/admin}" class="sub-link">관리자 홈</a>
-	            <a th:href="@{/admin/member/create_account_form}">관리자 회원가입</a>
-	            <a th:href="@{/admin/member/login_form}">관리자 로그인</a>           
-	        </nav>
-	    </div>
-	 	    
-	    <div class="header-wrap" th:unless="${session.loginedAdminMemberDto == null}">
-	        <nav>
-	        	<a th:href="@{/}" class="sub-link">CHAEKMARU HOME</a>
-	            <a th:href="@{/admin}" class="sub-link">관리자 홈</a>
-	            <a th:href="@{/admin/member/modify_account_form}">관리자 정보수정</a>
-				<a th:href="@{/admin/member/logout_confirm}">관리자 로그아웃</a>             
-	        </nav>
-	       
-	    </div>    
-	 </div>
-	       
-	 <div class="header-category">       
-	     <div class="category-wrap">
-	        <div class="logo">
+    <div class="member-menu">
+        <div class="header-wrap" th:if="${session.loginedAdminMemberDto == null}">
+            <nav>
+                <a th:href="@{/}" class="sub-link">CHAEKMARU HOME</a>
+                <a th:href="@{/admin}" class="sub-link">관리자 홈</a>
+                <a th:href="@{/admin/member/create_account_form}">관리자 회원가입</a>
+                <a th:href="@{/admin/member/login_form}">관리자 로그인</a>
+            </nav>
+        </div>
+
+        <div class="header-wrap" th:unless="${session.loginedAdminMemberDto == null}">
+            <nav>
+                <a th:href="@{/}" class="sub-link">CHAEKMARU HOME</a>
+                <a th:href="@{/admin}" class="sub-link">관리자 홈</a>
+                <a th:href="@{/admin/member/modify_account_form}">관리자 정보수정</a>
+                <a th:href="@{/admin/member/logout_confirm}">관리자 로그아웃</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="header-category">
+        <div class="category-wrap">
+            <div class="logo">
                 <a th:href="@{/}"><img th:src="@{/img/logo3.png}" alt="책마루"></a>
             </div>
-           
+
             <div th:unless="${session.loginedAdminMemberDto == null}">
-		         <nav>     
-		            <a th:href="@{/admin/member/admin_list_form}" class="cate-link" th:if="${session.loginedAdminMemberDto.a_grade == 2}">관리자 LIST</a>                  	
-	        		        	 
-		            <a th:href="@{/admin/book/regist_book_form}" class="cate-link">BOOK 등록</a>
-		            <a th:href="@{/admin/book/book_list_form}" class="cate-link">BOOK LIST</a>
-		            <a th:href="@{/admin/shop/point_list_form}" class="cate-link">POINT LIST</a>           
-		            <a th:href="@{/admin/shop/user_account_active_form}" class="cate-link">회원계정관리</a>		            
-		            <a th:href="@{/admin/shop/sale_management_form}" class="cate-link">판매관리</a>           
-		            <a th:href="@{/qna/qna_list_form}" class="cate-link">고객문의</a>           
-		         </nav>
-		     </div>
-	    </div>
-	 </div>
-    
+                <nav>
+                    <a th:href="@{/admin/member/admin_list_form}" class="cate-link" th:if="${session.loginedAdminMemberDto.a_grade == 2}">관리자 LIST</a>
+                    <a th:href="@{/admin/book/regist_book_form}" class="cate-link">BOOK 등록</a>
+                    <a th:href="@{/admin/book/book_list_form}" class="cate-link">BOOK LIST</a>
+                    <a th:href="@{/admin/shop/point_list_form}" class="cate-link">POINT LIST</a>
+                    <a th:href="@{/admin/shop/user_account_active_form}" class="cate-link">회원계정관리</a>
+                    <a th:href="@{/admin/shop/sale_management_form}" class="cate-link">판매관리</a>
+                    <a th:href="@{/qna/qna_list_form}" class="cate-link">고객문의</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
 </header>
 
 </html>
 
-            <nav>
-                <a th:href="@{/}" class="sub-link">문의게시판</a>
-                <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
-                <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
-            </nav>
-        </div>
-    </div>
+<nav>
+    <a th:href="@{/}" class="sub-link">문의게시판</a>
+    <th:block th:replace="~{::logined_nav_sub_link}"></th:block>
+    <th:block th:replace="~{::logouted_nav_sub_link}"></th:block>
+</nav>
+</div>
+</div>

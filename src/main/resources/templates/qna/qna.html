@@ -16,11 +16,11 @@
 	    
 	   		<div class="qna-wrap">
 	            <div class="qna-write" >
-				    <form th:action="@{/admin/qna/q_write_confirm}" name="q_write_form" method="post" class="form">
+				    <form th:action="@{/qna/q_write_confirm}" name="q_write_form" method="post" class="form">
 				    	<input type="hidden" name="m_id" th:value="${session[loginedMemberInfo]?.m_id}">
 				    	<input type="text" name="q_title" placeholder="제목을 입력해주세요."></input>			        
 				        <select name="sb_no">
-							<option value="">주문선택</option>
+							<option value="0">주문선택</option>
 					        <option th:each="opt : ${sbnos}" th:value="${opt.sb_no}" 
 	                				th:text="${#strings.substring(opt.sb_sale_date, 0, 16)}">
 	        				</option>						
@@ -44,21 +44,28 @@
            <div class="list-wrap">
          	  	<ul>
             		<li class="list-title">
-            			<span>제목</span>
-            			<span>작성일</span>
-            			<span>답변상태</span>
-            			<span>삭제</span>
+            			<span class="title">제목</span>
+            			<span class="date">작성일</span>
+            			<span class="state">답변상태</span>
+            			<span class="delete">삭제</span>
 	            	 </li> 
 	            	 
             		<li class="list-item" th:each="list, listStat: ${myQnas}">
-            			<button type="button" class="answer-click" th:data-index="${listStat.index}">[[${list.q_title}]]</button>
-            			<span>[[${#strings.substring(list.q_reg_date, 0, 16)}]]</span>
-            			
-            			<span th:if="${list.qa_reg_date == null}">답변대기</span>
-            			<span th:unless="${list.qa_reg_date == null}">답변완료</span>
-            			                				
-                   		<a th:href="@{/qna/delete_confirm(q_no=${list.q_no})}" class="btn main" >삭제</a>
-                   		                			         	
+            			<div class="question-item">
+	            			<span class="title">
+		            			<button type="button" class="answer-click" th:data-index="${listStat.index}">[[${list.q_title}]]</button>
+	            			</span>
+	            			
+	            			<span class="date">[[${#strings.substring(list.q_reg_date, 0, 16)}]]</span>
+	            			
+	            			<span class="state" th:if="${list.qa_reg_date == null}">답변대기</span>
+	            			<span class="state" th:unless="${list.qa_reg_date == null}">답변완료</span>
+	
+							<span class="delete">
+	                   			<a href="#none" th:onclick="deleteConfirm([[${list.q_no}]])" class="btn main" >삭제</a>
+	                 		</span>
+                 		</div>
+                 		          			         	
 		                <div class="answer-item" style="display: none">	               
 	                		<div>Q : [[${list.q_text}]]</div>
 				       		<div>A : [[${list?.qa_text}]]</div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: 결제 페이지</title>
@@ -24,16 +23,16 @@
                                 <span class="pay-bookname">[[${buyBooksData.b_name}]]</span>
 
                                 <p class="pay-price-result">
-                                    [[${#numbers.formatInteger(buyBooksData.b_price, 1, 'COMMA')}]] 포인트 <i
-                                        class="fa-solid fa-xmark"></i> [[${buyBooksData.c_book_count}]] 권 =
-                                    [[${#numbers.formatInteger(buyBooksData.b_price * buyBooksData.c_book_count, 1, 'COMMA')}]] 포인트
+                                    [[${#numbers.formatInteger(buyBooksData.b_price, 1, 'COMMA')}]] BP
+                                    <i class="fa-solid fa-xmark"></i>
+                                    [[${buyBooksData.c_book_count}]] 권 = [[${#numbers.formatInteger(buyBooksData.b_price * buyBooksData.c_book_count, 1, 'COMMA')}]] BP
                                 </p>
                             </div>
                         </a>
                         <input type="hidden" name="b_no" th:value="${buyBooksData.b_no}" />
                     </div>
                     <input type="hidden" th:data-index="${buyBooksData.b_no}" class="ck-box">
-                    <input type="hidden" th:id="${'b_no_' + buyBooksData.b_no}" th:value="${buyBooksData.b_no}" >
+                    <input type="hidden" th:id="${'b_no_' + buyBooksData.b_no}" th:value="${buyBooksData.b_no}">
                     <input type="hidden" name="sb_book_count" th:value="${buyBooksData.c_book_count}" class="sb-count" />
                     <input type="hidden" name="c_book_count" th:value="${buyBooksData.c_book_count}" th:id="${'c_book_count_' + buyBooksData.b_no}" class="sb-count" />
                     <input type="hidden" name="b_count" th:value="${buyBooksData.b_count}" class="b-count" />
@@ -49,15 +48,11 @@
                 <div>
                     <label for="search_address_btn">받는 사람 주소</label>
                     <div class="addr-wrap">
-                        <input type="text" id="postcode" name="sb_addr_code" th:value="${memberInfo.m_addr_code}"
-                            placeholder="우편번호" readonly>
-                        <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호
-                            찾기</button>
+                        <input type="text" id="postcode" name="sb_addr_code" th:value="${memberInfo.m_addr_code}" placeholder="우편번호" readonly>
+                        <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호 찾기</button>
                     </div>
-                    <input type="text" id="address" name="sb_addr" th:value="${memberInfo.m_addr}" placeholder="주소"
-                        readonly> 
-                    <input type="text" id="detailAddress" name="sb_detail_addr"
-                    th:value="${memberInfo.m_detail_addr}" placeholder="상세주소">
+                    <input type="text" id="address" name="sb_addr" th:value="${memberInfo.m_addr}" placeholder="주소" readonly>
+                    <input type="text" id="detailAddress" name="sb_detail_addr" th:value="${memberInfo.m_detail_addr}" placeholder="상세주소">
                 </div>
 
                 <div>
@@ -68,27 +63,27 @@
 
                 <div>
                     <p>전체 금액</p>
-                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  포인트'}"></p>
+                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  BP'}"></p>
                 </div>
 
 
                 <div>
                     <p>등급 할인</p>
                     <div>
-                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  포인트'}"></p>
+                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  BP'}"></p>
                     </div>
                 </div>
                 <div>
                     <p>배송비</p>
                     <div>
-                        <p class="delivery-price">3,000 포인트</p>
+                        <p class="delivery-price">3,000 BP</p>
                     </div>
                 </div>
 
                 <div th:switch="${memberInfo.m_grade}">
                     <label>결제 예정 금액</label>
                     <div>
-                        <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 1, 'COMMA') + '  포인트'}"></p>
+                        <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 1, 'COMMA') + '  BP'}"></p>
                         <input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
                         <input type="hidden" name="currentPoint" th:value="${currentPoint}" />
                     </div>

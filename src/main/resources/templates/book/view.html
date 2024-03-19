@@ -28,7 +28,7 @@
                             [[${item.b_publish_date}]]
                         </div>
                         <div class="price ellipsis">
-                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' 원'}]]
+                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]
                         </div>
                         <div class="introduce">[[${item.b_introduce}]]</div>
                     </div>
@@ -46,7 +46,7 @@
                                         <input class="input" type="number" name="c_book_count" value="1" id="cart_count">
                                     </div>
 
-                                    <div id="total_price" class="price ellipsis">총 금액: 0 원</div>
+                                    <div id="total_price" class="price ellipsis">총 금액: 0 BP</div>
                                 </div>
 
                                 <div class="view_pay_a">

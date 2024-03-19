@@ -2,7 +2,6 @@ package com.maru.chaekmaru;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -118,6 +117,68 @@ public class AjaxController {
 		} else {
 			return "false";
 		}
+	}
+	
+	@PostMapping("/find_id_send")
+	public String findIdAndSendEmail(@RequestBody MemberDto memberDto, Model model) {
+		
+		String name = memberDto.getM_name();
+		String email = memberDto.getM_mail();
+		String logoUrl = "http://localhost:8090/img/logo3.png";
+		String id = memberService.findIdByNameAndEmail(name, email);
+		String htmlContent = "<div style='width: 400px; margin: 20px auto; padding: 30px 50px;'>" +
+                "<div style='text-align: center; background-color: #ffffff; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);'>" +
+                "<img src='" + logoUrl + "' alt='Logo' style='width: 150px; margin-bottom: 20px;'>" +
+                "<h2 style='color: #333;'>아이디 찾기 결과</h2>" +
+                "<p style='color: #555;'>요청하신 아이디는 아래와 같습니다.</p>" +
+                "<div style='background-color: #f0f0f0; padding: 20px; margin-top: 20px; border-radius: 5px;'>" +
+                "<strong style='color: #333; font-size: 24px;'>" + id + "</strong>" +
+                "</div>" +
+                "<p style='margin-top: 20px; color: #777;'>해당 아이디로 로그인 후 서비스를 이용해주세요.</p>" +
+                "</div>" +
+                "</div>";
+		
+		if (id != null) {
+			memberService.sendIdEmail(email , htmlContent);
+			model.addAttribute("result", Config.FIND_ID_SUCCESS);
+			
+		} else {
+			model.addAttribute("result", Config.FIND_ID_FAIL);
+		}
+		
+		return "result";
+	}
+	
+	@PostMapping("/pw_mail_send")
+	public String findPwConfirm(@RequestBody MemberDto memberDto, Model model) {
+		log.info("findPwConfirm()");
+		
+		String id = memberDto.getM_id();
+		String name = memberDto.getM_name();
+		String email = memberDto.getM_mail();
+		
+		MemberDto getId = memberService.findMember(id, name, email);
+
+		String link = "http://localhost:8090/member/pw_modify_form?id=" + id;
+		String logoUrl = "http://localhost:8090/img/logo3.png";
+		String message = "<div style='width: 400px; margin: 20px auto; padding: 30px 50px; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>" +
+		        "<img src='" + logoUrl + "' alt='Logo' style='display: block; margin: 0 auto 20px; width: 100px;'>" + // 로고 이미지 크기 조절
+		        "<h2 style='color: #333; text-align: center; margin: 0 0 20px;'>" + // 헤더 가운데 정렬
+		        "비밀번호 변경 안내</h2>" +
+		        "<p style='color: #555; text-align: center;'>" + // 본문 가운데 정렬
+		        "아래의 링크를 클릭하여 비밀번호를 변경하세요.</p>" +
+		        "<a href='" + link + "' style='display: block; margin-top: 20px; text-align: center; padding: 10px 20px; color: #fff; background-color: #365a41; border-radius: 5px; text-decoration: none;'>" + // 버튼 스타일 조정
+		        "비밀번호 변경하기</a>" +
+		        "</div>";
+
+		if (getId != null) {
+			memberService.sendEmail(email, message);
+			model.addAttribute("result", Config.FIND_PW_SUCCESS);
+		} else {
+			model.addAttribute("result", Config.FIND_PW_FAIL);
+		}
+		
+		return "result";
 	}
 
 	@PostMapping("/add_my_cart")

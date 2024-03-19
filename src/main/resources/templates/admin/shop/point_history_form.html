@@ -3,42 +3,36 @@
 
 <head>
     <title>책마루 :: 관리자 POINT LIST</title>
- 	    
-    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-   
 </head>
 
-<div id="example_copy" class="content-wrap" layout:fragment="content">
-    <h2 class="title">회원 포인트 내역</h2>
-        
-    <div class="content">   
-       <div class="table-wrap">    			
-     	<table class="point-table">     	
-    		<thead>
-  				<tr>
-    			    				
-    				<th style="width: 120px;">회원 ID</th>					
-    				<th style="width: 120px;">포인트 내역</th>    
-    				<th style="width: 400px;">포인트 Commnent</th>    
-    				<th style="width: 140px;">포인트 변경일</th>   						
- 		
-    			</tr>   	
-    		</thead>
-    		
-    		<tbody>
-     			<tr th:each="list : ${myPointDtos}" >
-    				
-    				<td th:text="${list.m_id}"></td>   				
-    				<td th:text="${list.pl_payment_book_point}"></td>   				
-    				<td th:text="${list.pl_desc}"></td>   				
-    				<td th:text="${#strings.substring(list.pl_reg_date, 0, 19)}"></td>
-    				   				
-    			</tr>	   				   				 
-    		</tbody>    	
-    	
-    	</table>
-      </div> 
+<div class="content-wrap" layout:fragment="content">
+    <h2 class="title">회원 BP 내역</h2>
+
+    <div class="content">
+        <div class="table-wrap">
+            <table class="point-table">
+                <thead>
+                    <tr>
+
+                        <th style="width: 120px;">회원 ID</th>
+                        <th style="width: 120px;">BP 내역</th>
+                        <th style="width: 400px;">BP Commnent</th>
+                        <th style="width: 140px;">BP 변경일</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="list : ${myPointDtos}">
+
+                        <td th:text="${list.m_id}"></td>
+                        <td th:text="${list.pl_payment_book_point}"></td>
+                        <td th:text="${list.pl_desc}"></td>
+                        <td th:text="${#strings.substring(list.pl_reg_date, 0, 19)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

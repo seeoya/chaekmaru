@@ -166,7 +166,7 @@ function modifyPointForm() {
     let form = document.modify_point_form;
 	
 	if (form.pl_payment_book_point.value === "") {
-        alert("적립하거나 차감할 포인트를 입력해 주세요.");
+        alert("적립하거나 차감할 BP를 입력해 주세요.");
         form.pl_payment_book_point.focus();        
     
     } else {
