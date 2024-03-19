@@ -40,46 +40,46 @@
                                 [[${book.sb_all_price}]] BP
                             </p>
                             <th:block th:switch="${book.sb_state}">
-                            	<div th:case="0">주문 취소</div>
-                            	<div th:case="1">주문 완료</div>
-								<div th:case="2">배송 완료</div>
+                                <div th:case="0">주문 취소</div>
+                                <div th:case="1">주문 완료</div>
                                 <div class="payment-send-btn" th:case="2">
+                                    <div>배송 완료</div>
                                     <a class="sub btn" th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">
-                                    	반품 신청
+                                        반품 신청
                                     </a>
                                 </div>
-								<div th:case="3">반품 처리 중</div>
-								<div th:case="4">반품 완료</div>
-							</th:block>
+                                <div th:case="3">반품 처리 중</div>
+                                <div th:case="4">반품 완료</div>
+                            </th:block>
 
                         </div>
-                        
+
                     </div>
                 </div>
                 <input type="hidden" th:value="${item.key}" />
-                
-                
-				<th:block th:switch="${stateList[item.key]}">
-					<div th:case="0">주문 취소</div>
-					
-					<div class="payment-send-btn" th:case="1">
-						<a class="main btn" th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
-							주문 확정
-						</a>
-						<a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
-							주문 취소
-						</a>
-					</div>
-					
-					<div th:case="2">배송 완료</div>
-					
-				</th:block>
-                
+
+
+                <th:block th:switch="${stateList[item.key]}">
+                    <div th:case="0">주문 취소</div>
+
+                    <div class="payment-send-btn" th:case="1">
+                        <a class="main btn" th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                            주문 확정
+                        </a>
+                        <a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                            주문 취소
+                        </a>
+                    </div>
+
+                    <div th:case="2">배송 완료</div>
+
+                </th:block>
+
             </div>
 
-		</form>		
-	</div>
-	
+        </form>
+    </div>
+
 </div>
 
 </html>

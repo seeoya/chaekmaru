@@ -102,30 +102,30 @@
                         let result = confirm("장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?");
 
                         if (result) {
-                            location.href = [[@{/mypage/member_cart_form}]];
-                        }
-                    } else if (httpRequest.responseText == "false") {
-                        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+                            location.href = [[@{/ mypage / member_cart_form}]];
                     }
-
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 403) {
-                    alert("접근 거부");
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 404) {
-                    alert("페이지 없음")
-                    spinnerStatus("off");
-                } else if (httpRequest.status == 500) {
-                    alert("서버 오류 발생");
-                    spinnerStatus("off");
+                } else if (httpRequest.responseText == "false") {
+                    alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
                 }
-            };
 
-            spinnerStatus("on");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 403) {
+                alert("접근 거부");
+                spinnerStatus("off");
+            } else if (httpRequest.status == 404) {
+                alert("페이지 없음")
+                spinnerStatus("off");
+            } else if (httpRequest.status == 500) {
+                alert("서버 오류 발생");
+                spinnerStatus("off");
+            }
+        };
 
-            let data = { b_no: bNo, c_book_count: count };
+        spinnerStatus("on");
 
-            httpRequest.send(JSON.stringify(data));
+        let data = { b_no: bNo, c_book_count: count };
+
+        httpRequest.send(JSON.stringify(data));
         }
 
         function ajaxRemoveCart(cNo) {
@@ -300,54 +300,44 @@
                     alert("잔여 BP가 부족합니다. BP를 충전해 주세요");
                 }
             }
+        }
 
-            function allBuy() {
-                document.querySelectorAll(".ck-box").forEach(el => {
-                    if (el) {
-                        let index = el.dataset.index;
-                        document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-                        document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-                    }
+        function allBuy() {
+            document.querySelectorAll(".ck-box").forEach(el => {
+                let index = el.dataset.index;
+                document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+                document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+            })
 
-                    document.payment_form.submit();
-                })
+            document.membercart_form.submit();
+        }
+
+        function selectBuy() {
+            let flag = false;
+
+            document.querySelectorAll(".ck-box").forEach(el => {
+                if (el.checked) {
+                    let index = el.dataset.index;
+                    document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+                    document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+                    document.membercart_form.submit();
+                    flag = true;
+                }
+            })
+
+            if (!flag) {
+                alert('구매할 도서를 선택해 주세요');
             }
         }
-        
-        function selectBuy() {
-			document.querySelectorAll(".ck-box").forEach(el => {
-				if (el.checked) {
-					let index = el.dataset.index;
-					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-					document.membercart_form.submit();
-				} else {
-					alert('구매할 도서를 선택해 주세요');
-				}
 
-			})
-		}
-		
-		function allBuy() {
-			document.querySelectorAll(".ck-box").forEach(el => {
-				if (el) {
-					let index = el.dataset.index;
-					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-				}
+        function oneBuy(b_no) {
+            let index = b_no;
+            document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+            document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
 
-				document.membercart_form.submit();
-			})
-		}
+            document.membercart_form.submit();
+        }
 
-		function oneBuy(b_no) {
-			let index = b_no;
-			document.getElementById("b_no_" + index).setAttribute("name", "b_no");
-			document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
-
-			document.membercart_form.submit();
-		}
-        
     </script>
 
 </th:block>
