@@ -1351,8 +1351,26 @@ header .logo img {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    border-top: dotted 1px #000;
+    border-top: dashed 1px var(--gray-color);
     padding: 10px 0;
+}
+
+#my_buy_history .payment-list-result {
+    text-align: right;
+}
+
+#my_buy_history .request-result {
+    text-align: right;
+}
+
+#my_buy_history .book:last-child {
+    border-bottom: dashed 1px var(--gray-color);
+    margin-bottom: 10px;
+}
+
+#my_buy_history .payment-price-result {
+    font-weight: 500;
+    font-size: 1.7rem;
 }
 
 #my_buy_history .payment-book-name {
@@ -1360,16 +1378,33 @@ header .logo img {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 500;
+    font-size: 1.8rem;
 }
 
 #my_buy_history .payment-send-btn {
     display: flex;
     gap: 10px;
     justify-content: end;
+    align-items: normal;
+    flex-direction: column;
+}
+
+#my_buy_history .payment-send-btn-bottom {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    align-items: normal;
 }
 
 #my_buy_history .payment-date {
     text-align: right;
+    margin-bottom: 5px;
+}
+
+#my_buy_history .payment-result-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 #my_buy_history .payment-point-and-btn {
@@ -1668,8 +1703,8 @@ header .logo img {
 #my_buy_history img {
     max-width: 100px;
     min-width: 100px;
-    max-height: 150px;
-    min-height: 150px;
+    max-height: 130px;
+    min-height: 130px;
     object-fit: contain;
 }
 
