@@ -58,4 +58,8 @@ public interface IAdminShopDaoForMybatis {
 	
 	public int insertRetrunPayment(MyPointListDto myPointListDto);
 
+	public int selectSbAllPointBySbNo(int sb_no);
+
+	public int selectSalePointBySbNo(int sb_no);
+
 }

@@ -40,7 +40,7 @@
 		                <div>
 							<p>
 								[[${book.b_price}]] 포인트 <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
-								[[${book.sb_all_price}]] 포인트
+								[[${book.b_price * book.sb_book_count}]] 포인트
 							</p>
 							<th:block th:switch="${book.sb_state}">
 		                        <div th:case="0">주문 취소</div>

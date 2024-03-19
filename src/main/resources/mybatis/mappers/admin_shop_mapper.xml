@@ -255,4 +255,28 @@
 			
 	</insert>
 	
+	<select id="selectSbAllPointBySbNo"	
+			parameterType="Integer">
+			
+			SELECT 
+				SB_ALL_PRICE 
+			FROM 
+				TBL_SALED_BOOK 
+			WHERE 
+				SB_NO = #{sb_no}
+	
+	</select>
+	
+	<select id="selectSalePointBySbNo"	
+			parameterType="Integer">
+			
+			SELECT 
+				SB_SALED_PRICE 
+			FROM 
+				TBL_SALED_BOOK 
+			WHERE 
+				SB_NO = #{sb_no}
+	
+	</select>
+	
 </mapper>

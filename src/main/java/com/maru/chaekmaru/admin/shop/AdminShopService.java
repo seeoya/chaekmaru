@@ -265,7 +265,13 @@ public class AdminShopService {
 		
 		MyPointListDto myPointListDto = new MyPointListDto();
 		myPointListDto.setM_id(adminShopDao.getMId(sb_no));
-		myPointListDto.setPl_payment_book_point(adminShopDao.returnPoint(sb_no));
+		int selectSbAllPointBySbNo = adminShopDao.selectSbAllPointBySbNo(sb_no);
+		log.info("selectSbAllPointBySbNo ==================> " + selectSbAllPointBySbNo);
+		int selectSalePointBySbNo = adminShopDao.selectSalePointBySbNo(sb_no);
+		log.info("selectSalePointBySbNo ==================> " + selectSalePointBySbNo);
+		int returnPoint = selectSbAllPointBySbNo - selectSalePointBySbNo;
+		log.info("returnPoint ==================> " + returnPoint);
+		myPointListDto.setPl_payment_book_point(returnPoint);
 		myPointListDto.setPl_desc("도서 반품");
 		log.info(myPointListDto.getM_id());
 		log.info(myPointListDto.getPl_payment_book_point());

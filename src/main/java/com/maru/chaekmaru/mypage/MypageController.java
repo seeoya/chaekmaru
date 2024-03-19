@@ -233,11 +233,26 @@ public class MypageController {
 		}
 		ArrayList<MemberCartDto> buyBooksDatas = mypageService.setPaymentForm(buyBooks);
 		int allPrice = mypageService.calcAllPrice(buyBooksDatas);
+		log.info("allPrice          =====================>" + allPrice);
 		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
-		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas, allPrice, discount);
+		log.info("discount          =====================>" + discount);
+		int finalPrice = allPrice - discount + 3000;
+		
+		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas, loginedMemberDto.getM_grade(), allPrice, discount, finalPrice);
 
 		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
 			result = Config.PAYMENT_SUCCESS;
+			int allBuyPoint = mypageService.sumSbAllPointByMId(loginedMemberDto.getM_id());
+			int allSalePoint = mypageService.sumSbSalePointByMId(loginedMemberDto.getM_id());
+			int allBuyPointMId = allBuyPoint - allSalePoint;
+			log.info("allBuyPointMId ====================> " + allBuyPointMId);
+			if (allBuyPointMId >= 100000) {
+				mypageService.updateGradeOne(loginedMemberDto.getM_id());
+			} else if (allBuyPointMId >= 200000) {
+				mypageService.updateGradeTwo(loginedMemberDto.getM_id());
+			} else {
+				mypageService.updateGradeZero(loginedMemberDto.getM_id());
+			}
 		} else {
 			result = Config.PAYMENT_FAIL;
 		}
@@ -260,10 +275,16 @@ public class MypageController {
 
 		List<Integer> keySet = new ArrayList<>(list.keySet());
 
+//		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = mypageService.getMyAllPaymentList(loginedMemberDto.getM_id());
+//
+//		List<Integer> priceKeySet = new ArrayList<>(priceList.keySet());
+		
 		// 키 값으로 내림차순 정렬
 		Collections.reverse(keySet);
+//		Collections.reverse(priceKeySet);
 
 		model.addAttribute("list", list);
+//		model.addAttribute("priceList", priceList);
 
 		return "mypage/payment_list_form";
 	}
