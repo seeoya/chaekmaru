@@ -1815,6 +1815,7 @@ footer .join_footer img {
     max-width: 100px;
     min-height: 30px;
     max-height: 30px;
+    object-fit: contain;
 }
 
 footer .info_footer {
@@ -1838,7 +1839,7 @@ footer .util_footer .btn {
 footer .join_footer {
     display: flex;
     width: 40%;
-    gap: 10px;
+    gap: 20px;
 }
 
 .addition-btn-wrap {
