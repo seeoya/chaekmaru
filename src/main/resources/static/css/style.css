@@ -43,6 +43,10 @@
     right: 15px;
 }
 
+#address {
+    margin-bottom: 5px;
+}
+
 .form .input-wrap .input-message {
     display: none;
     margin-top: 3px;
@@ -800,13 +804,6 @@ header .logo img {
 }
 
 /* 출석체크 */
-.attendance-info {
-    background-color: #e7eff7;     /* 배경색 */
-    border-radius: 8px;     /* 모서리 둥글기 */
-    padding: 20px;     /* 내부 여백 */
-    margin: 20px 0;     /* 위아래 마진 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);     /* 그림자 효과 */
-}
 
 .attendance-info div, .attendance-info p {
     color: #333;     /* 글자색 */
@@ -823,11 +820,40 @@ header .logo img {
     font-weight: 600;
 }
 
+#attendance_list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#attendance_list #attendance {
+    width: 130px;
+    height: 130px;
+    border-radius: 130px;
+}
+
+#attendance_list .attendance-notice {
+    display: flex;
+    flex-direction: column;
+    background-color: #e7eff7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#attendance_list .attendance-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 #attendance_list .content {
     font-weight: bold;     /* 글씨를 두껍게 */
     font-family: 'Noto Sans KR', sans-serif;     /* 글씨체 변경 */
     color: #333;     /* 글씨 색상 */
-    padding: 10px 20px 20px;     /* 안쪽 여백 */
+    padding: 20px;     /* 안쪽 여백 */
     margin: 20px 0;     /* 바깥쪽 여백 */
     border: 1px solid #ddd;     /* 테두리 */
     border-radius: 5px;     /* 테두리 둥글게 */
@@ -1501,8 +1527,9 @@ header .logo img {
 }
 
 .member-info a {
-    color: #007bff;
+    color: var(--gray-color);
     text-decoration: none;
+    font-size: 1.1rem;
 }
 
 .member-info a:hover {
@@ -1525,7 +1552,7 @@ header .logo img {
 
 #payment .submit-btn-wrap {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     justify-content: end;
 }
@@ -1540,6 +1567,7 @@ header .logo img {
 
 #payment .total-price-result {
     font-size: 2.0rem;
+    font-weight: 600;
 }
 
 /* 찜 목록 */
@@ -1865,7 +1893,7 @@ header .logo img {
 footer {
     width: 100%;
     background-color: #60866b;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 footer div.logo img {
@@ -1874,6 +1902,13 @@ footer div.logo img {
     min-height: 100px;
     max-height: 100px;
     object-fit: contain;
+}
+
+footer .join_footer a {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer .footer-wrap {
@@ -1909,8 +1944,8 @@ footer .top_footer {
 footer .join_footer img {
     min-width: 100px;
     max-width: 100px;
-    min-height: 30px;
-    max-height: 30px;
+    min-height: 40px;
+    max-height: 40px;
     object-fit: contain;
 }
 
@@ -1936,6 +1971,23 @@ footer .join_footer {
     display: flex;
     width: 40%;
     gap: 20px;
+    height: 40px;
+    padding: 10px 0 0 0;
+}
+
+footer .join_footer a:nth-child(1) {
+    position: relative;
+    top: -8px
+}
+
+footer .join_footer a:nth-child(3) {
+    position: relative;
+    top: -7px;
+}
+
+footer .join_footer a:nth-child(4) {
+    position: relative;
+    top: -7px;
 }
 
 .addition-btn-wrap {
