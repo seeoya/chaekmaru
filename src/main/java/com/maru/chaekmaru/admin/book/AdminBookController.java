@@ -97,7 +97,7 @@ public class AdminBookController {
 					
 		}
 		
-		@GetMapping("/delete_book_confirm")
+		@PostMapping("/delete_book_confirm")
 		public String deleteBookConfirm(@RequestParam("b_no") int b_no) {
 			log.info("deleteBookConfirm()");
 			

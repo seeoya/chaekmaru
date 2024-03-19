@@ -722,6 +722,8 @@
 						M_ID = #{m_id} 
 					AND 
 						SB_ORDER_NO = #{sb_order_no}
+					AND 
+						SB_STATE = 1
 	
 	</update>
 

@@ -52,8 +52,8 @@
 	    				<th style="width: 50px;" th:if="${session.loginedAdminMemberDto.a_grade == 2}">삭제</th>	    					   			
 	    			</tr>   	
     			</thead>
-    			<tbody>
-    				<tr class="table-tr" th:each="list : ${items}" >
+    			<tbody th:each="list : ${items}" th:data-index="${list.b_no}">
+    				<tr class="table-tr" th:id="${'del_no_' + list.b_no}">
 	    				<td th:text="${list.b_no}"></td>
 	    				<td th:text="${list.b_thumbnail}"></td>
 	    				<td><a th:href="@{/book/view/{b_no}(b_no=${list.b_no})}">[[${list.b_name}]]</a></td>	    				 
