@@ -109,7 +109,7 @@ public class MemberService {
 				myPointListDto.setPl_desc("회원 탈퇴");
 
 				mypageDao.insertPoint(myPointListDto);
-				
+
 				memberDao.deleteReview(m_id);
 				memberDao.deleteCart(m_id);
 				memberDao.deletePick(m_id);
@@ -129,38 +129,38 @@ public class MemberService {
 
 		return memberDao.findIdByNameAndEmail(name, email);
 	}
-	
-	public void sendIdEmail(String email,String htmlContent) {
-        log.info("sendEmail()");
 
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setTo(email);
-            helper.setSubject("'북마루' 아이디 찾기 메일입니다.");
-            helper.setText(htmlContent, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
-        } catch (MessagingException e) {
-            log.error("이메일 전송 중 에러 발생", e);
-        }
+	public void sendIdEmail(String email, String htmlContent) {
+		log.info("sendEmail()");
 
-        javaMailSender.send(mimeMessage);
-    }
-	
-	 public void sendEmail(String email, String content) {
-	        log.info("sendEmail()");
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+			helper.setTo(email);
+			helper.setSubject("'북마루' 아이디 찾기 메일입니다.");
+			helper.setText(htmlContent, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
+		} catch (MessagingException e) {
+			log.error("이메일 전송 중 에러 발생", e);
+		}
 
-	        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-	        try {
-	            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-	            helper.setTo(email);
-	            helper.setSubject("'북마루' 비밀번호 변경 메일입니다.");
-	            helper.setText(content, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
-	        } catch (MessagingException e) {
-	            log.error("이메일 전송 중 에러 발생", e);
-	        }
+		javaMailSender.send(mimeMessage);
+	}
 
-	        javaMailSender.send(mimeMessage);
-	    }
+	public void sendEmail(String email, String content) {
+		log.info("sendEmail()");
+
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+			helper.setTo(email);
+			helper.setSubject("'북마루' 비밀번호 변경 메일입니다.");
+			helper.setText(content, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
+		} catch (MessagingException e) {
+			log.error("이메일 전송 중 에러 발생", e);
+		}
+
+		javaMailSender.send(mimeMessage);
+	}
 
 	public MemberDto findMember(String id, String name, String email) {
 		log.info("findMember()");
@@ -192,6 +192,22 @@ public class MemberService {
 		}
 
 		return point;
+	}
+
+	public MemberDto refreshMemberInfo(HttpSession session) {
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int point = 0;
+
+		if (loginedMemberDto != null) {
+			loginedMemberDto = memberDao.selectMember(loginedMemberDto.getM_id());
+			
+			point = memberDao.selectNowPoint(loginedMemberDto.getM_id());
+			loginedMemberDto.setPoint(point);
+
+			session.setAttribute(Config.LOGINED_MEMBER_INFO, loginedMemberDto);
+		}
+		return loginedMemberDto;
 	}
 
 }

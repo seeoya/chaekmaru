@@ -338,5 +338,15 @@ public class AjaxController {
 		}		
 	}
 	
+	// 로그인 세션 갱신	
+	@PostMapping("/refresh_member_info")
+	public MemberDto refreshMemberInfo(HttpSession session) {
+		log.info("refreshMemberInfo()");	
+		
+		MemberDto loginedMemberInfo = memberService.refreshMemberInfo(session);
+		
+		return loginedMemberInfo;
+	}
+	
 
 }
