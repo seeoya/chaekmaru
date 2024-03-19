@@ -41,8 +41,44 @@ public class SecurityConfig {
 		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable());
 
 		http.authorizeHttpRequests(request -> request.requestMatchers(
+				"/ajax/member_modify_confirm",
+				"/ajax/attendance",
+				"/ajax/add_my_cart",
+				"/ajax/add_member_pick",
+				"/ajax/cart_modify_form",
+				"/ajax/delete_member_pick",
+				"/ajax/delete_mycart_confirm",
 				"/member/modify_form",
-				"/qna/qna").authenticated()
+				"/member/modify_confirm",
+				"/member/delete_confirm",
+				"/mypage/member_cart_form",
+				"/mypage/cart_modify_form",
+				"/mypage/delete_mycart_confirm",
+				"/mypage/payment_form",
+				"/mypage/payment_form_confirm",
+				"/mypage/my_review",
+				"/mypage/add_cart",
+				"/mypage/all_payment_form_confirm",
+				"/mypage/payment_list_form",
+				"/mypage/cancel_payment_confirm",
+				"/mypage/return_payment_confirm",
+				"/mypage/member_pick",
+				"/mypage/add_member_pick",
+				"/mypage/delete_member_pick",
+				"/mypage/point_charge",
+				"/mypage/point_list",
+				"/mypage/point_charge_confirm",
+				"/mypage/attendance_list",
+				"/qna/qna",
+				"/qna/q_write_confirm",
+				"/qna/qna_list_form",
+				"/qna/qna_answer",
+				"/qna/a_write_confirm",
+				"/qna/delete_confirm",
+				"/review/write_confirm",
+				"/review/modify_confirm",
+				"/review/delete_confirm"
+				).authenticated()
 				.requestMatchers("/**").permitAll());
 		
 		int result = 999;
