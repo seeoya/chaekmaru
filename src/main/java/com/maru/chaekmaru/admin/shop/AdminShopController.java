@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -66,7 +65,7 @@ public class AdminShopController {
 	//회원 포인트 수정
 	
 	@PostMapping("/modify_point_confirm")
-	public String modifyPointConfirm(@RequestBody MyPointListDto myPointListDto) {
+	public String modifyPointConfirm(MyPointListDto myPointListDto) {
 		log.info("modifyPointConfirm");
 
 		String nextPage = "redirect:/admin/shop/point_list_form";

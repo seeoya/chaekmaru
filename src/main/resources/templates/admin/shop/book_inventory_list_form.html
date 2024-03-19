@@ -31,7 +31,7 @@
 	    				<th>등록일</th>
 	    				<th>수정일</th>
 	    				<th style="width: 80px;">재고 수량</th>    			
-	    				<th style="width: 80px;">재고 수정</th>
+	    				<th style="width: 80px;" th:if="${session.loginedAdminMemberDto.a_grade >= 1}">재고 수정</th>
 	    				
 	    				    						
 	    			

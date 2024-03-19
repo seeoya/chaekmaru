@@ -122,7 +122,8 @@ public class AdminBookService {
 			sortSql = "B_NO";
 			break;
 		}
-
+		
+		log.info("isbn" + sort);
 		return sortSql;
 	}
 	

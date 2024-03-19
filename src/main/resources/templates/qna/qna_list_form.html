@@ -23,7 +23,7 @@
 	           				<th>작성일</th>
 	           				<th>답변상태</th>
 	           				<th>답변완료일</th>
-	           				<th>답변등록</th>
+	           				<th th:if="${session.loginedAdminMemberDto.a_grade >= 1}">답변등록</th>
 	           			</tr>
 	           		<tbody>
 	           			<tr th:each="list: ${qnas}">

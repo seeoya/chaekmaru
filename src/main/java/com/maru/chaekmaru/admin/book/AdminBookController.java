@@ -112,9 +112,13 @@ public class AdminBookController {
 		
 		@GetMapping("/book_list_form")
 		public String bookListForm(Model model, @RequestParam(required = false, value = "search", defaultValue = "") String search,
-							@RequestParam(required = false, value = "sort", defaultValue = "no") String sort,
+							@RequestParam(required = false, value = "list_sort", defaultValue = "no") String sort,
 							@RequestParam(required = false, value = "page", defaultValue = "1") String page) {
 
+			log.info("search:" + search);
+			log.info("sort:" + sort);
+			
+			
 			int pageItemPerPage = 10;
 			int nowPageCount = Integer.parseInt(page);
 			int allBookCount = adminBookService.countBook(search, sort);
