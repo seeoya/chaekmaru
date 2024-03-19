@@ -205,6 +205,11 @@
                     window.history.back();
                     break;
                     
+                case 313:
+                    text = "이미 리뷰를 작성하셨습니다.";
+                    href = [[@{/book/view/{b_no}(b_no=${b_no})}]];
+                    break;
+                    
                 case 800:
                     text = "고객문의 등록에 성공하였습니다.";
                     window.history.back();

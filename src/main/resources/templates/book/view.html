@@ -23,13 +23,10 @@
                             <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
                         </div>
                         <div class="author ellipsis">[[${item.b_author}]]</div>
-                        <div class="publisher ellipsis">
-                            [[${item.b_publisher}]] /
-                            [[${item.b_publish_date}]]
-                        </div>
+                        <div class="publisher ellipsis">[[${item.b_publisher}]] /
+                            [[${item.b_publish_date}]]</div>
                         <div class="price ellipsis">
-                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]
-                        </div>
+                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]</div>
                         <div class="introduce">[[${item.b_introduce}]]</div>
                     </div>
 
@@ -69,7 +66,13 @@
 
         <div class="review-wrap">
             <th:block th:if="${session.loginedMemberInfo != null}">
-                <div th:replace="~{/book/review.html::review-write}"></div>
+                <th:block th:if="${isReviewWrite != true}">
+                    <div th:replace="~{/book/review.html::review-write}"></div>
+                </th:block>
+
+                <th:block th:if="${isReviewWrite != false}">
+                    <div class="review-desk">리뷰를 작성한 도서입니다.</div>
+                </th:block>
             </th:block>
 
             <th:block th:if="${session.loginedMemberInfo == null}">

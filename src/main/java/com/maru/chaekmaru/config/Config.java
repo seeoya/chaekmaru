@@ -60,6 +60,8 @@ public class Config {
 	final public static int REVIEW_WRITE_FAIL = 310;
 	final public static int REVIEW_MODIFY_FAIL = 311; 
 	final public static int REVIEW_DELETE_FAIL = 312;
+	final public static int REVIEW_ALREADY_EXIST = 313;
+	
 
 	
 	// AdminHomeController 400 ~ 499

@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.maru.chaekmaru.config.Config;
+import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -61,15 +64,24 @@ public class BookController {
 	}
 
 	@GetMapping("/view/{book_no}")
-	public String view(Model model, @PathVariable("book_no") String book_no) {
+	public String view(HttpSession session, Model model, @PathVariable("book_no") String book_no) {
 		int b_no = Integer.parseInt(book_no);
 		BookDto item = bookService.setView(b_no);
 
 		ArrayList<ReviewDto> reviewDtos = new ArrayList<>();
 		reviewDtos = reviewService.setReviews(b_no);
-
+		
+		boolean isReviewWrite = false;
+		
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+		
+		if(loginedMemberDto!= null) {
+			isReviewWrite = reviewService.isReviewWrite(loginedMemberDto.getM_id(), b_no);
+		}
+		
 		model.addAttribute("item", item);
 		model.addAttribute("reviews", reviewDtos);
+		model.addAttribute("isReviewWrite", isReviewWrite);
 
 		return "/book/view";
 	}

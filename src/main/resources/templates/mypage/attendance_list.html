@@ -21,12 +21,12 @@
             <div>
                 <span class="attendance-id">[[${session[loginedMemberInfo].m_id}]]</span> 님 누적 <span id="acc">[[${acc}]]</span>일 출석
             </div>
-        
+
             <div>
-                <p>매일 출석 시 200P 지급</p>
-                <p>누적 10일 출석 시 3000P 추가 지급</p>
+                <p>매일 출석 시 200BP 지급</p>
+                <p>누적 10일 출석 시 [[${#numbers.arrayFormatInteger(3000, 1,'COMMA')+ ' BP'}]] 추가 지급</p>
             </div>
-		</div>
+        </div>
         <div class="attendance-wrap">
             <div class="stamp-wrap" th:classappend="${items[0].ac_reg_date} != '' ? 'on'">
                 <i class="fa-solid fa-dove"></i>
