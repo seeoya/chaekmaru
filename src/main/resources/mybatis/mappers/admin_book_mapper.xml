@@ -68,8 +68,16 @@
 	<delete id="deleteBookConfirm"
 			parameterType="Integer">
 			
-			DELETE FROM 
-				TBL_BOOK 
+			DELETE FROM TBL_BOOK  
+			WHERE 
+				B_NO=#{b_no}	
+	
+	</delete>
+	
+	<delete id="deleteReview"
+			parameterType="Integer">
+			
+			DELETE FROM TBL_REVIEW  
 			WHERE 
 				B_NO=#{b_no}	
 	

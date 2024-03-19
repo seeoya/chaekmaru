@@ -2236,14 +2236,27 @@ footer .join_footer a:nth-child(4) {
     flex-direction: column;
     background-color: #f9f9f9;
     margin: 10px 0;
+    padding: 20px 10px;
     font-size: 1.5rem;
     gap: 10px;
 }
 
 #my-qna-list .list-item .answer-item > div {
     width: 100%;
-    padding: 0 15px;
+    padding: 5px 15px;
     text-align: left;
+}
+
+#my-qna-list .list-item .answer-item .answer-first {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#my-qna-list .list-item .answer-item .answer-first .answer-date {
+	width: 180px;
+	
 }
 
 #my-qna-list .list-item {
