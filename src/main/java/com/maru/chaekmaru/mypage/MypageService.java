@@ -369,7 +369,6 @@ public class MypageService {
 		return mypageDao.isMemberPick(m_id, b_no);
 	}
 
-	public int cancelMyPaymentList(String m_id, int sb_no, int b_no) {
 	public int cancelMyPaymentList(String m_id, int sb_order_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();
