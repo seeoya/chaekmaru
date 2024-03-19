@@ -17,19 +17,28 @@
 
                 <div class="info">
                     <div class="book_info">
+                        <th:block th:switch="${cate}">
+                            <div class="cate ellipsis" th:case="0">총류</div>
+                            <div class="cate ellipsis" th:case="1">철학</div>
+                            <div class="cate ellipsis" th:case="2">종교</div>
+                            <div class="cate ellipsis" th:case="3">사회과학</div>
+                            <div class="cate ellipsis" th:case="4">자연과학</div>
+                            <div class="cate ellipsis" th:case="5">기술과학</div>
+                            <div class="cate ellipsis" th:case="6">예술</div>
+                            <div class="cate ellipsis" th:case="7">언어</div>
+                            <div class="cate ellipsis" th:case="8">문학</div>
+                            <div class="cate ellipsis" th:case="9">역사</div>
+                        </th:block>
                         <div class="name ellipsis">[[${item.b_name}]]</div>
                         <div class="star ellipsis">
                             <i class="fa-solid fa-star"></i>
                             <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
                         </div>
                         <div class="author ellipsis">[[${item.b_author}]]</div>
-                        <div class="publisher ellipsis">
-                            [[${item.b_publisher}]] /
-                            [[${item.b_publish_date}]]
-                        </div>
+                        <div class="publisher ellipsis">[[${item.b_publisher}]] /
+                            [[${item.b_publish_date}]]</div>
                         <div class="price ellipsis">
-                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]
-                        </div>
+                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]</div>
                         <div class="introduce">[[${item.b_introduce}]]</div>
                     </div>
 
@@ -69,7 +78,13 @@
 
         <div class="review-wrap">
             <th:block th:if="${session.loginedMemberInfo != null}">
-                <div th:replace="~{/book/review.html::review-write}"></div>
+                <th:block th:if="${isReviewWrite != true}">
+                    <div th:replace="~{/book/review.html::review-write}"></div>
+                </th:block>
+
+                <th:block th:if="${isReviewWrite != false}">
+                    <div class="review-desk">리뷰를 작성한 도서입니다.</div>
+                </th:block>
             </th:block>
 
             <th:block th:if="${session.loginedMemberInfo == null}">

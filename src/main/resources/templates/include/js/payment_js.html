@@ -313,6 +313,41 @@
                 })
             }
         }
+        
+        function selectBuy() {
+			document.querySelectorAll(".ck-box").forEach(el => {
+				if (el.checked) {
+					let index = el.dataset.index;
+					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+					document.membercart_form.submit();
+				} else {
+					alert('구매할 도서를 선택해 주세요');
+				}
+
+			})
+		}
+		
+		function allBuy() {
+			document.querySelectorAll(".ck-box").forEach(el => {
+				if (el) {
+					let index = el.dataset.index;
+					document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+					document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+				}
+
+				document.membercart_form.submit();
+			})
+		}
+
+		function oneBuy(b_no) {
+			let index = b_no;
+			document.getElementById("b_no_" + index).setAttribute("name", "b_no");
+			document.getElementById("c_book_count_" + index).setAttribute("name", "c_book_count");
+
+			document.membercart_form.submit();
+		}
+        
     </script>
 
 </th:block>
