@@ -51,6 +51,19 @@
                 });
             }
 
+            // 리뷰 삭제
+            if (document.querySelectorAll(".delete-review")[0]) {
+                document.querySelectorAll(".delete-review").forEach(el => {
+                    el.addEventListener("click", function (e) {
+                        let result = confirm("리뷰를 삭제하시겠습니까?");
+
+                        if (result) {
+                            location.href = e.target.dataset.link;
+                        }
+                    })
+                });
+            }
+
             // 뷰 number 수정 시 보이는 금액 변경
             if (document.getElementById("cart_count")) {
                 updateTotal();
@@ -73,7 +86,7 @@
                 document.getElementById("add_pick").addEventListener("click", function () {
                     let bNo = this.dataset.index;
 
-                    if(this.classList.contains("on")) {
+                    if (this.classList.contains("on")) {
                         ajaxRemovePick(bNo);
                     } else {
                         ajaxAddPick(bNo);
@@ -172,7 +185,7 @@
             httpRequest.send("b_no=" + bNo);
         }
 
-        
+
         function ajaxRemovePick(bNo) {
             let httpRequest = new XMLHttpRequest();
 
@@ -185,7 +198,7 @@
 
                         document.getElementById("add_pick").classList.remove("on");
                         document.getElementById("add_pick").classList.add("off");
-                        
+
                     } else if (httpRequest.responseText == "false") {
                         alert("찜 목록 제거에 실패했습니다. 다시 시도해주세요.");
                     }

@@ -28,20 +28,29 @@
 
             <div class="review-img-text">
                 <th:block th:if="${review.b_thumbnail != null}">
-
                     <a th:href="@{/book/view/{b_no}(b_no=${review.b_no})}">
                         <img th:src="${review.b_thumbnail}" th:alt="${review.b_name}">
+                        <span class="review_id_stars">
+                            <span class="star-rate">
+                                <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 5 ? 'on' : ''}"></i>
+                                <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 4 ? 'on' : ''}"></i>
+                                <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 3 ? 'on' : ''}"></i>
+                                <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 2 ? 'on' : ''}"></i>
+                                <i class="rate fa-solid fa-star" th:classappend="${review.r_stars == 1 ? 'on' : ''}"></i>
+                            </span>
+                        </span>
                     </a>
-
                 </th:block>
-                <div class="review_text">[[${review.r_text}]]</div>
-
+                <div class="text-wrap">
+                    <div class="my-review-title">[[${review.b_name}]]</div>
+                    <div class="review_text">[[${review.r_text}]]</div>
+                </div>
             </div>
 
             <th:block th:if="${session[loginedMemberInfo]?.m_id eq review.m_id}">
                 <div class="review-btn-wrap">
                     <button type="button" class="btn main modify-review">수정</button>
-                    <a th:href="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}" class="btn sub">삭제</a>
+                    <a th:data-link="@{/review/delete_confirm(r_no=${review.r_no}, b_no=${review.b_no})}" class="btn sub delete-review">삭제</a>
                 </div>
 
                 <div class="modify-wrap" style="display: none;">
