@@ -19,7 +19,7 @@
             </div>
 
             <div class="input-wrap">
-                <a th:href="@{/member/pw_modify_form(id=${session.loginedMemberInfo.m_id})}" class="btn highlight full">비밀번호 변경</a>
+                <a th:href="@{/member/pw_modify_form(id=${session.loginedMemberInfo.m_id},actionType='pwChange')}" class="btn highlight full">비밀번호 변경</a>
             </div>
 
             <div class="input-wrap">

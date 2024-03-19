@@ -12,6 +12,7 @@
 
     <div class="content">
         <form th:action="@{/member/pw_modify_confirm(id=${id})}" name="pw_modify_form" method="post" class="form">
+        	<input type="hidden" name="actionType" value="passwordChange">
             <input type="password" name="m_pw" placeholder="변경하실 비밀번호를 입력해 주세요.">
             <input type="password" name="m_pw_again" placeholder="변경하실 비밀번호를 한 번 더 입력해 주세요.">
             <button type="button" onclick="pwModifyForm();" class="btn main">비밀번호 변경</button>

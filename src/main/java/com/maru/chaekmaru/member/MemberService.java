@@ -87,9 +87,7 @@ public class MemberService {
 			if (result > 0) {
 				return memberDao.selectMember(memberDto.getM_id());
 			}
-		} else {
-
-		}
+		} 
 
 		return null;
 	}

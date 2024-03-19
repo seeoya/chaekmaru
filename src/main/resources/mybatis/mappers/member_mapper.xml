@@ -71,6 +71,7 @@
 				M_MAIL=#{m_mail}, 
 				M_PHONE=#{m_phone},
 				M_ADDR_CODE=#{m_addr_code},
+				M_ADDR=#{m_addr},
 				M_DETAIL_ADDR=#{m_detail_addr},
 				M_MOD_DATE=SYSTIMESTAMP
 			WHERE 
