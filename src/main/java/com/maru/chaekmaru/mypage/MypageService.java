@@ -163,21 +163,22 @@ public class MypageService {
 		return ((int) discount / 10) * 10;
 	}
 
-	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas, int m_grade, int allPrice, int discount, int finalPrice) {
+	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas,
+			int m_grade, int allPrice, int discount, int finalPrice) {
 		log.info("allPaymentMyCartList()");
 
 		int result = -1;
 		int orderNo = 1;
-		
+
 		MyPointListDto myPointListDto = new MyPointListDto();
-		
+
 		int sbOrderNoCount = mypageDao.sbOrderNoCount(m_id);
 		if (sbOrderNoCount == 0) {
 			saledBookDto.setSb_order_no(orderNo);
 		} else {
 			orderNo = mypageDao.selectMaxSbOrderNo(m_id) + 1;
 		}
-		
+
 		for (int i = 0; i < buyBooksDatas.size(); i++) {
 			saledBookDto.setSb_order_no(orderNo);
 			saledBookDto.setB_no(buyBooksDatas.get(i).getB_no());
@@ -213,7 +214,7 @@ public class MypageService {
 				result = Config.DELETE_PAYMENT_CART_FAIL;
 			} else {
 				int minusBookCount = mypageDao.remainBooks(buyBooksDatas.get(i).getB_no(), remainBooks);
-				
+
 				if (minusBookCount < 0) {
 					result = Config.MODIFY_BOOK_COUNT_FAIL;
 				} else {
@@ -233,7 +234,7 @@ public class MypageService {
 		} else {
 			result = Config.DELETE_PAYMENT_CART_FAIL;
 		}
-		
+
 		return result;
 	}
 
@@ -278,7 +279,7 @@ public class MypageService {
 		log.info("deleteAllMyCart()");
 
 		int result = 0;
-		
+
 		for (int i = 0; i < buyBooksDatas.size(); i++) {
 			int selectBook = buyBooksDatas.get(i).getB_no();
 			mypageDao.deleteAllMyCart(m_id, selectBook);
@@ -360,6 +361,14 @@ public class MypageService {
 		return mypageDao.myPickList(m_id);
 	}
 
+	public MemberPickDto isMemberPick(String m_id, int b_no) {
+		log.info("isMemberPick");
+
+		log.info(m_id + "/" + b_no);
+
+		return mypageDao.isMemberPick(m_id, b_no);
+	}
+
 	public int cancelMyPaymentList(String m_id, int sb_no, int b_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();
@@ -376,7 +385,7 @@ public class MypageService {
 			int paymentPoint = mypageDao.paymentPoint(m_id, sb_no, b_no);
 			int selectSalePrice = mypageDao.selectSalePrice(m_id, sb_no);
 			myPointListDto.setM_id(m_id);
-			int returnPoint =  (paymentPoint - selectSalePrice + 3000);
+			int returnPoint = (paymentPoint - selectSalePrice + 3000);
 			myPointListDto.setPl_desc("도서 " + selectBookCountBySbNo + "권 취소");
 			result = mypageDao.insertReturnPoint(myPointListDto, returnPoint, m_id);
 			if (result > 0) {
@@ -434,27 +443,27 @@ public class MypageService {
 	}
 
 	public List<SaledBookDto> getOrderNo(String m_id) {
-		
+
 		return mypageDao.getOrderNo(m_id);
 	}
 
 	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyPaymentList(String m_id) {
-		
+
 		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = new LinkedHashMap<>();
-		
-		List<SaledBookDto> orderNos =  getOrderNo(m_id);
-		
+
+		List<SaledBookDto> orderNos = getOrderNo(m_id);
+
 		for (int i = 0; i < orderNos.size(); i++) {
 			int o_no = orderNos.get(i).getSb_order_no();
-			
+
 			ArrayList<SaledBookDto> sBookDtos = mypageDao.getPaymentListByONo(m_id, o_no);
-			
+
 			list.put(o_no, sBookDtos);
 		}
-		
+
 		return list;
 	}
-	
+
 	public ArrayList<AttendenceDto> getAttendenceList(String m_id) {
 
 		ArrayList<AttendenceDto> attendenceDtos = mypageDao.selectAttendenceList(m_id);
@@ -532,22 +541,22 @@ public class MypageService {
 	}
 
 	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyAllPaymentList(String m_id) {
-		
+
 		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = new LinkedHashMap<>();
-		
-		List<SaledBookDto> allPrice =  getOrderNo(m_id);
-		
+
+		List<SaledBookDto> allPrice = getOrderNo(m_id);
+
 		for (int i = 0; i < allPrice.size(); i++) {
 			int o_no = allPrice.get(i).getSb_order_no();
-			
+
 			ArrayList<SaledBookDto> sBookDtos = mypageDao.getAllpaymentListByONo(m_id, o_no);
-			
+
 			priceList.put(o_no, sBookDtos);
 		}
-		
+
 		return priceList;
 	}
-	
+
 	public int eachDiscount(int eachPrice, int m_grade) {
 		double discount = 0;
 
@@ -573,30 +582,30 @@ public class MypageService {
 	}
 
 	public int sumSbAllPointByMId(String m_id) {
-		
+
 		return mypageDao.sumSbAllPointByMId(m_id);
 	}
 
 	public int sumSbSalePointByMId(String m_id) {
-		
+
 		return mypageDao.sumSbSalePointByMId(m_id);
 	}
 
 	public void updateGradeOne(String m_id) {
-		
+
 		mypageDao.updateGradeOne(m_id);
-		
+
 	}
 
 	public void updateGradeTwo(String m_id) {
-		
+
 		mypageDao.updateGradeTwo(m_id);
-		
+
 	}
 
 	public void updateGradeZero(String m_id) {
-		
+
 		mypageDao.updateGradeZero(m_id);
-		
+
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
+import com.maru.chaekmaru.mypage.MypageService;
 import com.maru.chaekmaru.review.ReviewDto;
 import com.maru.chaekmaru.review.ReviewService;
 
@@ -28,6 +29,9 @@ public class BookController {
 
 	@Autowired
 	ReviewService reviewService;
+
+	@Autowired
+	MypageService mypageService;
 
 	@GetMapping("/list")
 	public String list(Model model, @RequestParam(required = false, value = "search", defaultValue = "") String search,
@@ -72,18 +76,25 @@ public class BookController {
 		reviewDtos = reviewService.setReviews(b_no);
 
 		boolean isReviewWrite = false;
+		boolean isMemberPick = false;
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		if (loginedMemberDto != null) {
 			isReviewWrite = reviewService.isReviewWrite(loginedMemberDto.getM_id(), b_no);
+
+			if (mypageService.isMemberPick(loginedMemberDto.getM_id(), b_no) != null) {
+				isMemberPick = true;
+			}
+
 		}
 
 		model.addAttribute("item", item);
 		model.addAttribute("reviews", reviewDtos);
 		model.addAttribute("isReviewWrite", isReviewWrite);
 		model.addAttribute("cate", Integer.parseInt(item.getB_kdc()) / 100);
-
+		model.addAttribute("pick", isMemberPick);
+		
 		return "/book/view";
 	}
 
