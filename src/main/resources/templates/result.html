@@ -107,6 +107,11 @@
                     text = "비밀번호 변경에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
+                    
+                case 118:
+                	text = "로그인에 실패했습니다.\n다시 시도해주세요.";
+                	window.history.back();
+                	break;
 
                 case 200:
                     text = "수량 변경에 성공했습니다.";
@@ -203,6 +208,11 @@
                 case 312:
                     text = "리뷰 삭제에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
+                    break;
+                    
+                case 313:
+                    text = "이미 리뷰를 작성하셨습니다.";
+                    href = [[@{/book/view/{b_no}(b_no=${b_no})}]];
                     break;
                     
                 case 800:

@@ -33,7 +33,13 @@
 	</delete>
 	
 	<select id="selectMyReviews" parameterType="String"
-	    resultType="com.maru.chaekmaru.review.ReviewDto">
+        resultType="com.maru.chaekmaru.review.ReviewDto">
        SELECT * FROM TBL_REVIEW R JOIN TBL_BOOK B ON R.B_NO = B.B_NO WHERE M_ID = #{m_id}
 	</select>
+	
+	<select id="isReviewWrite" parameterType="map"
+        resultType="com.maru.chaekmaru.review.ReviewDto">
+       SELECT * FROM TBL_REVIEW R JOIN TBL_BOOK B ON R.B_NO = B.B_NO WHERE M_ID = #{m_id} AND R.B_NO = #{b_no}
+	</select>
+	
 </mapper>
