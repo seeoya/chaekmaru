@@ -23,13 +23,13 @@
                     break;
 
                 case 2:
-                    text = "데이터베이스 연결 오류\n다시 시도해주세요."
+                    text = "데이터베이스 연결 오류.\n다시 시도해주세요."
                     window.history.back();
                     break;
 
                 // MemberController
                 case 100:
-                    text = "회원가입에 성공했습니다.\n환영합니다.";
+                    text = "회원가입에 성공했습니다.\n북마루에 오신 걸 환영합니다.";
                     href = [[@{/member/login_form}]];
                     break;
 
@@ -54,12 +54,12 @@
                     break;
 
                 case 105:
-                    text = "비밀번호 재설정 링크를 메일로 발송했습니다.\n메일을 확인해주세요.";
+                    text = "비밀번호 변경 링크를 메일로 발송했습니다.\n메일을 확인해주세요.";
                     href = [[@{/member/login_form}]];
                     break;
 
                 case 106:
-                    text = "비밀번호 재설정을 완료했습니다.";
+                    text = "비밀번호 변경을 완료했습니다.";
                     href = [[@{/member/login_form}]];
                     break;
 
@@ -107,6 +107,11 @@
                     text = "비밀번호 변경에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
+                    
+                case 118:
+                	text = "로그인에 실패했습니다.\n다시 시도해주세요.";
+                	window.history.back();
+                	break;
 
                 case 200:
                     text = "수량 변경에 성공했습니다.";
@@ -205,6 +210,11 @@
                     window.history.back();
                     break;
                     
+                case 313:
+                    text = "이미 리뷰를 작성하셨습니다.";
+                    href = [[@{/book/view/{b_no}(b_no=${b_no})}]];
+                    break;
+                    
                 case 800:
                     text = "고객문의 등록에 성공하였습니다.";
                     window.history.back();
@@ -225,7 +235,10 @@
                     window.history.back();
                     break;
                     
-                    
+                case 999:
+                	text ="로그인이 필요한 서비스입니다.";
+                	href = [[@{/member/login_form}]];
+                    break;
 
                 default:
                     text = "메인으로 이동합니다."

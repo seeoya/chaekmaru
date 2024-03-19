@@ -163,45 +163,77 @@ public class MypageService {
 		return ((int) discount / 10) * 10;
 	}
 
-	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas) {
+	public int allPaymentMyCartList(String m_id, SaledBookDto saledBookDto, ArrayList<MemberCartDto> buyBooksDatas,
+			int m_grade, int allPrice, int discount, int finalPrice) {
 		log.info("allPaymentMyCartList()");
 
 		int result = -1;
 		int orderNo = 1;
-		
+
 		MyPointListDto myPointListDto = new MyPointListDto();
-		
+
 		int sbOrderNoCount = mypageDao.sbOrderNoCount(m_id);
 		if (sbOrderNoCount == 0) {
 			saledBookDto.setSb_order_no(orderNo);
 		} else {
 			orderNo = mypageDao.selectMaxSbOrderNo(m_id) + 1;
 		}
+
 		for (int i = 0; i < buyBooksDatas.size(); i++) {
 			saledBookDto.setSb_order_no(orderNo);
 			saledBookDto.setB_no(buyBooksDatas.get(i).getB_no());
 			saledBookDto.setSb_book_count(buyBooksDatas.get(i).getC_book_count());
 			saledBookDto.setB_name(buyBooksDatas.get(i).getB_name());
-			saledBookDto.setSb_all_price(buyBooksDatas.get(i).getB_price() * buyBooksDatas.get(i).getC_book_count());
+			int eachAllPrice = buyBooksDatas.get(i).getB_price() * buyBooksDatas.get(i).getC_book_count();
+			log.info("eachAllPrice ====================> " + eachAllPrice);
+			double dcPrice = 0;
+			switch (m_grade) {
+			case 0:
+				log.info("m_grade======================>" + m_grade);
+				dcPrice = eachAllPrice * 0;
+				break;
+			case 1:
+				log.info("m_grade======================>" + m_grade);
+				dcPrice = eachAllPrice * 0.05;
+				break;
+			case 2:
+				log.info("m_grade======================>" + m_grade);
+				dcPrice = eachAllPrice * 0.1;
+				break;
+			default:
+				dcPrice = 0;
+				break;
+			}
+			int intDiscount = (int) Math.ceil(dcPrice);
+			saledBookDto.setSb_saled_price(intDiscount);
+			log.info("intDiscount ====================> " + intDiscount);
+			saledBookDto.setSb_all_price(eachAllPrice);
 			int remainBooks = buyBooksDatas.get(i).getB_count() - buyBooksDatas.get(i).getC_book_count();
 			int isOrderde = mypageDao.allPaymentMyCartList(m_id, saledBookDto);
-			if (isOrderde > 0) {
+			if (isOrderde < 0) {
+				result = Config.DELETE_PAYMENT_CART_FAIL;
+			} else {
 				int minusBookCount = mypageDao.remainBooks(buyBooksDatas.get(i).getB_no(), remainBooks);
-				
-				
-				if (minusBookCount > 0) {
+
+				if (minusBookCount < 0) {
+					result = Config.MODIFY_BOOK_COUNT_FAIL;
+				} else {
 					int removeCart = mypageDao.removeCartByBNo(m_id, buyBooksDatas.get(i).getB_no());
-					if (removeCart > 0) {
-						myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price() * -1);
-						myPointListDto.setPl_desc("도서 " + buyBooksDatas.get(i).getC_book_count() + "권 구매");
-						mypageDao.removePointByBuyBooks(m_id, myPointListDto);
+					if (removeCart < 0) {
+						result = Config.DELETE_CART_FAIL;
 					}
 				}
 			}
 		}
-		
-
-		// if 이 주문서가 장바구니에서 왔고, 내 장바구니에 b_no = 1 있으면 지워
+		myPointListDto.setPl_payment_book_point(-finalPrice);
+		int allBookCount = mypageDao.sumAllBook(m_id, orderNo);
+		myPointListDto.setPl_desc("도서 " + allBookCount + "권 구매");
+		int removePointByBuyBooks = mypageDao.removePointByBuyBooks(m_id, myPointListDto);
+		if (removePointByBuyBooks > 0) {
+			result = Config.DELETE_PAYMENT_CART_SUCCESS;
+		} else {
+			result = Config.DELETE_PAYMENT_CART_FAIL;
+		}
 
 		return result;
 	}
@@ -209,13 +241,6 @@ public class MypageService {
 	public ArrayList<MemberCartDto> setPaymentForm(ArrayList<MemberCartDto> buyBooks) {
 
 		ArrayList<MemberCartDto> buyBooksData = new ArrayList<>();
-
-//		MemberCartDto temp = mypageDao.selectBookData(buyBooks.get(0).getB_no());
-
-//		buyBooksData.add(temp);
-
-//		log.info("--------------------" + buyBooks.size());
-
 		MemberCartDto temp = new MemberCartDto();
 
 		for (int i = 0; i < buyBooks.size(); i++) {
@@ -254,7 +279,7 @@ public class MypageService {
 		log.info("deleteAllMyCart()");
 
 		int result = 0;
-		
+
 		for (int i = 0; i < buyBooksDatas.size(); i++) {
 			int selectBook = buyBooksDatas.get(i).getB_no();
 			mypageDao.deleteAllMyCart(m_id, selectBook);
@@ -336,28 +361,47 @@ public class MypageService {
 		return mypageDao.myPickList(m_id);
 	}
 
-	public int cancelMyPaymentList(String m_id, int sb_no, int b_no) {
+	public MemberPickDto isMemberPick(String m_id, int b_no) {
+		log.info("isMemberPick");
+
+		log.info(m_id + "/" + b_no);
+
+		return mypageDao.isMemberPick(m_id, b_no);
+	}
+
+	public int cancelMyPaymentList(String m_id, int sb_order_no) {
 		int result = -1;
 		MyPointListDto myPointListDto = new MyPointListDto();
+		List<SaledBookDto> saledBookDtos = mypageDao.selectMyPaymentBySbON(sb_order_no, m_id);
 
 		// 재고
-		int selectBookCountBySbNo = mypageDao.selectBookCountBySbNo(sb_no);
-		int selectBookCountByBNo = mypageDao.selectBookCountByBNo(b_no);
-		int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
-
-		result = mypageDao.updateCancelBookCount(updateCancelBookCount, b_no);
+		for (int i = 0; i < saledBookDtos.size(); i++) {
+			int selectBNo = saledBookDtos.get(i).getB_no();
+			log.info("saledBookDtos.get(i).getB_no() ==================>" + saledBookDtos.get(i).getB_no());
+			int selectBookCountBySbNo = saledBookDtos.get(i).getSb_book_count();
+			log.info("saledBookDtos.get(i).getSb_book_count() ==================>"
+					+ saledBookDtos.get(i).getSb_book_count());
+			int selectBookCountByBNo = saledBookDtos.get(i).getB_count();
+			log.info("saledBookDtos.get(i).getB_count() ==================>" + saledBookDtos.get(i).getB_count());
+			int updateCancelBookCount = selectBookCountBySbNo + selectBookCountByBNo;
+			result = mypageDao.updateCancelBookCount(updateCancelBookCount, selectBNo);
+		}
 
 		if (result > 0) {
 			// 금액
-			int paymentPoint = mypageDao.paymentPoint(m_id, sb_no, b_no);
-
-			myPointListDto.setM_id(m_id);
-			myPointListDto.setPl_payment_book_point(paymentPoint);
-			myPointListDto.setPl_desc("도서 " + selectBookCountBySbNo + "권 취소");
-			result = mypageDao.insertReturnPoint(myPointListDto, paymentPoint, m_id);
+			int paymentPoint = mypageDao.paymentPoint(m_id, sb_order_no); // 결제 총액
+			log.info("paymentPoint ===============>" + paymentPoint);
+			int selectSalePrice = mypageDao.selectSalePrice(m_id, sb_order_no); // 할인 금액
+			log.info("selectSalePrice ===============------->" + selectSalePrice);
+			int returnPoint = (paymentPoint - selectSalePrice + 3000); // 반환 금액
+			log.info("returnPoint ----------===============>" + returnPoint);
+			int sumPaymentBookBySbON = mypageDao.sumPaymentBookBySbON(m_id, sb_order_no);
+			log.info("sumPaymentBookBySbON +-+-+-+-+--+++-+-+-+-++->" + sumPaymentBookBySbON);
+			myPointListDto.setPl_desc("도서 " + sumPaymentBookBySbON + "권 취소"); // 결제 도서 총합 (따로 구해야함)
+			result = mypageDao.insertReturnPoint(myPointListDto, returnPoint, m_id);
 			if (result > 0) {
 				// state 1 -> 0 변경
-				result = mypageDao.saledStateUpdateZero(m_id, sb_no, b_no);
+				result = mypageDao.saledStateUpdateZero(m_id, sb_order_no); // 스테이트 변경
 				log.info(result);
 			}
 		}
@@ -410,27 +454,27 @@ public class MypageService {
 	}
 
 	public List<SaledBookDto> getOrderNo(String m_id) {
-		
+
 		return mypageDao.getOrderNo(m_id);
 	}
 
 	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyPaymentList(String m_id) {
-		
+
 		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = new LinkedHashMap<>();
-		
-		List<SaledBookDto> orderNos =  getOrderNo(m_id);
-		
+
+		List<SaledBookDto> orderNos = getOrderNo(m_id);
+
 		for (int i = 0; i < orderNos.size(); i++) {
 			int o_no = orderNos.get(i).getSb_order_no();
-			
+
 			ArrayList<SaledBookDto> sBookDtos = mypageDao.getPaymentListByONo(m_id, o_no);
-			
+
 			list.put(o_no, sBookDtos);
 		}
-		
+
 		return list;
 	}
-	
+
 	public ArrayList<AttendenceDto> getAttendenceList(String m_id) {
 
 		ArrayList<AttendenceDto> attendenceDtos = mypageDao.selectAttendenceList(m_id);
@@ -505,5 +549,119 @@ public class MypageService {
 		}
 
 		return 0;
+	}
+
+	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyAllPaymentList(String m_id) {
+
+		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = new LinkedHashMap<>();
+
+		List<SaledBookDto> allPrice = getOrderNo(m_id);
+
+		for (int i = 0; i < allPrice.size(); i++) {
+			int o_no = allPrice.get(i).getSb_order_no();
+
+			ArrayList<SaledBookDto> sBookDtos = mypageDao.getAllpaymentListByONo(m_id, o_no);
+
+			priceList.put(o_no, sBookDtos);
+		}
+
+		return priceList;
+	}
+
+	public int eachDiscount(int eachPrice, int m_grade) {
+		double discount = 0;
+
+		switch (m_grade) {
+		case 0:
+			log.info(m_grade);
+			discount = eachPrice * 0;
+			break;
+		case 1:
+			log.info(m_grade);
+			discount = eachPrice * 0.05;
+			break;
+		case 2:
+			log.info(m_grade);
+			discount = eachPrice * 0.1;
+			break;
+		default:
+			discount = 0;
+			break;
+		}
+
+		return ((int) discount / 10) * 10;
+	}
+
+	public int sumSbAllPointByMId(String m_id) {
+
+		return mypageDao.sumSbAllPointByMId(m_id);
+	}
+
+	public int sumSbSalePointByMId(String m_id) {
+
+		return mypageDao.sumSbSalePointByMId(m_id);
+	}
+
+	public void updateGradeOne(String m_id) {
+
+		mypageDao.updateGradeOne(m_id);
+
+	}
+
+	public void updateGradeTwo(String m_id) {
+
+		mypageDao.updateGradeTwo(m_id);
+
+	}
+
+	public void updateGradeZero(String m_id) {
+
+		mypageDao.updateGradeZero(m_id);
+
+	}
+
+	public LinkedHashMap<Integer, Integer> getMyPaymentStateList(
+			LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
+
+		LinkedHashMap<Integer, Integer> stateList = new LinkedHashMap<>();
+
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		for (int i = 0; i < list.size(); i++) {
+//				list의 i번째 key
+			int key = keySet.get(i);
+			
+			int state = 1;
+			// key = o_no
+			// o_no의 현재 상태
+			// 0 => 주문 취소, 1 => 주문 완료, 2 => 배송 완료
+			// 3 => 반품 처리 중 , 4 => 반품 완료
+
+			ArrayList<SaledBookDto> saledBookDtos = list.get(key);
+
+			for (int j = 0; j < saledBookDtos.size(); j++) {
+				if (saledBookDtos.get(j).getSb_state() == 0) {
+					state = 0;
+					break;
+				}
+
+				if (saledBookDtos.get(j).getSb_state() > 1) {
+					state = 2;
+					break;
+				}
+			}
+
+			stateList.put(key, state);
+		}
+
+		return stateList;
+	}
+
+	public int confirmPayment(String m_id, int sb_order_no) {
+		int result = -1;
+		
+		result = mypageDao.confirmPayment(m_id, sb_order_no);
+		
+		return result;
 	}
 }

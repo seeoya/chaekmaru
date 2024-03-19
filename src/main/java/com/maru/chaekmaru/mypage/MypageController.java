@@ -226,42 +226,40 @@ public class MypageController {
 			@RequestParam("c_book_count") ArrayList<Integer> c_book_counts) {
 		log.info("<=====================allPaymentMyCartList==================>");
 
-		MyPointListDto myPointListDto = new MyPointListDto();
-
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 		ArrayList<MemberCartDto> buyBooks = new ArrayList<>();
 		for (int i = 0; i < b_nos.size(); i++) {
 			buyBooks.add(new MemberCartDto(b_nos.get(i), c_book_counts.get(i)));
 		}
 		ArrayList<MemberCartDto> buyBooksDatas = mypageService.setPaymentForm(buyBooks);
-		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas);
-		log.info("result ====================================>" + result);
-//		if (result > 0) {
-//			myPointListDto.setM_id(loginedMemberDto.getM_id());
-//			myPointListDto.setPl_payment_book_point(saledBookDto.getSb_all_price());
-//
-//			result = mypageService.insertAllPoint(myPointListDto, loginedMemberDto.getM_id());
-//			log.info("saledBookDto.getB_count() ==================>" + saledBookDto.getB_count());
-//			if (result > 0) {
-//				result = mypageService.deleteAllMyCart(loginedMemberDto.getM_id(), buyBooksDatas);
-//
-//				if (result > 0) {
-//					result = Config.DELETE_PAYMENT_CART_SUCCESS;
-//				} else {
-//					result = Config.DELETE_PAYMENT_CART_FAIL;
-//				}
-//			} else {
-//				result = Config.INSERT_POINT_FAIL;
-//			}
-//		}
-//
-//		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
-//			result = Config.PAYMENT_SUCCESS;
-//		}
+		int allPrice = mypageService.calcAllPrice(buyBooksDatas);
+		log.info("allPrice          =====================>" + allPrice);
+		int discount = mypageService.memberDiscount(allPrice, loginedMemberDto.getM_grade());
+		log.info("discount          =====================>" + discount);
+		int finalPrice = allPrice - discount + 3000;
+		
+		int result = mypageService.allPaymentMyCartList(loginedMemberDto.getM_id(), saledBookDto, buyBooksDatas, loginedMemberDto.getM_grade(), allPrice, discount, finalPrice);
+
+		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+			result = Config.PAYMENT_SUCCESS;
+			int allBuyPoint = mypageService.sumSbAllPointByMId(loginedMemberDto.getM_id());
+			int allSalePoint = mypageService.sumSbSalePointByMId(loginedMemberDto.getM_id());
+			int allBuyPointMId = allBuyPoint - allSalePoint;
+			log.info("allBuyPointMId ====================> " + allBuyPointMId);
+			if (allBuyPointMId >= 100000) {
+				mypageService.updateGradeOne(loginedMemberDto.getM_id());
+			} else if (allBuyPointMId >= 200000) {
+				mypageService.updateGradeTwo(loginedMemberDto.getM_id());
+			} else {
+				mypageService.updateGradeZero(loginedMemberDto.getM_id());
+			}
+		} else {
+			result = Config.PAYMENT_FAIL;
+		}
+		
 		memberService.refreshPoint(session);
-//		model.addAttribute("result", result);
-//		return "result";
-		return "redirect:/mypage/member_cart_form";
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -274,13 +272,23 @@ public class MypageController {
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		LinkedHashMap<Integer, ArrayList<SaledBookDto>> list = mypageService.getMyPaymentList(loginedMemberDto.getM_id());
+		LinkedHashMap<Integer, Integer> stateList = mypageService.getMyPaymentStateList(list); 
 
 		List<Integer> keySet = new ArrayList<>(list.keySet());
+		List<Integer> stateKeySet = new ArrayList<>(stateList.keySet());
 
+//		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = mypageService.getMyAllPaymentList(loginedMemberDto.getM_id());
+//
+//		List<Integer> priceKeySet = new ArrayList<>(priceList.keySet());
+		
 		// 키 값으로 내림차순 정렬
 		Collections.reverse(keySet);
+		Collections.reverse(stateKeySet);
+//		Collections.reverse(priceKeySet);
 
 		model.addAttribute("list", list);
+		model.addAttribute("stateList", stateList);
+//		model.addAttribute("priceList", priceList);
 
 		return "mypage/payment_list_form";
 	}
@@ -289,13 +297,13 @@ public class MypageController {
 	 * 주문 취소
 	 */
 	@GetMapping("/cancel_payment_confirm")
-	public String cancelPayment(HttpSession session, @RequestParam("sb_no") int sb_no, @RequestParam("b_no") int b_no) {
+	public String cancelPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
 		// #TODO RESULT 페이지로 이동
 		String nextPage = "redirect:/mypage/payment_list_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
-		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_no, b_no);
+		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_order_no);
 
 		// #TODO result 세팅 필요
 //		if (result <= 0) {
@@ -446,5 +454,26 @@ public class MypageController {
 //		result = mypageService.attendence(loginedMemberDto.getM_id());
 //		
 		return "redirect:/mypage/attendance_list";
+	}
+	
+	/*
+	 * 주문 완료
+	 */
+	@GetMapping("/payment_confirm")
+	public String confirmPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
+		// #TODO RESULT 페이지로 이동
+		String nextPage = "redirect:/mypage/payment_list_form";
+
+		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
+
+		int result = mypageService.confirmPayment(loginedMemberDto.getM_id(), sb_order_no);
+
+		// #TODO result 세팅 필요
+//		if (result <= 0) {
+//            // 실패
+//			log.info("Delete Fail");
+//		}
+
+		return nextPage;
 	}
 }

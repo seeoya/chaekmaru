@@ -29,6 +29,9 @@
                     </a>
                 </div>
             </div>
+            <div class="cart-item" th:if="${#lists.size(memberPickDtos) == 0}">
+    			찜 목록에 도서가 없습니다.
+    		</div>
         </form>
     </div>
 </div>

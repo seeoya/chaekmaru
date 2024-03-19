@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.maru.chaekmaru.config.Config;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class ReviewService {
 
@@ -20,12 +23,17 @@ public class ReviewService {
 
 	public int writeConfirm(ReviewDto reviewDto) {
 		int result = -1;
-		result = reviewDao.insertReview(reviewDto);
-
-		if (result > 0) {
-			return Config.REVIEW_WRITE_SUCCESS;
+		
+		if(!isReviewWrite(reviewDto.getM_id(), reviewDto.getB_no())) {
+			result = reviewDao.insertReview(reviewDto);
+			
+			if (result > 0) {
+				return Config.REVIEW_WRITE_SUCCESS;
+			} else {
+				return Config.REVIEW_WRITE_FAIL;
+			}			
 		} else {
-			return Config.REVIEW_WRITE_FAIL;
+			return Config.REVIEW_ALREADY_EXIST;
 		}
 	}
 
@@ -55,6 +63,18 @@ public class ReviewService {
 
 	public ArrayList<ReviewDto> setMyReview(String m_id) {
 		return reviewDao.selectMyReviews(m_id);
+	}
+
+	public boolean isReviewWrite(String m_id, int b_no) {
+
+		ReviewDto myReviewDto = reviewDao.isReviewWrite(m_id, b_no);
+		
+		
+		if(myReviewDto != null) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

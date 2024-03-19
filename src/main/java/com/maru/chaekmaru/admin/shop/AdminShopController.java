@@ -267,7 +267,8 @@ public class AdminShopController {
 		String nextPage = "redirect:/admin/shop/return_book_list_form";
 		
 		adminShopService.returnApprovalConfirm(sb_no, b_no, sb_book_count);
-			
+		adminShopService.retrunPoint(sb_no);
+		
 		return nextPage;		
 	}
 

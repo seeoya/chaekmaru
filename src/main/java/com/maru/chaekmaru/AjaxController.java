@@ -2,7 +2,6 @@ package com.maru.chaekmaru;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -139,11 +138,22 @@ public class AjaxController {
 		
 		String name = memberDto.getM_name();
 		String email = memberDto.getM_mail();
-		
+		String logoUrl = "http://localhost:8090/img/logo3.png";
 		String id = memberService.findIdByNameAndEmail(name, email);
-
+		String htmlContent = "<div style='width: 400px; margin: 20px auto; padding: 30px 50px;'>" +
+                "<div style='text-align: center; background-color: #ffffff; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);'>" +
+                "<img src='" + logoUrl + "' alt='Logo' style='width: 150px; margin-bottom: 20px;'>" +
+                "<h2 style='color: #333;'>아이디 찾기 결과</h2>" +
+                "<p style='color: #555;'>요청하신 아이디는 아래와 같습니다.</p>" +
+                "<div style='background-color: #f0f0f0; padding: 20px; margin-top: 20px; border-radius: 5px;'>" +
+                "<strong style='color: #333; font-size: 24px;'>" + id + "</strong>" +
+                "</div>" +
+                "<p style='margin-top: 20px; color: #777;'>해당 아이디로 로그인 후 서비스를 이용해주세요.</p>" +
+                "</div>" +
+                "</div>";
+		
 		if (id != null) {
-			memberService.sendEmail(email, "Your ID is : " + id);
+			memberService.sendIdEmail(email , htmlContent);
 			model.addAttribute("result", Config.FIND_ID_SUCCESS);
 			
 		} else {

@@ -51,8 +51,15 @@ public interface IAdminShopDaoForMybatis {
 	public int countListResult();
 
 	public ArrayList<BookDto> setList(@Param("startNum") int startNum, @Param("endNum") int endNum);
-		
 
+	public int returnPoint(int sb_no);
 
+	public String getMId(int sb_no);
 	
+	public int insertRetrunPayment(MyPointListDto myPointListDto);
+
+	public int selectSbAllPointBySbNo(int sb_no);
+
+	public int selectSalePointBySbNo(int sb_no);
+
 }
