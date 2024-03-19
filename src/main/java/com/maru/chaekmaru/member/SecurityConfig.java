@@ -44,8 +44,10 @@ public class SecurityConfig {
 				"/member/modify_form",
 				"/qna/qna").authenticated()
 				.requestMatchers("/**").permitAll());
+		
+		int result = 999;
 
-		http.formLogin((login) -> login.loginPage("/member/login_form").loginProcessingUrl("/member/login_confirm")
+		http.formLogin((login) -> login.loginPage("/result?result=" + result).loginProcessingUrl("/member/login_confirm")
 				.usernameParameter("m_id").passwordParameter("m_pw")
 
 				.successHandler((request, response, authentication) -> {
