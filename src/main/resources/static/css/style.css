@@ -558,6 +558,10 @@ header .logo img {
     object-fit: contain;
 }
 
+#today_banner .introduce {
+    text-indent: 0.5rem;
+}
+
 #index .recommend .item {
     width: 50%;
 }
@@ -1101,6 +1105,7 @@ header .logo img {
 
 #view div.info .introduce {
     font-size: 1.4rem;
+    text-indent: 0.5rem;
 }
 
 #point_charge .now-point, #point_list .now-point {
