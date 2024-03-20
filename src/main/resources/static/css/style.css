@@ -2249,7 +2249,9 @@ footer .join_footer a:nth-child(4) {
     flex-direction: column;
 }
 
-#my-qna-list .list-wrap .list-title, #my-qna-list .list-item .question-item, #my-qna-list .list-item .answer-item {
+#my-qna-list .list-wrap .list-title, 
+#my-qna-list .list-item .question-item, 
+#my-qna-list .list-item .answer-item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2286,17 +2288,35 @@ footer .join_footer a:nth-child(4) {
     margin: 10px 0;
     padding: 20px 10px;
     font-size: 1.5rem;
-    gap: 10px;
+    gap: 5px;
 }
 
 #my-qna-list .list-item .answer-item > div {
-    width: 100%;
-    padding: 5px 15px;
+    width: 800px;
+    padding: 0 15px;
     text-align: left;
 }
 
+#my-qna-list .list-item .answer-item > div .answer-q {	
+    width: 780px;   
+    text-align: left;       
+}
+
+#my-qna-list .list-item .answer-item .ellipsis {    
+    display: -webkit-box;
+    width: 75rem;
+    line-height: 1.2;    
+    -webkit-line-clamp: 10;
+    overflow: hidden;
+    text-overflow: ellipsis;   
+    white-space: normal;
+    word-break: break-word;
+    -webkit-box-orient: vertical;
+    text-align: left;  
+}
+
 #my-qna-list .list-item .answer-item .answer-first {
-	width: 100%;
+	width: 800px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

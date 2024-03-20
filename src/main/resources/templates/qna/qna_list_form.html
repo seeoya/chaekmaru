@@ -7,14 +7,18 @@
     <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
-<div id="qna-list" class="content-wrap" layout:fragment="content">
+<div id="qna-list" class="content-wrap" layout:fragment="content" th:if="${session.loginedAdminMemberDto == null}">
+	 
+</div>	
+<div id="qna-list" class="content-wrap" layout:fragment="content" th:unless="${session.loginedAdminMemberDto == null}">
+
     <h2 class="title">고객 문의 LIST</h2>
 
     <div class="content">
 
 	    <div class="qna-item" >
 	    	               
-           <div class="table-wrap">
+           <div class="table-wrap" >
            		<table>
            			<thead>
 	           			<tr>           			
