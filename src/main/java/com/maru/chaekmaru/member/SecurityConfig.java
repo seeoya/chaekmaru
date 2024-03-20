@@ -71,8 +71,6 @@ public class SecurityConfig {
 				"/mypage/attendance_list",
 				"/qna/qna",
 				"/qna/q_write_confirm",
-				"/qna/qna_answer",
-				"/qna/a_write_confirm",
 				"/qna/delete_confirm",
 				"/review/write_confirm",
 				"/review/modify_confirm",
