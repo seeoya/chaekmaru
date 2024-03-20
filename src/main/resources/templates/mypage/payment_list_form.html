@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 구매내역</title>
+    <title>책마루 :: 내 구매 내역</title>
 
     <th:block th:replace="~{include/js/payment_js.html::payment_js}"></th:block>
 </head>
@@ -14,13 +14,13 @@
         <form class="form" th:action="@{mypage/payment_list_form}" name="payment_list_form" method="post">
 
             <div class="item-wrap" th:each="item : ${list}">
-				
-				<div class="payment-result-header">
-	                <div class="o_no">[[${item.key}]]</div>
-	                <div class="payment-date" th:text="${#strings.substring(item.value[0].sb_reg_date, 0, 19)}">구입 일자</div>
-	            </div>
-                <div class="book-wrap">
 
+                <div class="payment-result-header">
+                    <div class="o_no">[[${item.key}]]</div>
+                    <div class="payment-date" th:text="${#strings.substring(item.value[0].sb_reg_date, 0, 19)}">구입 일자</div>
+                </div>
+
+                <div class="book-wrap">
                     <div th:each="book : ${item.value}" class="book">
                         <div>
                             <a th:href="@{/book/view/{b_no}(b_no=${book.b_no})}">
@@ -41,6 +41,7 @@
                                 [[${book.b_price}]] BP <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
                                 [[${book.sb_all_price}]] BP
                             </p>
+
                             <th:block th:switch="${book.sb_state}">
                                 <div class="request-result">
                                     <div th:case="0">주문 취소</div>
@@ -55,36 +56,32 @@
                                     <div th:case="4">반품 완료</div>
                                 </div>
                             </th:block>
-
                         </div>
-
                     </div>
                 </div>
+
                 <input type="hidden" th:value="${item.key}" />
 
-
                 <th:block th:switch="${stateList[item.key]}">
-	                <div class="payment-list-result">
-	                    <div th:case="0">주문 취소</div>
-	
-	                    <div class="payment-send-btn-bottom" th:case="1">
-	                        <a class="main btn" th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
-	                            주문 확정
-	                        </a>
-	                        <a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
-	                            주문 취소
-	                        </a>
-	                    </div>
-	
-	                    <div th:case="2">배송 완료</div>
-					</div>
-                </th:block>
+                    <div class="payment-list-result">
+                        <div th:case="0">주문 취소</div>
 
+                        <div class="payment-send-btn-bottom" th:case="1">
+                            <a class="main btn" th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                                주문 확정
+                            </a>
+                            <a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                                주문 취소
+                            </a>
+                        </div>
+
+                        <div th:case="2">배송 완료</div>
+                    </div>
+                </th:block>
             </div>
 
         </form>
     </div>
-
 </div>
 
 </html>

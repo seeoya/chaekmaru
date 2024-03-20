@@ -12,9 +12,7 @@
 
     <div class="content">
         <form th:action="@{/mypage/payment_form}" name="membercart_form" method="post" class="form">
-
             <div class="cart-wrap">
-
                 <div class="cart-item" th:each="memberCartDtos : ${memberCartDtos}" th:id="${'cart_' + memberCartDtos.c_no}">
                     <input type="hidden" th:id="${'b_no_' + memberCartDtos.b_no}" th:value="${memberCartDtos.b_no}">
 
@@ -28,9 +26,7 @@
                                 </span>
                                 <span class="cart-book-name-price">
                                     <p th:text="${memberCartDtos.b_name}">도서 제목</p>
-                                    <p th:id="${'price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' BP'}">
-                                        책 가격
-                                    </p>
+                                    <p th:id="${'price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.b_price, 1,'COMMA')+ ' BP'}">책 가격</p>
                                 </span>
                             </a>
                         </div>
@@ -40,16 +36,13 @@
                         </div>
 
                         <div class="cart-pay">
-                            <p th:id="${'total_price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' BP'}">
-                            </p>
+                            <p th:id="${'total_price_' + memberCartDtos.c_no}" th:text="${#numbers.arrayFormatInteger(memberCartDtos.c_book_count * memberCartDtos.b_price, 1,'COMMA')+ ' BP'}"></p>
 
                             <button type="button" class="btn main" th:onclick="|oneBuy(${memberCartDtos.b_no})|">결제하기</button>
-
                             <button type="button" class="btn sub remove-cart" th:data-index="${memberCartDtos.c_no}"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="cart-item" th:if="${#lists.size(memberCartDtos) == 0}">
@@ -60,7 +53,6 @@
                 <button type="button" class="btn main" onclick="selectBuy()">선택 결제하기</button>
                 <button type="button" class="btn highlight" onclick="allBuy()">모두 결제하기</button>
             </div>
-
         </form>
     </div>
 </div>
