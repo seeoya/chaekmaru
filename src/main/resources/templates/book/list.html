@@ -48,6 +48,10 @@
                         </div>
                     </a>
                 </div>
+
+                <div th:if="${items} == null">
+                    <div>현재 판매중인 도서가 존재하지 않습니다.</div>
+                </div>
             </div>
 
             <div class="paging">

@@ -11,101 +11,107 @@
     <!-- <h2 class="title"></h2> -->
 
     <div class="content">
-        <div class="item-wrap list">
-            <div class="item">
-                <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
+        <th:block th:if="${item} != null">
+            <div class="item-wrap list">
+                <div class="item">
+                    <img th:src="${item.b_thumbnail}" th:alt="${item.b_name}" class="thum">
 
-                <div class="info">
-                    <div class="book_info">
-                        <th:block th:switch="${cate}">
-                            <a th:href="@{/book/list(filter=${cate})}">
-                                <div class="cate ellipsis" th:case="0">총류</div>
-                                <div class="cate ellipsis" th:case="1">철학</div>
-                                <div class="cate ellipsis" th:case="2">종교</div>
-                                <div class="cate ellipsis" th:case="3">사회과학</div>
-                                <div class="cate ellipsis" th:case="4">자연과학</div>
-                                <div class="cate ellipsis" th:case="5">기술과학</div>
-                                <div class="cate ellipsis" th:case="6">예술</div>
-                                <div class="cate ellipsis" th:case="7">언어</div>
-                                <div class="cate ellipsis" th:case="8">문학</div>
-                                <div class="cate ellipsis" th:case="9">역사</div>
-                            </a>
-                        </th:block>
-                        <div class="name ellipsis">[[${item.b_name}]]</div>
-                        <div class="star ellipsis">
-                            <i class="fa-solid fa-star"></i>
-                            <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
+                    <div class="info">
+                        <div class="book_info">
+                            <th:block th:switch="${cate}">
+                                <a th:href="@{/book/list(filter=${cate})}">
+                                    <div class="cate ellipsis" th:case="0">총류</div>
+                                    <div class="cate ellipsis" th:case="1">철학</div>
+                                    <div class="cate ellipsis" th:case="2">종교</div>
+                                    <div class="cate ellipsis" th:case="3">사회과학</div>
+                                    <div class="cate ellipsis" th:case="4">자연과학</div>
+                                    <div class="cate ellipsis" th:case="5">기술과학</div>
+                                    <div class="cate ellipsis" th:case="6">예술</div>
+                                    <div class="cate ellipsis" th:case="7">언어</div>
+                                    <div class="cate ellipsis" th:case="8">문학</div>
+                                    <div class="cate ellipsis" th:case="9">역사</div>
+                                </a>
+                            </th:block>
+                            <div class="name ellipsis">[[${item.b_name}]]</div>
+                            <div class="star ellipsis">
+                                <i class="fa-solid fa-star"></i>
+                                <span>[[${#numbers.formatDecimal(item.r_avg, 1, 1)}]] ([[${item.r_count}]])</span>
+                            </div>
+                            <div class="author ellipsis">[[${item.b_author}]]</div>
+                            <div class="publisher ellipsis">[[${item.b_publisher}]] /
+                                [[${item.b_publish_date}]]</div>
+                            <div class="price ellipsis">
+                                [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]</div>
+                            <div class="introduce">[[${item.b_introduce}]]</div>
                         </div>
-                        <div class="author ellipsis">[[${item.b_author}]]</div>
-                        <div class="publisher ellipsis">[[${item.b_publisher}]] /
-                            [[${item.b_publish_date}]]</div>
-                        <div class="price ellipsis">
-                            [[${#numbers.arrayFormatInteger(item.b_price, 1,'COMMA')+ ' BP'}]]</div>
-                        <div class="introduce">[[${item.b_introduce}]]</div>
-                    </div>
 
-                    <th:block th:if="${item.b_count > 0}">
-                        <form th:action="@{/mypage/payment_form}" name="payment_form" id="payment_form" method="post">
-                            <input type="hidden" name="b_no" th:value="${item.b_no}">
+                        <th:block th:if="${item.b_count > 0}">
+                            <form th:action="@{/mypage/payment_form}" name="payment_form" id="payment_form" method="post">
+                                <input type="hidden" name="b_no" th:value="${item.b_no}">
 
-                            <div class="book_pay">
-                                <div class="view_pay_btn">
-                                    <div class="count-wrap">
-                                        <div th:if="${item.b_count > 0}" class="count ellipsis">
-                                            재고: [[${item.b_count}]]
+                                <div class="book_pay">
+                                    <div class="view_pay_btn">
+                                        <div class="count-wrap">
+                                            <div th:if="${item.b_count > 0}" class="count ellipsis">
+                                                재고: [[${item.b_count}]]
+                                            </div>
+                                            <input class="input" type="number" name="c_book_count" value="1" min="1" id="cart_count">
                                         </div>
-                                        <input class="input" type="number" name="c_book_count" value="1"  min="1" id="cart_count">
+
+                                        <div id="total_price" class="price ellipsis">총 금액: 0 BP</div>
                                     </div>
 
-                                    <div id="total_price" class="price ellipsis">총 금액: 0 BP</div>
-                                </div>
+                                    <div class="view_pay_a" th:if="${session.loginedMemberInfo == null}">
+                                        <a th:href="@{/result?result=999}" class="btn highlight disable">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </a>
+                                        <a th:href="@{/result?result=999}" class="btn main half disable">장바구니</a>
+                                        <button type="submit" class="btn sub half disable">바로결제</button>
+                                    </div>
 
-                                <div class="view_pay_a" th:if="${session.loginedMemberInfo == null}">
-                                    <a th:href="@{/result?result=999}" class="btn highlight disable">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </a>
-                                    <a th:href="@{/result?result=999}" class="btn main half disable">장바구니</a>
-                                    <button type="submit" class="btn sub half disable">바로결제</button>
+                                    <div class="view_pay_a" th:if="${session.loginedMemberInfo != null}">
+                                        <button type="button" id="add_pick" th:data-index="${item.b_no}" class="btn" th:classappend="${pick} == true ? 'on' : 'off'">
+                                            <i class="fa-solid fa-heart on"></i>
+                                            <i class="fa-regular fa-heart off"></i>
+                                        </button>
+                                        <button type="button" id="add_cart" th:data-index="${item.b_no}" class="btn main half">장바구니</button>
+                                        <button type="submit" class="btn sub half">바로결제</button>
+                                    </div>
                                 </div>
+                            </form>
+                        </th:block>
 
-                                <div class="view_pay_a" th:if="${session.loginedMemberInfo != null}">
-                                    <button type="button" id="add_pick" th:data-index="${item.b_no}" class="btn" th:classappend="${pick} == true ? 'on' : 'off'">
-                                        <i class="fa-solid fa-heart on"></i>
-                                        <i class="fa-regular fa-heart off"></i>
-                                    </button>
-                                    <button type="button" id="add_cart" th:data-index="${item.b_no}" class="btn main half">장바구니</button>
-                                    <button type="submit" class="btn sub half">바로결제</button>
-                                </div>
-                            </div>
-                        </form>
-                    </th:block>
-
-                    <th:block th:if="${item.b_count <= 0}">
-                        <div th:if="${item.b_count == 0}" class="count ellipsis sold_out">품절</div>
-                    </th:block>
+                        <th:block th:if="${item.b_count <= 0}">
+                            <div th:if="${item.b_count == 0}" class="count ellipsis sold_out">품절</div>
+                        </th:block>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="review-wrap">
-            <th:block th:if="${session.loginedMemberInfo != null}">
-                <th:block th:if="${isReviewWrite != true}">
-                    <div th:replace="~{/book/review.html::review-write}"></div>
+            <div class="review-wrap">
+                <th:block th:if="${session.loginedMemberInfo != null}">
+                    <th:block th:if="${isReviewWrite != true}">
+                        <div th:replace="~{/book/review.html::review-write}"></div>
+                    </th:block>
+
+                    <th:block th:if="${isReviewWrite != false}">
+                        <div class="review-desk">리뷰를 작성한 도서입니다.</div>
+                    </th:block>
                 </th:block>
 
-                <th:block th:if="${isReviewWrite != false}">
-                    <div class="review-desk">리뷰를 작성한 도서입니다.</div>
+                <th:block th:if="${session.loginedMemberInfo == null}">
+                    <div class="review-desk">로그인 후 리뷰를 작성할 수 있습니다.</div>
                 </th:block>
-            </th:block>
 
-            <th:block th:if="${session.loginedMemberInfo == null}">
-                <div class="review-desk">로그인 후 리뷰를 작성할 수 있습니다.</div>
-            </th:block>
+                <th:block th:if="${reviews} != null">
+                    <div th:replace="~{/book/review.html::review-list}"></div>
+                </th:block>
+            </div>
+        </th:block>
 
-            <th:block th:if="${reviews} != null">
-                <div th:replace="~{/book/review.html::review-list}"></div>
-            </th:block>
-        </div>
+        <th:block th:if="${item} == null">
+            <div>도서가 존재하지 않습니다.</div>
+        </th:block>
     </div>
 </div>
 

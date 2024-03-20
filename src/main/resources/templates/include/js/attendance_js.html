@@ -4,9 +4,11 @@
 <th:block th:fragment="attendance_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("attendance").addEventListener("click", function () {
-                attendance();
-            })
+            if (document.getElementById("attendance")) {
+                document.getElementById("attendance").addEventListener("click", function () {
+                    attendance();
+                })
+            }
         });
 
         function attendance() {

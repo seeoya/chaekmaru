@@ -4,13 +4,17 @@
 <th:block th:fragment="index_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("to_top").addEventListener("click", function () {
-                window.scrollTo(0, 0);
-            });
+            if (document.getElementById("to_top")) {
+                document.getElementById("to_top").addEventListener("click", function () {
+                    window.scrollTo(0, 0);
+                });
+            }
 
-            document.getElementById("to_bottom").addEventListener("click", function () {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
+            if (document.getElementById("to_bottom")) {
+                document.getElementById("to_bottom").addEventListener("click", function () {
+                    window.scrollTo(0, document.body.scrollHeight);
+                });
+            }
 
             if (document.getElementById("main_banner")) {
                 var swiper = new Swiper("#main_banner", {
@@ -37,10 +41,7 @@
             if (document.getElementById("usermenu_btn")) {
                 ajaxRefreshLoginSession();
             }
-
-
         });
-
 
         function spinnerStatus(status) {
             let spinner = document.getElementById("spinner");
