@@ -599,8 +599,7 @@ header .logo img {
     width: 100%;
     height: 300px;    
     object-fit: contain;
-    justify-content: center;
-    margin-left:50px;    
+    justify-content: center;    
 }
 
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
     <title>책마루 :: 내 구매 내역</title>
@@ -53,14 +52,13 @@
                                     <div class="payment-send-btn" th:case="1">
                                         주문 완료
                                         <div th:if="${book.sb_return_mod_date == null}">
-                                            <a class="sub btn"
-                                                th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">
+                                            <a class="sub btn" th:href="@{/mypage/return_payment_confirm(sb_no=${book.sb_no}, b_no=${book.b_no})}">
                                                 반품 신청
                                             </a>
                                         </div>
                                     </div>
                                     <div th:case="2">
-                                        <div>구매 확정 / 배송 완료</div>
+                                        <div>구매 확정</div>
                                         <div th:unless="${book.sb_return_mod_date == null}"></div>
                                     </div>
                                     <div th:case="3">반품 처리 중</div>
@@ -79,7 +77,7 @@
                             [도서] [[${#numbers.formatInteger(allPriceByKey[item.key], 1, 'COMMA')}]] BP + [배송비] 3,000 BP - [등급 할인] [[${#numbers.formatInteger(saledPriceByKey[item.key], 1, 'COMMA')}]] BP
                         </span>
                     </span>
-                    
+
                     <span class="payment-point-total-info">
                         총 결제 포인트 : [[${#numbers.formatInteger(allPriceByKey[item.key] - saledPriceByKey[item.key] + 3000, 1, 'COMMA')}]] BP
                     </span>
@@ -87,12 +85,10 @@
 
                 <th:block th:switch="${stateList[item.key]}">
                     <div class="payment-send-btn-bottom" th:case="1">
-                        <a class="main btn"
-                            th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                        <a class="main btn" th:href="@{/mypage/payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
                             구매 확정
                         </a>
-                        <a class="main btn"
-                            th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
+                        <a class="main btn" th:href="@{/mypage/cancel_payment_confirm(sb_order_no=${item.value[0].sb_order_no})}">
                             주문 취소
                         </a>
                     </div>
