@@ -26,7 +26,7 @@
             <input type="text" name="b_price" th:value="${bookDto.b_price}" readonly>
             <span>입출고 수량[입력방법: 입고 10, 출고 -10]</span>
             <p>[&nbsp;&nbsp; 현재 재고 수량 : [[${bookDto.b_count}]]&nbsp;&nbsp;]</p>
-            <input type="text" name="b_count" th:value="${bookDto.b_count}">
+            <input type="text" name="b_count" th:value="0">
           </div>
 	      <div class="btn-wrap">                  
             <button type="button" th:onclick="modifyBookInventoryForm();" class="btn main">수정</button>
