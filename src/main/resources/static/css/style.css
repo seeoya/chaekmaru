@@ -1391,6 +1391,7 @@ header .logo img {
 }
 
 #my_buy_history .item-wrap {
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--gray-light-color);
@@ -1412,7 +1413,7 @@ header .logo img {
 }
 
 #my_buy_history .request-result {
-    text-align: right;
+    text-align: center;
 }
 
 #my_buy_history .book:last-child {
@@ -1422,7 +1423,7 @@ header .logo img {
 
 #my_buy_history .payment-price-result {
     font-weight: 500;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 #my_buy_history .payment-book-name {
@@ -1434,11 +1435,17 @@ header .logo img {
     font-size: 1.8rem;
 }
 
+#my_buy_history .btn {
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+}
+
 #my_buy_history .payment-send-btn {
     display: flex;
     gap: 10px;
     justify-content: end;
-    align-items: normal;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -1459,7 +1466,8 @@ header .logo img {
     justify-content: space-between;
 }
 
-#my_buy_history .payment-point-and-btn {
+#my_buy_history .payment-point-and-btn {    
+    width: 120px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1476,6 +1484,8 @@ header .logo img {
     max-width: 100%;
     flex-direction: row;
 }
+
+
 
 #payment .form > div {
     width: 50%;
@@ -1780,11 +1790,38 @@ header .logo img {
 
 /* 구매내역 */
 #my_buy_history img {
-    max-width: 100px;
-    min-width: 100px;
-    max-height: 130px;
-    min-height: 130px;
+    max-width: 80px;
+    min-width: 80px;
+    max-height: 80px;
+    min-height: 80px;
     object-fit: contain;
+}
+
+#my_buy_history .payment-thumb-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#my_buy_history .payment-result-price {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: right;
+    margin: 5px 0 10px;
+}
+
+#my_buy_history .payment-point-total-info {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+#my_buy_history .payment-point-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 #my_buy_history .content {
