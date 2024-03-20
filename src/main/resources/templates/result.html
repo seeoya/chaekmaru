@@ -151,38 +151,88 @@
                     text = "BP 충전이 완료되었습니다.";
                     href = [[@{/mypage/point_list}]];
                     break;
-
+                    
+                case 207:
+                    text = "찜 목록 등록에 성공했습니다.";
+                    href = [[@{/mypage/member_pick_form}]];
+                    break;
+                    
+                case 208:
+                    text = "주문 취소에 성공했습니다.";
+                    href = [[@{/mypage/payment_list_form}]];
+                    break;
+                    
+                case 209:
+                    text = "반품 요청에 성공했습니다.";
+                    href = [[@{/mypage/payment_list_form}]];
+                    break;
+                    
                 case 210:
+                    text = "주문 확정에 성공했습니다.";
+                    href = [[@{/mypage/payment_list_form}]];
+                    break;
+
+                case 240:
                     text = "장바구니 수정에 실패했습니다.\n다시 시도해주세요.";
                     href = [[@{/mypage/member_cart_form}]];
                     break;
 
-                case 211:
+                case 241:
                     text = "장바구니 추가에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
 
-                case 212:
+                case 242:
                     text = "장바구니 제거에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
 
-                case 213:
+                case 243:
                     text = "결제에 실패했습니다.\n다시 시도해주세요.";
                     window.history.back();
                     break;
 
-                case 214:
+                case 244:
                     text = "(결제중) BP 결제 실패";
                     break;
 
-                case 215:
+                case 245:
                     text = "(결제중) 장바구니 제거 실패";
                     break;
 
-                case 216:
+                case 246:
                     text = "BP 충전에 실패했습니다.\n다시 시도해주세요.";
                     href = [[@{/mypage/point_charge}]];
+                    break;
+                    
+                case 247:
+                    text = "찜 목록 등록에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                
+                case 248:
+                    text = "정지당한 계정입니다.\n관리자에게 문의하세요";
+                    window.history.back();
+                    break;
+                    
+                case 249:
+                    text = "찜 목록에 이미 등록된 도서입니다.";
+                    window.history.back();
+                    break;
+                    
+                case 250:
+                    text = "주문 취소에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 251:
+                    text = "반품요청에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
+                    break;
+                    
+                case 252:
+                    text = "주문확정에 실패했습니다.\n다시 시도해주세요.";
+                    window.history.back();
                     break;
 
                 case 300:

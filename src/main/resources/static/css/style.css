@@ -811,11 +811,6 @@ header .logo img {
     line-height: 1.5;     /* 줄간격 */
 }
 
-.attendance-info p {
-    margin: 10px 0;     /* 위아래 마진 */
-    font-weight: bold;     /* 글자 굵기 */
-}
-
 .attendance-id {
     font-weight: 600;
 }
@@ -830,15 +825,21 @@ header .logo img {
 #attendance_list #attendance {
     width: 130px;
     height: 130px;
+    font-size: 2.0rem;
     border-radius: 130px;
+    font-weight: 600;
+    background: #e35050;
+    border: solid 6px white;
+    box-shadow: 0px 0px 0px 4px #852727;
 }
 
 #attendance_list .attendance-notice {
     display: flex;
+    gap: 5px;
     flex-direction: column;
-    background-color: #e7eff7;
+    background-color: #ffe800;
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
     margin: 20px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -1391,6 +1392,7 @@ header .logo img {
 }
 
 #my_buy_history .item-wrap {
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--gray-light-color);
@@ -1412,7 +1414,7 @@ header .logo img {
 }
 
 #my_buy_history .request-result {
-    text-align: right;
+    text-align: center;
 }
 
 #my_buy_history .book:last-child {
@@ -1422,7 +1424,7 @@ header .logo img {
 
 #my_buy_history .payment-price-result {
     font-weight: 500;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 #my_buy_history .payment-book-name {
@@ -1434,11 +1436,17 @@ header .logo img {
     font-size: 1.8rem;
 }
 
+#my_buy_history .btn {
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+}
+
 #my_buy_history .payment-send-btn {
     display: flex;
     gap: 10px;
     justify-content: end;
-    align-items: normal;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -1459,7 +1467,8 @@ header .logo img {
     justify-content: space-between;
 }
 
-#my_buy_history .payment-point-and-btn {
+#my_buy_history .payment-point-and-btn {    
+    width: 120px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1476,6 +1485,8 @@ header .logo img {
     max-width: 100%;
     flex-direction: row;
 }
+
+
 
 #payment .form > div {
     width: 50%;
@@ -1780,11 +1791,38 @@ header .logo img {
 
 /* 구매내역 */
 #my_buy_history img {
-    max-width: 100px;
-    min-width: 100px;
-    max-height: 130px;
-    min-height: 130px;
+    max-width: 80px;
+    min-width: 80px;
+    max-height: 80px;
+    min-height: 80px;
     object-fit: contain;
+}
+
+#my_buy_history .payment-thumb-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#my_buy_history .payment-result-price {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: right;
+    margin: 5px 0 10px;
+}
+
+#my_buy_history .payment-point-total-info {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+#my_buy_history .payment-point-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 #my_buy_history .content {
@@ -1800,7 +1838,7 @@ header .logo img {
     grid-template-columns: repeat(5, 1fr);
     font-size: 5rem;
     color: #fff;
-    gap: 10px;
+    gap: 20px;
 }
 
 #attendance_list .attendance-wrap .stamp-wrap {
@@ -1837,52 +1875,62 @@ header .logo img {
 
 #attendance_list .stamp-wrap.on:nth-child(1) {
     background-color: #709964;
-    border-color: #485c42;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #485c42;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(2) {
     background-color: #8d5b6d;
-    border-color: #513a42;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #513a42;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(3) {
     background-color: #918b4c;
-    border-color: #615e3a;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #615e3a;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(4) {
     background-color: #9b865f;
-    border-color: #625744;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #625744;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(5) {
     background-color: #533f28;
-    border-color: #32281c;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #32281c;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(6) {
     background-color: #659593;
-    border-color: #485f5e;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #485f5e;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(7) {
     background-color: #d7ce66;
-    border-color: #8d8853;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #8d8853;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(8) {
     background-color: #89bf8e;
-    border-color: #627864;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #627864;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(9) {
     background-color: #7782a7;
-    border-color: #595f70;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #595f70;
 }
 
 #attendance_list .stamp-wrap.on:nth-child(10) {
     background-color: #ab92bb;
-    border-color: #73687a;
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px #73687a;
 }
 
 /* 페이징 */

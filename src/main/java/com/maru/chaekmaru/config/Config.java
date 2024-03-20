@@ -42,16 +42,23 @@ public class Config {
 	final public static int DELETE_PAYMENT_CART_SUCCESS = 205; 
 	final public static int POINT_CHARGE_SUCCESS = 206;
 	final public static int ADD_PICK_SUCCESS = 207;
+	final public static int CANCEL_PAYMENT_SUCCESS = 208;
+	final public static int RETURN_PAYMENT_SUCCESS = 209;
+	final public static int PAYMENT_CONFIRM_SUCCESS = 210;
 	
-	final public static int MODIFY_CART_FAIL = 210;
-	final public static int ADD_CART_FAIL = 211;
-	final public static int DELETE_CART_FAIL = 212;
-	final public static int PAYMENT_FAIL = 213;
-	final public static int INSERT_POINT_FAIL = 214;
-	final public static int DELETE_PAYMENT_CART_FAIL = 215;
-	final public static int POINT_CHARGE_FAIL = 216;
-	final public static int ADD_PICK_FAIL = 217;
-	final public static int ADD_PICK_DUPPLICATE = 218;
+	final public static int MODIFY_CART_FAIL = 240;
+	final public static int ADD_CART_FAIL = 241;
+	final public static int DELETE_CART_FAIL = 242;
+	final public static int PAYMENT_FAIL = 243;
+	final public static int INSERT_POINT_FAIL = 244;
+	final public static int DELETE_PAYMENT_CART_FAIL = 245;
+	final public static int POINT_CHARGE_FAIL = 246;
+	final public static int ADD_PICK_FAIL = 247;
+	final public static int ADD_PICK_DUPPLICATE = 248;
+	final public static int MEMBER_BAN = 249;
+	final public static int CANCEL_PAYMENT_FAIL = 250;
+	final public static int RETURN_PAYMENT_FAIL = 251;
+	final public static int PAYMENT_CONFIRM_FAIL = 252;
 	
 	// ReviewController 300 ~ 399
 	final public static int REVIEW_WRITE_SUCCESS = 300;

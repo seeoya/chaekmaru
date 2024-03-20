@@ -17,7 +17,7 @@
                     <div class="review-item" th:replace="~{/book/review.html::review-list}"></div>
                 </th:block>
 
-                <th:block th:if="${reviews} == null">
+                <th:block th:if="${reviews.size()} == 0">
                     <div>작성한 리뷰가 없습니다.</div>
                 </th:block>
             </th:block>

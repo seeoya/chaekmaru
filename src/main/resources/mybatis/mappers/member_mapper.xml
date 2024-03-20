@@ -143,5 +143,28 @@
 				M_ID=#{m_id}
 	</delete>
 	
+	<select id="getMemberGrade"
+			parameterType="String"
+			resultType="Integer">
+			
+			SELECT 
+				M_GRADE 
+			FROM 
+				TBL_MEMBER 
+			WHERE 
+				M_ID = #{m_id}
+	</select>
+	
+	<select id="selectMState"
+			parameterType="String"
+			resultType="Integer">
+			
+			SELECT 
+				M_STATE 
+			FROM 
+				TBL_MEMBER 
+			WHERE 
+				M_ID = #{m_id}
+	</select>
 		
 </mapper>

@@ -19,5 +19,7 @@ public interface IMemberDaoForMybatis {
 		public int deleteCart(String m_id);
 		public int deletePick(String m_id);
 		public int deleteAttend(String m_id);
+		public int getMemberGrade(String m_id);
+		public int selectMState(String m_id);
 
 }

@@ -16,7 +16,7 @@
             <div>
                 <div class="pay-result" th:each="buyBooksData : ${buyBooksDatas}">
                     <div class="pay-info">
-                        <a class="pay-img-title" th:href="@{/book/view/{b_no}(b_no=${buyBooksData.b_no})}">
+                        <a class="pay-img-title" th:href="@{/book/view/{b_no}(b_no=${buyBooksData.b_no})}" target="_blank">
                             <span><img th:src="@{${buyBooksData.b_thumbnail}}" alt="book_thumbnail" /></span>
 
                             <div class="pay-book-list">
@@ -34,8 +34,9 @@
                     <input type="hidden" th:data-index="${buyBooksData.b_no}" class="ck-box">
                     <input type="hidden" th:id="${'b_no_' + buyBooksData.b_no}" th:value="${buyBooksData.b_no}">
                     <input type="hidden" name="sb_book_count" th:value="${buyBooksData.c_book_count}" class="sb-count" />
-                    <input type="hidden" name="c_book_count" th:value="${buyBooksData.c_book_count}" th:id="${'c_book_count_' + buyBooksData.b_no}" class="sb-count" />
+                    <input type="hidden" name="c_book_count" th:value="${buyBooksData.c_book_count}" th:id="${'c_book_count_' + buyBooksData.b_no}" />
                     <input type="hidden" name="b_count" th:value="${buyBooksData.b_count}" class="b-count" />
+                    <input type="hidden" name="m_state" th:value="${memberInfo.m_state}" class="b-count" />
                 </div>
             </div>
 
@@ -59,7 +60,11 @@
                     <label for="sb_memo">배송 메모</label>
                     <input type="text" id="sb_memo" name="sb_memo" placeholder="배송 메모를 적어주세요" />
                 </div>
-
+				
+				<div>
+                    <p>현재 잔여 BP</p>
+                    <p class="price-result" th:text="${#numbers.formatInteger(currentPoint, 1, 'COMMA') + '  BP'}"></p>
+                </div>
 
                 <div>
                     <p>전체 금액</p>
