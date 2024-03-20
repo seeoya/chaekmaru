@@ -37,13 +37,18 @@
     gap: 10px;
 }
 
+.form .input-wrap > .col {
+    flex-direction: column;
+    gap: 0;
+}
+
 .form .input-wrap .input-icon {
     position: absolute;
     top: 10px;
     right: 15px;
 }
 
-#address {
+.form #address, .form #postcode {
     margin-bottom: 5px;
 }
 
@@ -287,7 +292,7 @@ header .logo img {
     background-color: var(--main-color);
 }
 
-.header-category .cate-link .member-name  {
+.header-category .cate-link .member-name {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -758,19 +763,6 @@ header .logo img {
     border-left-color: #ab92bb;
 }
 
-/* #list .category-link:hover {
-    border-right-color: var(--highlight-color);
-}
- */
-
-/* #list .category-link.active {
-    border-right: 3px solid var(--highlight-light-color);
-} */
-
-/* #list .category-link:last-child {
-    border-bottom: 0;
-} */
-
 #list .list-wrap {
     width: calc(100% - 250px);
 }
@@ -804,7 +796,6 @@ header .logo img {
 }
 
 /* 출석체크 */
-
 .attendance-info div, .attendance-info p {
     color: #333;     /* 글자색 */
     font-size: 16px;     /* 글자 크기 */
@@ -823,8 +814,8 @@ header .logo img {
 }
 
 #attendance_list #attendance {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     font-size: 2.0rem;
     border-radius: 130px;
     font-weight: 600;
@@ -833,11 +824,16 @@ header .logo img {
     box-shadow: 0px 0px 0px 4px #852727;
 }
 
+#attendance_list #attendance:hover {
+    background: #e47676;
+    box-shadow: 0px 0px 0px 4px #b44040;
+}
+
 #attendance_list .attendance-notice {
     display: flex;
     gap: 5px;
     flex-direction: column;
-    background-color: #ffe800;
+    background-color: #fff592;
     border-radius: 8px;
     padding: 30px;
     margin: 20px 0;
@@ -1210,11 +1206,11 @@ header .logo img {
 }
 
 #point_charge form {
-	gap: 30px;
+    gap: 30px;
 }
 
 #point_charge .desc {
-	text-align: center;	
+    text-align: center;
 }
 
 #point_charge .point-btn-wrap {
@@ -1243,7 +1239,6 @@ header .logo img {
     gap: 10px;
     font-size: 1.8rem;
 }
-
 
 /* login form */
 .login_link_wrap {
@@ -1467,7 +1462,7 @@ header .logo img {
     justify-content: space-between;
 }
 
-#my_buy_history .payment-point-and-btn {    
+#my_buy_history .payment-point-and-btn {
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -1484,12 +1479,11 @@ header .logo img {
     width: 100%;
     max-width: 100%;
     flex-direction: row;
+    gap: 20px;
 }
 
-
-
 #payment .form > div {
-    width: 50%;
+    width: 100%;
 }
 
 #payment .pay-info {
@@ -1547,7 +1541,8 @@ header .logo img {
 }
 
 .member-info {
-    max-width: 600px;
+    width: 400px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -1561,6 +1556,7 @@ header .logo img {
 
 .member-info p {
     margin: 5px 0;
+    font-weight: 600;
 }
 
 .member-info input[type="text"], .member-info button {
@@ -1582,13 +1578,35 @@ header .logo img {
     text-decoration: underline;
 }
 
+.member-info label {
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.member-info .price-info, .member-info .total-price {
+    padding-top: 10px;
+    margin-top: 20px;
+    border-top: 1px dashed var(--gray-color);
+}
+
+.member-info .price-info > div, .member-info .total-price > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    gap: 10px;
+}
+
 #payment .addr-wrap {
     display: flex;
     gap: 10px;
+    margin-bottom: 0;
 }
 
 #payment .addr-wrap button {
     width: 120px;
+    height: 38px;
     margin-left: auto;
 }
 
@@ -1598,22 +1616,25 @@ header .logo img {
 
 #payment .submit-btn-wrap {
     display: flex;
-    gap: 20px;
     align-items: center;
     justify-content: end;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    gap: 20px;
 }
 
 #payment .submit-btn-wrap button {
     width: 200px;
+    height: 40px;
 }
 
 #payment .price-result, #payment .member-sale-price, #payment .delivery-price {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 400;
 }
 
 #payment .total-price-result {
     font-size: 2.0rem;
-    font-weight: 600;
 }
 
 /* 찜 목록 */
@@ -1737,11 +1758,11 @@ header .logo img {
 }
 
 #my_review .review_info {
-	justify-content: right;
+    justify-content: right;
 }
 
 #my_review .review_date {
-	font-size: 1.2rem;
+    font-size: 1.2rem;
     color: var(--gray-dark-color);
 }
 
@@ -1831,6 +1852,7 @@ header .logo img {
 
 #my_buy_history .form {
     max-width: 100%;
+    gap: 20px;
 }
 
 #attendance_list .attendance-wrap {
@@ -2296,15 +2318,14 @@ footer .join_footer a:nth-child(4) {
 }
 
 #my-qna-list .list-item .answer-item .answer-first {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #my-qna-list .list-item .answer-item .answer-first .answer-date {
-	width: 180px;
-	
+    width: 180px;
 }
 
 #my-qna-list .list-item {

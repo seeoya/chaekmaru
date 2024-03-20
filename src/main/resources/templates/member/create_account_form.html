@@ -14,11 +14,11 @@
         <form th:action="@{/member/create_account_confirm}" name="create_account_form" method="post" class="form">
             <div class="input-wrap">
                 <div>
-                	<!-- <input type="hidden" name="save_m_id" value="false"> -->
+                    <!-- <input type="hidden" name="save_m_id" value="false"> -->
                     <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
                     <!-- <button type="button" class="btn sub" onClick="isMember();">중복체크</button> -->
                 </div>
-				
+
                 <span id="icon_m_id" class="input-icon"></span>
                 <span id="message_m_id" class="input-message">아이디는 5글자 이상이며, 영문 소문자와 숫자만 입력 가능합니다.</span>
                 <span id="message_same_m_id" class="input-message">중복된 아이디입니다.</span>
@@ -61,14 +61,14 @@
                         <i class="fa-solid fa-location-crosshairs"></i>
                     </button>
                 </div>
-            </div>
 
-            <div class="input-wrap">
-                <input type="text" id="address" name="m_addr" placeholder="주소" readonly>
-                <input type="text" id="detailAddress" name="m_detail_addr" placeholder="상세주소">
+                <div class="col">
+                    <input type="text" id="address" name="m_addr" placeholder="주소" readonly>
+                    <input type="text" id="detailAddress" name="m_detail_addr" placeholder="상세주소">
 
-                <span id="icon_m_detail_addr" class="input-icon"></span>
-                <span id="message_m_detail_addr" class="input-message">주소를 입력해 주세요.</span>
+                    <span id="icon_m_detail_addr" class="input-icon"></span>
+                    <span id="message_m_detail_addr" class="input-message">주소를 입력해 주세요.</span>
+                </div>
             </div>
 
             <div class="btn-wrap">

@@ -50,57 +50,56 @@
                     <label for="search_address_btn">받는 사람 주소</label>
                     <div class="addr-wrap">
                         <input type="text" id="postcode" name="sb_addr_code" th:value="${memberInfo.m_addr_code}" placeholder="우편번호" readonly>
-                        <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub">우편번호 찾기</button>
+                        <button type="button" id="search_address_btn" onclick="searchAddress()" class="btn sub"><i class="fa-solid fa-location-crosshairs"></i></button>
                     </div>
-                    <input type="text" id="address" name="sb_addr" th:value="${memberInfo.m_addr}" placeholder="주소" readonly>
-                    <input type="text" id="detailAddress" name="sb_detail_addr" th:value="${memberInfo.m_detail_addr}" placeholder="상세주소">
+
+                    <div>
+                        <input type="text" id="address" name="sb_addr" th:value="${memberInfo.m_addr}" placeholder="주소" readonly>
+                        <input type="text" id="detailAddress" name="sb_detail_addr" th:value="${memberInfo.m_detail_addr}" placeholder="상세주소">
+                    </div>
                 </div>
 
                 <div>
                     <label for="sb_memo">배송 메모</label>
                     <input type="text" id="sb_memo" name="sb_memo" placeholder="배송 메모를 적어주세요" />
                 </div>
-				
-				<div>
-                    <p>현재 잔여 BP</p>
-                    <p class="price-result" th:text="${#numbers.formatInteger(currentPoint, 1, 'COMMA') + '  BP'}"></p>
-                </div>
 
-                <div>
-                    <p>전체 금액</p>
-                    <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  BP'}"></p>
-                </div>
-
-
-                <div>
-                    <p>등급 할인</p>
+                <div class="price-info">
                     <div>
+                        <p>현재 BP</p>
+                        <p class="price-result" th:text="${#numbers.formatInteger(currentPoint, 1, 'COMMA') + '  BP'}"></p>
+                    </div>
+
+                    <div>
+                        <p>전체 금액</p>
+                        <p class="price-result" th:text="${#numbers.formatInteger(allPrice, 1, 'COMMA') + '  BP'}"></p>
+                    </div>
+
+                    <div>
+                        <p>등급 할인</p>
                         <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  BP'}"></p>
                     </div>
-                </div>
-                <div>
-                    <p>배송비</p>
+
                     <div>
+                        <p>배송비</p>
                         <p class="delivery-price">3,000 BP</p>
                     </div>
                 </div>
 
-                <div th:switch="${memberInfo.m_grade}">
-                    <label>결제 예정 금액</label>
-                    <div>
+                <div class="total-price">
+                    <div th:switch="${memberInfo.m_grade}">
+                        <p>결제 예정 금액</p>
+
                         <p class="total-price-result" th:text="${#numbers.formatInteger(finalPrice, 1, 'COMMA') + '  BP'}"></p>
                         <input type="hidden" name="sb_all_price" th:value="${finalPrice}" />
                         <input type="hidden" name="currentPoint" th:value="${currentPoint}" />
                     </div>
                 </div>
 
-                <div>
-                    <div class="submit-btn-wrap">
-                        <a th:href="@{/mypage/member_cart_form}">뒤로 가기</a>
-                        <button type="button" class="btn highlight payment" onclick="paymentFormSubmit();">결제하기</button>
-                    </div>
+                <div class="submit-btn-wrap">
+                    <a th:href="@{/mypage/member_cart_form}">뒤로 가기</a>
+                    <button type="button" class="btn highlight payment" onclick="paymentFormSubmit();">결제하기</button>
                 </div>
-            </div>
 
         </form>
     </div>
