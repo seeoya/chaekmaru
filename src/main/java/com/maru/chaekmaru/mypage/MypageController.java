@@ -220,21 +220,24 @@ public class MypageController {
 	 * 주문 취소
 	 */
 	@GetMapping("/cancel_payment_confirm")
-	public String cancelPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
+	public String cancelPayment(HttpSession session, Model model, @RequestParam("sb_order_no") int sb_order_no) {
 		// #TODO RESULT 페이지로 이동
-		String nextPage = "redirect:/mypage/payment_list_form";
+//		String nextPage = "redirect:/mypage/payment_list_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.cancelMyPaymentList(loginedMemberDto.getM_id(), sb_order_no);
 
 		// #TODO result 세팅 필요
-//		if (result <= 0) {
-//            // 실패
-//			log.info("Delete Fail");
-//		}
+		if (result <= 0) {
+            // 실패
+			result = Config.CANCEL_PAYMENT_FAIL;
+		} else {
+			result = Config.CANCEL_PAYMENT_SUCCESS;
+		}
 		memberService.refreshPoint(session);
-		return nextPage;
+		model.addAttribute("result", result);
+		return "result";
 	}
 
 	/*
@@ -246,19 +249,22 @@ public class MypageController {
 		log.info("returnPaymentList");
 
 		// #TODO RESULT 처리 필요
-		String nextPage = "redirect:/mypage/payment_list_form";
+//		String nextPage = "redirect:/mypage/payment_list_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.returnRequestBookPayment(loginedMemberDto.getM_id(), sb_no, b_no);
 
 		// #TODO result 세팅 필요
-//		if (result <= 0) {
-//			// 실패
-//		}
-
+		if (result <= 0) {
+			result = Config.RETURN_PAYMENT_FAIL;
+		} else {
+			result = Config.RETURN_PAYMENT_SUCCESS;
+		}
+		
+		model.addAttribute("result", result);
 		// #TODO RESULT 처리 필요
-		return nextPage;
+		return "result";
 	}
 
 	/*
@@ -268,7 +274,6 @@ public class MypageController {
 	public String myPickList(Model model, HttpSession session) {
 		log.info("myPickList");
 
-		// #TODO RESULT 처리 필요
 		String nextPage = "mypage/member_pick_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
@@ -277,7 +282,6 @@ public class MypageController {
 
 		model.addAttribute("memberPickDtos", memberPickDtos);
 
-		// #TODO RESULT 처리 필요
 		return nextPage;
 	}
 
@@ -383,20 +387,22 @@ public class MypageController {
 	 * 주문 완료
 	 */
 	@GetMapping("/payment_confirm")
-	public String confirmPayment(HttpSession session, @RequestParam("sb_order_no") int sb_order_no) {
+	public String confirmPayment(HttpSession session, Model model, @RequestParam("sb_order_no") int sb_order_no) {
 		// #TODO RESULT 페이지로 이동
-		String nextPage = "redirect:/mypage/payment_list_form";
+//		String nextPage = "redirect:/mypage/payment_list_form";
 
 		MemberDto loginedMemberDto = (MemberDto) session.getAttribute(Config.LOGINED_MEMBER_INFO);
 
 		int result = mypageService.confirmPayment(loginedMemberDto.getM_id(), sb_order_no);
 
 		// #TODO result 세팅 필요
-//		if (result <= 0) {
-//            // 실패
-//			log.info("Delete Fail");
-//		}
+		if (result <= 0) {
+            result = Config.PAYMENT_CONFIRM_FAIL;
+		} else {
+			result = Config.PAYMENT_CONFIRM_SUCCESS;
+		}
 
-		return nextPage;
+		model.addAttribute("result", result);
+		return "result";
 	}
 }

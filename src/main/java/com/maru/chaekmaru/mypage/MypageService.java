@@ -674,8 +674,10 @@ public class MypageService {
 
 	public int getState(String m_id) {
 
-		// #TODO
+		int result = -1;
+		
+		result = memberDao.selectMState(m_id);
 
-		return 1;
+		return result;
 	}
 }
