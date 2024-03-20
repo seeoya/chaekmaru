@@ -278,10 +278,10 @@ public class AjaxController {
 		
 		int result = adminBookService.deleteBookConfirm(b_no);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
+		} else {
+			return "true";
 		}
 					
 			
@@ -315,10 +315,10 @@ public class AjaxController {
 		
 		int result = adminMemberService.deleteAccountConfirm(a_no);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
+		} else {
+			return "true";
 		}
 		
 			
@@ -331,11 +331,11 @@ public class AjaxController {
 				
 		int result = adminShopService.userAccountActiveConfirm(m_id);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
-		}		
+		} else {
+			return "true";
+		}
 	}
 	
 	// 로그인 세션 갱신	

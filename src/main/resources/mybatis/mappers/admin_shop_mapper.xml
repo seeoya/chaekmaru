@@ -62,7 +62,7 @@
 			
 			UPDATE TBL_MEMBER 
 			SET 
-			M_STATE = 0,
+			M_STATE = 2,
 			M_MOD_DATE = SYSTIMESTAMP   
 			WHERE M_ID = #{m_id}			
 			

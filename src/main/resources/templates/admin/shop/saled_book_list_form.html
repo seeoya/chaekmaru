@@ -16,9 +16,9 @@
     	<div class="table-wrap">
     		<form th:action="@{/admin/shop/saled_books_by_period}" name="saled_book_by_date" method="get">
     		 <span>START:</span>
-				<input type="date" id="start" name="saled_start" />
+				<input type="date" id="saled_start" name="saled_start" />
 			 <span>END:</span>
-				<input type="date" id="end" name="saled_end" />
+				<input type="date" id="saled_end" name="saled_end" />
 				<input type="button" value="판매내역조회" th:onclick="saledListByDate();"/>
 				<input type="reset" value="초기화"/>
  
@@ -39,7 +39,7 @@
 	    				<th style="width: 70px;">판매상태</th>
 	    				<th>등록일</th>
 	    				<th>수정일</th>
-	    				<th>상세내역</th>	    						
+	    				<th th:if="${session.loginedAdminMemberDto.a_grade >= 1}">상세내역</th>	    						
 	  			
 	    			</tr>   	
 	    	

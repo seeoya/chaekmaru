@@ -4,11 +4,7 @@
 <th:block th:fragment="admin_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-
-            document.getElementById('start').value = new Date().toISOString().substring(0, 10);
-            document.getElementById('end').value = new Date().toISOString().substring(0, 10);
-
-            document.addEventListener("DOMContentLoaded", function () {
+          
                 document.getElementById("to_top").addEventListener("click", function () {
                     window.scrollTo(0, 0);
                 });
@@ -16,10 +12,21 @@
                 document.getElementById("to_bottom").addEventListener("click", function () {
                     window.scrollTo(0, document.body.scrollHeight);
                 });
-            });
+            
         
-        });
         
+		        document.getElementById('saled_start').value = new Date().toISOString().substring(0, 10);
+		        document.getElementById('saled_end').value = new Date().toISOString().substring(0, 10);
+		        
+		        // 리스트 > 정렬
+		        if (document.getElementById("list_sort")) {
+		            document.getElementById("list_sort").addEventListener("change", (e) => {
+		                let sortSelect = document.getElementById("list_sort");
+		                location.href = sortSelect.dataset.link + "&sort=" + sortSelect.value;
+		            });
+		        }
+		
+    });
 
         // 관리자 정보 수정
         function modifyAccountConfirm() {
@@ -243,7 +250,7 @@
 	    
 	    function showActiveModify(mId) {
 	    
-	    document.getElementById("state_" + mId).innerText = "비활성";
+	    document.getElementById("state_" + mId).innerText = "계정정지";
 	    
 	    }
 	          

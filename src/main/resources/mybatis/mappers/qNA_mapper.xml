@@ -11,9 +11,9 @@
 	
 	<select id="selectSbData" parameterType="String"
 		resultType="com.maru.chaekmaru.qna.QNADto">
-		SELECT S.SB_NO, S.SB_SALE_DATE FROM TBL_QNA Q JOIN TBL_SALED_BOOK S ON Q.M_ID = S.M_ID 
-		WHERE S.M_ID = #{m_id, jdbcType=VARCHAR} 
-		ORDER BY S.SB_SALE_DATE DESC  
+		SELECT SB_NO, SB_SALE_DATE FROM TBL_SALED_BOOK 
+		WHERE M_ID = #{m_id, jdbcType=VARCHAR} 
+		ORDER BY SB_SALE_DATE DESC  
 	</select>
 	
 	<select id="selectQNA" parameterType="Integer"

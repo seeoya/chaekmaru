@@ -64,10 +64,16 @@ public class AdminBookService {
 		
 		int result = adminBookDao.deleteBookConfirm(b_no);
 		
-		if(result > 0)
-			return Config.DELETE_BOOK_SUCCESS_AT_DATABASE;
-		else 
-			return Config.DELETE_BOOK_FAIL_AT_DATABASE;		
+		if(result > 0) {
+			result = adminBookDao.deleteReview(b_no);
+			
+			if(result > 0)		
+				return Config.DELETE_BOOK_SUCCESS_AT_DATABASE;
+			else
+				return Config.DELETE_REVIEW_FAIL_AT_DATABASE;
+		} else {	
+				return Config.DELETE_BOOK_FAIL_AT_DATABASE;		
+		}
 	}
 
 	public int countBook(String search, String sort) {
@@ -122,7 +128,8 @@ public class AdminBookService {
 			sortSql = "B_NO";
 			break;
 		}
-
+		
+		log.info("isbn" + sort);
 		return sortSql;
 	}
 	
