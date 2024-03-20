@@ -154,7 +154,7 @@ public class AjaxController {
 		
 		
 		if (id != null) {
-			memberService.sendEmail(email, "Your ID is : " + id);
+			memberService.sendIdEmail(email,htmlContent);
 			String mailSuccess = "sendSuccess";
 			model.addAttribute("result", Config.FIND_ID_SUCCESS);
 			return mailSuccess;
