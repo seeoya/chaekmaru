@@ -27,6 +27,8 @@ public interface IAdminShopDaoForMybatis {
 	public int updateActiveForUserState(String m_id);
 
 	public List<SaledBookDto> selectAllSaledBooks();
+	
+	public List<AdminShopDto> selectOrderBookCNTs();
 
 	public SaledBookDto selectSaledBookForDetail(int sb_no);
 
@@ -61,5 +63,6 @@ public interface IAdminShopDaoForMybatis {
 	public int selectSbAllPointBySbNo(int sb_no);
 
 	public int selectSalePointBySbNo(int sb_no);
+	
 
 }
