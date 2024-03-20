@@ -74,10 +74,19 @@
 			
 			SELECT *  
 			FROM TBL_SALED_BOOK 			 
-			ORDER BY SB_MOD_DATE DESC			
+			ORDER BY SB_ORDER_NO DESC			
 	
 	</select>
 	
+	<select id="selectOrderBookCNTs"				
+			resultType="com.maru.chaekmaru.admin.shop.AdminShopDto">
+	<![CDATA[
+			SELECT COUNT(B_NO)  AS ORDER_CNT 
+			from TBL_SALED_BOOK  
+			group BY SB_ORDER_NO 
+			ORDER BY MAX(SB_ORDER_NO)
+	]]>		
+	</select>
 	
 	
 	<select id="selectSaledBooksByPeriod"

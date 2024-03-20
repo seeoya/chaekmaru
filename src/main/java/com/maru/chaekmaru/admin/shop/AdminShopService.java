@@ -86,6 +86,12 @@ public class AdminShopService {
 		return adminShopDao.selectAllSaledBooks();
 		
 	}
+	
+	public List<AdminShopDto> saledBookOrderCnt() {
+		log.info("saledBookListForm()");
+		
+		return adminShopDao.selectOrderBookCNTs();
+	}
 
 
 	public SaledBookDto saledDetailForm(int sb_no) {
@@ -271,16 +277,13 @@ public class AdminShopService {
 		MyPointListDto myPointListDto = new MyPointListDto();
 		myPointListDto.setM_id(adminShopDao.getMId(sb_no));
 		int selectSbAllPointBySbNo = adminShopDao.selectSbAllPointBySbNo(sb_no);
-		log.info("selectSbAllPointBySbNo ==================> " + selectSbAllPointBySbNo);
+		
 		int selectSalePointBySbNo = adminShopDao.selectSalePointBySbNo(sb_no);
-		log.info("selectSalePointBySbNo ==================> " + selectSalePointBySbNo);
+		
 		int returnPoint = selectSbAllPointBySbNo - selectSalePointBySbNo;
-		log.info("returnPoint ==================> " + returnPoint);
+		
 		myPointListDto.setPl_payment_book_point(returnPoint);
 		myPointListDto.setPl_desc("도서 반품");
-		log.info(myPointListDto.getM_id());
-		log.info(myPointListDto.getPl_payment_book_point());
-		log.info(myPointListDto.getPl_desc());
 		
 		int result = adminShopDao.insertRetrunPayment(myPointListDto);
 		if(result > 0) {
@@ -290,5 +293,8 @@ public class AdminShopService {
 			log.info(Config.INSERT_POINT_FAIL);
 		
 	}
+
+
+	
 	
 }

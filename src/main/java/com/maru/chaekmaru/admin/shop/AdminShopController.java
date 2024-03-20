@@ -156,8 +156,13 @@ public class AdminShopController {
 		String nextPage = "admin/shop/saled_book_list_form";
 		
 		List<SaledBookDto> saledBookDtos = adminShopService.saledBookListForm();
+		List<AdminShopDto> orderCnts = adminShopService.saledBookOrderCnt();
+		
+		log.info("orderCnts: " + orderCnts.size());
+		log.info("orderCnts: " + orderCnts.toString());
 		
 		model.addAttribute("saledBookDtos", saledBookDtos);
+		model.addAttribute("orderCnts", orderCnts);
 		
 		return nextPage;		
 		
