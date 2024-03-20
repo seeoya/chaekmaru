@@ -60,7 +60,7 @@
 	    				<td th:text="${#strings.substring(list.sb_mod_date, 0, 16)}"></td>
 	    				 				    				   				 
 	    				<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">	    							
-	    		 		<a th:href="@{/admin/shop/return_book_detail_form(sb_no=${list.sb_no})}">상세내역</a>
+	    		 		<a th:href="@{/admin/shop/return_history_detail_form(sb_no=${list.sb_no})}">상세내역</a>
 	    		 		</td>
 	    		 					    			
 	    			  

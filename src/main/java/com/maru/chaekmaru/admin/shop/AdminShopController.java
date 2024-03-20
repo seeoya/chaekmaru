@@ -231,7 +231,7 @@ public class AdminShopController {
 		public String returnBookHistoryList(Model model) {
 			log.info("returnBookHistoryList()");
 			
-			String nextPage = "admin/shop/return_book_list_form";
+			String nextPage = "admin/shop/return_history_list_form";
 			
 			List<SaledBookDto> returnBookDtos = adminShopService.returnBookHistoryList();
 
@@ -243,7 +243,7 @@ public class AdminShopController {
 		}
 		
 		
-	// 반품도서 상세 내역
+	// 반품 도서 이력 상세 내역
 	
 	@GetMapping("/return_book_detail_form")
 	public String returnBookDetailForm(@RequestParam("sb_no") int sb_no, Model model) {
@@ -259,7 +259,19 @@ public class AdminShopController {
 		
 	}
 	
-	
+	@GetMapping("/return_history_detail_form")
+	public String returnHistoryDetailForm(@RequestParam("sb_no") int sb_no, Model model) {
+		log.info("returnBookDetailForm()");
+		
+		String nextPage = "admin/shop/return_history_detail_form";
+		
+		SaledBookDto returnBookDto = adminShopService.returnBookDetailForm(sb_no);
+		
+		model.addAttribute("returnBookDto", returnBookDto);
+		
+		return nextPage;		
+		
+	}
 	// 반품도서 승인
 	
 	@GetMapping("/return_approval_confirm")

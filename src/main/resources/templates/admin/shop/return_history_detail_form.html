@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 관리자 도서 판매 관리</title>
+
+    <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
+</head>
+
+<div class="content-wrap" layout:fragment="content">
+    <h2 class="title">반품 상세 내역</h2>
+
+    <div class="content">
+        <div class="table-wrap">
+            <table class="detail">
+                <tr>
+                    <td>판매 NO</td>
+                    <td th:text="${returnBookDto.sb_no}"></td>
+                </tr>
+                <tr>
+                    <td>도서 NO</td>
+                    <td th:text="${returnBookDto.b_no}"></td>
+                </tr>
+                <tr>
+                    <td>회원 ID</td>
+                    <td th:text="${returnBookDto.m_id}"></td>
+                </tr>
+                <tr>
+                    <td>주문권수</td>
+                    <td th:text="${returnBookDto.sb_book_count}"></td>
+                </tr>
+                <tr>
+                    <td>주문자명</td>
+                    <td th:text="${returnBookDto.sb_name}"></td>
+                </tr>
+                <tr>
+                    <td>우편번호</td>
+                    <td th:text="${returnBookDto.sb_addr_code}"></td>
+                </tr>
+                <tr>
+                    <td>주소</td>
+                    <td th:text="${returnBookDto.sb_addr}"></td>
+                </tr>
+                <tr>
+                    <td>상세주소</td>
+                    <td th:text="${returnBookDto.sb_detail_addr}"></td>
+                </tr>
+                <tr>
+                    <td>주문메모</td>
+                    <td th:text="${returnBookDto.sb_memo}"></td>
+                </tr>
+                <tr>
+                    <td>주문일</td>
+                    <td th:text="${#strings.substring(returnBookDto.sb_sale_date, 0, 16)}"></td>
+                </tr>
+                <tr>
+                    <td>주문금액</td>
+                    <td th:text="${returnBookDto.sb_all_price}"></td>
+                </tr>
+                <tr>
+                    <td>할인금액</td>
+                    <td th:text="${returnBookDto.sb_saled_price}"></td>
+                </tr>
+                <tr>
+                    <td>주문상태</td>
+                    <td th:if="${returnBookDto.sb_state == 0}" th:text="주문취소"></td>
+                    <td th:if="${returnBookDto.sb_state == 1}" th:text="주문완료"></td>
+                    <td th:if="${returnBookDto.sb_state == 2}" th:text="배송완료"></td>
+                    <td th:if="${returnBookDto.sb_state == 3}" th:text="반품처리중"></td>
+                    <td th:if="${returnBookDto.sb_state == 4}" th:text="반품완료"></td>
+                </tr>
+                <tr>
+                    <td>반품요청일</td>
+                    <td th:text="${#strings.substring(returnBookDto.sb_return_date, 0, 16)}"></td>
+                </tr>
+                <tr>
+                    <td>반품완료일</td>
+                    <td th:text="${#strings.substring(returnBookDto.sb_return_mod_date, 0, 16)}"></td>
+                </tr>
+                <tr>
+                    <td>등록일</td>
+                    <td th:text="${#strings.substring(returnBookDto.sb_reg_date, 0, 16)}"></td>
+                </tr>
+                <tr>
+                    <td>수정일</td>
+                    <td th:text="${#strings.substring(returnBookDto.sb_mod_date, 0, 16)}"></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+
+</html>
