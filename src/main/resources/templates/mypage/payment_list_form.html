@@ -38,8 +38,8 @@
 
                         <div class="payment-point-and-btn">
                             <p class="payment-price-result">
-                                [[${book.b_price}]] BP <i class="fa-solid fa-xmark"></i> [[${book.sb_book_count}]] 권 =
-                                [[${book.sb_all_price}]] BP
+                                [[${#numbers.formatInteger(book.b_price, 1, 'COMMA')}]] BP <i class="fa-solid fa-xmark"></i> [[${#numbers.formatInteger(book.sb_book_count, 1, 'COMMA')}]] 권 =
+                                [[${#numbers.formatInteger(book.sb_all_price, 1, 'COMMA')}]] BP
                             </p>
                             
                             <th:block th:switch="${book.sb_state}">
