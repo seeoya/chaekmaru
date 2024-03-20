@@ -5,51 +5,60 @@
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
             // 수량 변경
-            document.querySelectorAll(".book-count").forEach((e) => {
-                e.addEventListener("change", function () {
-                    let count = this.value;
-                    let cNo = this.dataset.index;
+            if (document.querySelectorAll(".book-count")) {
+                document.querySelectorAll(".book-count").forEach((e) => {
+                    e.addEventListener("change", function () {
+                        let count = this.value;
+                        let cNo = this.dataset.index;
 
-                    if (count <= 0) {
-                        alert("올바른 수량을 입력해주세요");
-                        this.value = 0;
-                    } else {
-                        ajaxBookCount(cNo, count);
-                    }
+                        if (count <= 0) {
+                            alert("올바른 수량을 입력해주세요");
+                            this.value = 0;
+                        } else {
+                            ajaxBookCount(cNo, count);
+                        }
+                    });
                 });
-            });
+            }
 
             // 포인트 충전
-            document.querySelectorAll(".point").forEach(el => {
-                el.addEventListener("click", function (e) {
-                    document.getElementById("bp").value = parseInt(e.target.dataset.price) + parseInt(document.getElementById("bp").value);
+            if (document.querySelectorAll(".point")) {
+                document.querySelectorAll(".point").forEach(el => {
+                    el.addEventListener("click", function (e) {
+                        document.getElementById("bp").value = parseInt(e.target.dataset.price) + parseInt(document.getElementById("bp").value);
+                    })
                 })
-            })
+            }
 
-            document.querySelectorAll(".add-cart").forEach((el) => {
-                el.addEventListener("click", function () {
-                    let bNo = el.dataset.index;
+            if (document.querySelectorAll(".add-cart")) {
+                document.querySelectorAll(".add-cart").forEach((el) => {
+                    el.addEventListener("click", function () {
+                        let bNo = el.dataset.index;
 
-                    ajaxAddCart(bNo, 1);
+                        ajaxAddCart(bNo, 1);
+                    })
                 })
-            })
+            }
 
-            document.querySelectorAll(".remove-cart").forEach((el) => {
-                el.addEventListener("click", function () {
-                    let cNo = el.dataset.index;
+            if (document.querySelectorAll(".remove-cart")) {
+                document.querySelectorAll(".remove-cart").forEach((el) => {
+                    el.addEventListener("click", function () {
+                        let cNo = el.dataset.index;
 
-                    ajaxRemoveCart(cNo);
+                        ajaxRemoveCart(cNo);
+                    })
                 })
-            })
+            }
 
-            document.querySelectorAll(".remove-pick").forEach((el) => {
-                el.addEventListener("click", function () {
-                    let bNo = el.dataset.index;
+            if (document.querySelectorAll(".remove-pick")) {
+                document.querySelectorAll(".remove-pick").forEach((el) => {
+                    el.addEventListener("click", function () {
+                        let bNo = el.dataset.index;
 
-                    ajaxRemovePick(bNo);
+                        ajaxRemovePick(bNo);
+                    })
                 })
-            })
-
+            }
         });
 
         function ajaxBookCount(cNo, count) {
@@ -103,29 +112,29 @@
 
                         if (result) {
                             location.href = [[@{/mypage/member_cart_form}]];
+                        }
+                    } else if (httpRequest.responseText == "false") {
+                        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
                     }
-                } else if (httpRequest.responseText == "false") {
-                    alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 403) {
+                    alert("접근 거부");
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 404) {
+                    alert("페이지 없음")
+                    spinnerStatus("off");
+                } else if (httpRequest.status == 500) {
+                    alert("서버 오류 발생");
+                    spinnerStatus("off");
                 }
+            };
 
-                spinnerStatus("off");
-            } else if (httpRequest.status == 403) {
-                alert("접근 거부");
-                spinnerStatus("off");
-            } else if (httpRequest.status == 404) {
-                alert("페이지 없음")
-                spinnerStatus("off");
-            } else if (httpRequest.status == 500) {
-                alert("서버 오류 발생");
-                spinnerStatus("off");
-            }
-        };
+            spinnerStatus("on");
 
-        spinnerStatus("on");
+            let data = { b_no: bNo, c_book_count: count };
 
-        let data = { b_no: bNo, c_book_count: count };
-
-        httpRequest.send(JSON.stringify(data));
+            httpRequest.send(JSON.stringify(data));
         }
 
         function ajaxRemoveCart(cNo) {
@@ -172,7 +181,6 @@
                     if (httpRequest.responseText == "true") {
                         document.getElementById("pick_" + bNo).remove();
                         alert("찜 목록에서 제거되었습니다.");
-
                     } else if (httpRequest.responseText == "false") {
                         alert("찜 목록 제거에 실패했습니다. 다시 시도해주세요.");
                     }

@@ -51,6 +51,19 @@
                 });
             }
 
+            // 리뷰 삭제
+            if (document.querySelectorAll(".delete-review")[0]) {
+                document.querySelectorAll(".delete-review").forEach(el => {
+                    el.addEventListener("click", function (e) {
+                        let result = confirm("리뷰를 삭제하시겠습니까?");
+
+                        if (result) {
+                            location.href = e.target.dataset.link;
+                        }
+                    })
+                });
+            }
+
             // 뷰 number 수정 시 보이는 금액 변경
             if (document.getElementById("cart_count")) {
                 updateTotal();
@@ -73,20 +86,20 @@
                 document.getElementById("add_pick").addEventListener("click", function () {
                     let bNo = this.dataset.index;
 
-                    if(this.classList.contains("on")) {
+                    if (this.classList.contains("on")) {
                         ajaxRemovePick(bNo);
                     } else {
                         ajaxAddPick(bNo);
                     }
                 })
             }
-
         });
 
         function updateTotal() {
             let count = document.getElementById("cart_count").value;
             let price = parseInt(document.querySelector(".price").innerText.replace(/[^0-9]/g, ''));
             let totalPrice = count * price;
+
             document.getElementById("total_price").innerText = "총 금액: " + totalPrice.toLocaleString() + " BP";
         }
 
@@ -143,13 +156,6 @@
                         document.getElementById("add_pick").classList.remove("off");
                         document.getElementById("add_pick").classList.add("on");
 
-                        // let result = confirm("찜 목록에 추가되었습니다.\n찜 목록으로 이동하시겠습니까?");
-
-                        // if (result) {
-                        //     location.href = [[@{/mypage/member_pick}]];
-                        // }
-                        // 
-
                     } else if (httpRequest.responseText == "duple") {
                         alert("이미 찜 목록에 존재하는 도서입니다.");
                     } else if (httpRequest.responseText == "false") {
@@ -167,12 +173,9 @@
                 }
             };
 
-            // spinnerStatus("on");
-
             httpRequest.send("b_no=" + bNo);
         }
 
-        
         function ajaxRemovePick(bNo) {
             let httpRequest = new XMLHttpRequest();
 
@@ -182,10 +185,8 @@
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                     if (httpRequest.responseText == "true") {
-
                         document.getElementById("add_pick").classList.remove("on");
                         document.getElementById("add_pick").classList.add("off");
-                        
                     } else if (httpRequest.responseText == "false") {
                         alert("찜 목록 제거에 실패했습니다. 다시 시도해주세요.");
                     }

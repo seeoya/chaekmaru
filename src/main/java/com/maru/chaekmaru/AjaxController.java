@@ -152,15 +152,17 @@ public class AjaxController {
                 "</div>" +
                 "</div>";
 		
-		if (id != null) {
-			memberService.sendIdEmail(email , htmlContent);
-			model.addAttribute("result", Config.FIND_ID_SUCCESS);
-			
-		} else {
-			model.addAttribute("result", Config.FIND_ID_FAIL);
-		}
 		
-		return "result";
+		if (id != null) {
+			memberService.sendEmail(email, "Your ID is : " + id);
+			String mailSuccess = "sendSuccess";
+			model.addAttribute("result", Config.FIND_ID_SUCCESS);
+			return mailSuccess;
+		} else {
+			String mailFail = "sendFail";
+			model.addAttribute("result", Config.FIND_ID_FAIL);
+			return mailFail;
+		}
 	}
 	
 	@PostMapping("/pw_mail_send")
@@ -188,11 +190,14 @@ public class AjaxController {
 		if (getId != null) {
 			memberService.sendEmail(email, message);
 			model.addAttribute("result", Config.FIND_PW_SUCCESS);
+			String mailSuccess = "sendSuccess";
+			return mailSuccess;
 		} else {
 			model.addAttribute("result", Config.FIND_PW_FAIL);
+			String mailFail = "sendFail";
+			return mailFail;
 		}
 		
-		return "result";
 	}
 
 	@PostMapping("/add_my_cart")
@@ -278,10 +283,10 @@ public class AjaxController {
 		
 		int result = adminBookService.deleteBookConfirm(b_no);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
+		} else {
+			return "true";
 		}
 					
 			
@@ -315,10 +320,10 @@ public class AjaxController {
 		
 		int result = adminMemberService.deleteAccountConfirm(a_no);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
+		} else {
+			return "true";
 		}
 		
 			
@@ -331,11 +336,21 @@ public class AjaxController {
 				
 		int result = adminShopService.userAccountActiveConfirm(m_id);
 		
-		if (result > 0) {
-			return "true";
-		} else {
+		if (result < 0) {
 			return "false";
-		}		
+		} else {
+			return "true";
+		}
+	}
+	
+	// 로그인 세션 갱신	
+	@PostMapping("/refresh_member_info")
+	public MemberDto refreshMemberInfo(HttpSession session) {
+		log.info("refreshMemberInfo()");	
+		
+		MemberDto loginedMemberInfo = memberService.refreshMemberInfo(session);
+		
+		return loginedMemberInfo;
 	}
 	
 

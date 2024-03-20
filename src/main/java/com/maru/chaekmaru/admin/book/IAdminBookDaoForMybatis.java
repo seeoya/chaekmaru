@@ -24,6 +24,8 @@ public interface IAdminBookDaoForMybatis {
 
 	public ArrayList<BookDto> setList(@Param("search") String search, @Param("sortSql") String sortSql,
 			@Param("startNum") int startNum, @Param("endNum") int endNum);
+
+	public int deleteReview(int b_no);
 		
 
 }

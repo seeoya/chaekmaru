@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-    <title>책마루 :: 리스트</title>
+    <title>책마루 :: 도서 목록</title>
 
     <th:block th:replace="~{include/js/list_js.html::list_js}"></th:block>
 </head>
 
 <div id="list" class="content-wrap" layout:fragment="content">
-    <h2 class="title">리스트</h2>
+    <!-- <h2 class="title">리스트</h2> -->
 
     <div class="content">
 
@@ -47,6 +47,10 @@
                             </div>
                         </div>
                     </a>
+                </div>
+
+                <div th:if="${items} == null">
+                    <div>현재 판매중인 도서가 존재하지 않습니다.</div>
                 </div>
             </div>
 

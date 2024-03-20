@@ -4,37 +4,41 @@
 <th:block th:fragment="form_check_js">
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll("form input").forEach((el) => {
-                el.addEventListener("change", function (e) {
-                    inputTextCheck(e);
+            if (document.querySelectorAll("form input")) {
+                document.querySelectorAll("form input").forEach((el) => {
+                    el.addEventListener("change", function (e) {
+                        inputTextCheck(e);
+                    });
+                    el.addEventListener("input", function (e) {
+                        inputTextCheck(e);
+                    });
+                    el.addEventListener("focus", function (e) {
+                        inputTextCheck(e);
+                    });
+                    el.addEventListener("focusout", function (e) {
+                        inputTextCheck(e);
+                    });
                 });
-                el.addEventListener("input", function (e) {
-                    inputTextCheck(e);
-                });
-                el.addEventListener("focus", function (e) {
-                    inputTextCheck(e);
-                });
-                el.addEventListener("focusout", function (e) {
-                    inputTextCheck(e);
-                });
-            });
+            }
 
             // 로그인 창에서 엔터로 서브밋
-            document.querySelectorAll("form.member input").forEach((el) => {
-                el.addEventListener("keyup", function (e) {
-                    if (e.keyCode == 13) {
-                        document.getElementById("submit_btn").click();
-                    }
+            if (document.querySelectorAll("form.member input")) {
+                document.querySelectorAll("form.member input").forEach((el) => {
+                    el.addEventListener("keyup", function (e) {
+                        if (e.keyCode == 13) {
+                            document.getElementById("submit_btn").click();
+                        }
+                    });
                 });
-            });
+            }
 
             if (document.getElementById("delete_account")) {
                 document.getElementById("delete_account").addEventListener("click", function () {
                     let result = confirm("탈퇴 시 잔여 BP는 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?");
 
-                    if(result) {
+                    if (result) {
                         location.href = [[@{/member/delete_confirm}]];
-                    }
+                }
                 })
             }
         });
@@ -271,9 +275,6 @@
             }
         }
 
-
-
-
         /* 로그인 */
         function loginForm() {
             console.log("loginForm!!");
@@ -292,7 +293,7 @@
         }
 
         /* ID 찾기 */
-        function findIdForm() {
+        function IdFindCheck() {
             console.log("findIdForm!!");
 
             let form = document.find_id_form;
@@ -304,12 +305,12 @@
                 alert("이메일을 입력해 주세요.");
                 form.m_mail.focus();
             } else {
-                form.submit();
+                findIdForm();
             }
         }
 
         /* PW 찾기 */
-        function findPwForm() {
+        function PwFindCheck() {
             console.log("findPwForm!!");
             let form = document.find_pw_form;
 
@@ -323,7 +324,7 @@
                 alert("이메일을 입력해 주세요.");
                 form.m_mail.focus();
             } else {
-                form.submit();
+                findPwForm();
             }
         }
 
@@ -564,7 +565,6 @@
                 m_detail_addr: form.m_detail_addr.value
             };
 
-
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                     // 성공했을 때
@@ -588,26 +588,26 @@
             httpRequest.send(JSON.stringify(memberData));
             alert("정보 수정 완료이 성공적으로 완료됐습니다.");
         }
-        
+
         function findIdForm() {
             let httpRequest = new XMLHttpRequest();
-			
+
             let form = document.find_id_form;
             let memberDto = {
-                m_name : form.m_name.value,
+                m_name: form.m_name.value,
                 m_mail: form.m_mail.value,
             };
-            
+
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                    // 성공했을 때
-          /*           alert(httpRequest.responseText);
-                    alert('통신 성공'); */
-					
-                	spinnerStatus("off");
-                    alert("메일 발송이 완료됐습니다.");
-                    location.href=[[@{/member/login_form}]];
-                    
+                    if (httpRequest.responseText == "sendSuccess") {
+                        alert("메일 발송이 완료됐습니다.");
+                        location.href = [[@{/member/login_form}]];
+                    } else if (httpRequest.responseText == "sendFail") {
+                        alert("일치하는 아이디가 없습니다.");
+                    }
+
+                    spinnerStatus("off");
                 } else if (httpRequest.status == 403) {
                     alert("접근 거부");
                     spinnerStatus("off");
@@ -625,29 +625,28 @@
             httpRequest.open("POST", "/ajax/find_id_send", true);
             httpRequest.setRequestHeader("Content-Type", "application/json");
             httpRequest.send(JSON.stringify(memberDto));
-            
         }
-        
+
         function findPwForm() {
             let httpRequest = new XMLHttpRequest();
-			
+
             let form = document.find_pw_form;
             let memberInfo = {
-                m_id : form.m_id.value,
-                m_name : form.m_name.value,
+                m_id: form.m_id.value,
+                m_name: form.m_name.value,
                 m_mail: form.m_mail.value,
             };
-            
+
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                    // 성공했을 때
-          /*           alert(httpRequest.responseText);
-                    alert('통신 성공'); */
 					
-                	spinnerStatus("off");
-                    alert("메일 발송이 완료됐습니다.");
-                    location.href=[[@{/member/login_form}]];
-                    
+                    if (httpRequest.responseText == "sendSuccess") {
+                        alert("메일 발송이 완료됐습니다.");
+                        location.href = [[@{/member/login_form}]];
+                    } else if (httpRequest.responseText == "sendFail") {
+                        alert("일치하는 계정 정보가 없습니다.");
+                    }
+                    spinnerStatus("off");
                 } else if (httpRequest.status == 403) {
                     alert("접근 거부");
                     spinnerStatus("off");
@@ -665,11 +664,7 @@
             httpRequest.open("POST", "/ajax/pw_mail_send", true);
             httpRequest.setRequestHeader("Content-Type", "application/json");
             httpRequest.send(JSON.stringify(memberInfo));
-            
-       }
-        
-        
-        
+        }
 
     </script>
 </th:block>

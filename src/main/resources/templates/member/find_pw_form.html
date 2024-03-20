@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
 
 <head>
-    <title>책마루 :: 아이디 찾기</title>
+    <title>책마루 :: 비밀번호 찾기</title>
 
     <th:block th:replace="~{include/js/form_check_js.html::form_check_js}"></th:block>
 </head>
@@ -15,7 +15,7 @@
             <input type="text" name="m_id" placeholder="아이디를 입력해 주세요.">
             <input type="text" name="m_name" placeholder="이름을 입력해 주세요.">
             <input type="text" name="m_mail" placeholder="이메일을 입력해 주세요.">
-            <button type="button" onclick="findPwForm();" class="btn main">메일 발송</button>
+            <button type="button" onclick="PwFindCheck();" class="btn main">메일 발송</button>
         </form>
         <a th:href="@{/member/login_form}">로그인</a>
     </div>

@@ -37,7 +37,7 @@
 	    				<th>반품완료일</th>    				
 	    				<th>등록일</th>
 	    				<th>수정일</th>
-	    				<th>상세내역</th>
+	    				<th th:if="${session.loginedAdminMemberDto.a_grade >= 1}">상세내역</th>
 	  			
 	    			</tr>   	
 	    	

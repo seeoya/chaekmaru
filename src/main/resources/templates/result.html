@@ -112,6 +112,11 @@
                 	text = "로그인에 실패했습니다.\n다시 시도해주세요.";
                 	window.history.back();
                 	break;
+                	
+                case 119:
+                	text = "비밀번호 변경을 완료했습니다.";
+                	href = [[@{/}]];
+                	break;
 
                 case 200:
                     text = "수량 변경에 성공했습니다.";
@@ -217,22 +222,22 @@
                     
                 case 800:
                     text = "고객문의 등록에 성공하였습니다.";
-                    window.history.back();
+                    href = [[@{/qna/qna}]];
                     break;
                             
                 case 802:
                     text = "고객문의 삭제에 성공하였습니다.";
-                    window.history.back();
+                    href = [[@{/qna/qna}]];
                     break;
             
                 case 810:
                     text = "고객문의 등록에 실패하였습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/qna/qna}]];
                     break;
                     
                 case 812:
                     text = "고객문의 삭제에 실패하였습니다.\n다시 시도해주세요.";
-                    window.history.back();
+                    href = [[@{/qna/qna}]];
                     break;
                     
                 case 999:

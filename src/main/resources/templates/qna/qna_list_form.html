@@ -23,7 +23,7 @@
 	           				<th>작성일</th>
 	           				<th>답변상태</th>
 	           				<th>답변완료일</th>
-	           				<th>답변등록</th>
+	           				<th th:if="${session.loginedAdminMemberDto.a_grade >= 1}">답변등록</th>
 	           			</tr>
 	           		<tbody>
 	           			<tr th:each="list: ${qnas}">
@@ -34,8 +34,12 @@
 	            			<td th:unless="${list.qa_reg_date == null}">답변완료</td>
 	            			<td>[[${#strings.substring(list.qa_reg_date, 0, 16)}]]</td>
 							<td th:if="${session.loginedAdminMemberDto.a_grade >= 1}">            				
-                    		<a th:href="@{/qna/qna_answer(q_no=${list.q_no})}" class="btn main" >답변 등록</a></td>
-	            		</tr>	           		
+								<div th:if="${list.qa_reg_date == null}">
+                    			<a th:href="@{/qna/qna_answer(q_no=${list.q_no})}" class="btn main" >답변 등록</a></div>
+                    			<div th:if="${list.qa_reg_date != null}">
+                    			<a th:href="@{/qna/qna_answer(q_no=${list.q_no})}" class="btn main" >답변 수정</a></div>
+                     		</td>
+                    	</tr>	           		
 	           		</tbody>	
            		
            		</table>

@@ -5,8 +5,7 @@
     <title>책마루 :: 관리자 BOOK LIST</title>
  	    
     <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
-    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
-    <th:block th:replace="~{include/js/list_js.html::list_js}"></th:block>
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->   
      <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
 </head>
 
@@ -17,15 +16,13 @@
     
     
     	<div class="search">
-                <form th:action="@{/admin/book/book_list_form}" name="search_book_form" method="get">
-                	
-                 	<select name="sort" id="list_sort" class="select" >	                   
-	                    <option value="" >검색조건</option>
-	                    <option value="isbn">ISBN</option>
-	                     <option value="name" selected>도서명</option>
-	                    <option value="author">저자명</option>	                 
+                <form th:action="@{/admin/book/book_list_form}" name="search_book_form" method="get">                	
+                 	<select name="list_sort" id="list_sort" class="select">              
+	                    <option th:value="name" th:selected="${sort} == 'name'">도서명</option>
+	                    <option th:value="isbn" th:selected="${sort} == 'isbn'">ISBN</option>	                     
+	                    <option th:value="author" th:selected="${sort} == 'author'">저자명</option>	                 
 	                </select>
-                    <input type="search" name="search" th:value="${search}" th:data-link="@{/admin/book/list(search=${search})}" class="input" placeholder="검색어를 입력하세요.">
+                    <input type="search" name="search" th:value="${search}" class="input" placeholder="검색어를 입력하세요.">
                     <button type="submit" class="btn main">검색</button>
                 </form>
         </div>

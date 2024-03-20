@@ -29,6 +29,7 @@ public class Config {
 	final public static int FIND_PW_FAIL = 116;
     final public static int PW_MODIFY_FAIL = 117;
     final public static int LOGIN_FAIL = 118;
+    final public static int PW_MODIFY_SAME_SUCCESS = 119;
 
 	// BookController 100 ~ 199
 
@@ -91,7 +92,9 @@ public class Config {
 	final public static int BOOK_ALREADY_EXIST = 610;	          	
 	final public static int REGIST_BOOK_FAIL_AT_DATABASE = 611; 
 	final public static int MODIFY_BOOK_FAIL_AT_DATABASE = 612; 
-	final public static int DELETE_BOOK_FAIL_AT_DATABASE = 613;       
+	final public static int DELETE_BOOK_FAIL_AT_DATABASE = 613;
+	final public static int DELETE_REVIEW_FAIL_AT_DATABASE = 614;
+	
 
 	// AdminShopController 700 ~ 799
 	final public static int USER_ACCOUNT_UNACTIVE_SUCCESS = 700;		
