@@ -12,6 +12,7 @@ import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
 import com.maru.chaekmaru.mypage.MypageDao;
+import com.maru.chaekmaru.mypage.MypageService;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +24,9 @@ public class AdminShopService {
 	
 	@Autowired
 	IAdminShopDaoForMybatis adminShopDao;
+	
+	@Autowired
+	MypageService mypageService;
 
 	public List<MyPointListDto> pointListForm() {
 		log.info("pointListForm()");
@@ -279,9 +283,10 @@ public class AdminShopService {
 		log.info(myPointListDto.getPl_desc());
 		
 		int result = adminShopDao.insertRetrunPayment(myPointListDto);
-		if(result > 0)
+		if(result > 0) {
 			log.info(Config.INSERT_POINT_SUCCESS);
-		else
+			mypageService.gradeUpdateCheck(adminShopDao.getMId(sb_no));
+		} else
 			log.info(Config.INSERT_POINT_FAIL);
 		
 	}

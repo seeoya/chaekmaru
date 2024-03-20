@@ -51,6 +51,7 @@ public class Config {
 	final public static int POINT_CHARGE_FAIL = 216;
 	final public static int ADD_PICK_FAIL = 217;
 	final public static int ADD_PICK_DUPPLICATE = 218;
+	final public static int MEMBER_BAN = 219;	
 	
 	// ReviewController 300 ~ 399
 	final public static int REVIEW_WRITE_SUCCESS = 300;

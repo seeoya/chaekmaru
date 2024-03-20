@@ -3,10 +3,7 @@ package com.maru.chaekmaru.mypage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,22 +68,6 @@ public class MypageService {
 		log.info("paymentForm");
 
 		return mypageDao.paymentForm(m_id, b_no);
-
-	}
-
-	public int paymentMyCart(SaledBookDto saledBookDto, String m_id) {
-		log.info("paymentMyCart()");
-
-		int result = mypageDao.paymentMyCart(saledBookDto, m_id);
-
-		if (result > 0) {
-//			result = mypageDao.deleteMyCart(m_id);
-
-		} else {
-
-		}
-
-		return result;
 
 	}
 
@@ -204,6 +185,7 @@ public class MypageService {
 				dcPrice = 0;
 				break;
 			}
+
 			int intDiscount = (int) Math.ceil(dcPrice);
 			saledBookDto.setSb_saled_price(intDiscount);
 			log.info("intDiscount ====================> " + intDiscount);
@@ -225,6 +207,7 @@ public class MypageService {
 				}
 			}
 		}
+
 		myPointListDto.setPl_payment_book_point(-finalPrice);
 		int allBookCount = mypageDao.sumAllBook(m_id, orderNo);
 		myPointListDto.setPl_desc("도서 " + allBookCount + "권 구매");
@@ -235,7 +218,53 @@ public class MypageService {
 			result = Config.DELETE_PAYMENT_CART_FAIL;
 		}
 
-		return result;
+		if (result == Config.DELETE_PAYMENT_CART_SUCCESS) {
+			gradeUpdateCheck(m_id);
+
+			return Config.PAYMENT_SUCCESS;
+		} else {
+			return Config.PAYMENT_FAIL;
+		}
+
+	}
+
+	public int gradeUpdateCheck(String m_id) {
+		int allBuyPoint = sumSbAllPointByMId(m_id);
+		int allSalePoint = sumSbSalePointByMId(m_id);
+		int allBuyPointMId = allBuyPoint - allSalePoint;
+
+		int grade = memberDao.getMemberGrade(m_id);
+		int result = -1;
+
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> 등급:" + grade);
+		
+		if (allBuyPointMId >= 500000 && grade != 2) {
+			result = updateGrade(m_id, 2);
+
+			if (result > 0) {
+
+				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> 등급:" + 2);
+				return 2;
+			}
+		} else if (allBuyPointMId >= 100000 && grade != 1) {
+			result = updateGrade(m_id, 1);
+
+			if (result > 0) {
+
+				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> 등급:" + 1);
+				return 1;
+			}
+		} else if (grade != 0) {
+			result = updateGrade(m_id, 0);
+
+			if (result > 0) {
+
+				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> 등급:" + 0);
+				return 0;
+			}
+		}
+
+		return grade;
 	}
 
 	public ArrayList<MemberCartDto> setPaymentForm(ArrayList<MemberCartDto> buyBooks) {
@@ -275,30 +304,6 @@ public class MypageService {
 
 	}
 
-	public int deleteAllMyCart(String m_id, ArrayList<MemberCartDto> buyBooksDatas) {
-		log.info("deleteAllMyCart()");
-
-		int result = 0;
-
-		for (int i = 0; i < buyBooksDatas.size(); i++) {
-			int selectBook = buyBooksDatas.get(i).getB_no();
-			mypageDao.deleteAllMyCart(m_id, selectBook);
-		}
-
-		return result;
-
-	}
-
-//	public int deletePaymentMyCart(String m_id, int b_no) {
-//		log.info("deletePaymentMyCart()");
-//		int result = -1;
-//
-//		result = mypageDao.deleteMyCartByBNo(m_id, b_no);
-//
-//		return result;
-//
-//	}
-
 	public BookDto setView(int b_no) {
 		return mypageDao.selectBook(b_no);
 	}
@@ -309,12 +314,6 @@ public class MypageService {
 		return mypageDao.getPaymentList(m_id);
 
 	}
-
-//	public void nowBooks(int sb_book_count, int b_count, int b_no) {
-//		log.info("nowBooks");
-//
-//		mypageDao.nowBooks(sb_book_count, b_count, b_no);
-//	}
 
 	public int currentPoint(HttpSession session) {
 		int point = -1;
@@ -403,6 +402,7 @@ public class MypageService {
 				// state 1 -> 0 변경
 				result = mypageDao.saledStateUpdateZero(m_id, sb_order_no); // 스테이트 변경
 				log.info(result);
+				gradeUpdateCheck(m_id);
 			}
 		}
 
@@ -440,11 +440,6 @@ public class MypageService {
 		}
 		// #TODO RESULT 처리 필요
 		return result;
-	}
-
-	public List<MemberCartDto> directPayment(String m_id, int b_no) {
-
-		return mypageDao.getBookDetail(b_no);
 	}
 
 	public int returnRequestBookPayment(String m_id, int sb_no, int b_no) {
@@ -551,23 +546,6 @@ public class MypageService {
 		return 0;
 	}
 
-	public LinkedHashMap<Integer, ArrayList<SaledBookDto>> getMyAllPaymentList(String m_id) {
-
-		LinkedHashMap<Integer, ArrayList<SaledBookDto>> priceList = new LinkedHashMap<>();
-
-		List<SaledBookDto> allPrice = getOrderNo(m_id);
-
-		for (int i = 0; i < allPrice.size(); i++) {
-			int o_no = allPrice.get(i).getSb_order_no();
-
-			ArrayList<SaledBookDto> sBookDtos = mypageDao.getAllpaymentListByONo(m_id, o_no);
-
-			priceList.put(o_no, sBookDtos);
-		}
-
-		return priceList;
-	}
-
 	public int eachDiscount(int eachPrice, int m_grade) {
 		double discount = 0;
 
@@ -602,26 +580,11 @@ public class MypageService {
 		return mypageDao.sumSbSalePointByMId(m_id);
 	}
 
-	public void updateGradeOne(String m_id) {
-
-		mypageDao.updateGradeOne(m_id);
-
+	public int updateGrade(String m_id, int state) {
+		return mypageDao.updateGrade(m_id, state);
 	}
 
-	public void updateGradeTwo(String m_id) {
-
-		mypageDao.updateGradeTwo(m_id);
-
-	}
-
-	public void updateGradeZero(String m_id) {
-
-		mypageDao.updateGradeZero(m_id);
-
-	}
-
-	public LinkedHashMap<Integer, Integer> getMyPaymentStateList(
-			LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
+	public LinkedHashMap<Integer, Integer> getMyPaymentStateList(LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
 
 		LinkedHashMap<Integer, Integer> stateList = new LinkedHashMap<>();
 
@@ -630,7 +593,7 @@ public class MypageService {
 		for (int i = 0; i < list.size(); i++) {
 //				list의 i번째 key
 			int key = keySet.get(i);
-			
+
 			int state = 1;
 			// key = o_no
 			// o_no의 현재 상태
@@ -659,9 +622,60 @@ public class MypageService {
 
 	public int confirmPayment(String m_id, int sb_order_no) {
 		int result = -1;
-		
+
 		result = mypageDao.confirmPayment(m_id, sb_order_no);
-		
+
 		return result;
+	}
+
+	public LinkedHashMap<Integer, Integer> getMyAllPriceList(LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
+
+		LinkedHashMap<Integer, Integer> allPriceByKey = new LinkedHashMap<>();
+
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		for (int i = 0; i < list.size(); i++) {
+//				list의 i번째 key
+			int key = keySet.get(i);
+			int getMyAllPriceList = 0;
+			ArrayList<SaledBookDto> saledBookDtos = list.get(key);
+
+			for (int j = 0; j < saledBookDtos.size(); j++) {
+				getMyAllPriceList += saledBookDtos.get(j).getSb_all_price();
+			}
+
+			allPriceByKey.put(key, getMyAllPriceList);
+		}
+
+		return allPriceByKey;
+	}
+
+	public LinkedHashMap<Integer, Integer> saledPriceByKey(LinkedHashMap<Integer, ArrayList<SaledBookDto>> list) {
+
+		LinkedHashMap<Integer, Integer> saledPriceByKey = new LinkedHashMap<>();
+
+		List<Integer> keySet = new ArrayList<>(list.keySet());
+
+		for (int i = 0; i < list.size(); i++) {
+//				list의 i번째 key
+			int key = keySet.get(i);
+			int getSaledPriceList = 0;
+			ArrayList<SaledBookDto> saledBookDtos = list.get(key);
+
+			for (int j = 0; j < saledBookDtos.size(); j++) {
+				getSaledPriceList += saledBookDtos.get(j).getSb_saled_price();
+			}
+
+			saledPriceByKey.put(key, getSaledPriceList);
+		}
+
+		return saledPriceByKey;
+	}
+
+	public int getState(String m_id) {
+
+		// #TODO
+
+		return 1;
 	}
 }
