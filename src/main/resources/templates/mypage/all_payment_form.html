@@ -77,12 +77,12 @@
 
                     <div>
                         <p>등급 할인</p>
-                        <p class="member-sale-price" th:text="${#numbers.formatInteger(discount, 1, 'COMMA') + '  BP'}"></p>
+                        <p class="member-sale-price" th:text="${'- ' +#numbers.formatInteger(discount, 1, 'COMMA') + '  BP'}"></p>
                     </div>
 
                     <div>
                         <p>배송비</p>
-                        <p class="delivery-price">3,000 BP</p>
+                        <p class="delivery-price">+ 3,000 BP</p>
                     </div>
                 </div>
 
