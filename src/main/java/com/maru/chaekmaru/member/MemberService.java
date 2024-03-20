@@ -144,7 +144,7 @@ public class MemberService {
 		javaMailSender.send(mimeMessage);
 	}
 
-	public void sendEmail(String email, String content) {
+	public void sendEmail(String email, String htmlContent) {
 		log.info("sendEmail()");
 
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -152,7 +152,7 @@ public class MemberService {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 			helper.setTo(email);
 			helper.setSubject("'북마루' 비밀번호 변경 메일입니다.");
-			helper.setText(content, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
+			helper.setText(htmlContent, true); // 'true'는 HTML 메일을 보내겠다는 의미입니다.
 		} catch (MessagingException e) {
 			log.error("이메일 전송 중 에러 발생", e);
 		}

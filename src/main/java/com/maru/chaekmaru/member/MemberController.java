@@ -176,13 +176,12 @@ public class MemberController {
 	}
 
 	@GetMapping("/pw_modify_form")
-	public String pwModifyForm(@RequestParam("id") String id, Model model, @RequestParam("actionType") String actionType) {
+	public String pwModifyForm(@RequestParam("id") String id, Model model, @RequestParam(required = false, value = "actionType",defaultValue = "") String actionType) {
 		log.info("pwModifyForm()");
 		log.info("-----------" + id);
 		
 		model.addAttribute("id", id);
 		model.addAttribute("actionType", actionType);
-		
 		
 		return "member/pw_modify_form";
 	}
