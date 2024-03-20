@@ -603,12 +603,18 @@
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                     // 성공했을 때
-          /*           alert(httpRequest.responseText);
-                    alert('통신 성공'); */
+                    /* alert(httpRequest.responseText); */
+                    /* alert('통신 성공'); */
 					
+                    
+                    if(httpRequest.responseText == "sendSuccess") {
+                    	alert("메일 발송이 완료됐습니다.");
+                    	location.href=[[@{/member/login_form}]];
+                    } else if (httpRequest.responseText == "sendFail") {
+                    	alert("일치하는 아이디가 없습니다.");
+                    }
                 	spinnerStatus("off");
-                    alert("메일 발송이 완료됐습니다.");
-                    location.href=[[@{/member/login_form}]];
+                    
                     
                 } else if (httpRequest.status == 403) {
                     alert("접근 거부");
@@ -646,9 +652,14 @@
           /*           alert(httpRequest.responseText);
                     alert('통신 성공'); */
 					
+                    if(httpRequest.responseText == "sendSuccess") {
+                    	alert("메일 발송이 완료됐습니다.");
+                    	location.href=[[@{/member/login_form}]];
+                    } else if (httpRequest.responseText == "sendFail") {
+                    	alert("일치하는 계정 정보가 없습니다.");
+                    }
                 	spinnerStatus("off");
-                    alert("메일 발송이 완료됐습니다.");
-                    location.href=[[@{/member/login_form}]];
+                    
                     
                 } else if (httpRequest.status == 403) {
                     alert("접근 거부");
