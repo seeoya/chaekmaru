@@ -152,15 +152,17 @@ public class AjaxController {
                 "</div>" +
                 "</div>";
 		
-		if (id != null) {
-			memberService.sendIdEmail(email , htmlContent);
-			model.addAttribute("result", Config.FIND_ID_SUCCESS);
-			
-		} else {
-			model.addAttribute("result", Config.FIND_ID_FAIL);
-		}
 		
-		return "result";
+		if (id != null) {
+			memberService.sendEmail(email, "Your ID is : " + id);
+			String mailSuccess = "sendSuccess";
+			model.addAttribute("result", Config.FIND_ID_SUCCESS);
+			return mailSuccess;
+		} else {
+			String mailFail = "sendFail";
+			model.addAttribute("result", Config.FIND_ID_FAIL);
+			return mailFail;
+		}
 	}
 	
 	@PostMapping("/pw_mail_send")
@@ -188,11 +190,14 @@ public class AjaxController {
 		if (getId != null) {
 			memberService.sendEmail(email, message);
 			model.addAttribute("result", Config.FIND_PW_SUCCESS);
+			String mailSuccess = "sendSuccess";
+			return mailSuccess;
 		} else {
 			model.addAttribute("result", Config.FIND_PW_FAIL);
+			String mailFail = "sendFail";
+			return mailFail;
 		}
 		
-		return "result";
 	}
 
 	@PostMapping("/add_my_cart")
