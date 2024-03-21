@@ -20,17 +20,17 @@ public class AdminBoardService {
 		return adminBoardDao.selectDailySales();
 	}
 
-	public ArrayList<AdminBoardDto> salesCateDaily() {
-		log.info("salesCateDaily()");
+	public ArrayList<AdminBoardDto> salesCateMonth() {
+		log.info("salesCateMonth()");
 		
-		return adminBoardDao.selectDailySalesByCate();
+		return adminBoardDao.selectMonthSalesByCate();
 		
 	}
 	
-	public ArrayList<AdminBoardDto> salesCateDailyThis() {
-		log.info("salesCateDailyThis()");
+	public ArrayList<AdminBoardDto> salesCateMonthThis() {
+		log.info("salesCateMonthThis()");
 		
-		return adminBoardDao.selectDailySalesByCateThis();
+		return adminBoardDao.selectMonthSalesByCateThis();
 		
 	}
 

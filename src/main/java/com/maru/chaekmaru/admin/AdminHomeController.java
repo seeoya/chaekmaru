@@ -34,9 +34,11 @@ public class AdminHomeController {
 			if(loginedAdminMemberDto != null) {
 				
 				ArrayList<AdminBoardDto> salesDaily = adminBoardService.totalSalesDaily();				
-				ArrayList<AdminBoardDto> salesCateDaily = adminBoardService.salesCateDaily();
-				ArrayList<AdminBoardDto> salesCateDailyThis = adminBoardService.salesCateDailyThis();
+				ArrayList<AdminBoardDto> salesCateMonth = adminBoardService.salesCateMonth();
+				ArrayList<AdminBoardDto> salesCateMonthThis = adminBoardService.salesCateMonthThis();
 				
+				log.info("salesCateMonth4===" +salesCateMonth.get(0).getSc_c_sales4());
+				log.info("salesCateMonth7===" +salesCateMonth.get(0).getSc_c_sales7());
 				
 				model.addAttribute("sales1", salesDaily.get(0).getSc_sales1());
 				model.addAttribute("sales2", salesDaily.get(0).getSc_sales2());
@@ -55,29 +57,29 @@ public class AdminHomeController {
 				model.addAttribute("date7", salesDaily.get(0).getSc_date7());
 				
 					
-				model.addAttribute("cate0", salesCateDaily.get(0).getSc_c_sales0());
-				model.addAttribute("cate1", salesCateDaily.get(0).getSc_c_sales1());
-				model.addAttribute("cate2", salesCateDaily.get(0).getSc_c_sales2());
-				model.addAttribute("cate3", salesCateDaily.get(0).getSc_c_sales3());
-				model.addAttribute("cate4", salesCateDaily.get(0).getSc_c_sales4());
-				model.addAttribute("cate5", salesCateDaily.get(0).getSc_c_sales5());
-				model.addAttribute("cate6", salesCateDaily.get(0).getSc_c_sales6());
-				model.addAttribute("cate7", salesCateDaily.get(0).getSc_c_sales7());
-				model.addAttribute("cate8", salesCateDaily.get(0).getSc_c_sales8());
-				model.addAttribute("cate9", salesCateDaily.get(0).getSc_c_sales9());		
-				model.addAttribute("c_date1", salesCateDaily.get(0).getSc_c_date1());		
+				model.addAttribute("cate0", salesCateMonth.get(0).getSc_c_sales0());
+				model.addAttribute("cate1", salesCateMonth.get(0).getSc_c_sales1());
+				model.addAttribute("cate2", salesCateMonth.get(0).getSc_c_sales2());
+				model.addAttribute("cate3", salesCateMonth.get(0).getSc_c_sales3());
+				model.addAttribute("cate4", salesCateMonth.get(0).getSc_c_sales4());
+				model.addAttribute("cate5", salesCateMonth.get(0).getSc_c_sales5());
+				model.addAttribute("cate6", salesCateMonth.get(0).getSc_c_sales6());
+				model.addAttribute("cate7", salesCateMonth.get(0).getSc_c_sales7());
+				model.addAttribute("cate8", salesCateMonth.get(0).getSc_c_sales8());
+				model.addAttribute("cate9", salesCateMonth.get(0).getSc_c_sales9());		
+				model.addAttribute("c_date1", salesCateMonth.get(0).getSc_c_date1());		
 
-				model.addAttribute("cate10", salesCateDailyThis.get(0).getSc_c_sales10());
-				model.addAttribute("cate11", salesCateDailyThis.get(0).getSc_c_sales11());
-				model.addAttribute("cate12", salesCateDailyThis.get(0).getSc_c_sales12());
-				model.addAttribute("cate13", salesCateDailyThis.get(0).getSc_c_sales13());
-				model.addAttribute("cate14", salesCateDailyThis.get(0).getSc_c_sales14());
-				model.addAttribute("cate15", salesCateDailyThis.get(0).getSc_c_sales15());
-				model.addAttribute("cate16", salesCateDailyThis.get(0).getSc_c_sales16());
-				model.addAttribute("cate17", salesCateDailyThis.get(0).getSc_c_sales17());
-				model.addAttribute("cate18", salesCateDailyThis.get(0).getSc_c_sales18());
-				model.addAttribute("cate19", salesCateDailyThis.get(0).getSc_c_sales19());
-				model.addAttribute("c_date2", salesCateDailyThis.get(0).getSc_c_date2());
+				model.addAttribute("cate10", salesCateMonthThis.get(0).getSc_c_sales10());
+				model.addAttribute("cate11", salesCateMonthThis.get(0).getSc_c_sales11());
+				model.addAttribute("cate12", salesCateMonthThis.get(0).getSc_c_sales12());
+				model.addAttribute("cate13", salesCateMonthThis.get(0).getSc_c_sales13());
+				model.addAttribute("cate14", salesCateMonthThis.get(0).getSc_c_sales14());
+				model.addAttribute("cate15", salesCateMonthThis.get(0).getSc_c_sales15());
+				model.addAttribute("cate16", salesCateMonthThis.get(0).getSc_c_sales16());
+				model.addAttribute("cate17", salesCateMonthThis.get(0).getSc_c_sales17());
+				model.addAttribute("cate18", salesCateMonthThis.get(0).getSc_c_sales18());
+				model.addAttribute("cate19", salesCateMonthThis.get(0).getSc_c_sales19());
+				model.addAttribute("c_date2", salesCateMonthThis.get(0).getSc_c_date2());
 				
 				
 			}
