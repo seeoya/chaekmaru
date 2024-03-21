@@ -26,7 +26,12 @@
 
             <div class="search">
                 <form th:action="@{/book/list}" name="search_form" method="get">
-                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                	<th:block th:if="${search == null}">
+                    	<input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    </th:block>
+                    <th:block th:if="${search != null}">
+                    	<input type="search" th:value="${search}" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    </th:block>
                     <button type="submit" class="btn main">검색</button>
                 </form>
             </div>
@@ -60,7 +65,7 @@
             <a th:href="@{/book/list}" class="cate-link">모든</a>
             <a th:href="@{/book/list(sort='best')}" class="cate-link">인기</a>
             <a th:href="@{/book/list(sort='new')}" class="cate-link">신상품</a>
-            <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a>
+            <!-- <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a> -->
         </nav>
 
         <nav>
@@ -68,9 +73,9 @@
             <div id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
                 <p class="member-name">
                     <span>[[${session[loginedMemberInfo].m_id}]]님</span>
-                    <span class="level level1" th:if="${session[loginedMemberInfo].m_state} == 0"><i class="fa-solid fa-leaf"></i></span>
-                    <span class="level level2" th:if="${session[loginedMemberInfo].m_state} == 1"><i class="fa-solid fa-seedling"></i></span>
-                    <span class="level level3" th:if="${session[loginedMemberInfo].m_state} == 2"><i class="fa-brands fa-pagelines"></i></span>
+                    <span class="level level1" th:if="${session[loginedMemberInfo].m_grade} == 0"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="level level2" th:if="${session[loginedMemberInfo].m_grade} == 1"><i class="fa-solid fa-seedling"></i></span>
+                    <span class="level level3" th:if="${session[loginedMemberInfo].m_grade} == 2"><i class="fa-brands fa-pagelines"></i></span>
                 </p>
 
                 <div class="usermenu-list">
