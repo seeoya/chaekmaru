@@ -679,7 +679,13 @@ header .logo img {
 }
 
 /* 리스트 */
-#list {
+#list .list-item-null{
+    width: 100%;
+    text-align: center;
+    height: 300px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 #list .content {
@@ -1997,7 +2003,7 @@ header .logo img {
 /* 푸터 */
 footer {
     width: 100%;
-    background-color: #60866b;
+    background-color: var(--gray-light-color);
     padding: 20px 0;
 }
 

@@ -27,7 +27,11 @@
                     <option value="name_desc" th:selected="${sort} == 'name_desc'">이름역순</option>
                 </select>
             </div>
-
+            
+			<div th:if="${items} == null">
+                  <div class="list-item-null">현재 판매중인 도서가 존재하지 않습니다.</div>
+            </div>
+                
             <div class="item-wrap gallery">
                 <div th:each="item: ${items}" class="item">
                     <a th:href="@{/book/view/{b_no}(b_no=${item.b_no})}">
@@ -49,9 +53,7 @@
                     </a>
                 </div>
 
-                <div th:if="${items} == null">
-                    <div>현재 판매중인 도서가 존재하지 않습니다.</div>
-                </div>
+               
             </div>
 
             <div class="paging">

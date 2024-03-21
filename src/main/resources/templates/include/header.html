@@ -26,7 +26,12 @@
 
             <div class="search">
                 <form th:action="@{/book/list}" name="search_form" method="get">
-                    <input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                	<th:block th:if="${search == null}">
+                    	<input type="search" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    </th:block>
+                    <th:block th:if="${search != null}">
+                    	<input type="search" th:value="${search}" name="search" class="input" placeholder="검색어를 입력하세요.">
+                    </th:block>
                     <button type="submit" class="btn main">검색</button>
                 </form>
             </div>
@@ -60,7 +65,7 @@
             <a th:href="@{/book/list}" class="cate-link">모든</a>
             <a th:href="@{/book/list(sort='best')}" class="cate-link">인기</a>
             <a th:href="@{/book/list(sort='new')}" class="cate-link">신상품</a>
-            <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a>
+            <!-- <a th:href="@{/styleguide}" class="cate-link">(TEST) 스타일가이드</a> -->
         </nav>
 
         <nav>
