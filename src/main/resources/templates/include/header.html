@@ -68,9 +68,9 @@
             <div id="usermenu_btn" class="cate-link" th:if="${session[loginedMemberInfo]} ne null">
                 <p class="member-name">
                     <span>[[${session[loginedMemberInfo].m_id}]]님</span>
-                    <span class="level level1" th:if="${session[loginedMemberInfo].m_state} == 0"><i class="fa-solid fa-leaf"></i></span>
-                    <span class="level level2" th:if="${session[loginedMemberInfo].m_state} == 1"><i class="fa-solid fa-seedling"></i></span>
-                    <span class="level level3" th:if="${session[loginedMemberInfo].m_state} == 2"><i class="fa-brands fa-pagelines"></i></span>
+                    <span class="level level1" th:if="${session[loginedMemberInfo].m_grade} == 0"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="level level2" th:if="${session[loginedMemberInfo].m_grade} == 1"><i class="fa-solid fa-seedling"></i></span>
+                    <span class="level level3" th:if="${session[loginedMemberInfo].m_grade} == 2"><i class="fa-brands fa-pagelines"></i></span>
                 </p>
 
                 <div class="usermenu-list">
