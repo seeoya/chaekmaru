@@ -10,8 +10,8 @@ public interface IAdminBoardDaoForMybatis {
 	
 	ArrayList<AdminBoardDto> selectDailySales();
 
-	ArrayList<AdminBoardDto> selectDailySalesByCate();
+	ArrayList<AdminBoardDto> selectMonthSalesByCate();
 
-	ArrayList<AdminBoardDto> selectDailySalesByCateThis();
+	ArrayList<AdminBoardDto> selectMonthSalesByCateThis();
 	
 }
