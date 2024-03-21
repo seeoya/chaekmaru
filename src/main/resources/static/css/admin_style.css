@@ -605,21 +605,75 @@ header .logo img {
 
 
 #admin-index .content {
-	width: 100%; 
-	display: flex;
-	padding: 0 50px;	
+	width: 1000px; 
+	display: flex;	
 	flex-direction: column;
 	justify-content: flex-end;
-	align-items: end;
+	align-items: center;
+}
+
+#admin-index .admin-chart {
+    width: 100%;    
+    padding-left: 100px;	
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    gap: 30px;
+}
+
+#admin-index .admin-chart .chart-table {   
+    display: flex;	
+    width: 250px;    
+	flex-direction: column; 
+    padding-top: 130px;
+    gap: 50px;
+    
+}
+
+#admin-index .admin-chart .chart-table .daily,
+#admin-index .admin-chart .chart-table .month {
+    width: 100%;
+    
 }
 
 
-#admin-index .admin-chart .chart {
-	display: flex;
+#admin-index .admin-chart .chart-chart {
+    display: flex;
+    width: 600px;	
 	flex-direction: column;
-	padding: 10px 0;
+    gap:30px;
+	
 }
 
+
+
+#admin-index .admin-chart table thead tr th {
+	border: 1px solid #e1e1e1;
+	padding: 8px 3px;
+	text-align: center;
+	color: #fff;
+	background-color: #a5a5a5;
+    font-size: 1.0em;
+	}
+
+#admin-index .admin-chart table thead tr.t-title{
+    background-color: #60866b;
+    font-size: 1.1em;
+    }
+
+#admin-index .admin-chart table tbody tr td {
+    border: 1px solid #e1e1e1;
+    padding: 8px 3px;
+    text-align: center;   
+    font-size: 0.9em;
+    }
+
+#admin-index .admin-chart table tbody tr:nth-child(2n-1) {
+        background-color: #f3f3f3;
+    }
+    
+    
 .admin-category-return nav a.on {
     background-color: var(--gray-light-color);
 }
