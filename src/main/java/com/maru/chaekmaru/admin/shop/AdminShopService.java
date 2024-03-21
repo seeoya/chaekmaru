@@ -11,12 +11,10 @@ import com.maru.chaekmaru.book.ListPageDto;
 import com.maru.chaekmaru.config.Config;
 import com.maru.chaekmaru.member.MemberDto;
 import com.maru.chaekmaru.mypage.MyPointListDto;
-import com.maru.chaekmaru.mypage.MypageDao;
 import com.maru.chaekmaru.mypage.MypageService;
 import com.maru.chaekmaru.shop.SaledBookDto;
 
 import lombok.extern.log4j.Log4j2;
-import oracle.net.aso.m;
 
 @Log4j2
 @Service
