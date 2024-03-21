@@ -10,17 +10,26 @@
 </head>
 
 <div class="content-wrap" layout:fragment="content">
-    <h2 class="title">반품 관리 LIST</h2>
+ 	<div class="content">
+   		 <div class="admin-category">       
+	        <nav>
+	            <a th:href="@{/admin/shop/saled_book_list_form}" class="cate-link">판매도서관리</a>
+	            <a th:href="@{/admin/shop/return_book_list_form}" class="cate-link">반품도서관리</a>
+	            <a th:href="@{/admin/shop/book_inventory_list_form}" class="cate-link">도서재고관리</a>
+	        </nav>
+       
+         </div>
+         <h2 class="title">반품 관리 LIST</h2>
         
-    <div class="content">
+   
     
-    	 <div class="admin-category-return">   
+        <div class="admin-category-return">   
 		    	<nav>
 		    		 <a th:href="@{/admin/shop/return_book_list_form}" th:classappend="${active} == 'form' ? 'on'" >반품요청 LIST</a>   	
 		    		 <a th:href="@{/admin/shop/return_book_history_list}" th:classappend="${active} == 'list' ? 'on'">반품이력 LIST</a>		    		 
 		    	</nav>
     	     
-          </div>
+        </div>
     	<div class="table-wrap">
 	     	<table class="book-table">
 	    		<thead>
