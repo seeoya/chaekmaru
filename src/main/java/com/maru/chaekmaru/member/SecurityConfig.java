@@ -100,11 +100,11 @@ public class SecurityConfig {
 
 					String uri = "/result?result=" + Config.LOGIN_SUCCESS;
 
-					if (savedRequest != null) {
-						uri = savedRequest.getRedirectUrl();
-
-						requestCache.removeRequest(request, response);
-					}
+					/*
+					 * if (savedRequest != null) { uri = savedRequest.getRedirectUrl();
+					 * 
+					 * requestCache.removeRequest(request, response); }
+					 */
 					
 					response.sendRedirect(uri);
 				}).failureHandler((request, response, exception) -> {
