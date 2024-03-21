@@ -398,6 +398,7 @@ header .logo img {
 .content .admin-category nav a {
 	
 	padding: 20px 30px;
+	margin-bottom: 20px;
     background: none;
     font-size: 2.0rem;
     font-weight: 500;

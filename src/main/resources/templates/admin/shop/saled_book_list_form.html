@@ -17,11 +17,13 @@
 	            <a th:href="@{/admin/shop/return_book_list_form}" class="cate-link">반품도서관리</a>
 	            <a th:href="@{/admin/shop/book_inventory_list_form}" class="cate-link">도서재고관리</a>
 	        </nav>       
-      </div>
+    	  </div>
 
-    <h2 class="title">판매 도서 LIST</h2>
+		  <div>	
+	      <h2 class="title">판매 도서 LIST</h2>
+	      </div>
         
-    <div class="content">
+    
     	<div class="table-wrap">
     		<form th:action="@{/admin/shop/saled_books_by_period}" name="saled_book_by_date" method="get">
     		 <span>START:</span>
