@@ -3,7 +3,7 @@
 
 <th:block th:fragment="admin_chart_js">
     <div class="title">
-        <h3 style="text-align:left; margin:10px auto; margin-top: 20px; color:#f82;">일자별 매출현황</h3>
+        <h3 style="text-align:left; margin:10px auto; color:#f82;">일자별 매출현황</h3>
     </div>
     <div class="chart" style="width: 600px;">
         <canvas id="SalesChart"></canvas>
@@ -41,8 +41,8 @@
                         borderColor: 'rgb(20, 150, 50)',
                         tension: 0.1,
                         pointStyle: 'circle',
-                        pointRadius: 10,
-                        pointHoverRadius: 15
+                        pointRadius: 7,
+                        pointHoverRadius: 10
 
                     }],
 
@@ -50,9 +50,10 @@
                         spanGaps: true,
                         legend: {
                             display: true,
+                            position: 'top-right',                            
                             labels: {
-                                fontColor: 'rgb(255, 99, 132)',
-                                fillStyle: 'rgb(255, 99, 132)'
+                                fontColor: 'rgb(255, 99, 132)'                               
+                                
                             }
                         },
                         scales: {

@@ -590,8 +590,6 @@ header .logo img {
 
 #admin-index .admin-banner {
     width: 100%;
- 
-    
     
 }
 
@@ -599,27 +597,115 @@ header .logo img {
     display: block;
     width: 100%;
     height: 300px;    
+    padding-top: 100px;
+    padding-left: 70px;  
     object-fit: contain;
     justify-content: center;    
+    
 }
+
+#admin-index .content-wrap h2.title {
+    text-align: center;
+    font-size: 3rem;
+    padding-left: 70px;
+}
+
 
 
 #admin-index .content {
-	width: 100%; 
-	display: flex;
-	padding: 0 50px;	
+	width: 1000px; 
+	display: flex;	
 	flex-direction: column;
 	justify-content: flex-end;
-	align-items: end;
+	align-items: center;
+}
+
+#admin-index .admin-chart {
+    width: 100%;        
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+    padding-left: 50px;
+    gap: 10px;
+}
+
+#admin-index .admin-chart > div .title {
+    text-align: center;    
+}
+
+#admin-index .admin-chart .chart-wrap {
+    width: 100%;
+    max-height: 1000px;
+    min-height: 1000px;        
+    display: flex;
+    margin-top: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    gap: 10px;
 }
 
 
-#admin-index .admin-chart .chart {
-	display: flex;
+#admin-index .admin-chart .chart-table {   
+    display: flex;	
+    width: 300px;    
+	flex-direction: column; 
+    padding: 30px;
+    padding-top: 50px;
+    gap: 50px;
+    
+}
+
+#admin-index .admin-chart .chart-table .daily,
+#admin-index .admin-chart .chart-table .month {
+    width: 100%;
+    
+}
+
+
+#admin-index .admin-chart .chart-chart {
+    display: flex;
+    width: 600px;	
 	flex-direction: column;
-	padding: 10px 0;
+    gap:30px;
+	
 }
 
+
+
+#admin-index .admin-chart table thead tr th {
+	border: 1px solid #e1e1e1;
+	padding: 6px 3px;
+	text-align: center;
+	color: #fff;
+	background-color: #a5a5a5;
+    font-size: 1.0em;
+	}
+
+#admin-index .admin-chart table thead tr.t-title{
+    background-color: #60866b;
+    font-size: 1.1em;
+    }
+
+#admin-index .admin-chart table tbody tr td {
+    border: 1px solid #e1e1e1;
+    padding: 6px 3px;
+    text-align: center;   
+    font-size: 0.9em;
+    }
+
+#admin-index .admin-chart table tbody tr td:nth-child(2),
+#admin-index .admin-chart table tbody tr td:nth-child(3){
+    text-align: end;
+    padding-right: 10px;
+}
+
+#admin-index .admin-chart table tbody tr:nth-child(2n-1) {
+        background-color: #f3f3f3;
+    }
+    
+    
 .admin-category-return nav a.on {
     background-color: var(--gray-light-color);
 }

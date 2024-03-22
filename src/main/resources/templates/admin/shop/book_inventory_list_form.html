@@ -4,7 +4,7 @@
 <head>
     <title>책마루 :: 관리자 BOOK LIST</title>
  	
-    
+    <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
     <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
     <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
     
@@ -77,7 +77,7 @@
         <div class="paging">
                 <div class="paging-wrap">
                     <th:block th:each="paging : ${listPageDtos}">
-                        <a th:href="@{/admin/book/book_inventory_list_form(page=${paging.pageNum})}" th:class="${paging.className}">[(${paging.pageText})]</a>
+                        <a th:href="@{/admin/shop/book_inventory_list_form(page=${paging.pageNum})}" th:class="${paging.className}">[(${paging.pageText})]</a>
                     </th:block>
                 </div>
 
