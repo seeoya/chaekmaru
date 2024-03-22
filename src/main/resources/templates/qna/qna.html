@@ -12,77 +12,78 @@
 
     <div class="content">
 
-	    <div class="qna-item" >
-	    
-	   		<div class="qna-wrap">
-	            <div class="qna-write" >
-				    <form th:action="@{/qna/q_write_confirm}" name="q_write_form" method="post" class="form">
-				    	<input type="hidden" name="m_id" th:value="${session[loginedMemberInfo]?.m_id}">
-				    	<input type="text" name="q_title" placeholder="제목을 입력해주세요."></input>			        
-				        <select name="sb_no">
-							<option value="0">주문선택</option>
-					        <option th:each="opt : ${sbnos}" th:value="${opt.sb_no}" 
-	                				th:text="${#strings.substring(opt.sb_sale_date, 0, 16)}">
-	        				</option>						
-						</select>
-				        <textarea name="q_text" cols="30" rows="5" placeholder="문의 내용을 입력해주세요."></textarea>
-				        <button class="btn main submit" type="button" th:onclick="qWriteForm();">문의 등록</button>
-				    </form>
-				</div>   	
-	        </div>
-	    	
+        <div class="qna-item">
+            <div class="qna-wrap">
+                <div class="qna-write">
+                    <form th:action="@{/qna/q_write_confirm}" name="q_write_form" method="post" class="form">
+                        <input type="hidden" name="m_id" th:value="${session[loginedMemberInfo]?.m_id}">
+                        <input type="text" name="q_title" placeholder="제목을 입력해주세요."></input>
+                        <select name="sb_no">
+                            <option value="0">주문선택</option>
+                            <option th:each="opt : ${sbnos}" th:value="${opt.sb_no}" th:text="${#strings.substring(opt.sb_sale_date, 0, 16)}">
+                            </option>
+                        </select>
+                        <textarea name="q_text" cols="30" rows="5" placeholder="문의 내용을 입력해주세요."></textarea>
+                        <button class="btn main submit" type="button" th:onclick="qWriteForm();">문의 등록</button>
+                    </form>
+                </div>
+            </div>
 
             <div class="qna-info">
-           		<span class="qna-title" >
-                   1 : 1 문의내역
-				</span>           
-               	<span class="qna-id">
-                   [[${session[loginedMemberInfo]?.m_id}]] 님
-               	</span>
-           </div>
-                
-           <div class="list-wrap">
-         	  	<ul>
-            		<li class="list-title">
-            			<span class="title">제목</span>
-            			<span class="date">작성일</span>
-            			<span class="state">답변상태</span>
-            			<span class="delete">삭제</span>
-	            	 </li> 
-	            	 
-            		<li class="list-item" th:each="list, listStat: ${myQnas}">
-            			<div class="question-item">
-	            			<span class="title">
-		            			<button type="button" class="answer-click" th:data-index="${listStat.index}">[[${list.q_title}]]</button>
-	            			</span>
-	            			
-	            			<span class="date">[[${#strings.substring(list.q_reg_date, 0, 16)}]]</span>
-	            			
-	            			<span class="state" th:if="${list.qa_reg_date == null}">답변대기</span>
-	            			<span class="state" th:unless="${list.qa_reg_date == null}">답변완료</span>
-	
-							<span class="delete">
-	                   			<a href="#none" th:onclick="deleteConfirm([[${list.q_no}]])" class="btn main" >삭제</a>
-	                 		</span>
-                 		</div>
-                 		          			         	
-		                <div class="answer-item" style="display: none">
-		                	<div class="answer-first">	               
-	                			<div class="answer-q">Q : </div>
-	                			<div th:if="${list.qa_reg_date == null}" class="answer-date"></div>
-	                			<div th:if="${list.qa_reg_date != null}" class="answer-date">답변일 : [[${#strings.substring(list.qa_reg_date, 0, 16)}]]</div>	                			
-	                		</div>
-	                		<div class="answer-q ellipsis">[[${list.q_text}]]</div>
-				       		<div class="answer-a">A : </div> 
-				       		<div class="answer-a ellipsis">[[${list?.qa_text}]]</div>
-				       		
-			       		</div>
-	            	</li>
-            	</ul>                
-          </div>		          
-            
+                <span class="qna-title">
+                    1 : 1 문의내역
+                </span>
+                <span class="qna-id">
+                    [[${session[loginedMemberInfo]?.m_id}]] 님
+                </span>
+            </div>
+
+            <div class="list-wrap">
+                <ul>
+                    <li class="list-title">
+                        <span class="title">제목</span>
+                        <span class="date">작성일</span>
+                        <span class="state">답변상태</span>
+                        <span class="delete">삭제</span>
+                    </li>
+
+                    <li class="list-item" th:each="list, listStat: ${myQnas}">
+                        <div class="question-item">
+                            <span class="title">
+                                <button type="button" class="answer-click" th:data-index="${listStat.index}">[[${list.q_title}]]</button>
+                            </span>
+
+                            <span class="date">[[${#strings.substring(list.q_reg_date, 0, 16)}]]</span>
+
+                            <span class="state" th:if="${list.qa_reg_date == null}">답변대기</span>
+                            <span class="state" th:unless="${list.qa_reg_date == null}">답변완료</span>
+
+                            <span class="delete">
+                                <a href="#none" th:onclick="deleteConfirm([[${list.q_no}]])" class="btn main">삭제</a>
+                            </span>
+                        </div>
+
+                        <div class="answer-item" style="display: none">
+                            <div th:if="${list.qa_reg_date == null}" class="answer-date"></div>
+                            <div th:if="${list.qa_reg_date != null}" class="answer-date">답변일 : [[${#strings.substring(list.qa_reg_date, 0, 16)}]]</div>
+                            
+                            <div class="answer-q">
+                                <span class="qa-icon">Q. </span>
+                                <span>[[${list.q_text}]]</s>
+                            </div>
+
+                            <div class="answer-a">
+                                <span class="qa-icon">A. </span>
+                                <span>[[${list?.qa_text}]]</span>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
-</div>
 </div>
 
 </html>
