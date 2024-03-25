@@ -25,6 +25,9 @@
 
 
 #### 참조
+* 시연 영상
+https://youtu.be/6F3A_n35_us?si=r9ZkiLdIgt2Yq-mt
+
 * 기획 문서  
 https://docs.google.com/document/d/1WJz5Mqmzj1PWLiTtadN5a7yLQt6iwuJ_AayavIfdt-o/edit?usp=sharing
 
