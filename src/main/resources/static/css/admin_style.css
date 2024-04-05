@@ -610,8 +610,6 @@ header .logo img {
     padding-left: 70px;
 }
 
-
-
 #admin-index .content {
 	width: 1000px; 
 	display: flex;	
@@ -630,8 +628,19 @@ header .logo img {
     gap: 10px;
 }
 
-#admin-index .admin-chart > div .title {
+#admin-index .admin-chart .chart-title {
+    width: 100%;
+	display: flex;	
+	flex-direction: column;        
+}
+
+#admin-index .admin-chart .chart-title .title{	
     text-align: center;    
+}
+
+#admin-index .admin-chart .chart-title .btn-download {
+	width: 100px;
+    margin: 0 0 0 auto;
 }
 
 #admin-index .admin-chart .chart-wrap {

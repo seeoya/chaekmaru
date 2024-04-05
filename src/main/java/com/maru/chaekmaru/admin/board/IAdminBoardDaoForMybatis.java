@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.maru.chaekmaru.admin.member.AdminMemberDto;
+
 @Mapper
 public interface IAdminBoardDaoForMybatis {
 
@@ -13,5 +15,9 @@ public interface IAdminBoardDaoForMybatis {
 	ArrayList<AdminBoardDto> selectMonthSalesByCate();
 
 	ArrayList<AdminBoardDto> selectMonthSalesByCateThis();
+
+	ArrayList<AdminMemberDto> selectMailsByAdmin();
+
+
 	
 }

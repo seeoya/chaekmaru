@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<th:block th:fragment="admin_index_js">
+    <script th:inline="javascript">
+  	  $(function(){
+    	    $(".btn_download").click(function(e){
+    	        html2canvas(document.getElementById("capture_area")).then(function(canvas) {
+    				var today = new Date();
+						var year = today.getFullYear();
+						var month = ('0' + (today.getMonth() + 1)).slice(-2);
+						var day = ('0' + today.getDate()).slice(-2);
+						
+						var dateString = year + month + day;
+						
+						console.log(dateString);
+						
+	   	            var el = document.createElement("a")
+    	            el.href = canvas.toDataURL("image/jpeg")
+    	            el.download = `'chart' + dateString + '.jpg'` //다운로드 할 파일명 설정
+    	            el.click()
+    	        })
+    	    })
+    	})
+    	
+    </script>
+</th:block>
+
+</html>

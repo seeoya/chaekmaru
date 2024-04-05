@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
+<head>
+    <title>책마루 :: 관리자 메일 전송</title>
+ 	
+   <th:block th:replace="~{include/js/admin_js.html::admin_js}"></th:block>
+    <!-- { 이 페이지에서만 쓰는 css, script 등 } -->
+    <!-- <link rel="stylesheet" th:href="@{css/reset.css}"> -->
+    
+</head>
+
+<div id="regist-admin" class="content-wrap" layout:fragment="content">
+    <h2 class="title">관리자 Board File 전송</h2>
+        
+    <div class="content">
+     	 <form class="form" th:action="@{/admin/transfer_file_confirm}" name="transfer_file_form" method="post" enctype="multipart/form-data">
+     	 	<div class="input-wrap">
+     	 		<span>메일 제목</span>
+	            <input type="text" name="am_title" placeholder="메일 제목을 입력해 주세요.">    
+                <span>메일 내용</span>	                        
+	            <input type="text" name="am_content" placeholder="메일 내용을 입력해 주세요.">         
+				<span>전송 파일</span>	                        
+	            <input type="file" name="am_chart_img" placeholder="전송 파일을 선택해 주세요.">
+	            <span>발신처</span>	                        
+	            <input type="text" name="am_from" placeholder="발신처를 입력해 주세요.">
+            </div>
+            <div class="btn-wrap"> 
+	            <button type="button" th:onclick="transferFileForm();" class="btn main">파일 전송</button>
+	            <button type="reset" class="btn highlight">초기화</button>            
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>

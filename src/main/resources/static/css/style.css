@@ -2303,10 +2303,12 @@ footer .join_footer a:nth-child(4) {
     width: 120px;
 }
 
-#my-qna-list .list-wrap .delete {
-}
-
 #my-qna-list .list-wrap .list-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #my-qna-list .list-item .answer-item {
@@ -2321,13 +2323,14 @@ footer .join_footer a:nth-child(4) {
 
 #my-qna-list .list-item .answer-item > div {
     width: 800px;
-    padding: 0 15px;
+    padding: 0 10px;    
     text-align: left;
 }
 
-#my-qna-list .list-item .answer-item > div .answer-q {	
-    width: 780px;   
-    text-align: left;       
+#my-qna-list .list-item .answer-item .answer-q,
+#my-qna-list .list-item .answer-item .answer-a {	
+    font-size: 1.7rem;
+    font-weight: 600;    
 }
 
 #my-qna-list .list-item .answer-item .ellipsis {    
@@ -2341,17 +2344,13 @@ footer .join_footer a:nth-child(4) {
     word-break: break-word;
     -webkit-box-orient: vertical;
     text-align: left;  
+    font-weight: 300; 
+    font-size: 1.5rem;
 }
 
-#my-qna-list .list-item .answer-item .answer-first {
-	width: 800px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#my-qna-list .list-item .answer-item .answer-first .answer-date {
-    width: 180px;
+#my-qna-list .list-item .answer-item .answer-date {    
+    text-align: right;
+    width: 75rem;
 }
 
 #my-qna-list .list-item {

@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.maru.chaekmaru.admin.board.AdminBoardDto;
 import com.maru.chaekmaru.admin.board.AdminBoardService;
+import com.maru.chaekmaru.admin.board.AdminMailDto;
 import com.maru.chaekmaru.admin.member.AdminMemberDto;
+import com.maru.chaekmaru.admin.util.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +27,10 @@ public class AdminHomeController {
 	
 	@Autowired
 	AdminBoardService adminBoardService;
+	
+	@Autowired
+	UploadFileService uploadFileService;
+	
 	
 	@GetMapping({"/", ""})
 	public String home(HttpSession session, Model model) {
@@ -95,5 +103,37 @@ public class AdminHomeController {
 		model.addAttribute("result", resultNum);
 
 		return nextPage;
+	}
+	
+	@GetMapping("/mail_sender_form")
+	public String mailSenderForm() {
+		
+		String nextPage = "admin/mail_sender_form";
+		return nextPage;
+	}
+	
+	
+	@PostMapping("/transfer_file_confirm")
+	public String transferFile(AdminMailDto adminMailDto, Model model) {
+		log.info("transferFileConfirm()");
+				
+		String result = null;
+		MultipartFile chart_img = adminMailDto.getAm_chart_img();
+		String savedfileName = uploadFileService.upload(chart_img);
+		
+		if(savedfileName != null) {
+			log.info("chart_img upload success!");
+			result = adminBoardService.sendChart(adminMailDto, savedfileName);
+			if(result != null)
+				log.info("chart_img send mail success!");
+			
+			else 
+				log.info("chart_img send mail fail!");			
+				
+		} else {
+				log.info("chart_img upload fail!");
+		}
+		return "admin/mail_sender_form";	
+		
 	}
 }

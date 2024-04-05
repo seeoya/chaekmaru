@@ -61,8 +61,8 @@
 	    	   	   			
 	    			<tr th:each="list : ${saledBookDtos}" >
 	    				
-	    				<td th:text="${list.sb_no}" th:data-index="${listStat.index}"></td>
-	    				<td th:text="${list.sb_order_no}"></td>    					    								
+	    				<td th:text="${list.sb_no}"></td>
+	    				<td id="order_no" th:text="${list.sb_order_no}"></td>    					    								
 	    				<td th:text="${list.b_no}"></td>	    				   				
 	    				<td th:text="${list.m_id}"></td>   				
 	    				<td th:text="${list.sb_book_count}"></td> 				

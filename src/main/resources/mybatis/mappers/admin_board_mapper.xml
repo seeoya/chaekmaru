@@ -156,5 +156,14 @@
 	]]>
 		
 	</select>
+	
+	<select id="selectMailsByAdmin"
+			resultType="com.maru.chaekmaru.admin.member.AdminMemberDto">
+			
+		 SELECT A_ID, A_NAME, A_MAIL 
+		 	FROM TBL_ADMIN
+		 ORDER BY A_NO 
+			 
+	</select>
 		
 </mapper>

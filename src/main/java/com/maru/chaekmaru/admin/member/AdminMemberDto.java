@@ -10,6 +10,7 @@ public class AdminMemberDto {
 	private String a_pw;	
 	private int a_grade;
 	private String a_name;
+	private String a_mail;	
 	private String a_phone;	
 	private String a_reg_date;
 	private String a_mod_date;

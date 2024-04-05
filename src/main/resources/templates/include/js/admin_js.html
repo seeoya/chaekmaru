@@ -25,8 +25,41 @@
 		                location.href = sortSelect.dataset.link + "&sort=" + sortSelect.value;
 		            });
 		        }
+		        
+		        
+		/*        if( document.querySelectorAll("#order_no")) {
+        		   document.querySelectorAll("#order_no").forEach((el) => {
+		        		el.addEventListener("load", function(row) {
+		       					        			        
+				        	var orderNo = "";				        	
+				        	var rowNum = 0;				        	
+				        	
+		                    if(row > 2) {
+		                    	var orderNo = this.value;
+		                    	var cnt = this.dataset.index;
+		                    	var item = (':first-child', orderNo).html();
+		                    	var bCnt = this.dataset.index.value;
+		                    	
+		                    	if(bCnt > 1) {
+		                    		bCnt = 1;
+		                    		orderNo = item;
+		                    		rowNo=Number(row);
+		                    	} else {	
+		                    		rowNum = Number(bCnt) + 1;
+		                    		"tr:eq("+rowNum+") > td:first-child".attr("rowspan", bCnt);
+		                    		('td::first-child',thisTr).remove();
+		                    		
+		                    	}
+		                    	
+		                    }
+   	        			});		        		
+	        		});
+		     	} */
+		        		
+		        		
+        });
 		
-    });
+    
 
         // 관리자 정보 수정
         function modifyAccountConfirm() {
@@ -36,11 +69,12 @@
             let adminData = {
                 a_no: form.a_no.value,                
                 a_id: form.a_id.value,
-                a_name: form.a_name.value,
                 a_pw: form.a_pw.value,
+                a_name: form.a_name.value,
+                a_mail: form.a_mail.value,                
                 a_phone: form.a_phone.value                
             };
-
+       
 
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
@@ -545,6 +579,29 @@
             } else if (form.redirectURI.value == "") {
                 alert("redirectURI를 입력해 주세요.");
                 form.redirectURI.focus();
+            } else {
+                form.submit();
+            }
+        }
+
+        // 관리자 파일전송폼
+        function transferFileForm() {
+            console.log("transferFileForm!!");
+
+            let form = document.transfer_file_form;
+
+            if (form.am_title.value === "") {
+                alert("메일 제목을 입력해 주세요.");
+                form.am_title.focus();
+            } else if (form.am_chart_img.value === "") {
+                alert("파일을 선택해 주세요.");
+                form.am_chart_img.focus();
+            } else if (form.am_content.value === "") {
+                alert("메일 내용을 입력해 주세요.");
+                form.am_content.focus();
+            } else if (form.am_from.value === "") {
+                alert("발신처를 입력해 주세요.");
+                form.am_from.focus();
             } else {
                 form.submit();
             }

@@ -3,7 +3,43 @@
 
 <head>
     <title>책마루 :: 관리자 HOME</title>
+    
+    <script src="./js/html2canvas.min.js" type="text/javascript"></script>    
+   
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
+		if (document.querySelectorAll(".btn-download")) {
+                document.querySelectorAll(".btn-download").forEach(el => {
+                    el.addEventListener("click", function (e) {
+    	
+				    html2canvas(document.querySelector("#capture_area")).then(canvas => {
+
+						var today = new Date();
+						var year = today.getFullYear();
+						var month = ('0' + (today.getMonth() + 1)).slice(-2);
+						var day = ('0' + today.getDate()).slice(-2);
+						
+						var dateString = year + month + day;
+						
+						console.log(dateString);
+
+					var chart = document.createElement("a");
+    				chart.href = canvas.toDataURL("image/jpeg");
+    				chart.download = `chart${dateString}.png`; //다운로드 할 파일명 설정
+    				chart.click();
+
+   					});
+				});
+	
+			});
+		}
+
+	});
+
+	  
+    </script>
+    
 	
 </head>
 
@@ -20,11 +56,14 @@
 		</div>
 
           
-  		<div class="admin-chart" th:unless="${session.loginedAdminMemberDto == null}">
-  			<div>
+  		<div class="admin-chart" th:unless="${session.loginedAdminMemberDto == null}">  							
+  		  
+  			<div class="chart-title">
 			<h2 class="title">책마루&nbsp;&nbsp;매출&nbsp;&nbsp;BOARD</h2>
+			<button type="button" class="btn-download btn main" >이미지 저장</button>					  							
 			</div>
-			<div class="chart-wrap">
+					
+			<div class="chart-wrap" id="capture_area">
 				<div class="chart-table">
 					<div class="daily">            	
 						<table>
@@ -148,6 +187,7 @@
 					<th:block th:replace="include/js/admin_chart_js.html::admin_chart_js"></th:block>
 				</div>
 			</div>
-		</div>
+		  </div>
+		</div>		
 	</div>
 </html>
