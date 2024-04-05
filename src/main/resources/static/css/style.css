@@ -679,7 +679,7 @@ header .logo img {
 }
 
 /* 리스트 */
-#list .list-item-null{
+#list .list-item-null {
     width: 100%;
     text-align: center;
     height: 300px;
@@ -2277,9 +2277,7 @@ footer .join_footer a:nth-child(4) {
     flex-direction: column;
 }
 
-#my-qna-list .list-wrap .list-title, 
-#my-qna-list .list-item .question-item, 
-#my-qna-list .list-item .answer-item {
+#my-qna-list .list-wrap .list-title, #my-qna-list .list-item .question-item, #my-qna-list .list-item .answer-item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2314,10 +2312,12 @@ footer .join_footer a:nth-child(4) {
 #my-qna-list .list-item .answer-item {
     justify-content: left;
     flex-direction: column;
-    background-color: #f9f9f9;
+    position: relative;
     margin: 10px 0;
     padding: 20px 10px;
+    background-color: #f9f9f9;
     font-size: 1.5rem;
+    line-height: 1.7;
     gap: 5px;
 }
 
@@ -2327,22 +2327,45 @@ footer .join_footer a:nth-child(4) {
     text-align: left;
 }
 
+<<<<<<< HEAD
 #my-qna-list .list-item .answer-item .answer-q,
 #my-qna-list .list-item .answer-item .answer-a {	
     font-size: 1.7rem;
     font-weight: 600;    
+=======
+#my-qna-list .list-item .answer-item .qa-icon {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--main-color);
+>>>>>>> a933c8f984b9a6c82708dec12746fc406d5e960a
 }
 
-#my-qna-list .list-item .answer-item .ellipsis {    
+#my-qna-list .list-item .answer-item .answer-date {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: auto;
+    text-align: right;
+    font-size: 1.3rem;
+    color: var(--gray-dark-color);
+}
+
+#my-qna-list .list-item .answer-item > div .answer-q {
+    width: 780px;
+    text-align: left;
+}
+
+#my-qna-list .list-item .answer-item .ellipsis {
     display: -webkit-box;
     width: 75rem;
-    line-height: 1.2;    
+    line-height: 1.2;
     -webkit-line-clamp: 10;
     overflow: hidden;
-    text-overflow: ellipsis;   
+    text-overflow: ellipsis;
     white-space: normal;
     word-break: break-word;
     -webkit-box-orient: vertical;
+<<<<<<< HEAD
     text-align: left;  
     font-weight: 300; 
     font-size: 1.5rem;
@@ -2351,6 +2374,20 @@ footer .join_footer a:nth-child(4) {
 #my-qna-list .list-item .answer-item .answer-date {    
     text-align: right;
     width: 75rem;
+=======
+    text-align: left;
+}
+
+#my-qna-list .list-item .answer-item .answer-first {
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#my-qna-list .list-item .answer-item .answer-first .answer-date {
+    width: 180px;
+>>>>>>> a933c8f984b9a6c82708dec12746fc406d5e960a
 }
 
 #my-qna-list .list-item {

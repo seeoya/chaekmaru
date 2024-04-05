@@ -153,8 +153,8 @@ public class MemberController {
 		
 		MemberDto getId = memberService.findMember(id, name, email);
 
-		String link = "http://localhost:8090/member/pw_modify_form?id=" + id;
-		String logoUrl = "http://localhost:8090/img/logo3.png";
+		String link = "http://14.42.124.102:8090/member/pw_modify_form?id=" + id;
+		String logoUrl = "http://14.42.124.102:8090/img/logo3.png";
 		String message = "<div style='width: 400px; margin: 20px auto; padding: 30px 50px; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>" +
 		        "<img src='" + logoUrl + "' alt='Logo' style='display: block; margin: 0 auto 20px; width: 100px;'>" + // 로고 이미지 크기 조절
 		        "<h2 style='color: #333; text-align: center; margin: 0 0 20px;'>" + // 헤더 가운데 정렬
